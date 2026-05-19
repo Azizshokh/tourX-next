@@ -7,16 +7,19 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+
 		.container {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+
 			.agent-info {
 				margin-left: 58px;
 				width: 100%;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+
 				img {
 					margin-right: 32px;
 					width: 135px;
@@ -25,9 +28,11 @@
 					cursor: pointer;
 					object-fit: cover;
 				}
+
 				.info {
 					display: flex;
 					flex-direction: column;
+
 					strong {
 						color: #181a20;
 						font-family: $font;
@@ -38,16 +43,19 @@
 						text-transform: capitalize;
 						cursor: pointer;
 					}
+
 					div {
 						margin-top: 13px;
 						display: flex;
 						flex-direction: row;
 						align-items: center;
+
 						img {
 							margin-right: 10px;
 							width: 16px;
 							height: 16px;
 						}
+
 						span {
 							color: #181a20;
 							font-family: $font;
@@ -59,6 +67,7 @@
 					}
 				}
 			}
+
 			.agent-home-list {
 				position: relative;
 				width: 100%;
@@ -69,6 +78,7 @@
 				border-radius: 12px;
 				background: #fff;
 				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
 				.card-wrap {
 					position: relative;
 					margin-top: 35px;
@@ -77,25 +87,29 @@
 					display: flex;
 					flex-direction: row;
 					flex-wrap: wrap;
+
 					.wrap-main {
-						margin-right: 11px;
-						margin-left: 11px;
+						margin-right: 0px;
+						margin-left: 5px;
 						display: flex;
 						flex-direction: row;
 						flex-wrap: wrap;
 					}
+
 					.agent-card {
 						position: relative;
 						margin-right: 27px;
 						margin-bottom: 34px;
 						display: flex;
 						flex-direction: column;
+
 						.agent-img {
 							border-radius: 12px;
 							width: 233px;
 							height: 273px;
 							background-size: cover;
 							cursor: pointer;
+
 							div {
 								position: absolute;
 								padding: 12px;
@@ -111,10 +125,12 @@
 								line-height: normal;
 							}
 						}
+
 						.agent-info {
 							margin-top: 23px;
 							display: flex;
 							flex-direction: column;
+
 							strong {
 								color: #181a20;
 								font-family: $font;
@@ -124,6 +140,7 @@
 								line-height: normal;
 								cursor: pointer;
 							}
+
 							span {
 								color: #181a20;
 								font-family: $font;
@@ -135,10 +152,12 @@
 						}
 					}
 				}
+
 				.pagination {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
+
 					span {
 						margin-top: 20px;
 						color: #181a20;
@@ -150,6 +169,7 @@
 					}
 				}
 			}
+
 			.review-box {
 				position: relative;
 				margin-top: 75px;
@@ -158,9 +178,11 @@
 				height: auto;
 				border-radius: 24px;
 				background: #f6f6f6;
+
 				.main-intro {
 					display: flex;
 					flex-direction: column;
+
 					span {
 						color: #181a20;
 						font-family: $font;
@@ -171,6 +193,7 @@
 						letter-spacing: 0.6px;
 						text-transform: capitalize;
 					}
+
 					p {
 						color: #181a20;
 						font-family: $font;
@@ -180,6 +203,7 @@
 						line-height: 26px;
 					}
 				}
+
 				.review-wrap {
 					padding: 29px 25px;
 					margin-top: 57px;
@@ -188,11 +212,13 @@
 					border-radius: 12px;
 					background: #fff;
 					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
 					.title-box {
 						svg {
 							width: 10px;
 							height: 10px;
 						}
+
 						span {
 							margin-left: 8px;
 							color: #181a20;
@@ -203,29 +229,35 @@
 							line-height: normal;
 						}
 					}
+
 					.review-card {
 						margin-top: 20px;
 						display: flex;
 						flex-direction: column;
 						padding-bottom: 10px;
 						border-bottom: 1px solid #c4c4c4;
+
 						.info {
 							display: flex;
 							flex-direction: row;
 							justify-content: space-between;
+
 							.left {
 								display: flex;
 								flex-direction: row;
+
 								img {
 									width: 55px;
 									height: 59px;
 									border-radius: 50%;
 									object-fit: cover;
 								}
+
 								div {
 									margin-left: 8px;
 									display: flex;
 									flex-direction: column;
+
 									strong {
 										color: #181a20;
 										font-family: $font;
@@ -234,6 +266,7 @@
 										font-weight: 600;
 										line-height: normal;
 									}
+
 									span {
 										margin-top: 4px;
 										color: #181a20;
@@ -245,14 +278,17 @@
 									}
 								}
 							}
+
 							.right {
 								display: flex;
 								flex-direction: row;
+
 								svg {
 									color: #edf023;
 								}
 							}
 						}
+
 						p {
 							margin-top: 10px;
 							color: #181a20;
@@ -263,6 +299,7 @@
 							line-height: 26px;
 						}
 					}
+
 					.pagination-box {
 						margin-top: 15px;
 						width: 100%;
@@ -271,12 +308,14 @@
 						justify-content: center;
 					}
 				}
+
 				.leave-review-config {
 					margin-top: 15px;
 					border-radius: 12px;
 					background: #fff;
 					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 					padding: 30px 38px;
+
 					.main-title {
 						color: #181a20;
 						font-family: $font;
@@ -285,6 +324,7 @@
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					.review-title {
 						margin-top: 20px;
 						color: #181a20;
@@ -294,6 +334,7 @@
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					textarea {
 						width: 100%;
 						height: 120px;
@@ -308,13 +349,16 @@
 						font-weight: 400;
 						line-height: 26px;
 					}
+
 					.submit-btn {
 						width: 100%;
 						display: flex;
 						justify-content: flex-end;
+
 						button:disabled {
 							background: #dfdfdf;
 						}
+
 						.submit-review {
 							display: flex;
 							width: 256px;
@@ -326,6 +370,7 @@
 							border-radius: 12px;
 							border: 1px solid #c4c4c4;
 							cursor: pointer;
+
 							.title {
 								color: #181a20;
 								font-family: $font;

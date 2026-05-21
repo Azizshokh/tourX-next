@@ -5,6 +5,8 @@ import { Pagination, Stack, Typography } from '@mui/material';
 import PropertyCard from '../property/PropertyCard';
 import { Property } from '../../types/property/property';
 import { T } from '../../types/common';
+import { GET_VISITED } from '../../../apollo/user/query';
+import { useQuery } from '@apollo/client';
 
 const RecentlyVisited: NextPage = () => {
 	const device = useDeviceDetect();
@@ -14,16 +16,32 @@ const RecentlyVisited: NextPage = () => {
 
 	/** APOLLO REQUESTS **/
 
+	const {
+		loading: getVisitedLoading,
+		data: getVisitedData,
+		error: getVisitedError,
+		refetch: getVisitedRefetch,
+	} = useQuery(GET_VISITED, {
+		fetchPolicy: 'network-only',
+		variables: {
+			input: searchVisited,
+		},
+		onCompleted: (data: T) => {
+			setRecentlyVisited(data?.getVisited?.list);
+			setTotal(data?.getVisited?.metaCounter[0]?.total || 0);
+		},
+	});
+
 	/** HANDLERS **/
 	const paginationHandler = (e: T, value: number) => {
 		setSearchVisited({ ...searchVisited, page: value });
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR MY FAVORITES MOBILE</div>;
+		return <div>NESTAR RECENTLY VISITED MOBILE</div>;
 	} else {
 		return (
-			<div id="my-favorites-page">
+			<div id="recently-visited-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
 						<Typography className="main-title">Recently Visited</Typography>

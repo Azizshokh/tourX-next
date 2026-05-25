@@ -34,13 +34,16 @@
 @import '/scss/pc/member/memberProperties.scss';
 
 body {
-	-ms-overflow-style: none; /* for Internet Explorer, Edge */
-	scrollbar-width: none; /* for Firefox */
+	-ms-overflow-style: none;
+	/* for Internet Explorer, Edge */
+	scrollbar-width: none;
+	/* for Firefox */
 	overflow-y: scroll;
 }
 
 body::-webkit-scrollbar {
-	display: none; /* for Chrome, Safari, and Opera */
+	display: none;
+	/* for Chrome, Safari, and Opera */
 }
 
 #pc-wrap {
@@ -57,25 +60,30 @@ body::-webkit-scrollbar {
 				z-index: 99;
 				align-items: center;
 				border-top: 1px solid rgba(255, 255, 255, 0.07);
+
 				&.transparent {
 					background-color: #181a209e;
 				}
+
 				.container {
 					flex-direction: row;
 					align-items: center;
 					justify-content: space-between;
+
 					.logo-box {
 						img {
 							width: 150px;
 							cursor: pointer;
 						}
 					}
+
 					.router-box {
 						position: relative;
 						width: 617px;
 						display: flex;
 						flex-direction: row;
 						justify-content: space-between;
+
 						div {
 							position: relative;
 							color: #eeeeeeed;
@@ -85,6 +93,7 @@ body::-webkit-scrollbar {
 							font-weight: 600;
 							line-height: normal;
 							cursor: pointer;
+
 							.community_menu {
 								position: absolute;
 								left: -177%;
@@ -93,6 +102,7 @@ body::-webkit-scrollbar {
 								height: 33px;
 								background: white;
 								transition: all ease 2s;
+
 								&:before {
 									content: '';
 									display: block;
@@ -108,11 +118,13 @@ body::-webkit-scrollbar {
 							}
 						}
 					}
+
 					.user-box {
 						width: 270px;
 						display: flex;
 						flex-direction: row;
 						justify-content: flex-end;
+
 						.join-box {
 							width: 184px;
 							height: 47px;
@@ -122,10 +134,12 @@ body::-webkit-scrollbar {
 							border-radius: 60px;
 							border: 1px solid #ffffff;
 							cursor: pointer;
+
 							svg {
 								color: #ffffff;
 								margin-right: 10px;
 							}
+
 							span {
 								font-family: $font;
 								font-size: 14px;
@@ -135,6 +149,7 @@ body::-webkit-scrollbar {
 								color: #ffffff;
 							}
 						}
+
 						.login-user {
 							img {
 								width: 42px;
@@ -144,21 +159,26 @@ body::-webkit-scrollbar {
 							}
 						}
 					}
+
 					.lan-box {
 						margin-left: 28px;
 						display: flex;
 						align-items: center;
+
 						.notification-icon {
 							color: white;
 						}
+
 						.btn-lang {
 							border-radius: 4px;
+
 							img {
 								width: 24px;
 								height: 17px;
 								border-radius: 2px;
 							}
 						}
+
 						.img-flag {
 							width: 24px;
 							height: 17px;
@@ -177,11 +197,13 @@ body::-webkit-scrollbar {
 		height: 860px;
 		background-image: url('/img/banner/header1.svg');
 		background-size: cover;
+
 		.container {
 			position: relative;
 			margin-top: 20px;
 			flex-direction: column;
 			align-items: center;
+
 			.search-box {
 				position: relative;
 				margin-top: 56px;
@@ -193,11 +215,13 @@ body::-webkit-scrollbar {
 				justify-content: space-between;
 				background: rgba(255, 255, 255, 0.28);
 				border-radius: 12px;
+
 				.select-box {
 					width: 712px;
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+
 					.box {
 						padding: 24px 22px;
 						width: 213px;
@@ -210,11 +234,13 @@ body::-webkit-scrollbar {
 						background: rgba(255, 255, 255, 0.575);
 						box-sizing: border-box;
 						cursor: pointer;
+
 						&.on {
 							background: #ffffff;
 							border: 1px solid #000;
 							color: #181a20;
 						}
+
 						span {
 							color: #181a20;
 							font-family: $font;
@@ -223,24 +249,28 @@ body::-webkit-scrollbar {
 							font-weight: 400;
 							line-height: 26px;
 						}
-						svg {
-						}
+
+						svg {}
 					}
 				}
+
 				.search-box-other {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
+
 					.advanced-filter {
 						display: flex;
 						flex-direction: row;
 						align-items: center;
+
 						img {
 							margin-right: 10px;
 							width: 25px;
 							height: 22px;
 							cursor: pointer;
 						}
+
 						span {
 							color: #fff;
 							font-family: $font;
@@ -251,6 +281,7 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 						}
 					}
+
 					.search-btn {
 						margin-left: 12px;
 						width: 62px;
@@ -261,6 +292,7 @@ body::-webkit-scrollbar {
 						border-radius: 55px;
 						background: #f17742;
 						cursor: pointer;
+
 						svg {
 							width: 20px;
 							height: 20px;
@@ -268,6 +300,7 @@ body::-webkit-scrollbar {
 						}
 					}
 				}
+
 				.filter-location {
 					position: absolute;
 					padding: 40px 60px;
@@ -286,22 +319,26 @@ body::-webkit-scrollbar {
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 2;
+
 					&.on {
 						visibility: visible;
 						transition: 0.2s ease-out;
 						background: #fffdfd;
 					}
+
 					div {
 						width: 295px;
 						display: flex;
 						flex-direction: row;
 						align-items: center;
+
 						img {
 							width: 122px;
 							height: 85px;
 							border-radius: 15px;
 							cursor: pointer;
 						}
+
 						span {
 							margin-left: 22px;
 							color: #181a20;
@@ -313,11 +350,13 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 							text-transform: capitalize;
 						}
+
 						label {
 							line-height: 13px;
 						}
 					}
 				}
+
 				.filter-type {
 					position: absolute;
 					padding: 50px;
@@ -335,11 +374,13 @@ body::-webkit-scrollbar {
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
+
 					&.on {
 						visibility: visible;
 						transition: 0.2s ease-out;
 						background: #fffdfd;
 					}
+
 					div {
 						position: relative;
 						width: 272px;
@@ -347,6 +388,7 @@ body::-webkit-scrollbar {
 						border-radius: 15px;
 						cursor: pointer;
 						background-size: cover;
+
 						span {
 							position: absolute;
 							top: 13px;
@@ -365,6 +407,7 @@ body::-webkit-scrollbar {
 						}
 					}
 				}
+
 				.filter-rooms {
 					position: absolute;
 					padding: 10px 92px;
@@ -383,11 +426,13 @@ body::-webkit-scrollbar {
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
+
 					&.on {
 						visibility: visible;
 						transition: 0.2s ease-out;
 						background: #fffdfd;
 					}
+
 					span {
 						display: flex;
 						align-items: center;
@@ -400,6 +445,7 @@ body::-webkit-scrollbar {
 						font-weight: 400;
 						line-height: 26px;
 						cursor: pointer;
+
 						&:hover {
 							border-radius: 5px;
 							border: 1px solid #b9b9b9;
@@ -419,11 +465,14 @@ body::-webkit-scrollbar {
 		flex-direction: row;
 		justify-content: center;
 		background: black;
+
 		&.auth {
 			height: 300px;
 		}
+
 		.container {
 			margin-top: 175px;
+
 			strong {
 				color: #fff;
 				font-family: $font;
@@ -434,6 +483,7 @@ body::-webkit-scrollbar {
 				letter-spacing: 0.96px;
 				text-transform: capitalize;
 			}
+
 			span {
 				color: #fff;
 				font-family: $font;
@@ -449,22 +499,27 @@ body::-webkit-scrollbar {
 		margin-top: 42px;
 		display: flex;
 		flex-direction: column;
+
 		.info {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+
 			.left {
 				display: flex;
 				flex-direction: row;
+
 				img {
 					width: 55px;
 					height: 59px;
 					border-radius: 50%;
 				}
+
 				div {
 					margin-left: 8px;
 					display: flex;
 					flex-direction: column;
+
 					strong {
 						color: #181a20;
 						font-family: $font;
@@ -473,6 +528,7 @@ body::-webkit-scrollbar {
 						font-weight: 600;
 						line-height: normal;
 					}
+
 					span {
 						margin-top: 4px;
 						color: #181a20;
@@ -484,14 +540,17 @@ body::-webkit-scrollbar {
 					}
 				}
 			}
+
 			.right {
 				display: flex;
 				flex-direction: row;
+
 				svg {
 					color: #edf023;
 				}
 			}
 		}
+
 		p {
 			margin-top: 10px;
 			color: #181a20;
@@ -501,6 +560,7 @@ body::-webkit-scrollbar {
 			font-weight: 400;
 			line-height: 26px;
 		}
+
 		.reply-button-box {
 			width: auto;
 			height: auto;
@@ -508,6 +568,7 @@ body::-webkit-scrollbar {
 			gap: 10px;
 			align-items: center;
 			border-bottom: 1px solid #ddd;
+
 			.reply-text {
 				padding-bottom: 10px;
 				color: #181a20;
@@ -537,12 +598,14 @@ body::-webkit-scrollbar {
 			box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.2);
 			transition: transform 0.3s;
 			z-index: 999;
+
 			&:hover {
 				cursor: pointer;
 				transform: scale(1.1);
 				background-color: #fff;
 			}
 		}
+
 		.chat-frame {
 			position: fixed;
 			right: -380px;
@@ -557,9 +620,11 @@ body::-webkit-scrollbar {
 			z-index: 100;
 			bottom: 150px;
 			transition: right 0.7s ease-in-out;
+
 			&.open {
 				right: 10px;
 			}
+
 			.chat-top {
 				width: 100%;
 				height: 103px;
@@ -571,6 +636,7 @@ body::-webkit-scrollbar {
 				line-height: 54px;
 				color: #000000;
 			}
+
 			.chat-content {
 				position: relative;
 				padding: 17px;
@@ -580,12 +646,14 @@ body::-webkit-scrollbar {
 				flex-direction: column;
 				justify-content: flex-start;
 				overflow: auto;
+
 				.chat-main {
 					position: relative;
 					width: 100%;
 					display: flex;
 					flex-direction: column;
-					.msg-left {
+
+					.welcome {
 						margin-left: 10px;
 						padding: 9px;
 						width: auto;
@@ -595,8 +663,20 @@ body::-webkit-scrollbar {
 						border-radius: 20px 20px 20px 0px;
 						color: #fff;
 					}
+
+					.msg-left {
+						margin-left: 10px;
+						padding: 9px;
+						width: auto;
+						height: auto;
+						display: flex;
+						background: #3c96cf;
+						border-radius: 20px 20px 20px 0px;
+						color: #fff;
+					}
 				}
 			}
+
 			.chat-bott {
 				width: 100%;
 				height: 103px;
@@ -604,6 +684,7 @@ body::-webkit-scrollbar {
 				justify-content: center;
 				align-items: center;
 				border-top: 1px solid rgba(205, 205, 205, 0.83);
+
 				.msg-input {
 					padding: 20px;
 					width: 276px;
@@ -621,6 +702,7 @@ body::-webkit-scrollbar {
 					font-size: 16px;
 					line-height: 24px;
 				}
+
 				.send-msg-btn {
 					margin-left: 14px;
 					width: 50px;
@@ -633,6 +715,7 @@ body::-webkit-scrollbar {
 					border: none;
 				}
 			}
+
 			.msg-right {
 				padding: 9px;
 				width: auto;
@@ -652,27 +735,33 @@ body::-webkit-scrollbar {
 		display: flex;
 		flex-direction: row;
 		background: #181a20;
+
 		.footer-container {
 			width: 1300px;
 			height: auto;
 			margin: 0 auto;
+
 			.main {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
+
 				.left {
 					height: 360px;
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;
+
 					.footer-box {
 						display: flex;
 						flex-direction: column;
+
 						.logo {
 							width: 128px;
 							height: 52px;
 							cursor: pointer;
 						}
+
 						span {
 							color: #bebdbd;
 							font-family: $font;
@@ -681,6 +770,7 @@ body::-webkit-scrollbar {
 							font-weight: 400;
 							text-transform: capitalize;
 						}
+
 						p {
 							color: #fff;
 							font-family: $font;
@@ -690,9 +780,11 @@ body::-webkit-scrollbar {
 							line-height: normal;
 							text-transform: capitalize;
 						}
+
 						.media-box {
 							margin-top: 12px;
 							color: #929495;
+
 							svg {
 								font-size: 32px;
 								margin-right: 22px;
@@ -701,12 +793,15 @@ body::-webkit-scrollbar {
 						}
 					}
 				}
+
 				.right {
 					display: flex;
 					flex-direction: column;
+
 					.top {
 						display: flex;
 						flex-direction: column;
+
 						strong {
 							color: #fff;
 							font-family: $font;
@@ -716,6 +811,7 @@ body::-webkit-scrollbar {
 							line-height: normal;
 							text-transform: capitalize;
 						}
+
 						div {
 							padding: 20px 30px;
 							margin-top: 20px;
@@ -727,6 +823,7 @@ body::-webkit-scrollbar {
 							box-sizing: border-box;
 							border-radius: 12px;
 							background: #212329;
+
 							input {
 								margin-right: 10px;
 								width: 85%;
@@ -740,6 +837,7 @@ body::-webkit-scrollbar {
 								line-height: 26px;
 								background: none;
 							}
+
 							span {
 								color: #fff;
 								font-family: $font;
@@ -751,14 +849,17 @@ body::-webkit-scrollbar {
 							}
 						}
 					}
+
 					.bottom {
 						margin-top: 60px;
 						display: flex;
 						flex-direction: row;
 						justify-content: space-between;
+
 						div {
 							display: flex;
 							flex-direction: column;
+
 							strong {
 								margin-bottom: 3px;
 								color: #fff;
@@ -769,6 +870,7 @@ body::-webkit-scrollbar {
 								line-height: normal;
 								text-transform: capitalize;
 							}
+
 							span {
 								margin-top: 25px;
 								color: #bebdbd;
@@ -777,6 +879,7 @@ body::-webkit-scrollbar {
 								font-style: normal;
 								font-weight: 400;
 								cursor: pointer;
+
 								&:hover {
 									color: #ffffff;
 									text-decoration-line: underline;
@@ -786,6 +889,7 @@ body::-webkit-scrollbar {
 					}
 				}
 			}
+
 			.second {
 				margin-top: 60px;
 				height: 45px;
@@ -794,6 +898,7 @@ body::-webkit-scrollbar {
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: flex-end;
+
 				span {
 					color: #bebdbd;
 					font-family: $font;
@@ -820,6 +925,7 @@ body::-webkit-scrollbar {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	.close {
 		position: absolute;
 		top: 20px;
@@ -833,11 +939,13 @@ body::-webkit-scrollbar {
 		background: #f6f6f6;
 		cursor: pointer;
 	}
+
 	.top {
 		width: 580px;
 		height: auto;
 		display: flex;
 		flex-direction: column;
+
 		span {
 			color: #181a20;
 			font-family: $font;
@@ -846,6 +954,7 @@ body::-webkit-scrollbar {
 			font-weight: 600;
 			line-height: normal;
 		}
+
 		div.search-input-box {
 			margin-top: 10px;
 			padding: 18px 14px;
@@ -854,11 +963,13 @@ body::-webkit-scrollbar {
 			align-items: center;
 			border-radius: 8px;
 			border: 1px solid #ddd;
+
 			img {
 				width: 17px;
 				height: 17px;
 				filter: brightness(0%);
 			}
+
 			input {
 				margin-left: 10px;
 				width: 100%;
@@ -874,15 +985,18 @@ body::-webkit-scrollbar {
 			}
 		}
 	}
+
 	hr {
 		width: 100%;
 	}
+
 	.middle {
 		position: relative;
 		width: 593px;
 		height: auto;
 		display: flex;
 		flex-direction: column;
+
 		.row-box {
 			position: relative;
 			width: 100%;
@@ -890,12 +1004,14 @@ body::-webkit-scrollbar {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+
 			.box {
 				position: relative;
 				width: 285px;
 				height: auto;
 				display: flex;
 				flex-direction: column;
+
 				span {
 					margin-bottom: 10px;
 					color: #181a20;
@@ -906,18 +1022,22 @@ body::-webkit-scrollbar {
 					line-height: normal;
 					text-transform: capitalize;
 				}
+
 				.inside {
 					position: relative;
 					width: 100%;
 					height: auto;
 					display: flex;
 					flex-direction: row;
+
 					&.space-between {
 						justify-content: space-between;
 					}
+
 					&.align-center {
 						align-items: center;
 					}
+
 					div.room {
 						width: 46px;
 						height: 46px;
@@ -932,16 +1052,20 @@ body::-webkit-scrollbar {
 						font-weight: 600;
 						line-height: normal;
 						cursor: pointer;
+
 						&:first-child {
 							border-radius: 12px 0px 0px 12px;
 						}
+
 						&:last-child {
 							border-radius: 0px 12px 12px 0px;
 						}
+
 						&.active {
 							border: 2px solid #181a20;
 						}
 					}
+
 					select {
 						padding-left: 13px;
 						width: 100%;
@@ -956,6 +1080,7 @@ body::-webkit-scrollbar {
 						line-height: 26px;
 						appearance: none;
 					}
+
 					.arrow-down {
 						position: absolute;
 						width: 15px;
@@ -964,11 +1089,13 @@ body::-webkit-scrollbar {
 						right: 12px;
 						top: 21px;
 					}
+
 					.minus-line {
 						width: 11px;
 						height: 1px;
 						background: #181a20;
 					}
+
 					em {
 						color: #717171;
 
@@ -982,22 +1109,26 @@ body::-webkit-scrollbar {
 			}
 		}
 	}
+
 	.bottom {
 		width: 604px;
 		height: auto;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+
 		div {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
+
 			img {
 				margin-right: 10px;
 				width: 15px;
 				height: 15px;
 				cursor: pointer;
 			}
+
 			span {
 				color: #181a20;
 				font-family: $font;
@@ -1009,6 +1140,7 @@ body::-webkit-scrollbar {
 				cursor: pointer;
 			}
 		}
+
 		button {
 			width: 185px;
 			height: 54px;
@@ -1030,10 +1162,12 @@ body::-webkit-scrollbar {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	img {
 		width: 56px;
 		margin-bottom: 2px;
 	}
+
 	p {
 		color: #bdbdbd;
 		text-align: center;

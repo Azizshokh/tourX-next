@@ -286,7 +286,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 										</Stack>
 										<Stack
 											className="button-box"
-											onClick={() => likePropertyHandler(user, property?._id)}
+											onClick={() => property?._id && likePropertyHandler(user, property._id)}
 											style={{ cursor: 'pointer' }}
 										>
 											{property?.meLiked && property?.meLiked[0]?.myFavorite ? (

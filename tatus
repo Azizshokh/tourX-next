@@ -1,0 +1,32 @@
+[33mb42b399[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: modify WebSocket Chatting Client final stage
+[33m6a8f7c6[m feat: develop WebSocket Chatting Client first stage
+[33m60def69[m fix: modify Chatting related design
+[33mcbae152[m feat: admin related community control logic
+[33mbbc52a7[m feat: admin related property control logic
+[33m32b5b7c[m feat: Integration of GraphQL Error handling for client application
+[33m7d3e655[m feat: admin related members control
+[33md1335ca[m feat: develop MemberPage and complete MyPage Screen component
+[33mfbf86f7[m feat: develop MyProfile logic
+[33m5ad213e[m feat: develop article related business logic
+[33m7ab952a[m feat: develop MyFavorites and RecentlyVisited components logic
+[33m25bf380[m feat: develop AddProperty business logic
+[33mc25fab7[m feat: develop MyProperties Sectional Component logic
+[33m275e02e[m feat: develop board article detail component logic
+[33m52fab54[m feat: develop community related BoardArticles list logic
+[33m184da24[m feat: develop agent detail page logic
+[33m3f2139f[m feat: develop agents list screen component logic
+[33me0918ba[m fix: modify homePage screen component
+[33m5d5bff4[m feat: create new comment process aligned to chosen Property
+[33m4d7ad23[m feat: develop property related comments data
+[33ma8cb447[m feat: develop property like process within PropertyDetail screen component
+[33m4f64cf6[m fix: retrieve chosen property and destination related properties
+[33m668f31d[m feat: develop property like process within PropertyList screen component
+[33ma512cd5[m feat: develop query logic on property list component
+[33m101d11f[m fix: modify mobile homePage screen component
+[33m0cd09f3[m feat: develop property related like process
+[33ma683227[m fix: modify CommunityBoards component
+[33me6aa43c[m fix: modify PopularProperty component
+[33m5a1bab7[m feat: develop TrendProperties component based on react query data
+[33m4bac9d0[m fix: modify GraphQL query command
+[33m060e9c4[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m feat: Nestar publishing and develop Authentication process
+[33m288b865[m BRR: Initial Setup Next App

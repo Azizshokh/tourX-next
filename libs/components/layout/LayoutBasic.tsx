@@ -28,34 +28,34 @@ const withLayoutBasic = (Component: any) => {
 				bgImage = '';
 
 			switch (router.pathname) {
-				case '/property':
-					title = 'Property Search';
-					desc = 'We are glad to see you again!';
+				case '/tour-package':
+					title = 'Package Search';
+					desc = 'Find your next trip';
 					bgImage = '/img/banner/properties.png';
 					break;
 				case '/agent':
 					title = 'Agents';
-					desc = 'Home / For Rent';
+					desc = 'Home / Travel Experts';
 					bgImage = '/img/banner/agents.webp';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
-					desc = 'Home / For Rent';
+					desc = 'Home / Travel Expert';
 					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/mypage':
 					title = 'my page';
-					desc = 'Home / For Rent';
+					desc = 'Home / My Travel';
 					bgImage = '/img/banner/header1.svg';
 					break;
 				case '/community':
 					title = 'Community';
-					desc = 'Home / For Rent';
+					desc = 'Home / Community';
 					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
-					desc = 'Home / For Rent';
+					desc = 'Home / Community';
 					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/cs':
@@ -71,7 +71,7 @@ const withLayoutBasic = (Component: any) => {
 					break;
 				case '/member':
 					title = 'Member Page';
-					desc = 'Home / For Rent';
+					desc = 'Home / Member';
 					bgImage = '/img/banner/header1.svg';
 					break;
 				default:

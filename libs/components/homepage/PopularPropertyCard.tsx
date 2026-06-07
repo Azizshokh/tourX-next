@@ -2,9 +2,9 @@ import React from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Property } from '../../types/property/property';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { REACT_APP_API_URL, topPropertyRank } from '../../config';
+import { REACT_APP_API_URL, topPackageRank } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -23,7 +23,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	const pushDetailHandler = async (propertyId: string) => {
 		console.log('ID:', propertyId);
 		await router.push({
-			pathname: '/property/detail',
+			pathname: '/tour-package/detail',
 			query: { id: propertyId },
 		});
 	};
@@ -34,12 +34,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
 					onClick={() => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					{property && property?.propertyRank >= topPropertyRank ? (
+					{property && property?.packageRank >= topPackageRank ? (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
@@ -48,7 +48,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 						''
 					)}
 
-					<div className={'price'}>${property.propertyPrice}</div>
+					<div className={'price'}>${property.packagePrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -57,31 +57,31 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 							pushDetailHandler(property._id);
 						}}
 					>
-						{property.propertyTitle}
+						{property.packageTitle}
 					</strong>
-					<p className={'desc'}>{property.propertyAddress}</p>
+					<p className={'desc'}>{property.packageAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span>{property?.minPeople} min</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span>{property?.maxPeople} max</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<span>{property?.durationDays} days</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>{property?.propertyRent ? 'rent' : 'sale'}</p>
+						<p>{property?.hotelIncluded ? 'Hotel' : 'package'}</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
-							<Typography className="view-cnt">{property?.propertyViews}</Typography>
+							<Typography className="view-cnt">{property?.packageViews}</Typography>
 						</div>
 					</div>
 				</Box>
@@ -93,12 +93,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
 					onClick={() => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					{property && property?.propertyRank >= topPropertyRank ? (
+					{property && property?.packageRank >= topPackageRank ? (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
@@ -107,7 +107,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 						''
 					)}
 
-					<div className={'price'}>${property.propertyPrice}</div>
+					<div className={'price'}>${property.packagePrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -116,31 +116,31 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 							pushDetailHandler(property._id);
 						}}
 					>
-						{property.propertyTitle}
+						{property.packageTitle}
 					</strong>
-					<p className={'desc'}>{property.propertyAddress}</p>
+					<p className={'desc'}>{property.packageAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span>{property?.minPeople} min</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span>{property?.maxPeople} max</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<span>{property?.durationDays} days</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>{property?.propertyRent ? 'rent' : 'sale'}</p>
+						<p>{property?.hotelIncluded ? 'Hotel' : 'package'}</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
-							<Typography className="view-cnt">{property?.propertyViews}</Typography>
+							<Typography className="view-cnt">{property?.packageViews}</Typography>
 						</div>
 					</div>
 				</Box>

@@ -6,15 +6,15 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import PopularPropertyCard from './PopularPropertyCard';
-import { Property } from '../../types/property/property';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import Link from 'next/link';
-import { PropertiesInquiry } from '../../types/property/property.input';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
 
 interface PopularPropertiesProps {
-	initialInput: PropertiesInquiry;
+	initialInput: TourPackagesInquiry;
 }
 
 const PopularProperties = (props: PopularPropertiesProps) => {
@@ -24,18 +24,18 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 
 	/** APOLLO REQUESTS **/
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getTourPackagesLoading,
+		data: getTourPackagesData,
+		error: getTourPackagesError,
+		refetch: getTourPackagesRefetch,
+	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
 			input: initialInput,
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setPopularProperties(data?.getProperties?.list);
+			setPopularProperties(data?.getTourPackages?.list);
 		},
 	});
 
@@ -48,7 +48,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 			<Stack className={'popular-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular properties</span>
+						<span>Popular packages</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -76,12 +76,12 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular properties</span>
+							<span>Popular packages</span>
 							<p>Popularity is based on views</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
-								<Link href={'/property'}>
+								<Link href={'/tour-package'}>
 									<span>See All Categories</span>
 								</Link>
 								<img src="/img/icons/rightup.svg" alt="" />
@@ -126,7 +126,7 @@ PopularProperties.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 7,
-		sort: 'propertyViews',
+		sort: 'packageViews',
 		direction: 'DESC',
 		search: {},
 	},

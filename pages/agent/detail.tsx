@@ -8,19 +8,19 @@ import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { Property } from '../../libs/types/property/property';
+import { TourPackage as Property } from '../../libs/types/tour-package/tour-package';
 import { Member } from '../../libs/types/member/member';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { userVar } from '../../apollo/store';
-import { PropertiesInquiry } from '../../libs/types/property/property.input';
+import { TourPackagesInquiry } from '../../libs/types/tour-package/tour-package.input';
 import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.input';
 import { Comment } from '../../libs/types/comment/comment';
 import { CommentGroup } from '../../libs/enums/comment.enum';
 import { Messages, REACT_APP_API_URL } from '../../libs/config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { T } from '../../libs/types/common';
-import { GET_MEMBER, GET_PROPERTIES, GET_COMMENTS } from '../../apollo/user/query';
-import { CREATE_COMMENT, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
+import { GET_MEMBER, GET_TOUR_PACKAGES, GET_COMMENTS } from '../../apollo/user/query';
+import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -34,7 +34,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const user = useReactiveVar(userVar);
 	const [agentId, setAgentId] = useState<string | null>(null);
 	const [agent, setAgent] = useState<Member | null>(null);
-	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
+	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(initialInput);
 	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
 	const [propertyTotal, setPropertyTotal] = useState<number>(0);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
@@ -48,7 +48,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	/** APOLLO REQUESTS **/
 	const [createComment] = useMutation(CREATE_COMMENT);
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
 	const {
 		loading: getMemberLoading,
@@ -81,18 +81,18 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	});
 
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getTourPackagesLoading,
+		data: getTourPackagesData,
+		error: getTourPackagesError,
+		refetch: getTourPackagesRefetch,
+	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'network-only',
 		variables: { input: searchFilter },
 		skip: !searchFilter.search.memberId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getProperties?.list);
-			setPropertyTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
+			setAgentProperties(data?.getTourPackages?.list);
+			setPropertyTotal(data?.getTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
 
@@ -119,7 +119,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	useEffect(() => {
 		if (searchFilter.search.memberId) {
-			getPropertiesRefetch({ variables: { input: searchFilter } }).then();
+			getTourPackagesRefetch({ variables: { input: searchFilter } }).then();
 		}
 	}, [searchFilter]);
 
@@ -169,12 +169,12 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Messages.error2);
-			await likeTargetProperty({
+			await likeTargetTourPackage({
 				variables: {
 					input: id,
 				},
 			});
-			await getPropertiesRefetch({ input: searchFilter });
+			await getTourPackagesRefetch({ input: searchFilter });
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
 			console.log('ERROR, likePropertyHandler:', err.message);

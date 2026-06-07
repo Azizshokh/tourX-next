@@ -40,8 +40,8 @@ const Footer = () => {
 						<Box component={'div'} className={'bottom'}>
 							<div>
 								<strong>Popular Search</strong>
-								<span>Property for Rent</span>
-								<span>Property Low to hide</span>
+								<span>Guided travel packages</span>
+								<span>Best value tours</span>
 							</div>
 							<div>
 								<strong>Quick Links</strong>
@@ -105,8 +105,8 @@ const Footer = () => {
 						<Box component={'div'} className={'bottom'}>
 							<div>
 								<strong>Popular Search</strong>
-								<span>Property for Rent</span>
-								<span>Property Low to hide</span>
+								<span>Guided travel packages</span>
+								<span>Best value tours</span>
 							</div>
 							<div>
 								<strong>Quick Links</strong>

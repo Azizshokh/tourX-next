@@ -20,7 +20,7 @@ export const GET_AGENTS = gql`
 				memberDesc
 				memberWarnings
 				memberBlocks
-				memberProperties
+				memberTours
 				memberRank
 				memberPoints
 				memberLikes
@@ -42,75 +42,80 @@ export const GET_AGENTS = gql`
 	}
 `;
 
-export const GET_MEMBER = gql(`
+export const GET_MEMBER = gql`
 	query GetMember($input: String!) {
-    getMember(memberId: $input) {
-        _id
-        memberType
-        memberStatus
-        memberAuthType
-        memberPhone
-        memberNick
-        memberFullName
-        memberImage
-        memberAddress
-        memberDesc
-        memberProperties
-        memberArticles
-        memberFollowers
-        memberFollowings
-        memberPoints
-        memberLikes
-        memberViews
-        memberComments
-        memberRank
-        memberWarnings
-        memberBlocks
-        deletedAt
-        createdAt
-        updatedAt
-        accessToken
-        meLiked {
-            memberId
-            likeRefId
-            myFavorite
-        }
-        meFollowed {
-            followingId
-            followerId
-            myFollowing
-        }
-    }
-}
-`);
+		getMember(memberId: $input) {
+			_id
+			memberType
+			memberStatus
+			memberAuthType
+			memberPhone
+			memberNick
+			memberFullName
+			memberImage
+			memberAddress
+			memberDesc
+			memberTours
+			memberArticles
+			memberFollowers
+			memberFollowings
+			memberPoints
+			memberLikes
+			memberViews
+			memberComments
+			memberRank
+			memberWarnings
+			memberBlocks
+			deletedAt
+			createdAt
+			updatedAt
+			accessToken
+			meLiked {
+				memberId
+				likeRefId
+				myFavorite
+			}
+			meFollowed {
+				followingId
+				followerId
+				myFollowing
+			}
+		}
+	}
+`;
 
 /**************************
- *        PROPERTY        *
+ *      TOUR PACKAGE      *
  *************************/
 
-export const GET_PROPERTY = gql`
-	query GetProperty($input: String!) {
-		getProperty(propertyId: $input) {
+export const GET_TOUR_PACKAGE = gql`
+	query GetTourPackage($input: String!) {
+		getTourPackage(packageId: $input) {
 			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
+			packageType
+			packageStatus
+			packageTitle
+			packageCountry
+			packageCity
+			packageAddress
+			packageDesc
+			packagePrice
+			packageCurrency
+			durationDays
+			minPeople
+			maxPeople
+			flightIncluded
+			hotelIncluded
+			guideIncluded
+			packageViews
+			packageLikes
+			packageComments
+			packageRank
+			packageImages
 			memberId
-			soldAt
+			startDate
+			endDate
 			deletedAt
-			constructedAt
 			createdAt
 			updatedAt
 			memberData {
@@ -126,6 +131,7 @@ export const GET_PROPERTY = gql`
 				memberDesc
 				memberWarnings
 				memberBlocks
+				memberTours
 				memberPoints
 				memberLikes
 				memberViews
@@ -143,31 +149,35 @@ export const GET_PROPERTY = gql`
 	}
 `;
 
-export const GET_PROPERTIES = gql`
-	query GetProperties($input: PropertiesInquiry!) {
-		getProperties(input: $input) {
+export const GET_TOUR_PACKAGES = gql`
+	query GetTourPackages($input: TourPackagesInquiry!) {
+		getTourPackages(input: $input) {
 			list {
 				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
-				propertyViews
-				propertyLikes
-				propertyRank
-				propertyImages
-				propertyDesc
-				propertyBarter
-				propertyRent
+				packageType
+				packageStatus
+				packageTitle
+				packageCountry
+				packageCity
+				packageAddress
+				packageDesc
+				packagePrice
+				packageCurrency
+				durationDays
+				minPeople
+				maxPeople
+				flightIncluded
+				hotelIncluded
+				guideIncluded
+				packageViews
+				packageLikes
+				packageComments
+				packageRank
+				packageImages
 				memberId
-				soldAt
+				startDate
+				endDate
 				deletedAt
-				constructedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -183,7 +193,7 @@ export const GET_PROPERTIES = gql`
 					memberDesc
 					memberWarnings
 					memberBlocks
-					memberProperties
+					memberTours
 					memberRank
 					memberPoints
 					memberLikes
@@ -205,30 +215,35 @@ export const GET_PROPERTIES = gql`
 	}
 `;
 
-export const GET_AGENT_PROPERTIES = gql`
-	query GetAgentProperties($input: AgentPropertiesInquiry!) {
-		getAgentProperties(input: $input) {
+export const GET_AGENT_TOUR_PACKAGES = gql`
+	query GetAgentTourPackages($input: AgentTourPackagesInquiry!) {
+		getAgentTourPackages(input: $input) {
 			list {
 				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
-				propertyViews
-				propertyLikes
-				propertyImages
-				propertyDesc
-				propertyBarter
-				propertyRent
+				packageType
+				packageStatus
+				packageTitle
+				packageCountry
+				packageCity
+				packageAddress
+				packageDesc
+				packagePrice
+				packageCurrency
+				durationDays
+				minPeople
+				maxPeople
+				flightIncluded
+				hotelIncluded
+				guideIncluded
+				packageViews
+				packageLikes
+				packageComments
+				packageRank
+				packageImages
 				memberId
-				soldAt
+				startDate
+				endDate
 				deletedAt
-				constructedAt
 				createdAt
 				updatedAt
 			}
@@ -244,27 +259,30 @@ export const GET_FAVORITES = gql`
 		getFavorites(input: $input) {
 			list {
 				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
-				propertyViews
-				propertyLikes
-				propertyComments
-				propertyRank
-				propertyImages
-				propertyDesc
-				propertyBarter
-				propertyRent
+				packageType
+				packageStatus
+				packageTitle
+				packageCountry
+				packageCity
+				packageAddress
+				packageDesc
+				packagePrice
+				packageCurrency
+				durationDays
+				minPeople
+				maxPeople
+				flightIncluded
+				hotelIncluded
+				guideIncluded
+				packageViews
+				packageLikes
+				packageComments
+				packageRank
+				packageImages
 				memberId
-				soldAt
+				startDate
+				endDate
 				deletedAt
-				constructedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -278,7 +296,7 @@ export const GET_FAVORITES = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberProperties
+					memberTours
 					memberArticles
 					memberPoints
 					memberLikes
@@ -302,32 +320,35 @@ export const GET_FAVORITES = gql`
 	}
 `;
 
-export const GET_VISITED = gql`
-	query GetVisited($input: OrdinaryInquiry!) {
-		getVisited(input: $input) {
+export const GET_VISITED_TOURS = gql`
+	query getVisitedToursTours($input: OrdinaryInquiry!) {
+		getVisitedToursTours(input: $input) {
 			list {
 				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
-				propertyViews
-				propertyLikes
-				propertyComments
-				propertyRank
-				propertyImages
-				propertyDesc
-				propertyBarter
-				propertyRent
+				packageType
+				packageStatus
+				packageTitle
+				packageCountry
+				packageCity
+				packageAddress
+				packageDesc
+				packagePrice
+				packageCurrency
+				durationDays
+				minPeople
+				maxPeople
+				flightIncluded
+				hotelIncluded
+				guideIncluded
+				packageViews
+				packageLikes
+				packageComments
+				packageRank
+				packageImages
 				memberId
-				soldAt
+				startDate
+				endDate
 				deletedAt
-				constructedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -341,7 +362,7 @@ export const GET_VISITED = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberProperties
+					memberTours
 					memberArticles
 					memberPoints
 					memberLikes
@@ -397,7 +418,7 @@ export const GET_BOARD_ARTICLE = gql`
 				memberDesc
 				memberWarnings
 				memberBlocks
-				memberProperties
+				memberTours
 				memberRank
 				memberPoints
 				memberLikes
@@ -449,7 +470,7 @@ export const GET_BOARD_ARTICLES = gql`
 					memberDesc
 					memberWarnings
 					memberBlocks
-					memberProperties
+					memberTours
 					memberRank
 					memberPoints
 					memberLikes
@@ -495,7 +516,7 @@ export const GET_COMMENTS = gql`
 					memberDesc
 					memberWarnings
 					memberBlocks
-					memberProperties
+					memberTours
 					memberRank
 					memberPoints
 					memberLikes
@@ -514,8 +535,9 @@ export const GET_COMMENTS = gql`
 `;
 
 /**************************
- *         FOLLOW        *
+ *         FOLLOW         *
  *************************/
+
 export const GET_MEMBER_FOLLOWERS = gql`
 	query GetMemberFollowers($input: FollowInquiry!) {
 		getMemberFollowers(input: $input) {
@@ -546,7 +568,7 @@ export const GET_MEMBER_FOLLOWERS = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberProperties
+					memberTours
 					memberArticles
 					memberPoints
 					memberLikes
@@ -589,7 +611,7 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberProperties
+					memberTours
 					memberArticles
 					memberPoints
 					memberLikes

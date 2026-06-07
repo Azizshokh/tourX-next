@@ -3,11 +3,11 @@ import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
 import PropertyCard from '../property/PropertyCard';
-import { Property } from '../../types/property/property';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
 import { GET_FAVORITES } from '../../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 
@@ -18,7 +18,7 @@ const MyFavorites: NextPage = () => {
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
 	const {
 		loading: getFavoritesLoading,
@@ -47,7 +47,7 @@ const MyFavorites: NextPage = () => {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			await likeTargetProperty({
+			await likeTargetTourPackage({
 				variables: {
 					input: id,
 				},
@@ -95,7 +95,7 @@ const MyFavorites: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} favorite propert{total > 1 ? 'ies' : 'y'}
+								Total {total} favorite package{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

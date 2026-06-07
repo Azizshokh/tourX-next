@@ -3,41 +3,41 @@ import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PropertyCard } from '../mypage/PropertyCard';
-import { Property } from '../../types/property/property';
-import { PropertiesInquiry } from '../../types/property/property.input';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { T } from '../../types/common';
 import { useRouter } from 'next/router';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 
 const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const { memberId } = router.query;
-	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>({ ...initialInput });
+	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>({ ...initialInput });
 	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
 	const [total, setTotal] = useState<number>(0);
 
 	/** APOLLO REQUESTS **/
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getTourPackagesLoading,
+		data: getTourPackagesData,
+		error: getTourPackagesError,
+		refetch: getTourPackagesRefetch,
+	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'network-only',
 		variables: { input: searchFilter },
 		skip: !searchFilter?.search?.memberId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getProperties?.list);
-			setTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
+			setAgentProperties(data?.getTourPackages?.list);
+			setTotal(data?.getTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		getPropertiesRefetch().then();
+		getTourPackagesRefetch().then();
 	}, [searchFilter]);
 
 	useEffect(() => {
@@ -51,13 +51,13 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR PROPERTIES MOBILE</div>;
+		return <div>MEMBER PACKAGES MOBILE</div>;
 	} else {
 		return (
 			<div id="member-properties-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">Properties</Typography>
+						<Typography className="main-title">Packages</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="properties-list-box">
@@ -73,7 +73,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 						{agentProperties?.length === 0 && (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
-								<p>No Property found!</p>
+								<p>No package found!</p>
 							</div>
 						)}
 						{agentProperties?.map((property: Property) => {
@@ -92,7 +92,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 									/>
 								</Stack>
 								<Stack className="total-result">
-									<Typography>{total} property available</Typography>
+									<Typography>{total} package available</Typography>
 								</Stack>
 							</Stack>
 						)}

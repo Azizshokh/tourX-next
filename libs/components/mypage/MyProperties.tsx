@@ -4,39 +4,39 @@ import { Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PropertyCard } from './PropertyCard';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { Property } from '../../types/property/property';
-import { AgentPropertiesInquiry } from '../../types/property/property.input';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { AgentTourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { T } from '../../types/common';
-import { PropertyStatus } from '../../enums/property.enum';
+import { PackageStatus } from '../../enums/package.enum';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
-import { GET_AGENT_PROPERTIES } from '../../../apollo/user/query';
-import { UPDATE_PROPERTY } from '../../../apollo/user/mutation';
+import { GET_AGENT_TOUR_PACKAGES } from '../../../apollo/user/query';
+import { UPDATE_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetConfirmAlert, sweetErrorHandling } from '../../sweetAlert';
 
 const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
-	const [searchFilter, setSearchFilter] = useState<AgentPropertiesInquiry>(initialInput);
+	const [searchFilter, setSearchFilter] = useState<AgentTourPackagesInquiry>(initialInput);
 	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 
 	/** APOLLO REQUESTS **/
-	const [updateProperty] = useMutation(UPDATE_PROPERTY);
+	const [updateTourPackage] = useMutation(UPDATE_TOUR_PACKAGE);
 
 	const {
-		loading: getAgentPropertiesLoading,
-		data: getAgentPropertiesData,
-		error: getAgentPropertiesError,
-		refetch: getAgentPropertiesRefetch,
-	} = useQuery(GET_AGENT_PROPERTIES, {
+		loading: getAgentTourPackagesLoading,
+		data: getAgentTourPackagesData,
+		error: getAgentTourPackagesError,
+		refetch: getAgentTourPackagesRefetch,
+	} = useQuery(GET_AGENT_TOUR_PACKAGES, {
 		fetchPolicy: 'network-only',
 		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getAgentProperties?.list);
-			setTotal(data?.getAgentProperties?.metaCounter[0]?.total ?? 0);
+			setAgentProperties(data?.getAgentTourPackages?.list);
+			setTotal(data?.getAgentTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
 
@@ -45,40 +45,40 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		setSearchFilter({ ...searchFilter, page: value });
 	};
 
-	const changeStatusHandler = (value: PropertyStatus) => {
-		setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
+	const changeStatusHandler = (value: PackageStatus) => {
+		setSearchFilter({ ...searchFilter, search: { packageStatus: value } });
 	};
 
 	const deletePropertyHandler = async (id: string) => {
 		try {
-			if (await sweetConfirmAlert('Are you sure to delete this property?')) {
-				await updateProperty({
+			if (await sweetConfirmAlert('Are you sure to delete this package?')) {
+				await updateTourPackage({
 					variables: {
 						input: {
 							_id: id,
-							propertyStatus: 'DELETE',
+							packageStatus: PackageStatus.DELETE,
 						},
 					},
 				});
-				await getAgentPropertiesRefetch({ input: searchFilter });
+				await getAgentTourPackagesRefetch({ input: searchFilter });
 			}
 		} catch (err: any) {
 			await sweetErrorHandling(err);
 		}
 	};
 
-	const updatePropertyHandler = async (status: string, id: string) => {
+	const updateTourPackageHandler = async (status: string, id: string) => {
 		try {
 			if (await sweetConfirmAlert(`Are you sure change to ${status} status?`)) {
-				await updateProperty({
+				await updateTourPackage({
 					variables: {
 						input: {
 							_id: id,
-							propertyStatus: status,
+							packageStatus: status,
 						},
 					},
 				});
-				await getAgentPropertiesRefetch({ input: searchFilter });
+				await getAgentTourPackagesRefetch({ input: searchFilter });
 			}
 		} catch (err: any) {
 			await sweetErrorHandling(err);
@@ -89,29 +89,29 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>NESTAR PROPERTIES MOBILE</div>;
+		return <div>MY PACKAGES MOBILE</div>;
 	} else {
 		return (
 			<div id="my-property-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">My Properties</Typography>
+						<Typography className="main-title">My Packages</Typography>
 						<Typography className="sub-title">We are glad to see you again!</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="property-list-box">
 					<Stack className="tab-name-box">
 						<Typography
-							onClick={() => changeStatusHandler(PropertyStatus.ACTIVE)}
-							className={searchFilter.search.propertyStatus === 'ACTIVE' ? 'active-tab-name' : 'tab-name'}
+							onClick={() => changeStatusHandler(PackageStatus.ACTIVE)}
+							className={searchFilter.search.packageStatus === PackageStatus.ACTIVE ? 'active-tab-name' : 'tab-name'}
 						>
-							On Sale
+							Active
 						</Typography>
 						<Typography
-							onClick={() => changeStatusHandler(PropertyStatus.SOLD)}
-							className={searchFilter.search.propertyStatus === 'SOLD' ? 'active-tab-name' : 'tab-name'}
+							onClick={() => changeStatusHandler(PackageStatus.CLOSED)}
+							className={searchFilter.search.packageStatus === PackageStatus.CLOSED ? 'active-tab-name' : 'tab-name'}
 						>
-							On Sold
+							Closed
 						</Typography>
 					</Stack>
 					<Stack className="list-box">
@@ -120,7 +120,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 							<Typography className="title-text">Date Published</Typography>
 							<Typography className="title-text">Status</Typography>
 							<Typography className="title-text">View</Typography>
-							{searchFilter.search.propertyStatus === 'ACTIVE' && (
+							{searchFilter.search.packageStatus === PackageStatus.ACTIVE && (
 								<Typography className="title-text">Action</Typography>
 							)}
 						</Stack>
@@ -128,7 +128,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 						{agentProperties?.length === 0 ? (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
-								<p>No Property found!</p>
+								<p>No package found!</p>
 							</div>
 						) : (
 							agentProperties.map((property: Property) => {
@@ -136,7 +136,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 									<PropertyCard
 										property={property}
 										deletePropertyHandler={deletePropertyHandler}
-										updatePropertyHandler={updatePropertyHandler}
+										updateTourPackageHandler={updateTourPackageHandler}
 									/>
 								);
 							})
@@ -154,7 +154,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 									/>
 								</Stack>
 								<Stack className="total-result">
-									<Typography>{total} property available</Typography>
+									<Typography>{total} package available</Typography>
 								</Stack>
 							</Stack>
 						)}
@@ -171,7 +171,7 @@ MyProperties.defaultProps = {
 		limit: 5,
 		sort: 'createdAt',
 		search: {
-			propertyStatus: 'ACTIVE',
+			packageStatus: PackageStatus.ACTIVE,
 		},
 	},
 };

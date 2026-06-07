@@ -4,8 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Property } from '../../types/property/property';
-import { REACT_APP_API_URL, topPropertyRank } from '../../config';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { REACT_APP_API_URL, topPackageRank } from '../../config';
 import { formatterStr } from '../../utils';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -25,7 +25,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 
 	/** HANDLERS **/
 	const goPropertyDetatilPage = (propertyId: string) => {
-		router.push(`/property/detail?id=${propertyId}`);
+		router.push(`/tour-package/detail?id=${propertyId}`);
 	};
 
 	if (device === 'mobile') {
@@ -36,45 +36,45 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages?.[0]})` }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages?.[0]})` }}
 				>
-					{property && property?.propertyRank >= topPropertyRank && (
+					{property && property?.packageRank >= topPackageRank && (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
 						</div>
 					)}
 
-					<div className={'price'}>${formatterStr(property?.propertyPrice)}</div>
+					<div className={'price'}>${formatterStr(property?.packagePrice)}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{property?.propertyTitle}</strong>
-					<p className={'desc'}>{property?.propertyAddress}</p>
+					<strong className={'title'}>{property?.packageTitle}</strong>
+					<p className={'desc'}>{property?.packageAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span>{property?.minPeople} min</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span>{property?.maxPeople} max</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<span>{property?.durationDays} days</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<div>
-							{property?.propertyRent ? <p>Rent</p> : <span>Rent</span>}
-							{property?.propertyBarter ? <p>Barter</p> : <span>Barter</span>}
+							{property?.hotelIncluded ? <p>Hotel</p> : <span>Hotel</span>}
+							{property?.flightIncluded ? <p>Flight</p> : <span>Flight</span>}
 						</div>
 						<div className="buttons-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
-							<Typography className="view-cnt">{property?.propertyViews}</Typography>
+							<Typography className="view-cnt">{property?.packageViews}</Typography>
 							<IconButton
 								color={'default'}
 								onClick={(e) => {
@@ -88,7 +88,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 									<FavoriteBorderIcon />
 								)}
 							</IconButton>
-							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
+							<Typography className="view-cnt">{property?.packageLikes}</Typography>
 						</div>
 					</div>
 				</Box>

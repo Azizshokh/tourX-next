@@ -3,9 +3,9 @@ import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
 import PropertyCard from '../property/PropertyCard';
-import { Property } from '../../types/property/property';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
-import { GET_VISITED } from '../../../apollo/user/query';
+import { GET_VISITED_TOURS } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 
 const RecentlyVisited: NextPage = () => {
@@ -17,18 +17,18 @@ const RecentlyVisited: NextPage = () => {
 	/** APOLLO REQUESTS **/
 
 	const {
-		loading: getVisitedLoading,
-		data: getVisitedData,
-		error: getVisitedError,
-		refetch: getVisitedRefetch,
-	} = useQuery(GET_VISITED, {
+		loading: getVisitedToursLoading,
+		data: getVisitedToursData,
+		error: getVisitedToursError,
+		refetch: getVisitedToursRefetch,
+	} = useQuery(GET_VISITED_TOURS, {
 		fetchPolicy: 'network-only',
 		variables: {
 			input: searchVisited,
 		},
 		onCompleted: (data: T) => {
-			setRecentlyVisited(data?.getVisited?.list);
-			setTotal(data?.getVisited?.metaCounter[0]?.total || 0);
+			setRecentlyVisited(data?.getVisitedTours?.list);
+			setTotal(data?.getVisitedTours?.metaCounter[0]?.total || 0);
 		},
 	});
 
@@ -56,7 +56,7 @@ const RecentlyVisited: NextPage = () => {
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Recently Visited Properties found!</p>
+							<p>No recently visited packages found!</p>
 						</div>
 					)}
 				</Stack>
@@ -73,7 +73,7 @@ const RecentlyVisited: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} recently visited propert{total > 1 ? 'ies' : 'y'}
+								Total {total} recently visited package{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

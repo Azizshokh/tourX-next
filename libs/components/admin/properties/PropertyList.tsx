@@ -14,11 +14,11 @@ import {
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { Stack } from '@mui/material';
-import { Property } from '../../../types/property/property';
+import { TourPackage } from '../../../types/tour-package/tour-package';
 import { REACT_APP_API_URL } from '../../../config';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
-import { PropertyStatus } from '../../../enums/property.enum';
+import { PackageStatus } from '../../../enums/package.enum';
 
 interface Data {
 	id: string;
@@ -44,7 +44,7 @@ const headCells: readonly HeadCell[] = [
 		id: 'id',
 		numeric: true,
 		disablePadding: false,
-		label: 'MB ID',
+		label: 'PKG ID',
 	},
 	{
 		id: 'title',
@@ -68,7 +68,7 @@ const headCells: readonly HeadCell[] = [
 		id: 'location',
 		numeric: false,
 		disablePadding: false,
-		label: 'LOCATION',
+		label: 'DESTINATION',
 	},
 	{
 		id: 'type',
@@ -94,8 +94,6 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-	const { onSelectAllClick } = props;
-
 	return (
 		<TableHead>
 			<TableRow>
@@ -114,22 +112,22 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface PropertyPanelListType {
-	properties: Property[];
+	packages: TourPackage[];
 	anchorEl: any;
 	menuIconClickHandler: any;
 	menuIconCloseHandler: any;
-	updatePropertyHandler: any;
-	removePropertyHandler: any;
+	updateTourPackageHandler: any;
+	removePackageHandler: any;
 }
 
 export const PropertyPanelList = (props: PropertyPanelListType) => {
 	const {
-		properties,
+		packages,
 		anchorEl,
 		menuIconClickHandler,
 		menuIconCloseHandler,
-		updatePropertyHandler,
-		removePropertyHandler,
+		updateTourPackageHandler,
+		removePackageHandler,
 	} = props;
 
 	return (
@@ -139,7 +137,7 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 					{/*@ts-ignore*/}
 					<EnhancedTableHead />
 					<TableBody>
-						{properties.length === 0 && (
+						{packages.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
 									<span className={'no-data'}>data not found!</span>
@@ -147,57 +145,59 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 							</TableRow>
 						)}
 
-						{properties.length !== 0 &&
-							properties.map((property: Property, index: number) => {
-								const propertyImage = `${REACT_APP_API_URL}/${property?.propertyImages[0]}`;
+						{packages.length !== 0 &&
+							packages.map((tourPackage: TourPackage, index: number) => {
+								const packageImage = `${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0] ?? ''}`;
 
 								return (
-									<TableRow hover key={property?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-										<TableCell align="left">{property._id}</TableCell>
+									<TableRow hover key={tourPackage?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+										<TableCell align="left">{tourPackage._id}</TableCell>
 										<TableCell align="left" className={'name'}>
-											{property.propertyStatus === PropertyStatus.ACTIVE ? (
+											{tourPackage.packageStatus === PackageStatus.ACTIVE ? (
 												<Stack direction={'row'}>
-													<Link href={`/property/detail?id=${property?._id}`}>
+													<Link href={`/tour-package/detail?id=${tourPackage?._id}`}>
 														<div>
-															<Avatar alt="Remy Sharp" src={propertyImage} sx={{ ml: '2px', mr: '10px' }} />
+															<Avatar alt={tourPackage.packageTitle} src={packageImage} sx={{ ml: '2px', mr: '10px' }} />
 														</div>
 													</Link>
-													<Link href={`/property/detail?id=${property?._id}`}>
-														<div style={{ marginTop: '10px' }}>{property.propertyTitle}</div>
+													<Link href={`/tour-package/detail?id=${tourPackage?._id}`}>
+														<div style={{ marginTop: '10px' }}>{tourPackage.packageTitle}</div>
 													</Link>
 												</Stack>
 											) : (
 												<Stack direction={'row'}>
 													<div>
-														<Avatar alt="Remy Sharp" src={propertyImage} sx={{ ml: '2px', mr: '10px' }} />
+														<Avatar alt={tourPackage.packageTitle} src={packageImage} sx={{ ml: '2px', mr: '10px' }} />
 													</div>
-													<div style={{ marginTop: '10px' }}>{property.propertyTitle}</div>
+													<div style={{ marginTop: '10px' }}>{tourPackage.packageTitle}</div>
 												</Stack>
 											)}
 										</TableCell>
-										<TableCell align="center">{property.propertyPrice}</TableCell>
-										<TableCell align="center">{property.memberData?.memberNick}</TableCell>
-										<TableCell align="center">{property.propertyLocation}</TableCell>
-										<TableCell align="center">{property.propertyType}</TableCell>
+										<TableCell align="center">{tourPackage.packagePrice}</TableCell>
+										<TableCell align="center">{tourPackage.memberData?.memberNick}</TableCell>
 										<TableCell align="center">
-											{property.propertyStatus === PropertyStatus.DELETE && (
+											{tourPackage.packageCountry}, {tourPackage.packageCity}
+										</TableCell>
+										<TableCell align="center">{tourPackage.packageType}</TableCell>
+										<TableCell align="center">
+											{tourPackage.packageStatus === PackageStatus.DELETE && (
 												<Button
 													variant="outlined"
 													sx={{ p: '3px', border: 'none', ':hover': { border: '1px solid #000000' } }}
-													onClick={() => removePropertyHandler(property._id)}
+													onClick={() => removePackageHandler(tourPackage._id)}
 												>
 													<DeleteIcon fontSize="small" />
 												</Button>
 											)}
 
-											{property.propertyStatus === PropertyStatus.SOLD && (
-												<Button className={'badge warning'}>{property.propertyStatus}</Button>
+											{tourPackage.packageStatus === PackageStatus.CLOSED && (
+												<Button className={'badge warning'}>{tourPackage.packageStatus}</Button>
 											)}
 
-											{property.propertyStatus === PropertyStatus.ACTIVE && (
+											{tourPackage.packageStatus === PackageStatus.ACTIVE && (
 												<>
 													<Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}>
-														{property.propertyStatus}
+														{tourPackage.packageStatus}
 													</Button>
 
 													<Menu
@@ -211,11 +211,13 @@ export const PropertyPanelList = (props: PropertyPanelListType) => {
 														TransitionComponent={Fade}
 														sx={{ p: 1 }}
 													>
-														{Object.values(PropertyStatus)
-															.filter((ele) => ele !== property.propertyStatus)
-															.map((status: string) => (
+														{Object.values(PackageStatus)
+															.filter((status) => status !== tourPackage.packageStatus)
+															.map((status: PackageStatus) => (
 																<MenuItem
-																	onClick={() => updatePropertyHandler({ _id: property._id, propertyStatus: status })}
+																	onClick={() =>
+																		updateTourPackageHandler({ _id: tourPackage._id, packageStatus: status })
+																	}
 																	key={status}
 																>
 																	<Typography variant={'subtitle1'} component={'span'}>

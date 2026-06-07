@@ -1,0 +1,16 @@
+export enum PackageType {
+	ADVENTURE = 'ADVENTURE',
+	CULTURAL = 'CULTURAL',
+	RELIGIOUS = 'RELIGIOUS',
+	BUSINESS = 'BUSINESS',
+	FAMILY = 'FAMILY',
+	HONEYMOON = 'HONEYMOON',
+	CRUISE = 'CRUISE',
+	OTHER = 'OTHER',
+}
+
+export enum PackageStatus {
+	ACTIVE = 'ACTIVE',
+	CLOSED = 'CLOSED',
+	DELETE = 'DELETE',
+}

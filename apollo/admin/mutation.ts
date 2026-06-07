@@ -17,7 +17,7 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 			memberImage
 			memberAddress
 			memberDesc
-			memberProperties
+			memberTours
 			memberRank
 			memberArticles
 			memberPoints
@@ -34,61 +34,71 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 `;
 
 /**************************
- *        PROPERTY        *
+ *      TOUR PACKAGE      *
  *************************/
 
-export const UPDATE_PROPERTY_BY_ADMIN = gql`
-	mutation UpdatePropertyByAdmin($input: PropertyUpdate!) {
-		updatePropertyByAdmin(input: $input) {
+export const UPDATE_TOUR_PACKAGE_BY_ADMIN = gql`
+	mutation UpdateTourPackageByAdmin($input: TourPackageUpdate!) {
+		updateTourPackageByAdmin(input: $input) {
 			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
+			packageType
+			packageStatus
+			packageTitle
+			packageCountry
+			packageCity
+			packageAddress
+			packageDesc
+			packagePrice
+			packageCurrency
+			durationDays
+			minPeople
+			maxPeople
+			flightIncluded
+			hotelIncluded
+			guideIncluded
+			packageViews
+			packageLikes
+			packageComments
+			packageRank
+			packageImages
 			memberId
-			soldAt
+			startDate
+			endDate
 			deletedAt
-			constructedAt
 			createdAt
 			updatedAt
 		}
 	}
 `;
 
-export const REMOVE_PROPERTY_BY_ADMIN = gql`
-	mutation RemovePropertyByAdmin($input: String!) {
-		removePropertyByAdmin(propertyId: $input) {
+export const REMOVE_TOUR_PACKAGE_BY_ADMIN = gql`
+	mutation RemoveTourPackageByAdmin($input: String!) {
+		removeTourPackageByAdmin(packageId: $input) {
 			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
+			packageType
+			packageStatus
+			packageTitle
+			packageCountry
+			packageCity
+			packageAddress
+			packageDesc
+			packagePrice
+			packageCurrency
+			durationDays
+			minPeople
+			maxPeople
+			flightIncluded
+			hotelIncluded
+			guideIncluded
+			packageViews
+			packageLikes
+			packageComments
+			packageRank
+			packageImages
 			memberId
-			soldAt
+			startDate
+			endDate
 			deletedAt
-			constructedAt
 			createdAt
 			updatedAt
 		}

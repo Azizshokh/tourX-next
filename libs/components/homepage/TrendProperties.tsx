@@ -5,18 +5,18 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import { Property } from '../../types/property/property';
-import { PropertiesInquiry } from '../../types/property/property.input';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import TrendPropertyCard from './TrendPropertyCard';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 
 interface TrendPropertiesProps {
-	initialInput: PropertiesInquiry;
+	initialInput: TourPackagesInquiry;
 }
 
 const TrendProperties = (props: TrendPropertiesProps) => {
@@ -25,21 +25,21 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	const [trendProperties, setTrendProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
-	const [liketargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [liketargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getTourPackagesLoading,
+		data: getTourPackagesData,
+		error: getTourPackagesError,
+		refetch: getTourPackagesRefetch,
+	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
 			input: initialInput,
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTrendProperties(data?.getProperties?.list);
+			setTrendProperties(data?.getTourPackages?.list);
 		},
 	});
 
@@ -49,10 +49,10 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			// execute likeTargetProperty Mutation
-			await liketargetProperty({ variables: { input: id } });
-			// execute getPropertiesRefetch
-			await getPropertiesRefetch({ input: initialInput });
+			// execute likeTargetTourPackage Mutation
+			await liketargetTourPackage({ variables: { input: id } });
+			// execute getTourPackagesRefetch
+			await getTourPackagesRefetch({ input: initialInput });
 
 			await sweetTopSmallSuccessAlert('succes', 800);
 		} catch (err: any) {
@@ -69,7 +69,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 			<Stack className={'trend-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Trend Properties</span>
+						<span>Trending Packages</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						{trendProperties.length === 0 ? (
@@ -103,7 +103,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Trend Properties</span>
+							<span>Trending Packages</span>
 							<p>Trend is based on likes</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
@@ -153,7 +153,7 @@ TrendProperties.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
-		sort: 'propertyLikes',
+		sort: 'packageLikes',
 		direction: 'DESC',
 		search: {},
 	},

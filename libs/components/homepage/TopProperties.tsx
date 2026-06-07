@@ -6,17 +6,17 @@ import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopPropertyCard from './TopPropertyCard';
-import { PropertiesInquiry } from '../../types/property/property.input';
-import { Property } from '../../types/property/property';
+import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
+import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 
 interface TopPropertiesProps {
-	initialInput: PropertiesInquiry;
+	initialInput: TourPackagesInquiry;
 }
 
 const TopProperties = (props: TopPropertiesProps) => {
@@ -25,21 +25,21 @@ const TopProperties = (props: TopPropertiesProps) => {
 	const [topProperties, setTopProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+		loading: getTourPackagesLoading,
+		data: getTourPackagesData,
+		error: getTourPackagesError,
+		refetch: getTourPackagesRefetch,
+	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
 			input: initialInput,
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTopProperties(data?.getProperties?.list);
+			setTopProperties(data?.getTourPackages?.list);
 		},
 	});
 
@@ -49,10 +49,10 @@ const TopProperties = (props: TopPropertiesProps) => {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			// execute likeTargetProperty Mutation
-			await likeTargetProperty({ variables: { input: id } });
-			// execute getPropertiesRefetch
-			await getPropertiesRefetch({ input: initialInput });
+			// execute likeTargetTourPackage Mutation
+			await likeTargetTourPackage({ variables: { input: id } });
+			// execute getTourPackagesRefetch
+			await getTourPackagesRefetch({ input: initialInput });
 
 			await sweetTopSmallSuccessAlert('succes', 800);
 		} catch (err: any) {
@@ -66,7 +66,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 			<Stack className={'top-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top properties</span>
+						<span>Top packages</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -94,8 +94,8 @@ const TopProperties = (props: TopPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top properties</span>
-							<p>Check out our Top Properties</p>
+							<span>Top packages</span>
+							<p>Check out our top packages</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>
@@ -138,7 +138,7 @@ TopProperties.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
-		sort: 'propertyRank',
+		sort: 'packageRank',
 		direction: 'DESC',
 		search: {},
 	},

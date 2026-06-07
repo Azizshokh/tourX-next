@@ -293,6 +293,8 @@ export const CREATE_COMMENT = gql`
 			commentStatus
 			commentGroup
 			commentContent
+			commentImages
+			commentVideo
 			commentRefId
 			memberId
 			createdAt
@@ -308,6 +310,8 @@ export const UPDATE_COMMENT = gql`
 			commentStatus
 			commentGroup
 			commentContent
+			commentImages
+			commentVideo
 			commentRefId
 			memberId
 			createdAt

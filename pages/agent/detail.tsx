@@ -4,6 +4,12 @@ import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
 import ReviewCard from '../../libs/components/agent/ReviewCard';
+import {
+	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	CommentMediaPicker,
+	uploadCommentImages,
+	useCommentMedia,
+} from '../../libs/components/common/CommentMedia';
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
@@ -34,6 +40,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const commentMedia = useCommentMedia();
 	const [agentId, setAgentId] = useState<string | null>(null);
 	const [agent, setAgent] = useState<Member | null>(null);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(initialInput);
@@ -160,14 +167,25 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		try {
 			if (!user._id) throw new Error(Messages.error2);
 			if (user._id === agentId) throw new Error('Cannot write a review for yourself');
+			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+
+			const commentImages = await uploadCommentImages(commentMedia.images);
+			const commentInput: CommentInput = {
+				...insertCommentData,
+				commentImages,
+				commentVideo: null,
+			};
+
 			await createComment({
 				variables: {
-					input: insertCommentData,
+					input: commentInput,
 				},
 			});
-			setInsertCommentData({ ...insertCommentData, commentContent: '' });
+			setInsertCommentData({ ...insertCommentData, commentContent: '', commentImages: [], commentVideo: null });
+			commentMedia.clearMedia();
 			await getCommentsRefetch({ variables: { input: commentInquiry } });
 		} catch (err: any) {
+			commentMedia.setError(err.message);
 			sweetErrorHandling(err).then();
 		}
 	};
@@ -282,6 +300,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 								}}
 								value={insertCommentData.commentContent}
 							></textarea>
+							<CommentMediaPicker media={commentMedia} />
 							<Box className={'submit-btn'} component={'div'}>
 								<Button
 									className={'submit-review'}

@@ -499,6 +499,8 @@ export const GET_COMMENTS = gql`
 				commentStatus
 				commentGroup
 				commentContent
+				commentImages
+				commentVideo
 				commentRefId
 				memberId
 				createdAt

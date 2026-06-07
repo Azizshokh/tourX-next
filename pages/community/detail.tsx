@@ -24,6 +24,13 @@ import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.
 import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
 import { Messages } from '../../libs/config';
 import { CommentUpdate } from '../../libs/types/comment/comment.update';
+import {
+	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	CommentMediaDisplay,
+	CommentMediaPicker,
+	uploadCommentImages,
+	useCommentMedia,
+} from '../../libs/components/common/CommentMedia';
 
 import {
 	sweetConfirmAlert,
@@ -54,6 +61,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	const [wordsCnt, setWordsCnt] = useState<number>(0);
 	const [updatedCommentWordsCnt, setUpdatedCommentWordsCnt] = useState<number>(0);
 	const user = useReactiveVar(userVar);
+	const commentMedia = useCommentMedia();
 	const [comments, setComments] = useState<Comment[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchFilter, setSearchFilter] = useState<CommentsInquiry>({
@@ -159,11 +167,16 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 
 		try {
 			if (!user?._id) throw new Error(Messages.error2);
+			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+
+			const commentImages = await uploadCommentImages(commentMedia.images);
 
 			const commentInput: CommentInput = {
 				commentGroup: CommentGroup.ARTICLE,
 				commentRefId: articleId,
 				commentContent: comment,
+				commentImages,
+				commentVideo: null,
 			};
 
 			await createComment({
@@ -176,8 +189,10 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 			await boardArticleRefetch({ input: articleId });
 
 			setComment('');
+			commentMedia.clearMedia();
 			await sweetMixinSuccessAlert('Successfully commented');
 		} catch (error: any) {
+			commentMedia.setError(error.message);
 			await sweetMixinErrorAlert(error.message);
 		}
 	};
@@ -401,6 +416,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 											<Typography>{wordsCnt}/100</Typography>
 											<Button onClick={createCommentHandler}>comment</Button>
 										</Stack>
+										<CommentMediaPicker media={commentMedia} />
 									</Stack>
 								</Stack>
 								{total > 0 && (
@@ -518,6 +534,10 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 												</Stack>
 												<Stack className="content">
 													<Typography>{commentData?.commentContent}</Typography>
+													<CommentMediaDisplay
+														images={commentData?.commentImages}
+														video={commentData?.commentVideo}
+													/>
 												</Stack>
 											</Stack>
 										</Stack>

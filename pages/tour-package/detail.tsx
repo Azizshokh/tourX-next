@@ -13,6 +13,12 @@ import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import Review from '../../libs/components/property/Review';
 import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
+import {
+	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	CommentMediaPicker,
+	uploadCommentImages,
+	useCommentMedia,
+} from '../../libs/components/common/CommentMedia';
 import { TourPackage } from '../../libs/types/tour-package/tour-package';
 import { formatterStr } from '../../libs/utils';
 import { REACT_APP_API_URL } from '../../libs/config';
@@ -38,6 +44,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const commentMedia = useCommentMedia();
 	const queryId = router.query.id;
 	const routePackageId = typeof queryId === 'string' ? queryId : null;
 	const isValidPackageId = router.isReady && !!routePackageId && objectIdRegex.test(routePackageId);
@@ -151,10 +158,21 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 		try {
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 			if (!objectIdRegex.test(insertCommentData.commentRefId)) throw new Error('Invalid package id');
-			await createComment({ variables: { input: insertCommentData } });
-			setInsertCommentData({ ...insertCommentData, commentContent: '' });
+			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+
+			const commentImages = await uploadCommentImages(commentMedia.images);
+			const commentInput: CommentInput = {
+				...insertCommentData,
+				commentImages,
+				commentVideo: null,
+			};
+
+			await createComment({ variables: { input: commentInput } });
+			setInsertCommentData({ ...insertCommentData, commentContent: '', commentImages: [], commentVideo: null });
+			commentMedia.clearMedia();
 			await getCommentsRefetch({ input: commentInquiry });
 		} catch (err: any) {
+			commentMedia.setError(err.message);
 			await sweetErrorHandling(err);
 		}
 	};
@@ -330,6 +348,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 									}}
 									value={insertCommentData.commentContent}
 								></textarea>
+								<CommentMediaPicker media={commentMedia} />
 								<Box className={'submit-btn'} component={'div'}>
 									<Button
 										className={'submit-review'}

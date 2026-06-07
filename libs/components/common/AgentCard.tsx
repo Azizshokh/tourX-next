@@ -22,18 +22,17 @@ const AgentCard = (props: AgentCardProps) => {
 	const imagePath: string = agent?.memberImage
 		? `${REACT_APP_API_URL}/${agent?.memberImage}`
 		: '/img/profile/defaultUser.svg';
+	const agentDetailHref = {
+		pathname: '/agent/detail',
+		query: { agentId: agent?._id },
+	};
 
 	if (device === 'mobile') {
 		return <div>AGENT CARD</div>;
 	} else {
 		return (
 			<Stack className="agent-general-card">
-				<Link
-					href={{
-						pathname: '/agent/detail',
-						query: { agentId: agent?._id },
-					}}
-				>
+				<Link href={agentDetailHref}>
 					<Box
 						component={'div'}
 						className={'agent-img'}
@@ -50,12 +49,7 @@ const AgentCard = (props: AgentCardProps) => {
 
 				<Stack className={'agent-desc'}>
 					<Box component={'div'} className={'agent-info'}>
-						<Link
-							href={{
-								pathname: '/agent/detail',
-								query: { agentId: 'id' },
-							}}
-						>
+						<Link href={agentDetailHref}>
 							<strong>{agent?.memberFullName ?? agent?.memberNick}</strong>
 						</Link>
 						<span>Agent</span>

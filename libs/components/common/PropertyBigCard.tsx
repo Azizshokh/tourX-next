@@ -24,15 +24,19 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 	const router = useRouter();
 
 	/** HANDLERS **/
-	const goPropertyDetatilPage = (propertyId: string) => {
-		router.push(`/tour-package/detail?id=${propertyId}`);
+	const goTourPackageDetailPage = (packageId?: string) => {
+		if (!packageId) return;
+		router.push({
+			pathname: '/tour-package/detail',
+			query: { id: packageId },
+		});
 	};
 
 	if (device === 'mobile') {
 		return <div>APARTMEND BIG CARD</div>;
 	} else {
 		return (
-			<Stack className="property-big-card-box" onClick={() => goPropertyDetatilPage(property?._id)}>
+			<Stack className="property-big-card-box" onClick={() => goTourPackageDetailPage(property?._id)}>
 				<Box
 					component={'div'}
 					className={'card-img'}

@@ -26,6 +26,8 @@ import { Direction, Message } from '../../libs/enums/common.enum';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 
+const objectIdRegex = /^[0-9a-fA-F]{24}$/;
+
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
 		...(await serverSideTranslations(locale, ['common'])),
@@ -36,6 +38,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const queryId = router.query.id;
+	const routePackageId = typeof queryId === 'string' ? queryId : null;
+	const isValidPackageId = router.isReady && !!routePackageId && objectIdRegex.test(routePackageId);
 	const [packageId, setPackageId] = useState<string | null>(null);
 	const [tourPackage, setTourPackage] = useState<TourPackage | null>(null);
 	const [slideImage, setSlideImage] = useState<string>('');
@@ -55,9 +60,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const { loading: getTourPackageLoading, refetch: getTourPackageRefetch } = useQuery(GET_TOUR_PACKAGE, {
 		fetchPolicy: 'network-only',
 		variables: {
-			input: packageId,
+			input: routePackageId,
 		},
-		skip: !packageId,
+		skip: !isValidPackageId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			if (data?.getTourPackage) setTourPackage(data?.getTourPackage);
@@ -78,7 +83,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 				},
 			},
 		},
-		skip: !packageId || !tourPackage,
+		skip: !isValidPackageId || !tourPackage,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			if (data?.getTourPackages?.list) setRelatedPackages(data?.getTourPackages?.list);
@@ -88,9 +93,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const { refetch: getCommentsRefetch } = useQuery(GET_COMMENTS, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
-			input: initialComment,
+			input: commentInquiry,
 		},
-		skip: !commentInquiry.search.commentRefId,
+		skip: !isValidPackageId || !objectIdRegex.test(commentInquiry.search.commentRefId ?? ''),
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			if (data?.getComments?.list) setPackageComments(data?.getComments?.list);
@@ -99,28 +104,24 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	});
 
 	useEffect(() => {
-		if (router.query.id) {
-			setPackageId(router.query.id as string);
-			setCommentInquiry({
-				...commentInquiry,
-				search: {
-					commentRefId: router.query.id as string,
-				},
-			});
-			setInsertCommentData({
-				...insertCommentData,
-				commentRefId: router.query.id as string,
-			});
-		}
-	}, [router]);
+		if (!isValidPackageId || !routePackageId) return;
 
-	useEffect(() => {
-		if (commentInquiry.search.commentRefId) getCommentsRefetch({ input: commentInquiry }).then();
-	}, [commentInquiry]);
+		setPackageId(routePackageId);
+		setCommentInquiry({
+			...commentInquiry,
+			search: {
+				commentRefId: routePackageId,
+			},
+		});
+		setInsertCommentData({
+			...insertCommentData,
+			commentRefId: routePackageId,
+		});
+	}, [isValidPackageId, routePackageId]);
 
 	const likePackageHandler = async (user: T, id: string) => {
 		try {
-			if (!id) return;
+			if (!objectIdRegex.test(id)) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
 			await likeTargetTourPackage({ variables: { input: id } });
@@ -149,6 +150,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const createCommentHandler = async () => {
 		try {
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+			if (!objectIdRegex.test(insertCommentData.commentRefId)) throw new Error('Invalid package id');
 			await createComment({ variables: { input: insertCommentData } });
 			setInsertCommentData({ ...insertCommentData, commentContent: '' });
 			await getCommentsRefetch({ input: commentInquiry });

@@ -22,6 +22,8 @@ import { T } from '../../libs/types/common';
 import { GET_MEMBER, GET_TOUR_PACKAGES, GET_COMMENTS } from '../../apollo/user/query';
 import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 
+const objectIdRegex = /^[a-f\d]{24}$/i;
+
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
 		...(await serverSideTranslations(locale, ['common'])),
@@ -114,8 +116,13 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.agentId) setAgentId(router.query.agentId as string);
-	}, [router]);
+		const queryAgentId = router.query.agentId;
+		const nextAgentId = Array.isArray(queryAgentId) ? queryAgentId[0] : queryAgentId;
+
+		if (nextAgentId && objectIdRegex.test(nextAgentId)) {
+			setAgentId(nextAgentId);
+		}
+	}, [router.query.agentId]);
 
 	useEffect(() => {
 		if (searchFilter.search.memberId) {

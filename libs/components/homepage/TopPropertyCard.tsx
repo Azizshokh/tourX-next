@@ -41,9 +41,14 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div>${property?.packagePrice}</div>
+					<div className={'price-badge'}>${property?.packagePrice}</div>
+					<span className={'rating-badge'}>{property?.packageLikes || 0} saved</span>
 				</Box>
 				<Box component={'div'} className={'info'}>
+					<div className={'meta-row'}>
+						<span>{property?.packageCountry || 'Top destination'}</span>
+						<em>{property?.packageType}</em>
+					</div>
 					<strong
 						className={'title'}
 						onClick={() => {
@@ -66,6 +71,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							<img src="/img/icons/expand.svg" alt="" />
 							<span>{property?.durationDays} days</span>
 						</div>
+					</div>
+					<div className={'trust-row'}>
+						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
+						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
+						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
@@ -103,9 +113,14 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div>${property?.packagePrice}</div>
+					<div className={'price-badge'}>${property?.packagePrice}</div>
+					<span className={'rating-badge'}>{property?.packageLikes || 0} saved</span>
 				</Box>
 				<Box component={'div'} className={'info'}>
+					<div className={'meta-row'}>
+						<span>{property?.packageCountry || 'Top destination'}</span>
+						<em>{property?.packageType}</em>
+					</div>
 					<strong
 						className={'title'}
 						onClick={() => {
@@ -128,6 +143,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							<img src="/img/icons/expand.svg" alt="" />
 							<span>{property?.durationDays} days</span>
 						</div>
+					</div>
+					<div className={'trust-row'}>
+						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
+						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
+						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>

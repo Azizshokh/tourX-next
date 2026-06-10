@@ -64,7 +64,35 @@ const withLayoutMain = (Component: any) => {
 						<Stack className={'header-main'}>
 							<FiberContainer />
 							<Stack className={'container'}>
+								<Stack className={'hero-content'}>
+									<span className={'hero-kicker'}>Premium travel marketplace</span>
+									<h1>Discover curated tours for every kind of traveler</h1>
+									<p>
+										Compare trusted agents, handpicked destinations, and package inclusions in one polished travel
+										experience.
+									</p>
+									<div className={'hero-trust-row'}>
+										<span>Verified local agents</span>
+										<span>Instant package discovery</span>
+										<span>Ocean-blue destination guides</span>
+									</div>
+									<div className={'hero-destination-row'}>
+										<strong>Popular now</strong>
+										<span>Jeju escapes</span>
+										<span>Seoul culture</span>
+										<span>Tokyo food tours</span>
+										<span>Bali wellness</span>
+									</div>
+								</Stack>
 								<HeaderFilter />
+								<Stack className={'hero-category-row'}>
+									<span className={'active'}>Adventure</span>
+									<span>Cultural</span>
+									<span>Family</span>
+									<span>Honeymoon</span>
+									<span>Cruise</span>
+									<span>Business</span>
+								</Stack>
 							</Stack>
 						</Stack>
 

@@ -1,8 +1,18 @@
 yarn run v1.22.22
 $ next dev
+ ⚠ Port 3000 is in use, trying 3001 instead.
   ▲ Next.js 14.2.0
-  - Local:        http://localhost:3000
+  - Local:        http://localhost:3001
   - Environments: .env.local, .env.development
 
  ✓ Starting...
- ✓ Ready in 5.2s
+ ✓ Ready in 3.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.7s (3288 modules)
+trendProperties:  []
+ GET / 200 in 11903ms
+ ✓ Compiled in 599ms (897 modules)
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ✓ Compiled in 15.2s (897 modules)

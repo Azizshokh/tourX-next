@@ -66,19 +66,28 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 			<Stack className={'search-box'}>
 				<Stack className={'select-box'}>
 					<div className={`box ${openCountry ? 'on' : ''}`} onClick={() => setOpenCountry((prev) => !prev)}>
-						<span>{searchFilter?.search?.countryList?.[0] ?? t('Location')}</span>
+						<div className={'field-copy'}>
+							<small>Destination</small>
+							<span>{searchFilter?.search?.countryList?.[0] ?? t('Location')}</span>
+						</div>
 						<ExpandMoreIcon />
 					</div>
 					<div className={`box ${openType ? 'on' : ''}`} onClick={() => setOpenType((prev) => !prev)}>
-						<span>{searchFilter?.search?.typeList?.[0] ?? 'Package type'}</span>
+						<div className={'field-copy'}>
+							<small>Experience</small>
+							<span>{searchFilter?.search?.typeList?.[0] ?? 'Package type'}</span>
+						</div>
 						<ExpandMoreIcon />
 					</div>
 					<div className={`box ${openDuration ? 'on' : ''}`} onClick={() => setOpenDuration((prev) => !prev)}>
-						<span>
-							{searchFilter?.search?.durationRange
-								? `${searchFilter.search.durationRange.start}-${searchFilter.search.durationRange.end} days`
-								: 'Duration'}
-						</span>
+						<div className={'field-copy'}>
+							<small>Trip length</small>
+							<span>
+								{searchFilter?.search?.durationRange
+									? `${searchFilter.search.durationRange.start}-${searchFilter.search.durationRange.end} days`
+									: 'Duration'}
+							</span>
+						</div>
 						<ExpandMoreIcon />
 					</div>
 				</Stack>
@@ -89,6 +98,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</div>
 					<div className={'search-btn'} onClick={pushSearchHandler}>
 						<img src="/img/icons/search_white.svg" alt="" />
+						<span>Search</span>
 					</div>
 				</Stack>
 

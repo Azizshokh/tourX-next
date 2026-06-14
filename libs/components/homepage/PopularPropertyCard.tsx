@@ -98,72 +98,51 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 			</Stack>
 		);
 	} else {
-		return (
-			<Stack className="popular-card-box">
-				<Box
-					component={'div'}
-					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
-					onClick={() => {
-						pushDetailHandler(property._id);
-					}}
-				>
-					{property && property?.packageRank >= topPackageRank ? (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					) : (
-						''
-					)}
+		const destinationName = property?.packageCountry || property?.packageTitle || 'Destination';
+		const toursCount = Math.max(20, Math.round((property?.packageViews || 100) / 10) * 10);
 
-					<div className={'price'}>${property.packagePrice}</div>
-					<span className={'rating-badge'}>{property.packageViews || 0} views</span>
-				</Box>
-				<Box component={'div'} className={'info'}>
-					<div className={'meta-row'}>
-						<span>{property.packageCountry || 'Popular destination'}</span>
-						<em>{property.packageType}</em>
+		return (
+			<Stack
+				className="popular-card-box"
+				onClick={() => {
+					pushDetailHandler(property._id);
+				}}
+			>
+				<span
+					className={'card-media'}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
+				/>
+				<span className={'card-shade'} />
+
+				{property && property?.packageRank >= topPackageRank && (
+					<div className={'card-top-badge'}>
+						<img src="/img/icons/electricity.svg" alt="" />
+						<span>Top</span>
 					</div>
-					<strong
-						className={'title'}
-						onClick={() => {
-							pushDetailHandler(property._id);
-						}}
-					>
-						{property.packageTitle}
-					</strong>
-					<p className={'desc'}>{property.packageAddress}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.minPeople} min</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.maxPeople} max</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.durationDays} days</span>
-						</div>
+				)}
+
+				<div className={'card-base'}>
+					<strong className={'city'}>{destinationName}</strong>
+					<span className={'tours'}>{toursCount}+ Tours</span>
+				</div>
+
+				<div className={'card-hover'}>
+					<div className={'hover-meta'}>
+						<span className={'price'}>From ${property?.packagePrice}</span>
+						<span className={'dot'}>•</span>
+						<span className={'duration'}>{property?.durationDays} days</span>
 					</div>
-					<div className={'trust-row'}>
-						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
-					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<p>{property?.hotelIncluded ? 'Hotel' : 'package'}</p>
-						<div className="view-like-box">
+					<p className={'hover-title'}>{property?.packageTitle}</p>
+					<div className={'hover-cta'}>
+						<span>Explore Tours</span>
+						<div className={'view-like-box'}>
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.packageViews}</Typography>
 						</div>
 					</div>
-				</Box>
+				</div>
 			</Stack>
 		);
 	}

@@ -5,6 +5,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -340,54 +343,46 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 									<Typography className={'title'}>Experience Storyline</Typography>
 									<Typography className={'desc'}>{tourPackage?.packageDesc ?? 'No Description!'}</Typography>
 								</Stack>
-								<Stack className={'bottom'}>
-									<Typography className={'title'}>What is included</Typography>
-									<Stack className={'info-box'}>
-										<Stack className={'left'}>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>Price</Typography>
-												<Typography className={'data'}>
-													{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
-												</Typography>
-											</Box>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>Duration</Typography>
-												<Typography className={'data'}>{tourPackage?.durationDays} days</Typography>
-											</Box>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>People</Typography>
-												<Typography className={'data'}>
-													{tourPackage?.minPeople}-{tourPackage?.maxPeople}
-												</Typography>
-											</Box>
-										</Stack>
-										<Stack className={'right'}>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>Travel Dates</Typography>
-												<Typography className={'data'}>
-													{moment(tourPackage?.startDate).format('DD MMM YYYY')} -{' '}
-													{moment(tourPackage?.endDate).format('DD MMM YYYY')}
-												</Typography>
-											</Box>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>Type</Typography>
-												<Typography className={'data'}>{tourPackage?.packageType}</Typography>
-											</Box>
-											<Box component={'div'} className={'info'}>
-												<Typography className={'title'}>Inclusions</Typography>
-												<Typography className={'data'}>
-													{[
-														tourPackage?.flightIncluded && 'Flight',
-														tourPackage?.hotelIncluded && 'Hotel',
-														tourPackage?.guideIncluded && 'Guide',
-													]
-														.filter(Boolean)
-														.join(', ') || 'None'}
-												</Typography>
-											</Box>
+								{(tourPackage?.flightIncluded || tourPackage?.hotelIncluded || tourPackage?.guideIncluded) && (
+									<Stack className={'bottom'}>
+										<Typography className={'title'}>Services Included</Typography>
+										<Stack className={'info-box'}>
+											{tourPackage?.flightIncluded && (
+												<Stack className={'service-card'}>
+													<Stack className={'service-icon-wrap'}>
+														<FlightTakeoffIcon className={'service-icon'} />
+													</Stack>
+													<Stack className={'service-text'}>
+														<Typography className={'service-name'}>Flights</Typography>
+														<Typography className={'service-desc'}>Round Trip Included</Typography>
+													</Stack>
+												</Stack>
+											)}
+											{tourPackage?.hotelIncluded && (
+												<Stack className={'service-card'}>
+													<Stack className={'service-icon-wrap'}>
+														<ApartmentIcon className={'service-icon'} />
+													</Stack>
+													<Stack className={'service-text'}>
+														<Typography className={'service-name'}>Hotel</Typography>
+														<Typography className={'service-desc'}>5-Star Accommodation</Typography>
+													</Stack>
+												</Stack>
+											)}
+											{tourPackage?.guideIncluded && (
+												<Stack className={'service-card'}>
+													<Stack className={'service-icon-wrap'}>
+														<SupportAgentIcon className={'service-icon'} />
+													</Stack>
+													<Stack className={'service-text'}>
+														<Typography className={'service-name'}>Guide</Typography>
+														<Typography className={'service-desc'}>Local Expert Guide</Typography>
+													</Stack>
+												</Stack>
+											)}
 										</Stack>
 									</Stack>
-								</Stack>
+								)}
 							</Stack>
 							<Stack className={'address-config'}>
 								<Typography className={'title'}>Address</Typography>

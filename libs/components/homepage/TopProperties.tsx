@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, IconButton, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import StarIcon from '@mui/icons-material/Star';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 import TopPropertyCard from './TopPropertyCard';
 import { REACT_APP_API_URL } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import { userVar } from '../../../apollo/store';
 
 interface TopPropertiesProps {
 	initialInput: TourPackagesInquiry;
@@ -24,6 +34,7 @@ interface TopPropertiesProps {
 const TopProperties = (props: TopPropertiesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const user = useReactiveVar(userVar);
 	const [topProperties, setTopProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -46,14 +57,12 @@ const TopProperties = (props: TopPropertiesProps) => {
 	});
 
 	/** HANDLERS **/
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likePropertyHandler = async (currentUser: T, id: string) => {
 		try {
 			if (!id) return;
-			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+			if (!currentUser._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			// execute likeTargetTourPackage Mutation
 			await likeTargetTourPackage({ variables: { input: id } });
-			// execute getTourPackagesRefetch
 			await getTourPackagesRefetch({ input: initialInput });
 
 			await sweetTopSmallSuccessAlert('succes', 800);
@@ -90,69 +99,109 @@ const TopProperties = (props: TopPropertiesProps) => {
 				</Stack>
 			</Stack>
 		);
-	} else {
-		const rankedPackages = (topProperties || []).slice(0, 3);
-		const featured = rankedPackages[0];
-		const sidePackages = rankedPackages.slice(1, 3);
-		const imageOf = (p?: Property) =>
-			p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
-		const ratingOf = (p?: Property) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
+	}
 
-		return (
-			<Stack className={'top-properties'}>
-				<Stack className={'container'}>
-					<Stack className={'info-box'}>
-						<Box component={'div'} className={'left'}>
-							<span>Top Ranked Packages</span>
-							<p>Exceptional ratings and verified satisfaction from our community.</p>
+	const imageOf = (p?: Property) =>
+		p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
+	const ratingOf = (p?: Property) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
+	const formatCount = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`);
+	const inclusionLabel = (p: Property) =>
+		p.flightIncluded ? 'Flight Inc.' : p.hotelIncluded ? 'Hotel Inc.' : 'Guide Inc.';
+	const styleLabel = (p: Property) => (p.guideIncluded ? '5-Star' : 'Boutique');
+
+	return (
+		<Stack className={'top-properties'}>
+			<Stack className={'container'}>
+				<Stack className={'info-box'}>
+					<Box component={'div'} className={'left'}>
+						<span>Top Ranked Packages</span>
+						<p>Exceptional ratings and verified satisfaction from our community.</p>
+					</Box>
+					<Box component={'div'} className={'right'}>
+						<button type={'button'} className={'nav-arrow top-prev'} aria-label={'Previous'}>
+							<ArrowBackIcon />
+						</button>
+						<button type={'button'} className={'nav-arrow top-next'} aria-label={'Next'}>
+							<ArrowForwardIcon />
+						</button>
+					</Box>
+				</Stack>
+				<Stack className={'card-box'}>
+					{(topProperties || []).length === 0 ? (
+						<Box component={'div'} className={'empty-list'}>
+							Top Empty
 						</Box>
-					</Stack>
-					<Stack className={'card-box'}>
-						{rankedPackages.length === 0 ? (
-							<Box component={'div'} className={'empty-list'}>
-								Top Empty
-							</Box>
-						) : (
-							<div className={'topbento-grid'}>
-								{featured && (
-									<Link href={`/tour-package/detail?id=${featured._id}`} className={'topbento-card featured'}>
-										<span className={'topbento-media'} style={{ backgroundImage: `url(${imageOf(featured)})` }} />
-										<span className={'topbento-overlay'} />
-										<div className={'topbento-content'}>
-											<div className={'verified'}>
-												<VerifiedUserIcon /> Verified Excellence
+					) : (
+						<Swiper
+							className={'top-row-swiper'}
+							slidesPerView={3}
+							spaceBetween={24}
+							modules={[Navigation]}
+							navigation={{ prevEl: '.top-prev', nextEl: '.top-next' }}
+						>
+							{topProperties.map((p: Property) => {
+								const liked = Boolean(p?.meLiked && p.meLiked[0]?.myFavorite);
+								return (
+									<SwiperSlide key={p._id} className={'top-row-slide'}>
+										<Box component={'div'} className={'top-row-card'}>
+											<div className={'card-media'} style={{ backgroundImage: `url(${imageOf(p)})` }}>
+												<IconButton
+													className={`fav-btn ${liked ? 'on' : ''}`}
+													onClick={(e) => {
+														e.stopPropagation();
+														likePropertyHandler(user, p._id);
+													}}
+													aria-label={'favorite'}
+												>
+													{liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+												</IconButton>
+												<span className={'price-pill'}>${p.packagePrice?.toLocaleString()}</span>
 											</div>
-											<h3>{featured.packageTitle}</h3>
-											<p>
-												{featured.packageDesc ||
-													featured.packageAddress ||
-													'Exceptional rated experience curated by trusted TourX agents.'}
-											</p>
-											<span className={'book-btn'}>Book Exclusive</span>
-										</div>
-									</Link>
-								)}
-								<div className={'topbento-side'}>
-									{sidePackages.map((p: Property) => (
-										<Link key={p._id} href={`/tour-package/detail?id=${p._id}`} className={'topbento-card small'}>
-											<span className={'topbento-media'} style={{ backgroundImage: `url(${imageOf(p)})` }} />
-											<span className={'topbento-overlay'} />
-											<div className={'topbento-content'}>
-												<h4>{p.packageTitle}</h4>
-												<span className={'rank'}>
-													<StarIcon /> {ratingOf(p)} Ranked
-												</span>
+											<div className={'card-body'}>
+												<Link href={`/tour-package/detail?id=${p._id}`} className={'card-link'}>
+													<div className={'top-line'}>
+														<span className={'place'}>
+															{(p.packageAddress || p.packageCountry || 'Featured destination').toUpperCase()}
+														</span>
+														<span className={'rating'}>
+															<StarIcon /> {ratingOf(p)}
+														</span>
+													</div>
+													<h4 className={'title'}>{p.packageTitle}</h4>
+												</Link>
+												<div className={'chip-row'}>
+													<span>
+														<VerifiedOutlinedIcon /> {inclusionLabel(p)}
+													</span>
+													<span>
+														<GradeOutlinedIcon /> {styleLabel(p)}
+													</span>
+													<span>
+														<AccessTimeIcon /> {p.durationDays || 7} Days
+													</span>
+												</div>
+												<div className={'foot-row'}>
+													<span className={'foot-stat'}>
+														<ThumbUpAltOutlinedIcon /> {formatCount(p.packageLikes || 0)}
+													</span>
+													<span className={'foot-stat'}>
+														<RemoveRedEyeOutlinedIcon /> {formatCount(p.packageViews || 0)}
+													</span>
+													<span className={'foot-stat travellers'}>
+														<PeopleAltOutlinedIcon /> {p.maxPeople || 2} Travelers
+													</span>
+												</div>
 											</div>
-										</Link>
-									))}
-								</div>
-							</div>
-						)}
-					</Stack>
+										</Box>
+									</SwiperSlide>
+								);
+							})}
+						</Swiper>
+					)}
 				</Stack>
 			</Stack>
-		);
-	}
+		</Stack>
+	);
 };
 
 TopProperties.defaultProps = {

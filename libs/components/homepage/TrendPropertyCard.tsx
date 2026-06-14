@@ -44,10 +44,10 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 			<span className={'trend-card-media'} style={{ backgroundImage: `url(${imageUrl})` }} />
 			<span className={'trend-card-overlay'} />
 			<span className={'trend-card-chip'}>{property.packageTitle || 'Signature Escape'}</span>
-			{!isFeatured && <span className={'trend-card-price compact'}>{priceLabel}</span>}
 			<Box component={'div'} className={'trend-card-content'}>
 				<div className={'trend-card-topline'}>
 					<span>{property.packageType}</span>
+					{!isFeatured && <strong>{priceLabel}</strong>}
 				</div>
 				<h3>{property.packageTitle}</h3>
 				<div className={'trend-card-meta'}>
@@ -65,7 +65,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							<span>
 								<StarIcon /> {ratingLabel}
 							</span>
-							<span>{toursLabel}</span>
+							<span>• {toursLabel}</span>
 						</>
 					)}
 				</div>

@@ -837,126 +837,186 @@
 
   #footer {
     position: relative;
-    padding: 60px 0px 18px 0px;
+    padding: 40px 0 24px;
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: row;
-    background: #181a20;
+    background: #fdeee4;
+    color: #0d1c32;
 
     .footer-container {
-      padding: 0 10px;
+      padding: 0 18px;
       margin: 0 auto;
-      width: 1300px;
+      width: 100%;
       height: auto;
+      display: flex;
+      flex-direction: column;
 
-      .main {
+      .footer-top {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
 
-        .left {
-          height: 360px;
+        .expert {
           display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 6px;
 
-          .footer-box {
-            display: flex;
-            flex-direction: column;
+          span {
+            color: #0d1c32;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 14px;
+            font-weight: 700;
+          }
 
-            .logo {
-              width: 128px;
-              height: 52px;
-              cursor: pointer;
-            }
-
-            span {
-              color: #bebdbd;
-              font-family: $font;
-              font-size: 14px;
-              font-style: normal;
-              font-weight: 400;
-              text-transform: capitalize;
-            }
-
-            p {
-              color: #fff;
-              font-family: $font;
-              font-size: 15px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: normal;
-              text-transform: capitalize;
-            }
-
-            .media-box {
-              margin-top: 12px;
-              color: #929495;
-
-              svg {
-                font-size: 32px;
-                margin-right: 22px;
-                cursor: pointer;
-              }
-            }
+          .phone {
+            color: #ec662a;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 14px;
+            font-weight: 800;
+            text-decoration: none;
           }
         }
 
-        .right {
+        .follow {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          gap: 12px;
 
-          .bottom {
-            margin-top: 60px;
+          span {
+            color: #0d1c32;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 14px;
+            font-weight: 700;
+          }
+
+          .socials {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            color: #0d1c32;
 
-            div {
-              display: flex;
-              flex-direction: column;
-
-              strong {
-                margin-bottom: 3px;
-                color: #fff;
-                font-family: $font;
-                font-size: 15px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                text-transform: capitalize;
-              }
-
-              span {
-                margin-top: 25px;
-                color: #bebdbd;
-                font-family: $font;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                cursor: pointer;
-              }
+            svg {
+              width: 18px;
+              height: 18px;
             }
           }
         }
       }
 
-      .second {
-        margin-top: 60px;
-        height: 45px;
-        border-top: 1px solid #212329;
+      .footer-divider {
+        margin: 18px 0 22px;
+        height: 1px;
+        background: rgba(13, 28, 50, 0.12);
+      }
+
+      .footer-cols {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
+        flex-direction: column;
+        gap: 26px;
+
+        .col {
+          display: flex;
+          flex-direction: column;
+
+          h4 {
+            margin: 0 0 12px;
+            color: #0d1c32;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 22px;
+          }
+
+          p {
+            margin: 0 0 8px;
+            color: #0d1c32;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 20px;
+          }
+
+          .mail {
+            color: #0d1c32;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+          }
+
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            li a {
+              color: #0d1c32;
+              font-family: 'Plus Jakarta Sans', $font;
+              font-size: 13px;
+              font-weight: 700;
+              text-decoration: none;
+            }
+          }
+
+          &.newsletter {
+            .subscribe {
+              margin-top: 4px;
+              display: flex;
+              align-items: center;
+              padding: 4px 6px 4px 14px;
+              border-radius: 12px;
+              background: #ffffff;
+              border: 1px solid rgba(13, 28, 50, 0.1);
+
+              input {
+                flex: 1;
+                min-width: 0;
+                border: none;
+                outline: none;
+                background: transparent;
+                color: #0d1c32;
+                font-family: 'Plus Jakarta Sans', $font;
+                font-size: 13px;
+              }
+
+              button {
+                padding: 8px 12px;
+                border: none;
+                background: transparent;
+                color: #0d1c32;
+                font-family: 'Plus Jakarta Sans', $font;
+                font-size: 13px;
+                font-weight: 800;
+              }
+            }
+
+            .apps-title {
+              margin: 18px 0 10px;
+            }
+          }
+        }
+      }
+
+      .footer-bottom {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(13, 28, 50, 0.12);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
 
         span {
-          color: #bebdbd;
-          font-family: $font;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
+          color: rgba(13, 28, 50, 0.7);
+          font-family: 'Plus Jakarta Sans', $font;
+          font-size: 12px;
+          font-weight: 600;
         }
       }
     }
@@ -1182,15 +1242,6 @@
         font-family: 'Plus Jakarta Sans', $font;
         font-size: 12px;
         font-weight: 900;
-      }
-
-      .trend-card-price.compact {
-        top: 16px;
-        right: 16px;
-        bottom: auto;
-        padding: 7px 12px;
-        border-radius: 999px;
-        font-size: 11px;
       }
     }
 

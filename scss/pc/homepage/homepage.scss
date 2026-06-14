@@ -1849,16 +1849,6 @@
 					}
 				}
 
-				.trend-card-price.compact {
-					top: 16px;
-					right: 16px;
-					bottom: auto;
-					padding: 7px 13px;
-					border-radius: 999px;
-					font-size: 12px;
-					box-shadow: 0 12px 24px rgba(255, 138, 0, 0.28);
-				}
-
 				.trend-card-actions {
 					margin-top: 6px;
 
@@ -2113,6 +2103,26 @@
 					}
 				}
 			}
+
+			.discussions-empty {
+				margin-top: 28px;
+				padding: 48px;
+				border-radius: 16px;
+				border: 1px dashed #c9dcec;
+				background: #ffffff;
+				text-align: center;
+				color: #64748b;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 15px;
+				font-weight: 600;
+			}
+
+			.discussions-showcase,
+			.discussion-feature,
+			.discussions-list,
+			.discussion-row {
+				display: none;
+			}
 		}
 
 		.top-agents {
@@ -2277,6 +2287,20 @@
 			}
 
 			.top-properties {
+				.topbento-grid {
+					display: flex;
+					flex-direction: column;
+					height: auto;
+				}
+
+				.topbento-card,
+				.topbento-card.featured,
+				.topbento-card.small {
+					height: 320px;
+				}
+			}
+
+			.trend-properties {
 				.topbento-grid {
 					display: flex;
 					flex-direction: column;

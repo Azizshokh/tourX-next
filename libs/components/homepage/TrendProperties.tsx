@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Stack, Box } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
@@ -10,6 +13,7 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import { REACT_APP_API_URL } from '../../config';
 
 interface TrendPropertiesProps {
 	initialInput: TourPackagesInquiry;
@@ -92,6 +96,12 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 			</Stack>
 		);
 	} else {
+		const featured = featuredPackages[0];
+		const sidePackages = featuredPackages.slice(1, 3);
+		const imageOf = (p?: Property) =>
+			p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
+		const ratingOf = (p?: Property) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
+
 		return (
 			<Stack className={'trend-properties'}>
 				<Stack className={'container'}>
@@ -102,21 +112,45 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
-						{trendProperties.length === 0 ? (
+						{featuredPackages.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
 								Trends Empty
 							</Box>
 						) : (
-							<Stack className={'trend-feature-grid'}>
-								{featuredPackages.map((property: Property, index: number) => (
-									<TrendPropertyCard
-										key={property._id}
-										property={property}
-										likePropertyHandler={likePropertyHandler}
-										variant={index === 0 ? 'featured' : 'compact'}
-									/>
-								))}
-							</Stack>
+							<div className={'topbento-grid'}>
+								{featured && (
+									<Link href={`/tour-package/detail?id=${featured._id}`} className={'topbento-card featured'}>
+										<span className={'topbento-media'} style={{ backgroundImage: `url(${imageOf(featured)})` }} />
+										<span className={'topbento-overlay'} />
+										<div className={'topbento-content'}>
+											<div className={'verified'}>
+												<LocalFireDepartmentIcon /> {featured.packageType || 'Trending Now'}
+											</div>
+											<h3>{featured.packageTitle}</h3>
+											<p>
+												{featured.packageDesc ||
+													featured.packageAddress ||
+													'Hand-picked travel experience loved by the TourX community.'}
+											</p>
+											<span className={'book-btn'}>Explore Now</span>
+										</div>
+									</Link>
+								)}
+								<div className={'topbento-side'}>
+									{sidePackages.map((p: Property) => (
+										<Link key={p._id} href={`/tour-package/detail?id=${p._id}`} className={'topbento-card small'}>
+											<span className={'topbento-media'} style={{ backgroundImage: `url(${imageOf(p)})` }} />
+											<span className={'topbento-overlay'} />
+											<div className={'topbento-content'}>
+												<h4>{p.packageTitle}</h4>
+												<span className={'rank'}>
+													<StarIcon /> {ratingOf(p)} Rating
+												</span>
+											</div>
+										</Link>
+									))}
+								</div>
+							</div>
 						)}
 					</Stack>
 				</Stack>

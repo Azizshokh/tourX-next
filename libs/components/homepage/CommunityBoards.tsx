@@ -69,11 +69,16 @@ const CommunityBoards = () => {
 							Join the Conversation
 						</Link>
 					</Stack>
-					<div className={'discussions-grid'}>
-						{discussionArticles.map((article, index) => {
-							return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
-						})}
-					</div>
+
+					{discussionArticles.length === 0 ? (
+						<div className={'discussions-empty'}>No discussions yet. Be the first to start one!</div>
+					) : (
+						<div className={'discussions-grid'}>
+							{discussionArticles.map((article, index) => (
+								<CommunityCard variant={'card'} article={article} index={index} key={article?._id} />
+							))}
+						</div>
+					)}
 				</Stack>
 			</Stack>
 		);

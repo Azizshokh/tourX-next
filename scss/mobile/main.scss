@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+
     span {
       color: #181a20;
       font-family: $font;
@@ -23,6 +24,7 @@
       line-height: 150%;
       letter-spacing: -0.646px;
       text-transform: capitalize;
+
       &.white {
         color: #ffffff;
       }
@@ -36,14 +38,17 @@
     height: auto;
     display: flex;
     flex-direction: row;
+
     .container {
       width: 100%;
       flex-direction: column;
+
       .card-box {
         position: relative;
         margin-top: 25px;
         display: flex;
         flex-direction: row;
+
         .empty-list {
           width: 100%;
           height: 280px;
@@ -51,21 +56,25 @@
           justify-content: center;
           align-items: center;
         }
+
         .trend-property-swiper {
           width: 100%;
           height: 400px;
           display: flex;
           flex-direction: row;
+
           .trend-property-slide {
             width: 98%;
             height: auto;
             display: flex;
+
             .trend-card-box {
               position: relative;
               width: 100%;
               height: 375px;
               display: flex;
               flex-direction: column;
+
               .card-img {
                 position: relative;
                 width: 100%;
@@ -73,6 +82,7 @@
                 background-size: cover;
                 border-radius: 12px 12px 0px 0px;
                 cursor: pointer;
+
                 div {
                   position: absolute;
                   padding: 8px 12px;
@@ -88,6 +98,7 @@
                   line-height: normal;
                 }
               }
+
               .info {
                 padding: 20px 22px 17px;
                 display: flex;
@@ -98,6 +109,7 @@
                 border-top: none;
                 background: #fff;
                 box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
                 .title {
                   overflow: hidden;
                   color: #181a20;
@@ -111,6 +123,7 @@
                   text-transform: capitalize;
                   cursor: pointer;
                 }
+
                 .desc {
                   margin-top: 5px;
                   overflow: hidden;
@@ -123,19 +136,23 @@
                   text-overflow: ellipsis;
                   white-space: nowrap;
                 }
+
                 .options {
                   margin-top: 15px;
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
+
                   div {
                     display: flex;
                     flex-direction: row;
+
                     img {
                       margin-right: 5px;
                       width: 17px;
                       height: 17px;
                     }
+
                     span {
                       color: #181a20;
                       font-family: $font;
@@ -146,11 +163,13 @@
                     }
                   }
                 }
+
                 .bott {
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
                   align-items: center;
+
                   p {
                     color: #181a20;
                     font-family: $font;
@@ -160,17 +179,20 @@
                     line-height: normal;
                     text-transform: capitalize;
                   }
+
                   button {
                     margin-left: 7px;
                     width: 16px;
                     height: 16px;
                     box-sizing: border-box;
                   }
+
                   .view-like-box {
                     display: flex;
                     flex-direction: row;
                     gap: 7px;
                     align-items: center;
+
                     .view-cnt {
                       color: #717171;
                       font-family: $font;
@@ -186,12 +208,14 @@
             }
           }
         }
+
         .trend-card-box {
           position: relative;
           width: 300px;
           height: 375px;
           display: flex;
           flex-direction: column;
+
           .card-img {
             position: relative;
             width: 100%;
@@ -199,6 +223,7 @@
             background-size: cover;
             border-radius: 12px 12px 0px 0px;
             cursor: pointer;
+
             div {
               position: absolute;
               padding: 8px 12px;
@@ -214,6 +239,7 @@
               line-height: normal;
             }
           }
+
           .info {
             padding: 20px 22px 17px;
             display: flex;
@@ -224,6 +250,7 @@
             border-top: none;
             background: #fff;
             box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
             .title {
               overflow: hidden;
               color: #181a20;
@@ -237,6 +264,7 @@
               text-transform: capitalize;
               cursor: pointer;
             }
+
             .desc {
               margin-top: 5px;
               overflow: hidden;
@@ -249,19 +277,23 @@
               text-overflow: ellipsis;
               white-space: nowrap;
             }
+
             .options {
               margin-top: 15px;
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+
               div {
                 display: flex;
                 flex-direction: row;
+
                 img {
                   margin-right: 5px;
                   width: 17px;
                   height: 17px;
                 }
+
                 span {
                   color: #181a20;
                   font-family: $font;
@@ -272,11 +304,13 @@
                 }
               }
             }
+
             .bott {
               display: flex;
               flex-direction: row;
               justify-content: space-between;
               align-items: center;
+
               p {
                 color: #181a20;
                 font-family: $font;
@@ -286,17 +320,20 @@
                 line-height: normal;
                 text-transform: capitalize;
               }
+
               button {
                 margin-left: 7px;
                 width: 16px;
                 height: 16px;
                 box-sizing: border-box;
               }
+
               .view-like-box {
                 display: flex;
                 flex-direction: row;
                 gap: 7px;
                 align-items: center;
+
                 .view-cnt {
                   color: #717171;
                   font-family: $font;
@@ -321,10 +358,12 @@
     display: flex;
     flex-direction: row;
     background: #f6f6f6;
+
     .container {
       width: 100%;
       flex-direction: column;
       align-items: center;
+
       .card-box {
         margin-top: 25px;
         width: 100%;
@@ -332,23 +371,27 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
         .popular-property-swiper {
           width: 100%;
           height: 390px;
           display: flex;
           flex-direction: row;
+
           .popular-property-slide {
             width: 98%;
             height: auto;
             display: flex;
           }
         }
+
         .popular-card-box {
           position: relative;
           width: 100%;
           height: 425px;
           display: flex;
           flex-direction: column;
+
           .card-img {
             position: relative;
             width: 100%;
@@ -356,6 +399,7 @@
             background-size: cover;
             border-radius: 12px 12px 0px 0px;
             cursor: pointer;
+
             div.status {
               position: absolute;
               padding: 6px 34px;
@@ -365,10 +409,12 @@
               align-items: center;
               border-radius: 6px;
               background: #eb6753;
+
               img {
                 width: 14px;
                 height: 14px;
               }
+
               span {
                 margin-left: 5px;
                 color: #fff;
@@ -380,6 +426,7 @@
                 text-transform: uppercase;
               }
             }
+
             div.price {
               position: absolute;
               padding: 8px 12px;
@@ -395,6 +442,7 @@
               line-height: normal;
             }
           }
+
           .info {
             padding: 20px 22px 17px;
             display: flex;
@@ -405,6 +453,7 @@
             border-top: none;
             background: #fff;
             box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
             .title {
               overflow: hidden;
               color: #181a20;
@@ -418,6 +467,7 @@
               text-transform: capitalize;
               cursor: pointer;
             }
+
             .desc {
               margin-top: 5px;
               overflow: hidden;
@@ -430,19 +480,23 @@
               text-overflow: ellipsis;
               white-space: nowrap;
             }
+
             .options {
               margin-top: 15px;
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+
               div {
                 display: flex;
                 flex-direction: row;
+
                 img {
                   margin-right: 5px;
                   width: 17px;
                   height: 17px;
                 }
+
                 span {
                   color: #181a20;
                   font-family: $font;
@@ -453,11 +507,13 @@
                 }
               }
             }
+
             .bott {
               display: flex;
               flex-direction: row;
               justify-content: space-between;
               align-items: center;
+
               p {
                 color: #181a20;
                 font-family: $font;
@@ -467,17 +523,20 @@
                 line-height: normal;
                 text-transform: capitalize;
               }
+
               button {
                 margin-left: 7px;
                 width: 16px;
                 height: 16px;
                 box-sizing: border-box;
               }
+
               .view-like-box {
                 display: flex;
                 flex-direction: row;
                 gap: 7px;
                 align-items: center;
+
                 .view-cnt {
                   color: #717171;
                   font-family: $font;
@@ -492,18 +551,22 @@
           }
         }
       }
+
       .pagination-box {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
         .swiper-pagination-bullet.swiper-pagination-bullet-active {
           background: #000000;
         }
+
         .swiper-popular-next {
           margin-left: 20px;
           cursor: pointer;
         }
+
         .swiper-popular-prev {
           margin-right: 20px;
           cursor: pointer;
@@ -527,30 +590,36 @@
     height: auto;
     display: flex;
     flex-direction: row;
+
     .container {
       width: 100%;
       display: flex;
       flex-direction: column;
+
       .card-box {
         position: relative;
         margin-top: 25px;
         display: flex;
         flex-direction: row;
+
         .top-property-swiper {
           width: 100%;
           height: 400px;
           display: flex;
           flex-direction: row;
+
           .top-property-slide {
             width: 98%;
             height: auto;
             display: flex;
+
             .top-card-box {
               position: relative;
               width: 100%;
               height: 375px;
               display: flex;
               flex-direction: column;
+
               .card-img {
                 position: relative;
                 width: 100%;
@@ -558,6 +627,7 @@
                 background-size: cover;
                 border-radius: 12px 12px 0px 0px;
                 cursor: pointer;
+
                 div {
                   position: absolute;
                   padding: 8px 12px;
@@ -573,6 +643,7 @@
                   line-height: normal;
                 }
               }
+
               .info {
                 padding: 20px 22px 17px;
                 display: flex;
@@ -583,6 +654,7 @@
                 border-top: none;
                 background: #fff;
                 box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
                 .title {
                   overflow: hidden;
                   color: #181a20;
@@ -596,6 +668,7 @@
                   text-transform: capitalize;
                   cursor: pointer;
                 }
+
                 .desc {
                   margin-top: 5px;
                   overflow: hidden;
@@ -608,19 +681,23 @@
                   text-overflow: ellipsis;
                   white-space: nowrap;
                 }
+
                 .options {
                   margin-top: 15px;
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
+
                   div {
                     display: flex;
                     flex-direction: row;
+
                     img {
                       margin-right: 5px;
                       width: 17px;
                       height: 17px;
                     }
+
                     span {
                       color: #181a20;
                       font-family: $font;
@@ -631,11 +708,13 @@
                     }
                   }
                 }
+
                 .bott {
                   display: flex;
                   flex-direction: row;
                   justify-content: space-between;
                   align-items: center;
+
                   p {
                     color: #181a20;
                     font-family: $font;
@@ -645,17 +724,20 @@
                     line-height: normal;
                     text-transform: capitalize;
                   }
+
                   button {
                     margin-left: 7px;
                     width: 16px;
                     height: 16px;
                     box-sizing: border-box;
                   }
+
                   .view-like-box {
                     display: flex;
                     flex-direction: row;
                     gap: 7px;
                     align-items: center;
+
                     .view-cnt {
                       color: #717171;
                       font-family: $font;
@@ -684,32 +766,38 @@
     display: flex;
     flex-direction: row;
     background: #f6f6f6;
+
     .container {
       position: relative;
       width: 100%;
       flex-direction: column;
       align-items: center;
+
       .wrapper {
         width: 100%;
         margin-top: 25px;
         display: flex;
         flex-direction: row;
         align-items: center;
+
         .top-agents-swiper {
           width: 100%;
           height: 280px;
           display: flex;
           flex-direction: row;
+
           .top-agents-slide {
             width: 98%;
             height: auto;
             display: flex;
+
             .top-agent-card {
               width: 100%;
               height: 280px;
               display: flex;
               flex-direction: column;
               align-items: center;
+
               img {
                 width: 209px;
                 height: 209px;
@@ -717,6 +805,7 @@
                 cursor: pointer;
                 object-fit: cover;
               }
+
               strong {
                 margin-top: 10px;
                 color: #181a20;
@@ -729,6 +818,7 @@
                 text-transform: capitalize;
                 cursor: pointer;
               }
+
               span {
                 color: #181a20;
                 text-align: center;
@@ -753,27 +843,33 @@
     display: flex;
     flex-direction: row;
     background: #181a20;
+
     .footer-container {
       padding: 0 10px;
       margin: 0 auto;
       width: 1300px;
       height: auto;
+
       .main {
         display: flex;
         flex-direction: column;
+
         .left {
           height: 360px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
           .footer-box {
             display: flex;
             flex-direction: column;
+
             .logo {
               width: 128px;
               height: 52px;
               cursor: pointer;
             }
+
             span {
               color: #bebdbd;
               font-family: $font;
@@ -782,6 +878,7 @@
               font-weight: 400;
               text-transform: capitalize;
             }
+
             p {
               color: #fff;
               font-family: $font;
@@ -791,9 +888,11 @@
               line-height: normal;
               text-transform: capitalize;
             }
+
             .media-box {
               margin-top: 12px;
               color: #929495;
+
               svg {
                 font-size: 32px;
                 margin-right: 22px;
@@ -802,17 +901,21 @@
             }
           }
         }
+
         .right {
           display: flex;
           flex-direction: column;
+
           .bottom {
             margin-top: 60px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+
             div {
               display: flex;
               flex-direction: column;
+
               strong {
                 margin-bottom: 3px;
                 color: #fff;
@@ -823,6 +926,7 @@
                 line-height: normal;
                 text-transform: capitalize;
               }
+
               span {
                 margin-top: 25px;
                 color: #bebdbd;
@@ -836,6 +940,7 @@
           }
         }
       }
+
       .second {
         margin-top: 60px;
         height: 45px;
@@ -844,6 +949,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-end;
+
         span {
           color: #bebdbd;
           font-family: $font;
@@ -852,6 +958,294 @@
           font-weight: 400;
           line-height: normal;
         }
+      }
+    }
+  }
+}
+
+#mobile-wrap {
+  .home-page {
+    background: #fbf9f8;
+
+    .info-box {
+      justify-content: flex-start;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      span {
+        color: #082f49;
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 26px;
+        font-weight: 900;
+        line-height: 34px;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin-top: 6px;
+        color: #64748b;
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+
+    .trend-properties {
+      padding: 34px 16px 44px;
+      background: #ffffff;
+
+      .container,
+      .card-box,
+      .trend-feature-grid {
+        width: 100%;
+      }
+
+      .card-box {
+        margin-top: 20px;
+        display: block;
+      }
+
+      .trend-feature-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .trend-card-box {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 320px;
+        display: block;
+        border-radius: 22px;
+        background: #08111f;
+        box-shadow: 0 18px 45px rgba(8, 24, 44, 0.14);
+
+        &.featured {
+          height: 380px;
+        }
+      }
+
+      .trend-card-media,
+      .trend-card-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      .trend-card-media {
+        background-size: cover;
+        background-position: center;
+      }
+
+      .trend-card-overlay {
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(3, 9, 20, 0.04) 0%, rgba(3, 9, 20, 0.28) 42%, rgba(3, 9, 20, 0.88) 100%);
+      }
+
+      .trend-card-chip {
+        position: absolute;
+        z-index: 2;
+        top: 16px;
+        left: 16px;
+        max-width: calc(100% - 32px);
+        padding: 7px 12px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #24313d;
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 11px;
+        font-weight: 900;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .trend-card-content {
+        position: absolute;
+        z-index: 2;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        color: #ffffff;
+
+        .trend-card-topline {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+
+          span,
+          strong {
+            color: #ff8a00;
+            font-family: 'Plus Jakarta Sans', $font;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+          }
+
+          strong {
+            text-transform: none;
+          }
+        }
+
+        h3 {
+          margin: 0;
+          color: #ffffff;
+          font-family: 'Plus Jakarta Sans', $font;
+          font-size: 22px;
+          font-weight: 900;
+          line-height: 28px;
+        }
+
+        p {
+          margin: 0;
+          overflow: hidden;
+          color: rgba(255, 255, 255, 0.82);
+          font-family: 'Plus Jakarta Sans', $font;
+          font-size: 13px;
+          line-height: 20px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .trend-card-meta,
+      .trend-card-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .trend-card-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: rgba(255, 255, 255, 0.92);
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 11px;
+        font-weight: 800;
+
+        svg {
+          width: 15px;
+          height: 15px;
+          color: #ff8a00;
+        }
+      }
+
+      .trend-card-actions {
+        margin-top: 8px;
+
+        button {
+          border: 0;
+        }
+
+        button:first-child {
+          padding: 9px 18px;
+          border-radius: 8px;
+          background: #ec662a;
+          color: #ffffff;
+          font-family: 'Plus Jakarta Sans', $font;
+          font-size: 12px;
+          font-weight: 900;
+        }
+
+        .like-action {
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.18);
+          color: #ffffff;
+
+          &.active {
+            color: #ff383c;
+          }
+        }
+      }
+
+      .trend-card-price {
+        position: absolute;
+        z-index: 2;
+        right: 18px;
+        bottom: 88px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #ff8a00;
+        color: #ffffff;
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .trend-card-price.compact {
+        top: 16px;
+        right: 16px;
+        bottom: auto;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+      }
+    }
+
+    .travel-inspiration {
+      padding: 44px 16px;
+      background: #ffffff;
+
+      .container {
+        width: 100%;
+      }
+
+      .inspiration-grid {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .inspiration-card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        text-decoration: none;
+      }
+
+      .inspiration-media,
+      .inspiration-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      .inspiration-media {
+        background-size: cover;
+        background-position: center;
+      }
+
+      .inspiration-overlay {
+        z-index: 1;
+        background: rgba(8, 24, 44, 0.34);
+      }
+
+      strong {
+        position: relative;
+        z-index: 2;
+        padding: 0 10px;
+        color: #ffffff;
+        font-family: 'Plus Jakarta Sans', $font;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 18px;
+        text-align: center;
       }
     }
   }

@@ -61,30 +61,21 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<video
-								className={'hero-video'}
-								src={'/video/TourX%20videos.mp4'}
-								autoPlay
-								muted
-								loop
-								playsInline
-								preload={'auto'}
-							/>
 							<span className={'hero-video-overlay'} />
 							<Stack className={'container'}>
 								<Stack className={'hero-content'}>
 									<span className={'hero-kicker'}>Premium travel marketplace</span>
-									<h1>Discover curated tours for every kind of traveler</h1>
+									<h1>
+										Discover Your Next <span>Global Adventure</span>
+									</h1>
+									<p>Explore curated travel packages from trusted TourX agents, built for memorable escapes.</p>
+									<Stack className={'hero-trust-row'}>
+										<strong>2M+ travelers</strong>
+										<strong>4.9 average rating</strong>
+										<strong>120+ destinations</strong>
+									</Stack>
 								</Stack>
 								<HeaderFilter />
-								<Stack className={'hero-category-row'}>
-									<span className={'active'}>Adventure</span>
-									<span>Cultural</span>
-									<span>Family</span>
-									<span>Honeymoon</span>
-									<span>Cruise</span>
-									<span>Business</span>
-								</Stack>
 							</Stack>
 						</Stack>
 

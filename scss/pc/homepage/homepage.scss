@@ -5,14 +5,17 @@
 		position: relative;
 		width: 100%;
 		height: auto;
+
 		.info-box {
 			width: 100%;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+
 			.left {
 				display: flex;
 				flex-direction: column;
+
 				span {
 					color: #181a20;
 					font-family: $font;
@@ -22,10 +25,12 @@
 					line-height: 150%;
 					letter-spacing: -0.646px;
 					text-transform: capitalize;
+
 					&.white {
 						color: #ffffff;
 					}
 				}
+
 				p {
 					color: #181a20;
 					font-family: $font;
@@ -33,44 +38,54 @@
 					font-style: normal;
 					font-weight: 400;
 					line-height: 26px;
+
 					&.white {
 						color: #ffffff;
 					}
 				}
 			}
+
 			.right {
 				display: flex;
 				flex-direction: row;
 				align-items: flex-end;
+
 				.pagination-box {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
+
 					.swiper-pagination-bullet.swiper-pagination-bullet-active {
 						background: #000000;
 					}
+
 					.swiper-trend-next {
 						margin-left: 20px;
 						cursor: pointer;
 					}
+
 					.swiper-trend-prev {
 						margin-right: 20px;
 						cursor: pointer;
 					}
+
 					.swiper-top-next {
 						margin-left: 20px;
 						cursor: pointer;
 					}
+
 					.swiper-top-prev {
 						margin-right: 20px;
 						cursor: pointer;
 					}
 				}
+
 				.more-box {
 					display: flex;
 					flex-direction: row;
 					cursor: pointer;
 					align-items: center;
+
 					span {
 						color: #181a20;
 						font-family: $font;
@@ -80,15 +95,18 @@
 						line-height: normal;
 						text-transform: capitalize;
 					}
+
 					img {
 						margin-left: 10px;
 						width: 16px;
 						height: 16px;
 					}
 				}
+
 				.btn-box {
 					display: flex;
 					flex-direction: row;
+
 					button {
 						border-radius: 6px;
 						background: rgba(255, 255, 255, 0.07);
@@ -99,9 +117,11 @@
 						font-weight: 500;
 						line-height: 28px;
 						text-transform: capitalize;
+
 						&:first-child {
 							margin-right: 20px;
 						}
+
 						&.active {
 							border: 1px solid #181a20;
 							background: #fff;
@@ -116,19 +136,23 @@
 				}
 			}
 		}
+
 		.trend-properties {
 			padding: 108px 0px 76px;
 			width: 100%;
 			height: 697px;
 			display: flex;
 			flex-direction: row;
+
 			.container {
 				flex-direction: column;
+
 				.card-box {
 					position: relative;
 					margin-top: 64px;
 					display: flex;
 					flex-direction: row;
+
 					.empty-list {
 						width: 100%;
 						height: 280px;
@@ -136,11 +160,13 @@
 						justify-content: center;
 						align-items: center;
 					}
+
 					.trend-property-swiper {
 						width: 100%;
 						height: 400px;
 						display: flex;
 						flex-direction: row;
+
 						.trend-property-slide {
 							width: auto;
 							height: auto;
@@ -148,6 +174,7 @@
 							margin: 10px 0 0 10px;
 						}
 					}
+
 					.trend-card-box {
 						position: relative;
 						width: 300px;
@@ -155,10 +182,12 @@
 						display: flex;
 						flex-direction: column;
 						transition: transform 0.3s;
+
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
 						}
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -166,6 +195,7 @@
 							background-size: cover;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -181,6 +211,7 @@
 								line-height: normal;
 							}
 						}
+
 						.info {
 							padding: 20px 22px 17px;
 							display: flex;
@@ -191,6 +222,7 @@
 							border-top: none;
 							background: #fff;
 							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
 							.title {
 								overflow: hidden;
 								color: #181a20;
@@ -204,6 +236,7 @@
 								text-transform: capitalize;
 								cursor: pointer;
 							}
+
 							.desc {
 								margin-top: 5px;
 								overflow: hidden;
@@ -216,19 +249,23 @@
 								text-overflow: ellipsis;
 								white-space: nowrap;
 							}
+
 							.options {
 								margin-top: 15px;
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
+
 								div {
 									display: flex;
 									flex-direction: row;
+
 									img {
 										margin-right: 5px;
 										width: 17px;
 										height: 17px;
 									}
+
 									span {
 										color: #181a20;
 										font-family: $font;
@@ -239,11 +276,13 @@
 									}
 								}
 							}
+
 							.bott {
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
 								align-items: center;
+
 								p {
 									color: #181a20;
 									font-family: $font;
@@ -253,17 +292,20 @@
 									line-height: normal;
 									text-transform: capitalize;
 								}
+
 								button {
 									margin-left: 7px;
 									width: 16px;
 									height: 16px;
 									box-sizing: border-box;
 								}
+
 								.view-like-box {
 									display: flex;
 									flex-direction: row;
 									gap: 7px;
 									align-items: center;
+
 									.view-cnt {
 										color: #717171;
 										font-family: $font;
@@ -280,6 +322,7 @@
 				}
 			}
 		}
+
 		.popular-properties {
 			padding: 132px 0px 94px;
 			width: 100%;
@@ -287,9 +330,11 @@
 			display: flex;
 			flex-direction: row;
 			background: #f6f6f6;
+
 			.container {
 				flex-direction: column;
 				align-items: center;
+
 				.card-box {
 					margin-top: 34px;
 					width: 100%;
@@ -297,11 +342,13 @@
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+
 					.popular-property-swiper {
 						width: 100%;
 						height: 425px;
 						display: flex;
 						flex-direction: row;
+
 						.popular-property-slide {
 							width: auto;
 							height: auto;
@@ -309,6 +356,7 @@
 							margin: 10px 0 10px 10px;
 						}
 					}
+
 					.popular-card-box {
 						position: relative;
 						width: 400px;
@@ -316,10 +364,12 @@
 						display: flex;
 						flex-direction: column;
 						transition: transform 0.3s, opacity 0.3s;
+
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
 						}
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -327,6 +377,7 @@
 							background-size: cover;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+
 							div.status {
 								position: absolute;
 								padding: 6px 34px;
@@ -336,10 +387,12 @@
 								align-items: center;
 								border-radius: 6px;
 								background: #eb6753;
+
 								img {
 									width: 14px;
 									height: 14px;
 								}
+
 								span {
 									margin-left: 5px;
 									color: #fff;
@@ -351,6 +404,7 @@
 									text-transform: uppercase;
 								}
 							}
+
 							div.price {
 								position: absolute;
 								padding: 8px 12px;
@@ -366,6 +420,7 @@
 								line-height: normal;
 							}
 						}
+
 						.info {
 							padding: 20px 22px 17px;
 							display: flex;
@@ -376,6 +431,7 @@
 							border-top: none;
 							background: #fff;
 							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
 							.title {
 								overflow: hidden;
 								color: #181a20;
@@ -389,6 +445,7 @@
 								text-transform: capitalize;
 								cursor: pointer;
 							}
+
 							.desc {
 								margin-top: 5px;
 								overflow: hidden;
@@ -401,19 +458,23 @@
 								text-overflow: ellipsis;
 								white-space: nowrap;
 							}
+
 							.options {
 								margin-top: 15px;
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
+
 								div {
 									display: flex;
 									flex-direction: row;
+
 									img {
 										margin-right: 5px;
 										width: 17px;
 										height: 17px;
 									}
+
 									span {
 										color: #181a20;
 										font-family: $font;
@@ -424,11 +485,13 @@
 									}
 								}
 							}
+
 							.bott {
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
 								align-items: center;
+
 								p {
 									color: #181a20;
 									font-family: $font;
@@ -438,17 +501,20 @@
 									line-height: normal;
 									text-transform: capitalize;
 								}
+
 								button {
 									margin-left: 7px;
 									width: 16px;
 									height: 16px;
 									box-sizing: border-box;
 								}
+
 								.view-like-box {
 									display: flex;
 									flex-direction: row;
 									gap: 7px;
 									align-items: center;
+
 									.view-cnt {
 										color: #717171;
 										font-family: $font;
@@ -463,18 +529,22 @@
 						}
 					}
 				}
+
 				.pagination-box {
 					display: flex;
 					flex-direction: row;
 					justify-content: center;
 					align-items: center;
+
 					.swiper-pagination-bullet.swiper-pagination-bullet-active {
 						background: #000000;
 					}
+
 					.swiper-popular-next {
 						margin-left: 20px;
 						cursor: pointer;
 					}
+
 					.swiper-popular-prev {
 						margin-right: 20px;
 						cursor: pointer;
@@ -482,6 +552,7 @@
 				}
 			}
 		}
+
 		.video-frame {
 			width: 100%;
 			height: 678px;
@@ -489,24 +560,29 @@
 			transform: perspective(0px);
 			box-shadow: -3px 0px 20px 14px #34343480;
 		}
+
 		.top-properties {
 			padding: 108px 0px 76px;
 			width: 100%;
 			height: 697px;
 			display: flex;
 			flex-direction: row;
+
 			.container {
 				flex-direction: column;
+
 				.card-box {
 					position: relative;
 					margin-top: 64px;
 					display: flex;
 					flex-direction: row;
+
 					.top-property-swiper {
 						width: 100%;
 						height: 400px;
 						display: flex;
 						flex-direction: row;
+
 						.top-property-slide {
 							width: auto;
 							height: auto;
@@ -514,6 +590,7 @@
 							margin: 10px 0 0 10px;
 						}
 					}
+
 					.top-card-box {
 						position: relative;
 						width: 300px;
@@ -521,10 +598,12 @@
 						display: flex;
 						flex-direction: column;
 						transition: transform 0.3s;
+
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
 						}
+
 						.card-img {
 							position: relative;
 							width: 100%;
@@ -532,6 +611,7 @@
 							background-size: cover;
 							border-radius: 12px 12px 0px 0px;
 							cursor: pointer;
+
 							div {
 								position: absolute;
 								padding: 8px 12px;
@@ -547,6 +627,7 @@
 								line-height: normal;
 							}
 						}
+
 						.info {
 							padding: 20px 22px 17px;
 							display: flex;
@@ -557,6 +638,7 @@
 							border-top: none;
 							background: #fff;
 							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
 							.title {
 								overflow: hidden;
 								color: #181a20;
@@ -570,6 +652,7 @@
 								text-transform: capitalize;
 								cursor: pointer;
 							}
+
 							.desc {
 								margin-top: 5px;
 								overflow: hidden;
@@ -582,19 +665,23 @@
 								text-overflow: ellipsis;
 								white-space: nowrap;
 							}
+
 							.options {
 								margin-top: 15px;
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
+
 								div {
 									display: flex;
 									flex-direction: row;
+
 									img {
 										margin-right: 5px;
 										width: 17px;
 										height: 17px;
 									}
+
 									span {
 										color: #181a20;
 										font-family: $font;
@@ -605,11 +692,13 @@
 									}
 								}
 							}
+
 							.bott {
 								display: flex;
 								flex-direction: row;
 								justify-content: space-between;
 								align-items: center;
+
 								p {
 									color: #181a20;
 									font-family: $font;
@@ -619,17 +708,20 @@
 									line-height: normal;
 									text-transform: capitalize;
 								}
+
 								button {
 									margin-left: 7px;
 									width: 16px;
 									height: 16px;
 									box-sizing: border-box;
 								}
+
 								.view-like-box {
 									display: flex;
 									flex-direction: row;
 									gap: 7px;
 									align-items: center;
+
 									.view-cnt {
 										color: #717171;
 										font-family: $font;
@@ -646,6 +738,7 @@
 				}
 			}
 		}
+
 		.top-agents {
 			position: relative;
 			padding: 153px 0px 135px;
@@ -654,10 +747,12 @@
 			display: flex;
 			flex-direction: row;
 			background: #f6f6f6;
+
 			.container {
 				position: relative;
 				flex-direction: column;
 				align-items: center;
+
 				.wrapper {
 					width: 100%;
 					margin-top: 83px;
@@ -665,6 +760,7 @@
 					flex-direction: row;
 					align-items: center;
 					justify-content: space-between;
+
 					.switch-btn {
 						width: 53px;
 						height: 53px;
@@ -675,35 +771,42 @@
 						background: #ffffff;
 						filter: drop-shadow(0px 10px 35px rgba(5, 16, 54, 0.1));
 						cursor: pointer;
+
 						svg {
 							width: 14px;
 							height: 14px;
 						}
+
 						&.swiper-agents-next {
 							transform: rotate(180deg);
 						}
 					}
+
 					.card-wrapper {
 						width: 1174px;
 						height: 280px;
 						display: flex;
 						flex-direction: row;
+
 						.top-agents-swiper {
 							width: 99.7%;
 							height: 280px;
 							display: flex;
 							flex-direction: row;
+
 							.top-agents-slide {
 								width: auto;
 								height: auto;
 								display: flex;
 							}
 						}
+
 						.top-agent-card {
 							width: 205px;
 							height: 280px;
 							display: flex;
 							flex-direction: column;
+
 							img {
 								width: 209px;
 								height: 209px;
@@ -711,6 +814,7 @@
 								cursor: pointer;
 								object-fit: cover;
 							}
+
 							strong {
 								margin-top: 20px;
 								color: #181a20;
@@ -723,6 +827,7 @@
 								text-transform: capitalize;
 								cursor: pointer;
 							}
+
 							span {
 								color: #181a20;
 								text-align: center;
@@ -737,6 +842,7 @@
 				}
 			}
 		}
+
 		.events {
 			position: relative;
 			padding: 100px 0px 92px;
@@ -745,9 +851,11 @@
 			display: flex;
 			flex-direction: row;
 			background: #181a20;
+
 			.container {
 				flex-direction: column;
 				align-items: center;
+
 				.card-wrapper {
 					position: relative;
 					margin-top: 48px;
@@ -756,6 +864,7 @@
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+
 					.event-card {
 						position: relative;
 						width: 300px;
@@ -764,14 +873,17 @@
 						opacity: 0.9;
 						cursor: pointer;
 						transition: opacity 0.4s;
+
 						&:hover {
 							opacity: 1;
 							scale: 1.05;
 							transition: 0.3s;
+
 							.more {
 								opacity: 1;
 							}
 						}
+
 						.info {
 							position: absolute;
 							display: flex;
@@ -779,6 +891,7 @@
 							top: 35px;
 							left: 10px;
 							right: 10px;
+
 							strong {
 								color: #f64747;
 								font-family: $font;
@@ -788,6 +901,7 @@
 								line-height: normal;
 								text-transform: capitalize;
 							}
+
 							span {
 								color: #f66767;
 								font-family: $font;
@@ -798,6 +912,7 @@
 								text-transform: capitalize;
 							}
 						}
+
 						.more {
 							position: absolute;
 							left: 10px;
@@ -807,6 +922,7 @@
 							flex-direction: row;
 							align-items: center;
 							opacity: 0;
+
 							span {
 								padding: 0px 5px;
 								border-radius: 5px;
@@ -825,6 +941,7 @@
 				}
 			}
 		}
+
 		.community-board {
 			position: relative;
 			padding: 124px 0px 61px;
@@ -832,19 +949,23 @@
 			height: 860px;
 			display: flex;
 			flex-direction: row;
+
 			.container {
 				flex-direction: column;
 				align-items: center;
+
 				.community-main {
 					width: 100%;
 					margin-top: 60px;
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+
 					.center-line {
 						height: 90%;
 						align-self: end;
 					}
+
 					.content-top {
 						margin-bottom: 26px;
 						width: 100%;
@@ -853,6 +974,7 @@
 						flex-direction: row;
 						justify-content: flex-end;
 						align-items: center;
+
 						span {
 							font-family: $font;
 							font-style: normal;
@@ -862,21 +984,25 @@
 							color: #616161;
 							cursor: pointer;
 						}
+
 						img {
 							margin-left: 10px;
 							width: 12px;
 							height: 12px;
 						}
 					}
+
 					.community-left {
 						width: 642px;
 						height: auto;
 						display: flex;
 						flex-direction: column;
+
 						.card-wrap {
 							display: flex;
 							flex-direction: row;
 							flex-wrap: wrap;
+
 							.vertical-card {
 								margin-right: 12px;
 								margin-bottom: 18px;
@@ -884,12 +1010,14 @@
 								display: flex;
 								flex-direction: column;
 								cursor: pointer;
+
 								.community-img {
 									width: 100%;
 									height: 141px;
 									background-size: cover;
 									background-repeat: round;
 									border-radius: 5px;
+
 									div {
 										width: 32px;
 										height: 32px;
@@ -907,6 +1035,7 @@
 										color: #bdbdbd;
 									}
 								}
+
 								strong {
 									margin-top: 10px;
 									font-family: $font;
@@ -917,6 +1046,7 @@
 									letter-spacing: 0.105em;
 									color: #000000;
 								}
+
 								span {
 									font-family: $font;
 									font-style: normal;
@@ -929,25 +1059,30 @@
 							}
 						}
 					}
+
 					.community-right {
 						width: 590px;
 						height: auto;
 						display: flex;
 						flex-direction: column;
+
 						.horizontal-card {
 							display: flex;
 							flex-direction: row;
 							cursor: pointer;
 							margin-bottom: 34px;
+
 							img {
 								width: 180px;
 								height: 111px;
 								border-radius: 7px;
 							}
+
 							div {
 								margin-left: 25px;
 								display: flex;
 								flex-direction: column;
+
 								strong {
 									margin-top: 15px;
 									font-family: $font;
@@ -957,6 +1092,7 @@
 									letter-spacing: 0.105em;
 									color: #212121;
 								}
+
 								span {
 									font-family: $font;
 									font-style: normal;
@@ -1059,6 +1195,162 @@
 					}
 				}
 			}
+
+			.topbento-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+				gap: 24px;
+				width: 100%;
+				height: 560px;
+			}
+
+			.topbento-side {
+				display: grid;
+				grid-template-rows: repeat(2, minmax(0, 1fr));
+				gap: 24px;
+				min-height: 0;
+			}
+
+			.topbento-card {
+				position: relative;
+				overflow: hidden;
+				display: block;
+				border-radius: 24px;
+				background: #08111f;
+				box-shadow: 0 18px 45px rgba(8, 24, 44, 0.12);
+				text-decoration: none;
+				cursor: pointer;
+				transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+
+				&:hover {
+					transform: translateY(-6px);
+					box-shadow: 0 30px 70px rgba(8, 24, 44, 0.24);
+
+					.topbento-media {
+						transform: scale(1.08);
+					}
+				}
+
+				&.small {
+					border-radius: 22px;
+				}
+			}
+
+			.topbento-media,
+			.topbento-overlay {
+				position: absolute;
+				inset: 0;
+			}
+
+			.topbento-media {
+				background-size: cover;
+				background-position: center;
+				transition: transform 0.5s ease-out;
+			}
+
+			.topbento-overlay {
+				z-index: 1;
+				background: linear-gradient(180deg, rgba(3, 9, 20, 0.05) 0%, rgba(3, 9, 20, 0.3) 45%, rgba(3, 9, 20, 0.88) 100%);
+			}
+
+			.topbento-content {
+				position: absolute;
+				z-index: 2;
+				left: 28px;
+				right: 28px;
+				bottom: 26px;
+				display: flex;
+				flex-direction: column;
+				color: #ffffff;
+
+				.verified {
+					display: flex;
+					align-items: center;
+					gap: 6px;
+					margin-bottom: 10px;
+					color: #79f6ed;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 800;
+
+					svg {
+						width: 18px;
+						height: 18px;
+					}
+				}
+
+				h3 {
+					margin: 0;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 28px;
+					font-weight: 900;
+					line-height: 34px;
+				}
+
+				p {
+					max-width: 520px;
+					margin: 10px 0 0;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					color: rgba(255, 255, 255, 0.85);
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					line-height: 21px;
+				}
+
+				.book-btn {
+					margin-top: 18px;
+					width: fit-content;
+					padding: 12px 24px;
+					border-radius: 12px;
+					background: #ec662a;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					font-weight: 800;
+					transition: box-shadow 0.3s ease-out;
+				}
+			}
+
+			.topbento-card.featured:hover .book-btn {
+				box-shadow: 0 0 26px rgba(236, 102, 42, 0.5);
+			}
+
+			.topbento-card.small {
+				.topbento-content {
+					left: 20px;
+					right: 20px;
+					bottom: 18px;
+
+					h4 {
+						margin: 0;
+						color: #ffffff;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 18px;
+						font-weight: 800;
+						line-height: 24px;
+					}
+
+					.rank {
+						display: flex;
+						align-items: center;
+						gap: 5px;
+						margin-top: 6px;
+						color: rgba(255, 255, 255, 0.92);
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 700;
+
+						svg {
+							width: 16px;
+							height: 16px;
+							color: #ff8a00;
+						}
+					}
+				}
+			}
 		}
 
 		.popular-properties {
@@ -1111,7 +1403,7 @@
 
 				div.price,
 				div.price-badge,
-				> div:not(.status) {
+				>div:not(.status) {
 					z-index: 1;
 					left: 18px;
 					bottom: 18px;
@@ -1285,6 +1577,913 @@
 		.popular-card-box {
 			width: 392px;
 			height: 468px;
+		}
+	}
+}
+
+#pc-wrap {
+	.home-page {
+		background: #fbf9f8;
+
+		.trend-properties {
+			padding: 88px 0 84px;
+			height: auto;
+			background: #ffffff;
+
+			.container {
+				flex-direction: column;
+
+				.card-box {
+					margin-top: 28px;
+					display: block;
+				}
+			}
+
+			.trend-feature-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+				grid-template-rows: repeat(2, minmax(0, 1fr));
+				gap: 24px;
+				width: 100%;
+				height: 520px;
+			}
+
+			.trend-side-grid {
+				display: contents;
+			}
+
+			.trend-card-box {
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				display: block;
+				border: 0;
+				border-radius: 24px;
+				background: #08111f;
+				box-shadow: 0 18px 45px rgba(8, 24, 44, 0.12);
+				cursor: pointer;
+				transform: translateY(0);
+				transition: transform 300ms ease-out, box-shadow 300ms ease-out;
+
+				&.featured {
+					grid-column: 1 / 2;
+					grid-row: 1 / 3;
+				}
+
+				&.compact {
+					grid-column: 2 / 3;
+					border-radius: 22px;
+					min-height: 248px;
+				}
+
+				&:hover {
+					transform: translateY(-8px);
+					box-shadow: 0 30px 80px rgba(8, 24, 44, 0.25);
+
+					.trend-card-media {
+						transform: scale(1.08);
+					}
+
+					.trend-card-overlay {
+						background: linear-gradient(180deg, rgba(3, 9, 20, 0.04) 0%, rgba(3, 9, 20, 0.35) 42%, rgba(3, 9, 20, 0.9) 100%);
+					}
+
+					.trend-card-content {
+						transform: translateY(-8px);
+					}
+
+					.trend-card-actions button:first-child {
+						box-shadow: 0 0 24px rgba(236, 102, 42, 0.45);
+					}
+				}
+			}
+
+			.trend-card-media,
+			.trend-card-overlay {
+				position: absolute;
+				inset: 0;
+			}
+
+			.trend-card-media {
+				background-size: cover;
+				background-position: center;
+				transition: transform 500ms ease-out;
+			}
+
+			.trend-card-overlay {
+				z-index: 1;
+				background: linear-gradient(180deg, rgba(3, 9, 20, 0.02) 0%, rgba(3, 9, 20, 0.24) 45%, rgba(3, 9, 20, 0.82) 100%);
+				transition: background 300ms ease-out;
+			}
+
+			.trend-card-chip {
+				position: absolute;
+				z-index: 2;
+				top: 18px;
+				left: 18px;
+				max-width: calc(100% - 36px);
+				padding: 7px 14px;
+				overflow: hidden;
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.9);
+				box-shadow: 0 12px 28px rgba(8, 24, 44, 0.16);
+				color: #24313d;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 12px;
+				font-weight: 800;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.trend-card-content {
+				position: absolute;
+				z-index: 2;
+				left: 24px;
+				right: 24px;
+				bottom: 24px;
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				color: #ffffff;
+				transition: transform 300ms ease-out;
+
+				.trend-card-topline {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 12px;
+
+					span,
+					strong {
+						color: #ff8a00;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 900;
+						letter-spacing: 0.04em;
+						text-transform: uppercase;
+					}
+
+					strong {
+						letter-spacing: 0;
+						text-transform: none;
+					}
+				}
+
+				h3 {
+					margin: 0;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 30px;
+					font-weight: 900;
+					line-height: 38px;
+				}
+
+				p {
+					max-width: 560px;
+					margin: 0;
+					overflow: hidden;
+					color: rgba(255, 255, 255, 0.82);
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					line-height: 22px;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+
+			.trend-card-meta,
+			.trend-card-actions {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+			}
+
+			.trend-card-meta span {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				color: rgba(255, 255, 255, 0.92);
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 12px;
+				font-weight: 700;
+
+				svg {
+					width: 16px;
+					height: 16px;
+					color: #ff8a00;
+				}
+			}
+
+			.trend-card-actions {
+				margin-top: 10px;
+
+				button {
+					border: 0;
+					cursor: pointer;
+				}
+
+				button:first-child {
+					padding: 10px 22px;
+					border-radius: 8px;
+					background: #ec662a;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 900;
+					transition: box-shadow 300ms ease-out, transform 300ms ease-out;
+				}
+
+				.like-action {
+					width: 38px;
+					height: 38px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 999px;
+					background: rgba(255, 255, 255, 0.18);
+					color: #ffffff;
+					backdrop-filter: blur(10px);
+
+					&.active,
+					&:hover {
+						color: #ff383c;
+					}
+
+					svg {
+						width: 19px;
+						height: 19px;
+					}
+				}
+			}
+
+			.trend-card-price {
+				position: absolute;
+				z-index: 2;
+				right: 24px;
+				bottom: 92px;
+				padding: 12px 18px;
+				border-radius: 10px;
+				background: #ff8a00;
+				color: #ffffff;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 14px;
+				font-weight: 900;
+				box-shadow: 0 18px 35px rgba(255, 138, 0, 0.24);
+			}
+
+			.trend-card-box.compact {
+				.trend-card-content {
+					left: 20px;
+					right: 20px;
+					bottom: 20px;
+					gap: 6px;
+
+					h3 {
+						font-size: 20px;
+						line-height: 26px;
+					}
+
+					p {
+						display: none;
+					}
+				}
+
+				.trend-card-price.compact {
+					top: 16px;
+					right: 16px;
+					bottom: auto;
+					padding: 7px 13px;
+					border-radius: 999px;
+					font-size: 12px;
+					box-shadow: 0 12px 24px rgba(255, 138, 0, 0.28);
+				}
+
+				.trend-card-actions {
+					margin-top: 6px;
+
+					button:first-child {
+						padding: 7px 16px;
+						font-size: 12px;
+					}
+				}
+			}
+		}
+
+		.travel-inspiration {
+			padding: 84px 0;
+			background: #ffffff;
+
+			.container {
+				flex-direction: column;
+			}
+
+			.inspiration-grid {
+				margin-top: 28px;
+				display: grid;
+				grid-template-columns: repeat(6, minmax(0, 1fr));
+				gap: 18px;
+			}
+
+			.inspiration-card {
+				position: relative;
+				overflow: hidden;
+				aspect-ratio: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 22px;
+				text-decoration: none;
+				box-shadow: 0 18px 45px rgba(8, 24, 44, 0.12);
+
+				&:hover {
+					.inspiration-media {
+						transform: scale(1.1);
+					}
+
+					.inspiration-overlay {
+						background: rgba(8, 24, 44, 0.46);
+					}
+				}
+			}
+
+			.inspiration-media,
+			.inspiration-overlay {
+				position: absolute;
+				inset: 0;
+			}
+
+			.inspiration-media {
+				background-size: cover;
+				background-position: center;
+				transition: transform 500ms ease-out;
+			}
+
+			.inspiration-overlay {
+				z-index: 1;
+				background: rgba(8, 24, 44, 0.28);
+				transition: background 300ms ease-out;
+			}
+
+			strong {
+				position: relative;
+				z-index: 2;
+				padding: 0 12px;
+				color: #ffffff;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 15px;
+				font-weight: 900;
+				line-height: 20px;
+				text-align: center;
+			}
+		}
+
+		.community-discussions {
+			padding: 84px 0;
+			background: #f1f8ff;
+
+			.container {
+				flex-direction: column;
+			}
+
+			.discussions-head {
+				display: flex;
+				flex-direction: row;
+				align-items: flex-end;
+				justify-content: space-between;
+				gap: 24px;
+
+				.left {
+					.title {
+						color: #05070b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 26px;
+						font-weight: 900;
+						line-height: 32px;
+					}
+
+					p {
+						margin-top: 6px;
+						color: #2f3c48;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 14px;
+						line-height: 20px;
+					}
+				}
+
+				.join-btn {
+					padding: 12px 22px;
+					border-radius: 10px;
+					background: #ec662a;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					font-weight: 800;
+					text-decoration: none;
+					white-space: nowrap;
+					transition: opacity 0.2s ease;
+
+					&:hover {
+						opacity: 0.9;
+					}
+				}
+			}
+
+			.discussions-grid {
+				margin-top: 28px;
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 20px;
+			}
+
+			.discussion-card {
+				display: flex;
+				gap: 18px;
+				padding: 22px;
+				border: 1px solid #dbe7f2;
+				border-radius: 16px;
+				background: #ffffff;
+				box-shadow: 0 12px 30px rgba(8, 47, 73, 0.06);
+				cursor: pointer;
+				transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+				&:hover {
+					transform: translateY(-4px);
+					border-color: rgba(0, 119, 182, 0.35);
+					box-shadow: 0 22px 50px rgba(8, 47, 73, 0.14);
+				}
+
+				.icon-tile {
+					width: 50px;
+					height: 50px;
+					flex-shrink: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 12px;
+
+					svg {
+						width: 24px;
+						height: 24px;
+					}
+				}
+
+				&.tips .icon-tile {
+					background: #d2e0fe;
+					color: #39475f;
+				}
+
+				&.review .icon-tile {
+					background: #ccfbf1;
+					color: #004642;
+				}
+
+				.discussion-body {
+					flex: 1;
+					min-width: 0;
+				}
+
+				.discussion-top {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					margin-bottom: 6px;
+
+					.tag {
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 800;
+					}
+
+					.time {
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 600;
+					}
+				}
+
+				&.tips .tag {
+					color: #0077b6;
+				}
+
+				&.review .tag {
+					color: #006a65;
+				}
+
+				.discussion-title {
+					display: block;
+					margin-bottom: 6px;
+					color: #082f49;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 16px;
+					font-weight: 800;
+					line-height: 22px;
+				}
+
+				.discussion-desc {
+					margin: 0;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					color: #64748b;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					line-height: 21px;
+				}
+
+				.discussion-meta {
+					margin-top: 16px;
+					display: flex;
+					gap: 18px;
+
+					span {
+						display: flex;
+						align-items: center;
+						gap: 5px;
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 700;
+
+						svg {
+							width: 16px;
+							height: 16px;
+						}
+					}
+				}
+			}
+		}
+
+		.top-agents {
+			background: #f6f3f2;
+
+			.container .wrapper .card-wrapper {
+				height: 380px;
+
+				.top-agents-swiper,
+				.top-agents-slide {
+					height: 380px;
+				}
+
+				.top-agent-card {
+					width: 320px;
+					height: 360px;
+					padding: 28px 24px;
+					align-items: center;
+					border: 1px solid #e4e2e1;
+					border-radius: 24px;
+					background: #ffffff;
+					box-shadow: 0 18px 45px rgba(8, 24, 44, 0.08);
+					transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+					&:hover {
+						transform: translateY(-6px);
+						box-shadow: 0 26px 60px rgba(8, 24, 44, 0.16);
+					}
+
+					.avatar {
+						width: 96px;
+						height: 96px;
+						padding: 4px;
+						border-radius: 50%;
+						background: #ffdcc4;
+						cursor: pointer;
+
+						img {
+							width: 100%;
+							height: 100%;
+							margin: 0;
+							border-radius: 50%;
+							object-fit: cover;
+						}
+					}
+
+					strong {
+						margin-top: 16px;
+						color: #1b1c1c;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 19px;
+						font-weight: 800;
+						line-height: 26px;
+						text-transform: capitalize;
+						cursor: pointer;
+					}
+
+					.role {
+						margin-top: 4px;
+						color: #e86f00;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 800;
+						text-transform: capitalize;
+					}
+
+					.agent-stats {
+						margin: 18px 0;
+						width: 100%;
+						display: grid;
+						grid-template-columns: repeat(3, 1fr);
+						gap: 10px;
+						padding: 16px 0;
+						border-top: 1px solid #e4e2e1;
+						border-bottom: 1px solid #e4e2e1;
+
+						div {
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							gap: 2px;
+						}
+
+						b {
+							color: #1b1c1c;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 17px;
+							font-weight: 800;
+						}
+
+						em {
+							color: #564334;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-style: normal;
+							font-weight: 600;
+						}
+					}
+
+					.view-profile {
+						width: 100%;
+						padding: 12px 0;
+						border: 0;
+						border-radius: 10px;
+						background: #515f78;
+						color: #ffffff;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 14px;
+						font-weight: 800;
+						cursor: pointer;
+						transition: opacity 0.2s ease;
+
+						&:hover {
+							opacity: 0.88;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	#pc-wrap {
+		.home-page {
+			.trend-properties {
+				.trend-feature-grid {
+					height: 520px;
+					gap: 18px;
+				}
+
+				.trend-side-grid {
+					gap: 18px;
+				}
+			}
+
+			.travel-inspiration {
+				.inspiration-grid {
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	#pc-wrap {
+		.home-page {
+			.trend-properties {
+				.trend-feature-grid {
+					display: flex;
+					flex-direction: column;
+					height: auto;
+				}
+
+				.trend-card-box,
+				.trend-card-box.featured,
+				.trend-card-box.compact {
+					height: 320px;
+					min-height: 320px;
+				}
+			}
+
+			.top-properties {
+				.topbento-grid {
+					display: flex;
+					flex-direction: column;
+					height: auto;
+				}
+
+				.topbento-card,
+				.topbento-card.featured,
+				.topbento-card.small {
+					height: 320px;
+				}
+			}
+
+			.community-discussions {
+				.discussions-grid {
+					grid-template-columns: minmax(0, 1fr);
+				}
+
+				.discussions-head {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+			}
+		}
+	}
+}
+
+#pc-wrap {
+	.home-page {
+		.trend-properties {
+			padding: 34px 0 52px;
+			background: #ffffff;
+
+			.container {
+				.info-box {
+					.left {
+						span {
+							color: #05070b;
+							font-size: 22px;
+							font-weight: 900;
+							line-height: 28px;
+						}
+
+						p {
+							margin-top: 2px;
+							color: #2f3c48;
+							font-size: 12px;
+							line-height: 18px;
+						}
+					}
+				}
+
+				.card-box {
+					margin-top: 34px;
+
+					.trend-feature-grid {
+						grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+						grid-template-rows: repeat(2, minmax(0, 1fr));
+						gap: 24px;
+						height: 520px;
+					}
+
+					.trend-side-grid {
+						display: contents;
+					}
+
+					.trend-card-box {
+						border-radius: 20px;
+						box-shadow: none;
+
+						&.compact {
+							border-radius: 18px;
+						}
+
+						&:hover {
+							box-shadow: 0 18px 45px rgba(8, 24, 44, 0.22);
+						}
+					}
+
+					.trend-card-overlay {
+						background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 28%, rgba(0, 0, 0, 0.26) 58%, rgba(0, 0, 0, 0.78) 100%);
+					}
+
+					.trend-card-chip {
+						top: 18px;
+						left: 20px;
+						padding: 5px 12px;
+						max-width: 60%;
+						border-radius: 999px;
+						background: rgba(255, 255, 255, 0.86);
+						box-shadow: none;
+						color: #536171;
+						font-size: 11px;
+						font-weight: 900;
+					}
+
+					.trend-card-content {
+						left: 32px;
+						right: 32px;
+						bottom: 28px;
+						gap: 5px;
+
+						.trend-card-topline {
+							span {
+								color: #ff8a00;
+								font-size: 11px;
+								font-weight: 900;
+							}
+						}
+
+						h3 {
+							font-size: 21px;
+							line-height: 25px;
+							font-weight: 900;
+						}
+
+						p {
+							margin-top: 4px;
+							font-size: 12px;
+							line-height: 18px;
+						}
+					}
+
+					.trend-card-meta {
+						gap: 15px;
+
+						span {
+							font-size: 11px;
+							font-weight: 800;
+
+							svg {
+								width: 14px;
+								height: 14px;
+							}
+						}
+					}
+
+					.trend-card-actions {
+						margin-top: 18px;
+
+						button:first-child {
+							padding: 11px 34px;
+							border-radius: 8px;
+							background: #ff8a00;
+							font-size: 12px;
+						}
+					}
+
+					.trend-card-price {
+						right: 34px;
+						bottom: 116px;
+						padding: 13px 26px;
+						border-radius: 10px;
+						background: #ff8a00;
+						font-size: 13px;
+						box-shadow: none;
+					}
+
+					.trend-card-box.compact {
+						.trend-card-chip {
+							top: 16px;
+							left: 18px;
+							max-width: 74%;
+							padding: 5px 11px;
+							font-size: 10px;
+						}
+
+						.trend-card-content {
+							left: 22px;
+							right: 22px;
+							bottom: 18px;
+							gap: 3px;
+
+							.trend-card-topline {
+
+								span,
+								strong {
+									font-size: 10px;
+								}
+
+								strong {
+									color: #ff8a00;
+								}
+							}
+
+							h3 {
+								font-size: 18px;
+								line-height: 21px;
+							}
+						}
+
+						.trend-card-meta {
+							gap: 10px;
+						}
+
+						.trend-card-actions {
+							margin-top: 9px;
+
+							button:first-child {
+								padding: 7px 24px;
+								border-radius: 7px;
+								font-size: 10px;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

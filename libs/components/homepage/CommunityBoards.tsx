@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import CommunityCard from './CommunityCard';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
@@ -55,40 +55,25 @@ const CommunityBoards = () => {
 	if (device === 'mobile') {
 		return <div>COMMUNITY BOARDS (MOBILE)</div>;
 	} else {
+		const discussionArticles: BoardArticle[] = [...(newsArticles || []), ...(freeArticles || [])].slice(0, 4);
+
 		return (
-			<Stack className={'community-board'}>
+			<Stack className={'community-discussions'}>
 				<Stack className={'container'}>
-					<Stack>
-						<Typography variant={'h1'}>COMMUNITY BOARD HIGHLIGHTS</Typography>
+					<Stack className={'discussions-head'}>
+						<div className={'left'}>
+							<span className={'title'}>Community Discussions</span>
+							<p>Real tips and reviews from the TourX explorer community.</p>
+						</div>
+						<Link href={'/community?articleCategory=NEWS'} className={'join-btn'}>
+							Join the Conversation
+						</Link>
 					</Stack>
-					<Stack className="community-main">
-						<Stack className={'community-left'}>
-							<Stack className={'content-top'}>
-								<Link href={'/community?articleCategory=NEWS'}>
-									<span>News</span>
-								</Link>
-								<img src="/img/icons/arrowBig.svg" alt="" />
-							</Stack>
-							<Stack className={'card-wrap'}>
-								{newsArticles.map((article, index) => {
-									return <CommunityCard vertical={true} article={article} index={index} key={article?._id} />;
-								})}
-							</Stack>
-						</Stack>
-						<Stack className={'community-right'}>
-							<Stack className={'content-top'}>
-								<Link href={'/community?articleCategory=FREE'}>
-									<span>Free</span>
-								</Link>
-								<img src="/img/icons/arrowBig.svg" alt="" />
-							</Stack>
-							<Stack className={'card-wrap vertical'}>
-								{freeArticles.map((article, index) => {
-									return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
-								})}
-							</Stack>
-						</Stack>
-					</Stack>
+					<div className={'discussions-grid'}>
+						{discussionArticles.map((article, index) => {
+							return <CommunityCard vertical={false} article={article} index={index} key={article?._id} />;
+						})}
+					</div>
 				</Stack>
 			</Stack>
 		);

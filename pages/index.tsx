@@ -9,6 +9,7 @@ import TrendProperties from '../libs/components/homepage/TrendProperties';
 import TopProperties from '../libs/components/homepage/TopProperties';
 import { Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
+import TravelInspiration from '../libs/components/homepage/TravelInspiration';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getStaticProps = async ({ locale }: any) => ({
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
 				<PopularProperties />
 				<Advertisement />
 				<TopProperties />
+				<TravelInspiration />
 				<TopAgents />
 			</Stack>
 		);
@@ -37,6 +39,7 @@ const Home: NextPage = () => {
 				<PopularProperties />
 				<Advertisement />
 				<TopProperties />
+				<TravelInspiration />
 				<TopAgents />
 				<Events />
 				<CommunityBoards />

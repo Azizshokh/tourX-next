@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import WestIcon from '@mui/icons-material/West';
-import EastIcon from '@mui/icons-material/East';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import TrendPropertyCard from './TrendPropertyCard';
@@ -61,15 +57,18 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		}
 	};
 
-	if (trendProperties) console.log('trendProperties: ', trendProperties);
 	if (!trendProperties) return null;
+	const featuredPackages = trendProperties.slice(0, 3);
 
 	if (device === 'mobile') {
 		return (
 			<Stack className={'trend-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Trending Packages</span>
+						<Box component={'div'} className={'left'}>
+							<span>Trending Packages</span>
+							<p>Hand-picked experiences that everyone is talking about.</p>
+						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						{trendProperties.length === 0 ? (
@@ -77,21 +76,16 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								Trends Empty
 							</Box>
 						) : (
-							<Swiper
-								className={'trend-property-swiper'}
-								slidesPerView={'auto'}
-								centeredSlides={true}
-								spaceBetween={15}
-								modules={[Autoplay]}
-							>
-								{trendProperties.map((property: Property) => {
-									return (
-										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
-										</SwiperSlide>
-									);
-								})}
-							</Swiper>
+							<Stack className={'trend-feature-grid'}>
+								{featuredPackages.map((property: Property, index: number) => (
+									<TrendPropertyCard
+										key={property._id}
+										property={property}
+										likePropertyHandler={likePropertyHandler}
+										variant={index === 0 ? 'featured' : 'compact'}
+									/>
+								))}
+							</Stack>
 						)}
 					</Stack>
 				</Stack>
@@ -104,14 +98,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
 							<span>Trending Packages</span>
-							<p>Trend is based on likes</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'pagination-box'}>
-								<WestIcon className={'swiper-trend-prev'} />
-								<div className={'swiper-trend-pagination'}></div>
-								<EastIcon className={'swiper-trend-next'} />
-							</div>
+							<p>Hand-picked experiences that everyone is talking about.</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
@@ -120,27 +107,16 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								Trends Empty
 							</Box>
 						) : (
-							<Swiper
-								className={'trend-property-swiper'}
-								slidesPerView={'auto'}
-								spaceBetween={15}
-								modules={[Autoplay, Navigation, Pagination]}
-								navigation={{
-									nextEl: '.swiper-trend-next',
-									prevEl: '.swiper-trend-prev',
-								}}
-								pagination={{
-									el: '.swiper-trend-pagination',
-								}}
-							>
-								{trendProperties.map((property: Property) => {
-									return (
-										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
-										</SwiperSlide>
-									);
-								})}
-							</Swiper>
+							<Stack className={'trend-feature-grid'}>
+								{featuredPackages.map((property: Property, index: number) => (
+									<TrendPropertyCard
+										key={property._id}
+										property={property}
+										likePropertyHandler={likePropertyHandler}
+										variant={index === 0 ? 'featured' : 'compact'}
+									/>
+								))}
+							</Stack>
 						)}
 					</Stack>
 				</Stack>

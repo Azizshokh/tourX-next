@@ -171,24 +171,24 @@ const Top = () => {
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div>{t('Home')}</div>
+								<div className={router.pathname === '/' ? 'active' : ''}>{t('Home')}</div>
 							</Link>
 							<Link href={'/tour-package'}>
-								<div>{t('Packages')}</div>
+								<div className={router.pathname.startsWith('/tour-package') ? 'active' : ''}>{t('Packages')}</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div> {t('Agents')} </div>
+								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> {t('Agents')} </div>
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
+								<div className={router.pathname.startsWith('/community') ? 'active' : ''}> {t('Community')} </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div> {t('My Page')} </div>
+									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> {t('My Page')} </div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
+								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('CS')} </div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>

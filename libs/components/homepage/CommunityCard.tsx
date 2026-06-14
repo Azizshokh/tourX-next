@@ -3,7 +3,12 @@ import Link from 'next/link';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box } from '@mui/material';
 import Moment from 'react-moment';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { BoardArticle } from '../../types/board-article/board-article';
+import { BoardArticleCategory } from '../../enums/board-article.enum';
 
 interface CommunityCardProps {
 	vertical: boolean;
@@ -12,44 +17,39 @@ interface CommunityCardProps {
 }
 
 const CommunityCard = (props: CommunityCardProps) => {
-	const { vertical, article, index } = props;
+	const { article } = props;
 	const device = useDeviceDetect();
-	const articleImage = article?.articleImage
-		? `${process.env.REACT_APP_API_URL}/${article?.articleImage}`
-		: '/img/event.svg';
+	const isReview = article?.articleCategory === BoardArticleCategory.FREE;
+	const tagLabel = isReview ? 'Package Review' : 'Travel Tips';
 
 	if (device === 'mobile') {
 		return <div>COMMUNITY CARD (MOBILE)</div>;
 	} else {
-		if (vertical) {
-			return (
-				<Link href={`/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`}>
-					<Box component={'div'} className={'vertical-card'}>
-						<div className={'community-img'} style={{ backgroundImage: `url(${articleImage})` }}>
-							<div>{index + 1}</div>
+		return (
+			<Link href={`/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`}>
+				<Box component={'div'} className={`discussion-card ${isReview ? 'review' : 'tips'}`}>
+					<div className={'icon-tile'}>{isReview ? <RateReviewOutlinedIcon /> : <ForumOutlinedIcon />}</div>
+					<div className={'discussion-body'}>
+						<div className={'discussion-top'}>
+							<span className={'tag'}>{tagLabel}</span>
+							<span className={'time'}>
+								<Moment fromNow>{article?.createdAt}</Moment>
+							</span>
 						</div>
-						<strong>{article?.articleTitle}</strong>
-						<span>Free Board</span>
-					</Box>
-				</Link>
-			);
-		} else {
-			return (
-				<>
-					<Link href={`/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`}>
-						<Box component={'div'} className="horizontal-card">
-							<img src={articleImage} alt="" />
-							<div>
-								<strong>{article.articleTitle}</strong>
-								<span>
-									<Moment format="DD.MM.YY">{article?.createdAt}</Moment>
-								</span>
-							</div>
-						</Box>
-					</Link>
-				</>
-			);
-		}
+						<strong className={'discussion-title'}>{article?.articleTitle}</strong>
+						<p className={'discussion-desc'}>{article?.articleContent}</p>
+						<div className={'discussion-meta'}>
+							<span>
+								<ChatBubbleOutlineIcon /> {article?.articleComments || 0} Comments
+							</span>
+							<span>
+								<ThumbUpOutlinedIcon /> {article?.articleLikes || 0} Likes
+							</span>
+						</div>
+					</div>
+				</Box>
+			</Link>
+		);
 	}
 };
 

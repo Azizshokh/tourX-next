@@ -1,25 +1,28 @@
 import React from 'react';
-import { Stack, Box, Divider, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Stack, Box } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
-import { useReactiveVar } from '@apollo/client';
-import { userVar } from '../../../apollo/store';
 
 interface TrendPropertyCardProps {
 	property: Property;
 	likePropertyHandler: any;
+	variant?: 'featured' | 'compact';
 }
 
 const TrendPropertyCard = (props: TrendPropertyCardProps) => {
-	const { property, likePropertyHandler } = props;
-	const device = useDeviceDetect();
+	const { property, variant = 'compact' } = props;
 	const router = useRouter();
-	const user = useReactiveVar(userVar);
+	const imageUrl = property?.packageImages?.[0]
+		? `${REACT_APP_API_URL}/${property.packageImages[0]}`
+		: '/img/banner/TourX%20background.png';
+	const isFeatured = variant === 'featured';
+	const priceLabel = `From $${Number(property?.packagePrice || 0).toLocaleString()}`;
+	const ratingLabel = `${Math.min(5, 4.6 + ((property?.packageRank || 0) % 4) / 10).toFixed(1)} Rating`;
+	const toursCount = Math.max(property?.packageViews || 0, 24);
+	const toursLabel = isFeatured ? `${toursCount}+ Tours Available` : `${toursCount}+ Tours`;
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (propertyId: string) => {
@@ -30,149 +33,60 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 		});
 	};
 
-	if (device === 'mobile') {
-		return (
-			<Stack className="trend-card-box" key={property._id}>
-				<Box
-					component={'div'}
-					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
-					onClick={() => {
-						pushDetailHandler(property._id);
-					}}
-				>
-					<div className={'price-badge'}>${property.packagePrice}</div>
-					<span className={'rating-badge'}>{property?.packageLikes || 0} saved</span>
-				</Box>
-				<Box component={'div'} className={'info'}>
-					<div className={'meta-row'}>
-						<span>{property.packageCountry || 'Featured destination'}</span>
-						<em>{property.packageType}</em>
-					</div>
-					<strong
-						className={'title'}
-						onClick={() => {
+	return (
+		<Stack
+			className={`trend-card-box ${variant}`}
+			key={property._id}
+			onClick={() => {
+				pushDetailHandler(property._id);
+			}}
+		>
+			<span className={'trend-card-media'} style={{ backgroundImage: `url(${imageUrl})` }} />
+			<span className={'trend-card-overlay'} />
+			<span className={'trend-card-chip'}>{property.packageTitle || 'Signature Escape'}</span>
+			{!isFeatured && <span className={'trend-card-price compact'}>{priceLabel}</span>}
+			<Box component={'div'} className={'trend-card-content'}>
+				<div className={'trend-card-topline'}>
+					<span>{property.packageType}</span>
+				</div>
+				<h3>{property.packageTitle}</h3>
+				<div className={'trend-card-meta'}>
+					{isFeatured ? (
+						<>
+							<span>
+								<ExploreOutlinedIcon /> {toursLabel}
+							</span>
+							<span>
+								<StarIcon /> {ratingLabel}
+							</span>
+						</>
+					) : (
+						<>
+							<span>
+								<StarIcon /> {ratingLabel}
+							</span>
+							<span>{toursLabel}</span>
+						</>
+					)}
+				</div>
+				<p>
+					{property.packageDesc || property.packageAddress || 'Curated travel experience with trusted TourX experts.'}
+				</p>
+				<div className={'trend-card-actions'}>
+					<button
+						type="button"
+						onClick={(event) => {
+							event.stopPropagation();
 							pushDetailHandler(property._id);
 						}}
 					>
-						{property.packageTitle}
-					</strong>
-					<p className={'desc'}>{property.packageDesc ?? 'no description'}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property.minPeople} min</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property.maxPeople} max</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property.durationDays} days</span>
-						</div>
-					</div>
-					<div className={'trust-row'}>
-						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
-					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<p>
-							{property.hotelIncluded ? 'Hotel' : ''} {property.hotelIncluded && property.flightIncluded && '/'}{' '}
-							{property.flightIncluded ? 'Flight' : ''}
-						</p>
-						<div className="view-like-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
-							</IconButton>
-							<Typography className="view-cnt">{property?.packageViews}</Typography>
-							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
-								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
-								) : (
-									<FavoriteIcon />
-								)}
-							</IconButton>
-							<Typography className="view-cnt">{property?.packageLikes}</Typography>
-						</div>
-					</div>
-				</Box>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className="trend-card-box" key={property._id}>
-				<Box
-					component={'div'}
-					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
-					onClick={() => {
-						pushDetailHandler(property._id);
-					}}
-				>
-					<div className={'price-badge'}>${property.packagePrice}</div>
-					<span className={'rating-badge'}>{property?.packageLikes || 0} saved</span>
-				</Box>
-				<Box component={'div'} className={'info'}>
-					<div className={'meta-row'}>
-						<span>{property.packageCountry || 'Featured destination'}</span>
-						<em>{property.packageType}</em>
-					</div>
-					<strong
-						className={'title'}
-						onClick={() => {
-							pushDetailHandler(property._id);
-						}}
-					>
-						{property.packageTitle}
-					</strong>
-					<p className={'desc'}>{property.packageDesc ?? 'no description'}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property.minPeople} min</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property.maxPeople} max</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property.durationDays} days</span>
-						</div>
-					</div>
-					<div className={'trust-row'}>
-						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
-					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<p>
-							{property.hotelIncluded ? 'Hotel' : ''} {property.hotelIncluded && property.flightIncluded && '/'}{' '}
-							{property.flightIncluded ? 'Flight' : ''}
-						</p>
-						<div className="view-like-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
-							</IconButton>
-							<Typography className="view-cnt">{property?.packageViews}</Typography>
-							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property._id)}>
-								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
-								) : (
-									<FavoriteIcon />
-								)}
-							</IconButton>
-							<Typography className="view-cnt">{property?.packageLikes}</Typography>
-						</div>
-					</div>
-				</Box>
-			</Stack>
-		);
-	}
+						{isFeatured ? 'Explore Now' : 'Explore'}
+					</button>
+				</div>
+			</Box>
+			{isFeatured && <span className={'trend-card-price'}>{priceLabel}</span>}
+		</Stack>
+	);
 };
 
 export default TrendPropertyCard;

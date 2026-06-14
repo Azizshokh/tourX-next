@@ -24,61 +24,51 @@ const withLayoutBasic = (Component: any) => {
 
 		const memoizedValues = useMemo(() => {
 			let title = '',
-				desc = '',
-				bgImage = '';
+				desc = '';
 
 			switch (router.pathname) {
 				case '/tour-package':
 					title = 'Package Search';
 					desc = 'Find your next trip';
-					bgImage = '/img/banner/properties.png';
 					break;
 				case '/agent':
 					title = 'Agents';
 					desc = 'Home / Travel Experts';
-					bgImage = '/img/banner/agents.webp';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Home / Travel Expert';
-					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/mypage':
 					title = 'my page';
 					desc = 'Home / My Travel';
-					bgImage = '/img/banner/header1.svg';
 					break;
 				case '/community':
 					title = 'Community';
 					desc = 'Home / Community';
-					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
 					desc = 'Home / Community';
-					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/header2.svg';
 					setAuthHeader(true);
 					break;
 				case '/member':
 					title = 'Member Page';
 					desc = 'Home / Member';
-					bgImage = '/img/banner/header1.svg';
 					break;
 				default:
 					break;
 			}
 
-			return { title, desc, bgImage };
+			return { title, desc };
 		}, [router.pathname]);
 
 		/** LIFECYCLES **/
@@ -125,11 +115,6 @@ const withLayoutBasic = (Component: any) => {
 
 						<Stack
 							className={`header-basic ${authHeader && 'auth'}`}
-							style={{
-								backgroundImage: `url(${memoizedValues.bgImage})`,
-								backgroundSize: 'cover',
-								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
-							}}
 						>
 							<Stack className={'container'}>
 								<strong>{t(memoizedValues.title)}</strong>

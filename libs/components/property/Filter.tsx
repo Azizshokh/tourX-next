@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Checkbox, IconButton, OutlinedInput, Stack, Typography } from '@mui/material';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import { Button, Checkbox, Stack, Typography } from '@mui/material';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PackageType } from '../../enums/package.enum';
@@ -44,10 +43,7 @@ const Filter = (props: FilterType) => {
 		const nextFilter = {
 			...searchFilter,
 			page: 1,
-			search: {
-				...searchFilter.search,
-				[key]: nextList,
-			},
+			search: { ...searchFilter.search, [key]: nextList },
 		};
 		setSearchFilter(nextFilter);
 		await pushFilter(nextFilter);
@@ -89,10 +85,7 @@ const Filter = (props: FilterType) => {
 		const nextFilter = {
 			...searchFilter,
 			page: 1,
-			search: {
-				...searchFilter.search,
-				text: searchText,
-			},
+			search: { ...searchFilter.search, text: searchText },
 		};
 		setSearchFilter(nextFilter);
 		await pushFilter(nextFilter);
@@ -109,148 +102,195 @@ const Filter = (props: FilterType) => {
 	}
 
 	return (
-		<Stack className={'filter-main'}>
-			<Stack className={'find-your-home'} mb={'40px'}>
-				<Typography className={'title-main'}>Find A Tour</Typography>
-				<Stack className={'input-box'}>
-					<OutlinedInput
+		<Stack className="filter-main">
+			{/* Header */}
+			<Stack className="filter-header">
+				<Typography className="filter-title">Filters</Typography>
+				<Button className="clear-btn" onClick={refreshHandler} disableRipple>
+					CLEAR FILTERS
+				</Button>
+			</Stack>
+
+			{/* Keywords */}
+			<Stack className="filter-section">
+				<Typography className="section-label">Keywords</Typography>
+				<Stack className="search-wrap">
+					<SearchRoundedIcon className="search-icon" />
+					<input
+						type="text"
+						className="search-input"
+						placeholder="Search destinations..."
 						value={searchText}
-						type={'text'}
-						className={'search-input'}
-						placeholder={'What are you looking for?'}
-						onChange={(e: any) => setSearchText(e.target.value)}
-						onKeyDown={(event: any) => {
-							if (event.key === 'Enter') textSearchHandler();
+						onChange={(e) => setSearchText(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') textSearchHandler();
 						}}
-						endAdornment={<CancelRoundedIcon onClick={() => setSearchText('')} />}
 					/>
-					<img src={'/img/icons/search_icon.png'} alt={''} />
-					<IconButton onClick={refreshHandler}>
-						<RefreshIcon />
-					</IconButton>
 				</Stack>
 			</Stack>
 
-			<Stack className={'find-your-home'} mb={'30px'}>
-				<Typography className={'title'}>Country</Typography>
-				{packageCountries.map((country) => (
-					<Stack className={'input-box'} key={country}>
-						<Checkbox
-							className="property-checkbox"
-							color="default"
-							size="small"
-							value={country}
-							checked={(searchFilter?.search?.countryList || []).includes(country)}
-							onChange={() => toggleListValue('countryList', country)}
-						/>
-						<Typography className="property-type">{country}</Typography>
+			{/* Country / City */}
+			<Stack className="filter-section">
+				<Stack className="select-row">
+					<Stack className="select-group">
+						<Typography className="section-label">Country</Typography>
+						<select
+							className="filter-select"
+							value={searchFilter?.search?.countryList?.[0] ?? ''}
+							onChange={(e) => {
+								const val = e.target.value;
+								const nextFilter = {
+									...searchFilter,
+									page: 1,
+									search: { ...searchFilter.search, countryList: val ? [val] : [] },
+								};
+								setSearchFilter(nextFilter);
+								pushFilter(nextFilter);
+							}}
+						>
+							<option value="">All</option>
+							{packageCountries.map((c) => (
+								<option value={c} key={c}>
+									{c}
+								</option>
+							))}
+						</select>
 					</Stack>
-				))}
-			</Stack>
-
-			<Stack className={'find-your-home'} mb={'30px'}>
-				<Typography className={'title'}>City</Typography>
-				{packageCities.map((city) => (
-					<Stack className={'input-box'} key={city}>
-						<Checkbox
-							className="property-checkbox"
-							color="default"
-							size="small"
-							value={city}
-							checked={(searchFilter?.search?.cityList || []).includes(city)}
-							onChange={() => toggleListValue('cityList', city)}
-						/>
-						<Typography className="property-type">{city}</Typography>
+					<Stack className="select-group">
+						<Typography className="section-label">City</Typography>
+						<select
+							className="filter-select"
+							value={searchFilter?.search?.cityList?.[0] ?? ''}
+							onChange={(e) => {
+								const val = e.target.value;
+								const nextFilter = {
+									...searchFilter,
+									page: 1,
+									search: { ...searchFilter.search, cityList: val ? [val] : [] },
+								};
+								setSearchFilter(nextFilter);
+								pushFilter(nextFilter);
+							}}
+						>
+							<option value="">All</option>
+							{packageCities.map((c) => (
+								<option value={c} key={c}>
+									{c}
+								</option>
+							))}
+						</select>
 					</Stack>
-				))}
-			</Stack>
-
-			<Stack className={'find-your-home'} mb={'30px'}>
-				<Typography className={'title'}>Package Type</Typography>
-				{Object.values(PackageType).map((type) => (
-					<Stack className={'input-box'} key={type}>
-						<Checkbox
-							className="property-checkbox"
-							color="default"
-							size="small"
-							value={type}
-							checked={(searchFilter?.search?.typeList || []).includes(type)}
-							onChange={() => toggleListValue('typeList', type)}
-						/>
-						<Typography className="property_type">{type}</Typography>
-					</Stack>
-				))}
-			</Stack>
-
-			<Stack className={'find-your-home'} mb={'30px'}>
-				<Typography className={'title'}>Inclusions</Typography>
-				{[
-					['flightIncluded', 'Flight'],
-					['hotelIncluded', 'Hotel'],
-					['guideIncluded', 'Guide'],
-				].map(([value, label]) => (
-					<Stack className={'input-box'} key={value}>
-						<Checkbox
-							className="property-checkbox"
-							color="default"
-							size="small"
-							value={value}
-							checked={(searchFilter?.search?.options || []).includes(value)}
-							onChange={() => toggleListValue('options', value)}
-						/>
-						<Typography className="propert-type">{label}</Typography>
-					</Stack>
-				))}
-			</Stack>
-
-			<Stack className={'find-your-home'} mb={'30px'}>
-				<Typography className={'title'}>Duration</Typography>
-				<Stack className="square-year-input">
-					<select
-						value={searchFilter?.search?.durationRange?.start ?? 1}
-						onChange={(e: any) => durationRangeHandler(Number(e.target.value), 'start')}
-					>
-						{packageDurations.map((days) => (
-							<option value={days} key={days}>
-								{days} days
-							</option>
-						))}
-					</select>
-					<div className="central-divider"></div>
-					<select
-						value={searchFilter?.search?.durationRange?.end ?? 30}
-						onChange={(e: any) => durationRangeHandler(Number(e.target.value), 'end')}
-					>
-						{packageDurations.map((days) => (
-							<option value={days} key={days}>
-								{days} days
-							</option>
-						))}
-					</select>
 				</Stack>
 			</Stack>
 
-			<Stack className={'find-your-home'}>
-				<Typography className={'title'}>Price Range</Typography>
-				<Stack className="square-year-input">
+			{/* Experience Type */}
+			<Stack className="filter-section">
+				<Typography className="section-label">Experience Type</Typography>
+				<Stack className="type-grid">
+					{Object.values(PackageType).map((type) => (
+						<Stack className="type-item" key={type}>
+							<Checkbox
+								className="type-checkbox"
+								size="small"
+								checked={(searchFilter?.search?.typeList || []).includes(type)}
+								onChange={() => toggleListValue('typeList', type)}
+							/>
+							<Typography className="type-label">{type}</Typography>
+						</Stack>
+					))}
+				</Stack>
+			</Stack>
+
+			{/* Inclusions */}
+			<Stack className="filter-section">
+				<Typography className="section-label">Inclusions</Typography>
+				<Stack className="type-grid">
+					{(['flightIncluded', 'hotelIncluded', 'guideIncluded'] as const).map((key) => {
+						const label = key === 'flightIncluded' ? 'Flight' : key === 'hotelIncluded' ? 'Hotel' : 'Guide';
+						return (
+							<Stack className="type-item" key={key}>
+								<Checkbox
+									className="type-checkbox"
+									size="small"
+									checked={(searchFilter?.search?.options || []).includes(key)}
+									onChange={() => toggleListValue('options', key)}
+								/>
+								<Typography className="type-label">{label}</Typography>
+							</Stack>
+						);
+					})}
+				</Stack>
+			</Stack>
+
+			{/* Price Range */}
+			<Stack className="filter-section">
+				<Stack className="section-header-row">
+					<Typography className="section-label">Price Range</Typography>
+					<Typography className="range-display">
+						${(searchFilter?.search?.pricesRange?.start ?? 0).toLocaleString()} — $
+						{(searchFilter?.search?.pricesRange?.end ?? 2000000).toLocaleString()}
+					</Typography>
+				</Stack>
+				<Stack className="range-inputs">
 					<input
 						type="number"
-						placeholder="$ min"
+						className="range-num"
+						placeholder="Min"
 						min={0}
 						value={searchFilter?.search?.pricesRange?.start ?? 0}
-						onChange={(e: any) => priceRangeHandler(Number(e.target.value), 'start')}
+						onChange={(e) => priceRangeHandler(Number(e.target.value), 'start')}
 					/>
-					<div className="central-divider"></div>
+					<span className="range-sep">—</span>
 					<input
 						type="number"
-						placeholder="$ max"
+						className="range-num"
+						placeholder="Max"
 						value={searchFilter?.search?.pricesRange?.end ?? 0}
-						onChange={(e: any) => priceRangeHandler(Number(e.target.value), 'end')}
+						onChange={(e) => priceRangeHandler(Number(e.target.value), 'end')}
 					/>
 				</Stack>
 			</Stack>
 
-			<Button onClick={textSearchHandler}>Search</Button>
+			{/* Duration */}
+			<Stack className="filter-section">
+				<Stack className="section-header-row">
+					<Typography className="section-label">Duration (Days)</Typography>
+					<Typography className="range-display">
+						{searchFilter?.search?.durationRange?.start ?? 1} —{' '}
+						{searchFilter?.search?.durationRange?.end ?? 30} days
+					</Typography>
+				</Stack>
+				<Stack className="range-inputs">
+					<select
+						className="filter-select-sm"
+						value={searchFilter?.search?.durationRange?.start ?? 1}
+						onChange={(e) => durationRangeHandler(Number(e.target.value), 'start')}
+					>
+						{packageDurations.map((d) => (
+							<option value={d} key={d}>
+								{d}
+							</option>
+						))}
+					</select>
+					<span className="range-sep">—</span>
+					<select
+						className="filter-select-sm"
+						value={searchFilter?.search?.durationRange?.end ?? 30}
+						onChange={(e) => durationRangeHandler(Number(e.target.value), 'end')}
+					>
+						{packageDurations.map((d) => (
+							<option value={d} key={d}>
+								{d}
+							</option>
+						))}
+					</select>
+				</Stack>
+			</Stack>
+
+			{/* Apply */}
+			<Button className="apply-btn" onClick={textSearchHandler} disableElevation>
+				Apply Filters
+			</Button>
 		</Stack>
 	);
 };

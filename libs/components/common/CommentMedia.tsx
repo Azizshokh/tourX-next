@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, IconButton, Stack, Typography } from '@mui/material';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
 import { REACT_APP_API_URL } from '../../config';
@@ -213,17 +215,62 @@ export const uploadCommentImages = async (files: File[]): Promise<string[]> => {
 	return response.data?.data?.imagesUploader ?? [];
 };
 
+const mediaButtonSx = {
+	borderRadius: '999px',
+	border: '1.5px solid #ff8a00',
+	color: '#ff8a00',
+	background: 'transparent',
+	fontFamily: "'Plus Jakarta Sans', sans-serif",
+	fontSize: '13px',
+	fontWeight: 700,
+	textTransform: 'none' as const,
+	padding: '5px 14px',
+	lineHeight: 1.4,
+	transition: 'background 0.18s ease, border-color 0.18s ease, color 0.18s ease',
+	'&:hover': {
+		background: '#fff3e0',
+		borderColor: '#e87a00',
+		color: '#e87a00',
+	},
+	'&.Mui-disabled': {
+		border: '1.5px solid #e4e2e1',
+		color: '#b0b8c1',
+		background: 'transparent',
+	},
+	'& .MuiButton-startIcon': {
+		marginRight: '5px',
+		'& svg': { fontSize: '16px' },
+	},
+};
+
 export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 	return (
-		<Stack gap={'10px'} sx={{ mt: '12px', mb: '12px' }}>
-			<Stack direction={'row'} gap={'10px'} alignItems={'center'} flexWrap={'wrap'}>
-				<Button variant="outlined" size="small" disabled={media.hasVideo} onClick={() => media.imageInputRef.current?.click()}>
+		<Stack gap={'10px'} sx={{ mt: '12px', mb: '8px' }}>
+			<Stack direction={'row'} gap={'8px'} alignItems={'center'} flexWrap={'wrap'}>
+				<Button
+					disabled={media.hasVideo}
+					onClick={() => media.imageInputRef.current?.click()}
+					startIcon={<AddPhotoAlternateOutlinedIcon />}
+					sx={mediaButtonSx}
+				>
 					Add images
 				</Button>
-				<Button variant="outlined" size="small" disabled={media.hasImages} onClick={() => media.videoInputRef.current?.click()}>
+				<Button
+					disabled={media.hasImages}
+					onClick={() => media.videoInputRef.current?.click()}
+					startIcon={<VideocamOutlinedIcon />}
+					sx={mediaButtonSx}
+				>
 					Add video
 				</Button>
-				<Typography variant="caption" color="text.secondary">
+				<Typography
+					sx={{
+						color: '#94a3b8',
+						fontFamily: "'Plus Jakarta Sans', sans-serif",
+						fontSize: '12px',
+						fontWeight: 500,
+					}}
+				>
 					Up to 4 images or 1 video
 				</Typography>
 			</Stack>
@@ -247,7 +294,14 @@ export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 			/>
 
 			{media.error && (
-				<Typography variant="caption" color="error">
+				<Typography
+					sx={{
+						color: '#e53935',
+						fontFamily: "'Plus Jakarta Sans', sans-serif",
+						fontSize: '12px',
+						fontWeight: 600,
+					}}
+				>
 					{media.error}
 				</Typography>
 			)}
@@ -255,24 +309,35 @@ export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 			{media.imagePreviews.length > 0 && (
 				<Stack direction={'row'} gap={'8px'} flexWrap={'wrap'}>
 					{media.imagePreviews.map((preview, index) => (
-						<Stack key={preview} sx={{ position: 'relative', width: 86, height: 86 }}>
+						<Stack
+							key={preview}
+							sx={{
+								position: 'relative',
+								width: 88,
+								height: 88,
+								borderRadius: '10px',
+								overflow: 'hidden',
+								border: '1.5px solid #f1e4d7',
+							}}
+						>
 							<img
 								src={preview}
 								alt={`selected image ${index + 1}`}
-								style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 6 }}
+								style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
 							/>
 							<IconButton
 								size="small"
 								onClick={() => media.removeImage(index)}
 								sx={{
 									position: 'absolute',
-									top: 2,
-									right: 2,
-									width: 22,
-									height: 22,
+									top: 3,
+									right: 3,
+									width: 20,
+									height: 20,
 									background: 'rgba(0,0,0,0.55)',
 									color: '#fff',
-									':hover': { background: 'rgba(0,0,0,0.75)' },
+									fontSize: '14px',
+									':hover': { background: 'rgba(0,0,0,0.78)' },
 								}}
 							>
 								×
@@ -283,20 +348,29 @@ export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 			)}
 
 			{media.videoPreview && (
-				<Stack sx={{ position: 'relative', width: '100%', maxWidth: 360 }}>
-					<video src={media.videoPreview} controls style={{ width: '100%', borderRadius: 6 }} />
+				<Stack
+					sx={{
+						position: 'relative',
+						width: '100%',
+						maxWidth: 360,
+						borderRadius: '10px',
+						overflow: 'hidden',
+						border: '1.5px solid #f1e4d7',
+					}}
+				>
+					<video src={media.videoPreview} controls style={{ width: '100%', display: 'block' }} />
 					<IconButton
 						size="small"
 						onClick={media.removeVideo}
 						sx={{
 							position: 'absolute',
-							top: 4,
-							right: 4,
+							top: 6,
+							right: 6,
 							width: 24,
 							height: 24,
 							background: 'rgba(0,0,0,0.55)',
 							color: '#fff',
-							':hover': { background: 'rgba(0,0,0,0.75)' },
+							':hover': { background: 'rgba(0,0,0,0.78)' },
 						}}
 					>
 						×

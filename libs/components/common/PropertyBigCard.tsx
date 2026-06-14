@@ -1,16 +1,18 @@
 import React from 'react';
-import { Stack, Box, Divider, Typography } from '@mui/material';
+import { Stack, Box, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
+import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { REACT_APP_API_URL, topPackageRank } from '../../config';
 import { formatterStr } from '../../utils';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 interface PropertyBigCardProps {
 	property: Property;
@@ -23,7 +25,6 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 
-	/** HANDLERS **/
 	const goTourPackageDetailPage = (packageId?: string) => {
 		if (!packageId) return;
 		router.push({
@@ -42,54 +43,60 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages?.[0]})` }}
 				>
+					<div className={'img-overlay'} />
 					{property && property?.packageRank >= topPackageRank && (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
 						</div>
 					)}
-
-					<div className={'price'}>${formatterStr(property?.packagePrice)}</div>
+					{property?.packageType && (
+						<div className={'pkg-type'}>{property.packageType.replace(/_/g, ' ')}</div>
+					)}
+					<div className={'price'}>
+						{property?.packageCurrency ?? 'USD'} {formatterStr(property?.packagePrice)}
+					</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property?.packageTitle}</strong>
-					<p className={'desc'}>{property?.packageAddress}</p>
+					<p className={'desc'}>
+						{[property?.packageCity, property?.packageCountry].filter(Boolean).join(', ')}
+					</p>
 					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.minPeople} min</span>
+						<div className={'opt-item'}>
+							<AccessTimeRoundedIcon className={'opt-icon'} />
+							<span>{property?.durationDays} {property?.durationDays === 1 ? 'day' : 'days'}</span>
 						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.maxPeople} max</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.durationDays} days</span>
+						<div className={'opt-item'}>
+							<PeopleOutlinedIcon className={'opt-icon'} />
+							<span>{property?.minPeople}–{property?.maxPeople} pax</span>
 						</div>
 					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<div>
-							{property?.hotelIncluded ? <p>Hotel</p> : <span>Hotel</span>}
-							{property?.flightIncluded ? <p>Flight</p> : <span>Flight</span>}
+					{(property?.flightIncluded || property?.hotelIncluded || property?.guideIncluded) && (
+						<div className={'inclusions'}>
+							{property?.flightIncluded && <span className={'tag'}>Flight</span>}
+							{property?.hotelIncluded && <span className={'tag'}>Hotel</span>}
+							{property?.guideIncluded && <span className={'tag'}>Guide</span>}
 						</div>
+					)}
+					<div className={'bott'}>
 						<div className="buttons-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
+							<IconButton color={'default'} size={'small'}>
+								<RemoveRedEyeIcon fontSize={'small'} />
 							</IconButton>
 							<Typography className="view-cnt">{property?.packageViews}</Typography>
 							<IconButton
 								color={'default'}
+								size={'small'}
 								onClick={(e) => {
 									e.stopPropagation();
 									likePropertyHandler(user, property?._id);
 								}}
 							>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
+									<FavoriteIcon fontSize={'small'} style={{ color: '#ff8a00' }} />
 								) : (
-									<FavoriteBorderIcon />
+									<FavoriteBorderIcon fontSize={'small'} />
 								)}
 							</IconButton>
 							<Typography className="view-cnt">{property?.packageLikes}</Typography>

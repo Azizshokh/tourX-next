@@ -88,13 +88,34 @@ body::-webkit-scrollbar {
 
 						div {
 							position: relative;
-							color: #333333;
+							color: #557082;
 							font-family: $font;
 							font-size: 15px;
 							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 							cursor: pointer;
+
+							&:after {
+								content: '';
+								position: absolute;
+								left: 0;
+								right: 0;
+								bottom: -8px;
+								height: 2px;
+								background: #FF383C;
+								transform: scaleX(0);
+								transform-origin: center;
+								transition: transform 0.2s ease;
+							}
+
+							&:hover:after {
+								transform: scaleX(1);
+							}
+
+							&:hover {
+								color: #FF383C;
+							}
 
 							.community_menu {
 								position: absolute;
@@ -1216,36 +1237,40 @@ body::-webkit-scrollbar {
 	}
 
 	.header-main {
+		position: relative;
 		overflow: hidden;
 		height: 760px;
-		background:
-			linear-gradient(180deg, rgba(8, 47, 73, 0.36) 0%, rgba(8, 47, 73, 0.1) 48%, #f7fafc 100%),
-			url('/img/fiber/img8.jpg') center/cover no-repeat;
+		background: #082f49;
 
-		&:before {
-			content: '';
+		.hero-video {
 			position: absolute;
 			inset: 0;
-			background:
-				radial-gradient(circle at 18% 28%, rgba(255, 138, 0, 0.22), transparent 26%),
-				linear-gradient(90deg, rgba(8, 47, 73, 0.68) 0%, rgba(8, 47, 73, 0.18) 52%, rgba(8, 47, 73, 0.38) 100%);
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 			z-index: 0;
+			pointer-events: none;
+			transform: scale(1.02);
 		}
 
-		.threeJSContainer {
-			position: absolute !important;
-			inset: 108px 0 auto 0;
-			margin-top: 0 !important;
-			width: 100% !important;
-			height: 390px !important;
-			opacity: 0.44;
+		.hero-video-overlay {
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			background:
+				radial-gradient(circle at 18% 28%, rgba(255, 138, 0, 0.22), transparent 32%),
+				linear-gradient(180deg, rgba(8, 47, 73, 0.55) 0%, rgba(8, 47, 73, 0.35) 45%, rgba(247, 250, 252, 0.95) 100%),
+				linear-gradient(90deg, rgba(8, 47, 73, 0.6) 0%, rgba(8, 47, 73, 0.15) 55%, rgba(8, 47, 73, 0.4) 100%);
 			pointer-events: none;
-			z-index: 0;
+		}
+
+		&:before {
+			content: none;
 		}
 
 		.container {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			margin-top: 145px;
 			align-items: flex-start;
 

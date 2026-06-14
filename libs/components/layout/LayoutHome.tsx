@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Top from '../Top';
 import Footer from '../Footer';
 import { Stack } from '@mui/material';
-import FiberContainer from '../common/FiberContainer';
 import HeaderFilter from '../homepage/HeaderFilter';
 import { userVar } from '../../../apollo/store';
 import { useReactiveVar } from '@apollo/client';
@@ -62,27 +61,20 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<FiberContainer />
+							<video
+								className={'hero-video'}
+								src={'/video/TourX%20videos.mp4'}
+								autoPlay
+								muted
+								loop
+								playsInline
+								preload={'auto'}
+							/>
+							<span className={'hero-video-overlay'} />
 							<Stack className={'container'}>
 								<Stack className={'hero-content'}>
 									<span className={'hero-kicker'}>Premium travel marketplace</span>
 									<h1>Discover curated tours for every kind of traveler</h1>
-									<p>
-										Compare trusted agents, handpicked destinations, and package inclusions in one polished travel
-										experience.
-									</p>
-									<div className={'hero-trust-row'}>
-										<span>Verified local agents</span>
-										<span>Instant package discovery</span>
-										<span>Ocean-blue destination guides</span>
-									</div>
-									<div className={'hero-destination-row'}>
-										<strong>Popular now</strong>
-										<span>Jeju escapes</span>
-										<span>Seoul culture</span>
-										<span>Tokyo food tours</span>
-										<span>Bali wellness</span>
-									</div>
 								</Stack>
 								<HeaderFilter />
 								<Stack className={'hero-category-row'}>

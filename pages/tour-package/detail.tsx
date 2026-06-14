@@ -193,80 +193,84 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 		<div id={'property-detail-page'}>
 			<div className={'container'}>
 				<Stack className={'property-detail-config'}>
-					<Stack className={'property-info-config'}>
-						<Stack className={'info'}>
-							<Stack className={'left-box'}>
-								<Typography className={'title-main'}>{tourPackage?.packageTitle}</Typography>
-								<Stack className={'top-box'}>
-									<Typography className={'city'}>
-										{tourPackage?.packageCity}, {tourPackage?.packageCountry}
-									</Typography>
-									<Stack className={'divider'}></Stack>
-									<Typography className={'date'}>{moment().diff(tourPackage?.createdAt, 'days')} days ago</Typography>
-								</Stack>
-								<Stack className={'bottom-box'}>
-									<Stack className="option">
-										<Typography>{tourPackage?.durationDays} days</Typography>
-									</Stack>
-									<Stack className="option">
-										<Typography>
-											{tourPackage?.minPeople}-{tourPackage?.maxPeople} people
-										</Typography>
-									</Stack>
-									<Stack className="option">
-										<Typography>{tourPackage?.packageType}</Typography>
-									</Stack>
-								</Stack>
-							</Stack>
-							<Stack className={'right-box'}>
-								<Stack className="buttons">
-									<Stack className="button-box">
-										<RemoveRedEyeIcon fontSize="medium" />
-										<Typography>{tourPackage?.packageViews}</Typography>
-									</Stack>
-									<Stack
-										className="button-box"
-										onClick={() => tourPackage?._id && likePackageHandler(user, tourPackage._id)}
-										style={{ cursor: 'pointer' }}
-									>
-										{tourPackage?.meLiked && tourPackage?.meLiked[0]?.myFavorite ? (
-											<FavoriteIcon color="primary" fontSize={'medium'} />
-										) : (
-											<FavoriteBorderIcon fontSize={'medium'} />
-										)}
-										<Typography>{tourPackage?.packageLikes}</Typography>
-									</Stack>
-								</Stack>
-								<Typography>
-									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
-								</Typography>
-							</Stack>
-						</Stack>
-						<Stack className={'images'}>
-							<Stack className={'main-image'}>
-								<img
-									src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/property/bigImage.png'}
-									alt={'main-image'}
-								/>
-							</Stack>
-							<Stack className={'sub-images'}>
-								{tourPackage?.packageImages.map((subImg: string) => (
-									<Stack className={'sub-img-box'} onClick={() => setSlideImage(subImg)} key={subImg}>
-										<img src={`${REACT_APP_API_URL}/${subImg}`} alt={'sub-image'} />
-									</Stack>
-								))}
-							</Stack>
-						</Stack>
+					<Stack className={'detail-breadcrumb'}>
+						<Link href={'/tour-package'}>All tours</Link>
+						<span>/</span>
+						<Typography>{tourPackage?.packageCity || 'Adventure'}</Typography>
 					</Stack>
-					<Stack className={'property-desc-config'}>
-						<Stack className={'left-config'}>
+					<Stack className={'detail-main-grid'}>
+						<Stack className={'detail-main-left'}>
+							<Stack className={'property-info-config'}>
+								<Stack className={'info'}>
+									<Stack className={'left-box'}>
+										<Stack className={'top-box'}>
+											<Typography className={'city'}>
+												{tourPackage?.packageCity}, {tourPackage?.packageCountry}
+											</Typography>
+											<Stack className={'divider'}></Stack>
+											<Typography className={'date'}>{moment().diff(tourPackage?.createdAt, 'days')} days ago</Typography>
+										</Stack>
+										<Typography className={'title-main'}>{tourPackage?.packageTitle}</Typography>
+										<Stack className={'bottom-box'}>
+											<Stack className="option">
+												<Typography>{tourPackage?.durationDays} days</Typography>
+											</Stack>
+											<Stack className="option">
+												<Typography>
+													{tourPackage?.minPeople}-{tourPackage?.maxPeople} people
+												</Typography>
+											</Stack>
+											<Stack className="option">
+												<Typography>{tourPackage?.packageType}</Typography>
+											</Stack>
+										</Stack>
+									</Stack>
+									<Stack className={'right-box'}>
+										<Stack className="buttons">
+											<Stack className="button-box">
+												<RemoveRedEyeIcon fontSize="medium" />
+												<Typography>{tourPackage?.packageViews}</Typography>
+											</Stack>
+											<Stack
+												className="button-box"
+												onClick={() => tourPackage?._id && likePackageHandler(user, tourPackage._id)}
+												style={{ cursor: 'pointer' }}
+											>
+												{tourPackage?.meLiked && tourPackage?.meLiked[0]?.myFavorite ? (
+													<FavoriteIcon color="primary" fontSize={'medium'} />
+												) : (
+													<FavoriteBorderIcon fontSize={'medium'} />
+												)}
+												<Typography>{tourPackage?.packageLikes}</Typography>
+											</Stack>
+										</Stack>
+									</Stack>
+								</Stack>
+								<Stack className={'images'}>
+									<Stack className={'main-image'}>
+										<img
+											src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/banner/TourX%20background.png'}
+											alt={'main-image'}
+										/>
+									</Stack>
+									<Stack className={'sub-images'}>
+										{tourPackage?.packageImages?.slice(0, 5).map((subImg: string) => (
+											<Stack className={'sub-img-box'} onClick={() => setSlideImage(subImg)} key={subImg}>
+												<img src={`${REACT_APP_API_URL}/${subImg}`} alt={'sub-image'} />
+											</Stack>
+										))}
+									</Stack>
+								</Stack>
+							</Stack>
+							<Stack className={'property-desc-config'}>
+								<Stack className={'left-config'}>
 							<Stack className={'prop-desc-config'}>
 								<Stack className={'top'}>
-									<Typography className={'title'}>Package Description</Typography>
+									<Typography className={'title'}>Experience Storyline</Typography>
 									<Typography className={'desc'}>{tourPackage?.packageDesc ?? 'No Description!'}</Typography>
 								</Stack>
 								<Stack className={'bottom'}>
-									<Typography className={'title'}>Package Details</Typography>
+									<Typography className={'title'}>What is included</Typography>
 									<Stack className={'info-box'}>
 										<Stack className={'left'}>
 											<Box component={'div'} className={'info'}>
@@ -360,9 +364,32 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Box>
 							</Stack>
 						</Stack>
+							</Stack>
+						</Stack>
 						<Stack className={'right-config'}>
+							<Stack className={'booking-card'}>
+								<Typography className={'sidebar-kicker'}>Trip summary</Typography>
+								<Typography className={'price'}>
+									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
+								</Typography>
+								<Typography className={'price-note'}>per curated package</Typography>
+								<Button className={'book-now'}>Book this package</Button>
+								<Button className={'outline-action'}>Add to wishlist</Button>
+								<Stack className={'booking-stats'}>
+									<span>{tourPackage?.durationDays} days</span>
+									<span>
+										{tourPackage?.minPeople}-{tourPackage?.maxPeople} people
+									</span>
+									<span>{tourPackage?.packageType}</span>
+								</Stack>
+								<Stack className={'included-list'}>
+									<span className={tourPackage?.flightIncluded ? 'on' : ''}>Flight</span>
+									<span className={tourPackage?.hotelIncluded ? 'on' : ''}>Hotel</span>
+									<span className={tourPackage?.guideIncluded ? 'on' : ''}>Local guide</span>
+								</Stack>
+							</Stack>
 							<Stack className={'info-box'}>
-								<Typography className={'main-title'}>Get More Information</Typography>
+								<Typography className={'main-title'}>Hosted by</Typography>
 								<Stack className={'image-info'}>
 									<img
 										className={'member-image'}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Stack, Modal, Divider, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
@@ -39,6 +39,49 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [openDuration, setOpenDuration] = useState(false);
 	const [optionCheck, setOptionCheck] = useState('all');
 	const router = useRouter();
+	const searchBoxRef = useRef<HTMLDivElement | null>(null);
+
+	const closeAllDropdowns = () => {
+		setOpenCountry(false);
+		setOpenType(false);
+		setOpenDuration(false);
+	};
+
+	const toggleCountry = () => {
+		setOpenCountry((prev) => !prev);
+		setOpenType(false);
+		setOpenDuration(false);
+	};
+
+	const toggleType = () => {
+		setOpenType((prev) => !prev);
+		setOpenCountry(false);
+		setOpenDuration(false);
+	};
+
+	const toggleDuration = () => {
+		setOpenDuration((prev) => !prev);
+		setOpenCountry(false);
+		setOpenType(false);
+	};
+
+	useEffect(() => {
+		const handleOutside = (event: MouseEvent) => {
+			if (!searchBoxRef.current) return;
+			if (!searchBoxRef.current.contains(event.target as Node)) {
+				closeAllDropdowns();
+			}
+		};
+		const handleEsc = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') closeAllDropdowns();
+		};
+		document.addEventListener('mousedown', handleOutside);
+		document.addEventListener('keydown', handleEsc);
+		return () => {
+			document.removeEventListener('mousedown', handleOutside);
+			document.removeEventListener('keydown', handleEsc);
+		};
+	}, []);
 
 	const pushSearchHandler = async () => {
 		const nextFilter = { ...searchFilter, search: { ...searchFilter.search } };
@@ -63,23 +106,23 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	return (
 		<>
-			<Stack className={'search-box'}>
+			<Stack className={'search-box'} ref={searchBoxRef as any}>
 				<Stack className={'select-box'}>
-					<div className={`box ${openCountry ? 'on' : ''}`} onClick={() => setOpenCountry((prev) => !prev)}>
+					<div className={`box ${openCountry ? 'on' : ''}`} onClick={toggleCountry}>
 						<div className={'field-copy'}>
 							<small>Destination</small>
 							<span>{searchFilter?.search?.countryList?.[0] ?? t('Location')}</span>
 						</div>
 						<ExpandMoreIcon />
 					</div>
-					<div className={`box ${openType ? 'on' : ''}`} onClick={() => setOpenType((prev) => !prev)}>
+					<div className={`box ${openType ? 'on' : ''}`} onClick={toggleType}>
 						<div className={'field-copy'}>
 							<small>Experience</small>
 							<span>{searchFilter?.search?.typeList?.[0] ?? 'Package type'}</span>
 						</div>
 						<ExpandMoreIcon />
 					</div>
-					<div className={`box ${openDuration ? 'on' : ''}`} onClick={() => setOpenDuration((prev) => !prev)}>
+					<div className={`box ${openDuration ? 'on' : ''}`} onClick={toggleDuration}>
 						<div className={'field-copy'}>
 							<small>Trip length</small>
 							<span>
@@ -108,7 +151,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							onClick={() => {
 								setSearchFilter({ ...searchFilter, search: { ...searchFilter.search, countryList: [country] } });
 								setOpenCountry(false);
-								setOpenType(true);
 							}}
 							key={country}
 						>
@@ -123,7 +165,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							onClick={() => {
 								setSearchFilter({ ...searchFilter, search: { ...searchFilter.search, typeList: [type] } });
 								setOpenType(false);
-								setOpenDuration(true);
 							}}
 							key={type}
 						>
@@ -259,7 +300,11 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								<img src="/img/icons/reset.svg" alt="" />
 								<span>Reset all filters</span>
 							</div>
-							<Button startIcon={<img src={'/img/icons/search.svg'} />} className={'search-btn'} onClick={pushSearchHandler}>
+							<Button
+								startIcon={<img src={'/img/icons/search.svg'} />}
+								className={'search-btn'}
+								onClick={pushSearchHandler}
+							>
 								Search
 							</Button>
 						</div>

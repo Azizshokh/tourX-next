@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, IconButton, Modal, Stack, Typography } from '@mui/material';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
 import { REACT_APP_API_URL } from '../../config';
@@ -387,8 +390,28 @@ const resolveMediaUrl = (url: string) => {
 };
 
 export const CommentMediaDisplay = ({ images, video }: { images?: string[]; video?: string | null }) => {
+	const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 	const visibleImages = images?.filter(Boolean) ?? [];
 	const visibleVideo = video?.trim();
+
+	const isOpen = lightboxIndex !== null;
+	const total = visibleImages.length;
+
+	const openLightbox = (index: number) => setLightboxIndex(index);
+	const closeLightbox = () => setLightboxIndex(null);
+	const goPrev = () => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i));
+	const goNext = () => setLightboxIndex((i) => (i !== null && i < total - 1 ? i + 1 : i));
+
+	useEffect(() => {
+		if (!isOpen) return;
+		const handleKey = (e: KeyboardEvent) => {
+			if (e.key === 'ArrowLeft') goPrev();
+			else if (e.key === 'ArrowRight') goNext();
+			else if (e.key === 'Escape') closeLightbox();
+		};
+		window.addEventListener('keydown', handleKey);
+		return () => window.removeEventListener('keydown', handleKey);
+	}, [isOpen, lightboxIndex, total]);
 
 	if (visibleImages.length === 0 && !visibleVideo) return null;
 
@@ -396,19 +419,145 @@ export const CommentMediaDisplay = ({ images, video }: { images?: string[]; vide
 		<Stack gap={'8px'} sx={{ mt: '10px' }}>
 			{visibleImages.length > 0 && (
 				<Stack direction={'row'} gap={'8px'} flexWrap={'wrap'}>
-					{visibleImages.map((image) => (
-						<img
-							src={resolveMediaUrl(image)}
-							alt="comment attachment"
+					{visibleImages.map((image, index) => (
+						<Box
 							key={image}
-							style={{ width: 94, height: 94, objectFit: 'cover', borderRadius: 6 }}
-						/>
+							onClick={() => openLightbox(index)}
+							sx={{
+								width: 94,
+								height: 94,
+								borderRadius: '8px',
+								overflow: 'hidden',
+								cursor: 'zoom-in',
+								border: '1.5px solid #f1e4d7',
+								flexShrink: 0,
+								transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+								'&:hover': {
+									transform: 'scale(1.05)',
+									boxShadow: '0 4px 18px rgba(0,0,0,0.2)',
+								},
+							}}
+						>
+							<img
+								src={resolveMediaUrl(image)}
+								alt={`comment image ${index + 1}`}
+								style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+							/>
+						</Box>
 					))}
 				</Stack>
 			)}
 			{visibleVideo && (
-				<video src={resolveMediaUrl(visibleVideo)} controls style={{ width: '100%', maxWidth: 420, borderRadius: 6 }} />
+				<video src={resolveMediaUrl(visibleVideo)} controls style={{ width: '100%', maxWidth: 420, borderRadius: 8 }} />
 			)}
+
+			<Modal open={isOpen} onClose={closeLightbox} disableAutoFocus>
+				<Box
+					sx={{
+						position: 'fixed',
+						inset: 0,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						bgcolor: 'rgba(0,0,0,0.88)',
+						outline: 'none',
+					}}
+					onClick={closeLightbox}
+				>
+					{/* Close */}
+					<IconButton
+						onClick={closeLightbox}
+						sx={{
+							position: 'absolute',
+							top: 16,
+							right: 16,
+							width: 40,
+							height: 40,
+							color: '#fff',
+							background: 'rgba(255,255,255,0.1)',
+							backdropFilter: 'blur(6px)',
+							zIndex: 2,
+							'&:hover': { background: 'rgba(255,255,255,0.22)' },
+						}}
+					>
+						<CloseIcon />
+					</IconButton>
+
+					{/* Prev arrow */}
+					{total > 1 && lightboxIndex !== null && lightboxIndex > 0 && (
+						<IconButton
+							onClick={(e) => { e.stopPropagation(); goPrev(); }}
+							sx={{
+								position: 'absolute',
+								left: 16,
+								width: 44,
+								height: 44,
+								color: '#fff',
+								background: 'rgba(255,255,255,0.1)',
+								backdropFilter: 'blur(6px)',
+								'&:hover': { background: 'rgba(255,255,255,0.22)' },
+							}}
+						>
+							<NavigateBeforeIcon sx={{ fontSize: 28 }} />
+						</IconButton>
+					)}
+
+					{/* Full-size image */}
+					{lightboxIndex !== null && (
+						<Box
+							onClick={(e) => e.stopPropagation()}
+							sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}
+						>
+							<Box
+								component={'img'}
+								src={resolveMediaUrl(visibleImages[lightboxIndex])}
+								alt={`full size ${lightboxIndex + 1}`}
+								sx={{
+									maxWidth: '88vw',
+									maxHeight: '82vh',
+									objectFit: 'contain',
+									borderRadius: '12px',
+									boxShadow: '0 32px 80px rgba(0,0,0,0.7)',
+									display: 'block',
+									userSelect: 'none',
+								}}
+							/>
+							{total > 1 && (
+								<Typography
+									sx={{
+										color: 'rgba(255,255,255,0.72)',
+										fontFamily: "'Plus Jakarta Sans', sans-serif",
+										fontSize: '13px',
+										fontWeight: 600,
+										letterSpacing: '0.04em',
+									}}
+								>
+									{lightboxIndex + 1} / {total}
+								</Typography>
+							)}
+						</Box>
+					)}
+
+					{/* Next arrow */}
+					{total > 1 && lightboxIndex !== null && lightboxIndex < total - 1 && (
+						<IconButton
+							onClick={(e) => { e.stopPropagation(); goNext(); }}
+							sx={{
+								position: 'absolute',
+								right: 16,
+								width: 44,
+								height: 44,
+								color: '#fff',
+								background: 'rgba(255,255,255,0.1)',
+								backdropFilter: 'blur(6px)',
+								'&:hover': { background: 'rgba(255,255,255,0.22)' },
+							}}
+						>
+							<NavigateNextIcon sx={{ fontSize: 28 }} />
+						</IconButton>
+					)}
+				</Box>
+			</Modal>
 		</Stack>
 	);
 };

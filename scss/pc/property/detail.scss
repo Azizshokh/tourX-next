@@ -694,6 +694,62 @@
 								font-weight: 800;
 							}
 						}
+
+						.option.selector {
+							flex-direction: row;
+							align-items: center;
+							gap: 8px;
+
+							.opt-label {
+								color: #5d6878;
+								font-size: 12px;
+								font-weight: 800;
+							}
+
+							.stepper {
+								flex-direction: row;
+								align-items: center;
+								gap: 6px;
+								padding: 2px;
+								border: 1px solid #f1e4d7;
+								border-radius: 999px;
+								background: #fff8f0;
+
+								.step {
+									width: 22px;
+									height: 22px;
+									padding: 0;
+									border-radius: 999px;
+									color: #b86a10;
+
+									&:hover {
+										background: #ffe9d2;
+									}
+
+									&.Mui-disabled {
+										color: #d9cfc4;
+									}
+
+									svg {
+										font-size: 15px;
+									}
+								}
+
+								.opt-value {
+									min-width: 18px;
+									text-align: center;
+									color: #111827;
+									font-size: 13px;
+									font-weight: 900;
+								}
+							}
+
+							.opt-fixed {
+								color: #111827;
+								font-size: 13px;
+								font-weight: 900;
+							}
+						}
 					}
 
 					.city {

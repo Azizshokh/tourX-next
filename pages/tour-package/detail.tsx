@@ -1,8 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Box, Button, CircularProgress, Pagination as MuiPagination, Stack, Typography } from '@mui/material';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { Box, Button, CircularProgress, IconButton, Pagination as MuiPagination, Stack, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -51,6 +53,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const [packageId, setPackageId] = useState<string | null>(null);
 	const [tourPackage, setTourPackage] = useState<TourPackage | null>(null);
 	const [slideImage, setSlideImage] = useState<string>('');
+	const [selectedDays, setSelectedDays] = useState<number>(0);
+	const [selectedTravelers, setSelectedTravelers] = useState<number>(0);
+	const hasInitializedSelectors = useRef(false);
 	const [relatedPackages, setRelatedPackages] = useState<TourPackage[]>([]);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [packageComments, setPackageComments] = useState<Comment[]>([]);
@@ -74,6 +79,11 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 		onCompleted: (data: T) => {
 			if (data?.getTourPackage) setTourPackage(data?.getTourPackage);
 			if (data?.getTourPackage) setSlideImage(data?.getTourPackage?.packageImages[0]);
+			if (data?.getTourPackage && !hasInitializedSelectors.current) {
+				setSelectedDays(data?.getTourPackage?.durationDays ?? 0);
+				setSelectedTravelers(data?.getTourPackage?.minPeople ?? 0);
+				hasInitializedSelectors.current = true;
+			}
 		},
 	});
 
@@ -177,6 +187,23 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 		}
 	};
 
+	const minDays = tourPackage?.durationDays ?? 1;
+	const maxDays = minDays + 7;
+	const minTravelers = tourPackage?.minPeople ?? 1;
+	const maxTravelers = tourPackage?.maxPeople ?? 1;
+
+	const totalPrice = useMemo(() => {
+		if (!tourPackage) return 0;
+		const base = tourPackage.packagePrice || 0;
+		const dailyRate = tourPackage.durationDays > 0 ? base / tourPackage.durationDays : base;
+		return Math.round(dailyRate * (selectedDays || 0) * (selectedTravelers || 0));
+	}, [tourPackage, selectedDays, selectedTravelers]);
+
+	const changeDays = (delta: number) =>
+		setSelectedDays((d) => Math.min(maxDays, Math.max(minDays, d + delta)));
+	const changeTravelers = (delta: number) =>
+		setSelectedTravelers((t) => Math.min(maxTravelers, Math.max(minTravelers, t + delta)));
+
 	if (getTourPackageLoading) {
 		return (
 			<Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '1080px' }}>
@@ -212,13 +239,57 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 										</Stack>
 										<Typography className={'title-main'}>{tourPackage?.packageTitle}</Typography>
 										<Stack className={'bottom-box'}>
-											<Stack className="option">
-												<Typography>{tourPackage?.durationDays} days</Typography>
+											<Stack className="option selector">
+												<Typography className="opt-label">Days</Typography>
+												{minDays < maxDays ? (
+													<Stack className="stepper">
+														<IconButton
+															className="step"
+															size="small"
+															disabled={selectedDays <= minDays}
+															onClick={() => changeDays(-1)}
+														>
+															<RemoveIcon fontSize="small" />
+														</IconButton>
+														<Typography className="opt-value">{selectedDays}</Typography>
+														<IconButton
+															className="step"
+															size="small"
+															disabled={selectedDays >= maxDays}
+															onClick={() => changeDays(1)}
+														>
+															<AddIcon fontSize="small" />
+														</IconButton>
+													</Stack>
+												) : (
+													<Typography className="opt-fixed">{selectedDays}</Typography>
+												)}
 											</Stack>
-											<Stack className="option">
-												<Typography>
-													{tourPackage?.minPeople}-{tourPackage?.maxPeople} people
-												</Typography>
+											<Stack className="option selector">
+												<Typography className="opt-label">Travelers</Typography>
+												{minTravelers < maxTravelers ? (
+													<Stack className="stepper">
+														<IconButton
+															className="step"
+															size="small"
+															disabled={selectedTravelers <= minTravelers}
+															onClick={() => changeTravelers(-1)}
+														>
+															<RemoveIcon fontSize="small" />
+														</IconButton>
+														<Typography className="opt-value">{selectedTravelers}</Typography>
+														<IconButton
+															className="step"
+															size="small"
+															disabled={selectedTravelers >= maxTravelers}
+															onClick={() => changeTravelers(1)}
+														>
+															<AddIcon fontSize="small" />
+														</IconButton>
+													</Stack>
+												) : (
+													<Typography className="opt-fixed">{minTravelers}</Typography>
+												)}
 											</Stack>
 											<Stack className="option">
 												<Typography>{tourPackage?.packageType}</Typography>
@@ -370,9 +441,11 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 							<Stack className={'booking-card'}>
 								<Typography className={'sidebar-kicker'}>Trip summary</Typography>
 								<Typography className={'price'}>
-									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
+									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(totalPrice)}
 								</Typography>
-								<Typography className={'price-note'}>per curated package</Typography>
+								<Typography className={'price-note'}>
+									{selectedDays} days · {selectedTravelers} {selectedTravelers === 1 ? 'traveler' : 'travelers'}
+								</Typography>
 								<Button className={'book-now'}>Book this package</Button>
 								<Button className={'outline-action'}>Add to wishlist</Button>
 								<Stack className={'booking-stats'}>

@@ -94,3 +94,17 @@ Validation: `yarn tsc --noEmit` passed.
 - Rebuilt Trending Packages as a responsive premium asymmetric grid using existing TourPackage data.
 - Added Travel Inspiration homepage section with responsive image tiles.
 - Verified with yarn tsc --noEmit and yarn build.
+
+## 2026-06-15 - Detail page selectable days & travelers with live price
+- Turned the static days/people chips in `.left-box .bottom-box .option` on the tour package detail page into interactive `−`/`+` steppers.
+- Days range = `durationDays … durationDays + 7`; travelers range = `minPeople … maxPeople`; stepper buttons disable at bounds.
+- Added a frontend-only live price (`useMemo`) using a per-day × per-person model: `dailyRate = packagePrice / durationDays`, `total = dailyRate × selectedDays × selectedTravelers`. This matches the backend `getTourPackageQuote` exactly at the default duration (`packagePrice × travelers`) and extends day pricing on the frontend (backend has no day-based pricing). No GraphQL/Apollo changes.
+- Booking-card price and note now reflect the live total and the selected days/travelers.
+- Files: `pages/tour-package/detail.tsx`, `scss/pc/property/detail.scss`.
+- Verified with `npx tsc --noEmit` (0 errors). Manual browser verification against a live backend still recommended.
+
+## 2026-06-15 - Fix travelers stepper "not working"
+- **Bug 1 fixed**: When `minPeople === maxPeople` (valid in the backend, no cross-field validator), both stepper buttons were disabled, making the travelers control appear completely broken. Fixed by rendering a static `.opt-fixed` count label instead of stepper buttons when `minTravelers >= maxTravelers`. Same guard applied to days for safety.
+- **Bug 2 fixed**: `onCompleted` on `GET_TOUR_PACKAGE` fired on every `getTourPackageRefetch` (e.g., after liking), resetting `selectedDays`/`selectedTravelers` back to defaults. Fixed with a `hasInitializedSelectors` ref — initialization now runs exactly once per page mount.
+- Files: `pages/tour-package/detail.tsx`, `scss/pc/property/detail.scss`.
+- Verified with `npx tsc --noEmit` (0 errors).

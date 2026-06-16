@@ -210,10 +210,20 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 						{/* Card list */}
 						<Stack className="list-config">
 							{tourPackages?.length === 0 ? (
-								<div className="no-data">
-									<img src="/img/icons/icoAlert.svg" alt="" />
-									<p>No packages found!</p>
-								</div>
+								<Box
+									component="div"
+									className="empty-state-wrap"
+									display="flex"
+									justifyContent="center"
+									alignItems="center"
+									minHeight="600px"
+									width="100%"
+								>
+									<Box component="div" className="no-data">
+										<img src="/img/icons/icoAlert.svg" alt="" />
+										<p>No packages found!</p>
+									</Box>
+								</Box>
 							) : (
 								tourPackages.slice(0, PACKAGE_LIST_LIMIT).map((tourPackage: TourPackage) => (
 									<PropertyCard

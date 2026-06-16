@@ -1,79 +1,380 @@
 #pc-wrap {
 	.agent-list-page {
-		position: relative;
-		padding: 147px 0 75px;
+		background: #fafaf8;
+		padding-bottom: 80px;
 		width: 100%;
-		height: auto;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
+
 		.container {
+			width: min(1280px, 100%);
+			margin: 0 auto;
+			padding: 40px 32px 0;
 			display: flex;
 			flex-direction: column;
+
+			/* ─── Filter bar ─── */
 			.filter {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+				margin-bottom: 48px;
+
 				.left {
 					display: flex;
 					flex-direction: row;
+					align-items: center;
+
 					input {
-						padding: 22px 10px;
-						width: 333px;
-						height: 50px;
-						border-radius: 40px;
-						border: 1px solid #ddd;
+						padding: 0 20px;
+						width: 320px;
+						height: 46px;
+						border-radius: 999px;
+						border: 1.5px solid #f1e4d7;
 						background: #fff;
-						color: #181a20;
-						font-family: $font;
-						font-size: 14px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
+						color: #374151;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 500;
+						outline: none;
 						box-sizing: border-box;
+						transition: border-color 0.18s;
+
+						&::placeholder {
+							color: #9ca3af;
+						}
+
+						&:focus {
+							border-color: #ff8a00;
+						}
 					}
 				}
+
 				.right {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
+					gap: 8px;
+
+					span {
+						color: #374151;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 600;
+					}
+
+					div {
+						display: flex;
+						align-items: center;
+					}
+
 					button {
-						margin-left: 10px;
-						color: #181a20;
-						font-family: $font;
-						font-size: 14px;
-						font-style: normal;
-						font-weight: bold;
-						line-height: 26px;
+						height: 40px;
+						padding: 0 16px;
+						border-radius: 8px;
+						border: 1.5px solid #f1e4d7;
+						background: #fff;
+						color: #374151;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 700;
+						text-transform: none;
+						margin-left: 0;
+
 						&:hover {
-							background: none;
+							background: #fff8f0;
+							border-color: #ff8a00;
 						}
 					}
 				}
 			}
+
+			/* ─── Card list ─── */
 			.card-wrap {
-				position: relative;
-				margin-top: 35px;
-				width: 100%;
-				min-height: 500px;
-				height: auto;
 				display: flex;
-				flex-direction: row;
-				flex-wrap: wrap;
+				flex-direction: column;
+				gap: 48px;
+				width: 100%;
+				min-height: 400px;
+
+				/* Empty state */
+				.no-data {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					gap: 14px;
+					min-height: 360px;
+					color: #94a3b8;
+					font-family: 'Plus Jakarta Sans', $font;
+					text-align: center;
+
+					img {
+						width: 44px;
+						opacity: 0.45;
+					}
+
+					p {
+						margin: 0;
+						font-size: 15px;
+						font-weight: 600;
+					}
+				}
+
+				/* ── Featured agent card — image + overlapping glass card ── */
+				.agent-general-card {
+					position: relative;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					background: transparent;
+					box-shadow: none;
+					border-radius: 0;
+					overflow: visible;
+					margin: 0;
+
+					/* ── Left: large standalone image (45%) ── */
+					.agent-img-col {
+						position: relative;
+						width: 45%;
+						height: 500px;
+						border-radius: 20px;
+						overflow: hidden;
+						box-shadow: 0 8px 40px rgba(15, 23, 42, 0.20);
+						flex-shrink: 0;
+						z-index: 0;
+
+						a {
+							display: block;
+							width: 100%;
+							height: 100%;
+						}
+
+						.agent-img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							display: block;
+							transition: transform 0.5s ease;
+						}
+
+						&:hover .agent-img {
+							transform: scale(1.04);
+						}
+					}
+
+					/* ── Right: glassmorphism card overlapping image ── */
+					.agent-info-col {
+						width: 60%;
+						margin-left: -80px;
+						position: relative;
+						z-index: 10;
+
+						.info-card {
+							background: rgba(255, 255, 255, 0.88);
+							backdrop-filter: blur(16px);
+							-webkit-backdrop-filter: blur(16px);
+							border: 1px solid rgba(255, 255, 255, 0.35);
+							border-radius: 16px;
+							box-shadow: 0 8px 40px rgba(15, 23, 42, 0.14);
+							padding: 28px 32px;
+
+							/* Header: avatar + name/subtitle + rating pill */
+							.card-header {
+								display: flex;
+								flex-direction: row;
+								align-items: flex-start;
+								justify-content: space-between;
+								margin-bottom: 20px;
+
+								.agent-profile {
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									gap: 12px;
+
+									.agent-avatar {
+										width: 64px;
+										height: 64px;
+										border-radius: 50%;
+										object-fit: cover;
+										flex-shrink: 0;
+										box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+									}
+
+									.name-block {
+										display: flex;
+										flex-direction: column;
+										gap: 4px;
+
+										.agent-name {
+											color: #0d1c32;
+											font-family: 'Plus Jakarta Sans', $font;
+											font-size: 20px;
+											font-weight: 800;
+											line-height: 1.2;
+										}
+
+										.agent-subtitle {
+											color: #6b7280;
+											font-family: 'Plus Jakarta Sans', $font;
+											font-size: 13px;
+											font-weight: 500;
+											line-height: 1.4;
+										}
+									}
+								}
+
+								/* Rating pill — top right */
+								.rating-pill {
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									gap: 3px;
+									background: rgba(255, 138, 0, 0.08);
+									padding: 5px 10px;
+									border-radius: 999px;
+									flex-shrink: 0;
+
+									.star-icon {
+										font-size: 18px !important;
+										color: #ff8a00;
+									}
+
+									.rating-num {
+										color: #ff8a00;
+										font-family: 'Plus Jakarta Sans', $font;
+										font-size: 13px;
+										font-weight: 800;
+									}
+								}
+							}
+
+							/* 2-column stat grid */
+							.stats-grid {
+								display: grid;
+								grid-template-columns: repeat(2, 1fr);
+								gap: 12px;
+								margin-bottom: 20px;
+
+								.stat-box {
+									background: #f9fafb;
+									border-radius: 10px;
+									padding: 14px 16px;
+
+									.stat-lbl {
+										color: #9ca3af;
+										font-family: 'Plus Jakarta Sans', $font;
+										font-size: 10px;
+										font-weight: 700;
+										text-transform: uppercase;
+										letter-spacing: 0.06em;
+										margin-bottom: 5px;
+									}
+
+									.stat-val {
+										color: #0d1c32;
+										font-family: 'Plus Jakarta Sans', $font;
+										font-size: 18px;
+										font-weight: 800;
+										line-height: 1.2;
+									}
+								}
+							}
+
+							/* Bio */
+							.agent-bio {
+								color: #6b7280;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 13px;
+								line-height: 1.7;
+								margin-bottom: 24px;
+								display: -webkit-box;
+								-webkit-line-clamp: 3;
+								-webkit-box-orient: vertical;
+								overflow: hidden;
+							}
+
+							/* CTA: View Profile (flex:1) + mail icon */
+							.cta-row {
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								gap: 10px;
+
+								a {
+									text-decoration: none;
+
+									&:first-child {
+										flex: 1;
+									}
+								}
+
+								.btn-view-profile {
+									width: 100%;
+									height: 48px;
+									border-radius: 10px;
+									background: #ff8a00;
+									color: #ffffff;
+									font-family: 'Plus Jakarta Sans', $font;
+									font-size: 14px;
+									font-weight: 800;
+									text-transform: none;
+									letter-spacing: 0.01em;
+									transition: background 0.2s, box-shadow 0.2s;
+
+									&:hover {
+										background: #e67a00;
+										box-shadow: 0 4px 20px rgba(255, 138, 0, 0.35);
+									}
+								}
+
+								.btn-mail {
+									width: 48px;
+									height: 48px;
+									border-radius: 10px;
+									border: 1.5px solid #e5e7eb;
+									background: transparent;
+									flex-shrink: 0;
+									transition: background 0.18s;
+
+									svg {
+										font-size: 20px;
+										color: #374151;
+									}
+
+									&:hover {
+										background: #f3f4f6;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
+
+			/* ─── Pagination ─── */
 			.pagination {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+				justify-content: center;
+				width: 100%;
+				padding-top: 56px;
+				gap: 12px;
+
+				.pagination-box {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+				}
+
 				span {
-					margin-top: 20px;
-					color: #181a20;
-					font-family: $font;
-					font-size: 14px;
-					font-style: normal;
-					font-weight: 400;
-					line-height: 26px; /* 185.714% */
+					color: #9ca3af;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 600;
 				}
 			}
 		}

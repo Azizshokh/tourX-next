@@ -213,16 +213,45 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			<Stack className={'agent-detail-page'}>
 				<Stack className={'container'}>
 					<Stack className={'agent-info'}>
-						<img
-							src={agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'}
-							alt=""
-						/>
-						<Box component={'div'} className={'info'} onClick={() => redirectToMemberPageHandler(agent?._id as string)}>
-							<strong>{agent?.memberFullName ?? agent?.memberNick}</strong>
-							<div>
-								<img src="/img/icons/call.svg" alt="" />
-								<span>{agent?.memberPhone}</span>
-							</div>
+						<Box className={'agent-photo-wrap'}>
+							<img
+								src={agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'}
+								alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
+								className={'agent-photo'}
+							/>
+						</Box>
+						<Box className={'agent-content'}>
+							<Typography className={'agent-role'}>Travel Agent</Typography>
+							<Typography className={'agent-name'}>{agent?.memberFullName ?? agent?.memberNick}</Typography>
+							{agent?.memberDesc && (
+								<Typography className={'agent-desc-text'}>{agent.memberDesc}</Typography>
+							)}
+							<Box className={'agent-stats'}>
+								<Box className={'stat-box'}>
+									<Typography className={'stat-value'}>{agent?.memberTours ?? 0}</Typography>
+									<Typography className={'stat-label'}>Tour Packages</Typography>
+								</Box>
+								<Box className={'stat-box'}>
+									<Typography className={'stat-value'}>{agent?.memberLikes ?? 0}</Typography>
+									<Typography className={'stat-label'}>Likes</Typography>
+								</Box>
+								<Box className={'stat-box'}>
+									<Typography className={'stat-value'}>{agent?.memberViews ?? 0}</Typography>
+									<Typography className={'stat-label'}>Views</Typography>
+								</Box>
+								<Box className={'stat-box'}>
+									<Typography className={'stat-value'}>
+										{agent?.createdAt ? new Date(agent.createdAt).getFullYear() : '—'}
+									</Typography>
+									<Typography className={'stat-label'}>Member Since</Typography>
+								</Box>
+							</Box>
+							{agent?.memberPhone && (
+								<Stack direction={'row'} className={'agent-phone'}>
+									<img src="/img/icons/call.svg" alt="" />
+									<Typography>{agent.memberPhone}</Typography>
+								</Stack>
+							)}
 						</Box>
 					</Stack>
 					<Stack className={'agent-home-list'}>

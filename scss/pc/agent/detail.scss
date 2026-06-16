@@ -14,55 +14,110 @@
 			align-items: center;
 
 			.agent-info {
-				margin-left: 58px;
-				width: 100%;
 				display: flex;
 				flex-direction: row;
-				align-items: center;
+				align-items: flex-start;
+				width: 100%;
+				margin-bottom: 48px;
+				background: #fff8f3;
+				border-radius: 20px;
+				overflow: hidden;
 
-				img {
-					margin-right: 32px;
-					width: 135px;
-					height: 135px;
-					border-radius: 50%;
-					cursor: pointer;
-					object-fit: cover;
+				.agent-photo-wrap {
+					flex: 0 0 420px;
+					height: 460px;
+
+					.agent-photo {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						display: block;
+					}
 				}
 
-				.info {
+				.agent-content {
+					flex: 1;
+					min-width: 0;
+					padding: 48px 48px 48px 52px;
 					display: flex;
 					flex-direction: column;
+					justify-content: center;
+					gap: 16px;
 
-					strong {
-						color: #181a20;
-						font-family: $font;
-						font-size: 24px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-						text-transform: capitalize;
-						cursor: pointer;
+					.agent-role {
+						color: #ff8a00;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 700;
+						text-transform: uppercase;
+						letter-spacing: 0.06em;
 					}
 
-					div {
-						margin-top: 13px;
-						display: flex;
-						flex-direction: row;
+					.agent-name {
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 28px;
+						font-weight: 800;
+						line-height: 1.2;
+					}
+
+					.agent-desc-text {
+						color: #6b7280;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 14px;
+						line-height: 1.65;
+						max-width: 480px;
+					}
+
+					.agent-stats {
+						display: grid;
+						grid-template-columns: repeat(2, 1fr);
+						gap: 14px;
+						margin-top: 8px;
+
+						.stat-box {
+							background: #ffffff;
+							border: 1.5px solid #f1e4d7;
+							border-radius: 14px;
+							padding: 18px 22px;
+							display: flex;
+							flex-direction: column;
+							gap: 4px;
+							box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+
+							.stat-value {
+								color: #0d1c32;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 22px;
+								font-weight: 900;
+							}
+
+							.stat-label {
+								color: #9ca3af;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-weight: 600;
+								text-transform: uppercase;
+								letter-spacing: 0.04em;
+							}
+						}
+					}
+
+					.agent-phone {
 						align-items: center;
+						gap: 8px;
+						margin-top: 4px;
 
 						img {
-							margin-right: 10px;
 							width: 16px;
 							height: 16px;
 						}
 
-						span {
-							color: #181a20;
-							font-family: $font;
-							font-size: 20px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: 28px;
+						.MuiTypography-root {
+							color: #374151;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 14px;
+							font-weight: 600;
 						}
 					}
 				}

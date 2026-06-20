@@ -5,316 +5,342 @@
 			height: auto;
 			display: flex;
 			flex-direction: column;
-			gap: 20px;
+			gap: 26px;
+
 			.main-title-box {
-				width: auto;
-				height: auto;
+				width: 100%;
+				min-height: 156px;
+				padding: 28px 30px;
 				flex-direction: row;
+				align-items: center;
 				justify-content: space-between;
+				gap: 18px;
+				border: 1px solid rgba(255, 138, 0, 0.16);
+				border-radius: 20px;
+				background: linear-gradient(135deg, #fff8ed 0%, #ffffff 54%, #eef8ff 100%);
+				box-shadow: 0 18px 45px rgba(15, 23, 42, 0.07);
+
+				.title-icon {
+					width: 58px;
+					height: 58px;
+					min-width: 58px;
+					align-items: center;
+					justify-content: center;
+					border-radius: 18px;
+					background: #ff8a00;
+					color: #ffffff;
+					box-shadow: 0 14px 28px rgba(255, 138, 0, 0.28);
+
+					svg {
+						width: 31px;
+						height: 31px;
+					}
+				}
+
 				.right-box {
-					width: 315px;
-					.main-title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 30px;
+					flex: 1;
+					min-width: 0;
+
+					.eyebrow {
+						width: fit-content;
+						margin-bottom: 7px;
+						padding: 6px 10px;
+						border-radius: 999px;
+						background: #fff3e4;
+						color: #ff7a00;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 11px;
 						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-						letter-spacing: 0.6px;
+						font-weight: 900;
+						line-height: 16px;
+						letter-spacing: 0.08em;
+						text-transform: uppercase;
+					}
+
+					.main-title {
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 32px;
+						font-style: normal;
+						font-weight: 900;
+						line-height: 40px;
+						letter-spacing: 0;
 						text-transform: capitalize;
 					}
+
 					.sub-title {
-						color: #181a20;
-						font-family: $font;
+						margin-top: 6px;
+						max-width: 560px;
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
 						font-size: 14px;
 						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
+						font-weight: 600;
+						line-height: 22px;
+					}
+				}
+
+				.profile-status {
+					min-width: 150px;
+					height: 46px;
+					padding: 0 14px;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					gap: 8px;
+					border: 1px solid #bbf7d0;
+					border-radius: 999px;
+					background: #ecfdf3;
+					color: #027a48;
+
+					svg {
+						width: 20px;
+						height: 20px;
+					}
+
+					p {
+						color: #027a48;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-style: normal;
+						font-weight: 900;
+						line-height: 18px;
+						text-transform: uppercase;
 					}
 				}
 			}
+
 			.top-box {
 				width: 100%;
 				padding: 30px;
-				margin-top: 35px;
-				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-				.photo-box {
-					gap: 23px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 17px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
+				gap: 26px;
+				border: 1px solid #edf1f5;
+				border-radius: 20px;
+				background: #ffffff;
+				box-shadow: 0 16px 42px rgba(15, 23, 42, 0.06);
+
+				.title {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					gap: 8px;
+					color: #0d1c32;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-style: normal;
+					font-weight: 900;
+					line-height: 18px;
+					letter-spacing: 0.04em;
+					text-transform: uppercase;
+
+					svg {
+						width: 20px;
+						height: 20px;
+						padding: 5px;
+						border-radius: 10px;
+						background: #fff3e4;
+						color: #ff8a00;
+						box-sizing: content-box;
 					}
+				}
+
+				.photo-box {
+					gap: 18px;
+					padding: 22px;
+					border: 1px solid #edf2f7;
+					border-radius: 18px;
+					background: linear-gradient(135deg, #fffaf3 0%, #ffffff 64%);
+
 					.image-big-box {
 						flex-direction: row;
-						gap: 50px;
+						align-items: center;
+						gap: 28px;
+
 						.image-box {
 							position: relative;
-							width: 194px;
-							height: 157px;
+							width: 154px;
+							height: 154px;
+							padding: 6px;
+							border: 1px solid rgba(255, 138, 0, 0.18);
+							border-radius: 28px;
+							background: #ffffff;
+							box-shadow: 0 18px 36px rgba(255, 138, 0, 0.12);
+
 							img {
 								width: 100%;
 								height: 100%;
+								display: block;
 								object-fit: cover;
-								border-radius: 15px;
-								object-fit: cover;
-							}
-							.delete-box {
-								position: absolute;
-								top: 10px;
-								left: 10px;
-								width: 36px;
-								height: 32px;
-								background-color: #ffffff;
-								align-items: center;
-								justify-content: center;
-								border-radius: 12px;
+								border-radius: 23px;
 							}
 						}
+
 						.upload-big-box {
-							align-self: flex-end;
-							gap: 22px;
+							flex: 1;
+							min-width: 0;
+							gap: 12px;
+
 							.labeler {
 								display: flex;
-								width: 210.023px;
-								height: 40.135px;
+								width: fit-content;
+								min-width: 210px;
+								height: 46px;
+								padding: 0 18px;
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
+								border: 1px solid #ff8a00;
 								border-radius: 12px;
-								border: 1px solid #181a20;
+								background: #ff8a00;
+								box-shadow: 0 12px 24px rgba(255, 138, 0, 0.22);
+								transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+								&:hover {
+									transform: translateY(-1px);
+									border-color: #f06f00;
+									background: #f06f00;
+									box-shadow: 0 16px 30px rgba(255, 138, 0, 0.3);
+								}
+
 								p {
-									color: #181a20;
-									font-family: $font;
+									color: #ffffff;
+									font-family: 'Plus Jakarta Sans', $font;
 									font-size: 13px;
 									font-style: normal;
-									font-weight: 600;
+									font-weight: 900;
 									line-height: normal;
 								}
 							}
+
 							.upload-text {
-								color: #181a20;
-								font-family: $font;
+								max-width: 420px;
+								color: #64748b;
+								font-family: 'Plus Jakarta Sans', $font;
 								font-size: 12px;
 								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
+								font-weight: 600;
+								line-height: 20px;
 							}
 						}
 					}
 				}
+
 				.small-input-box {
 					width: 100%;
 					height: auto;
 					flex-direction: row;
 					flex-wrap: wrap;
-					gap: 30px;
+					gap: 18px;
+
 					.input-box {
-						width: 48%;
+						width: calc(50% - 9px);
 						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
+					}
+				}
+
+				.address-box,
+				.about-me-box {
+					gap: 10px;
+				}
+
+				input {
+					width: 100%;
+					height: 56px;
+					outline: none;
+					padding: 0 16px;
+					border: 1px solid #e5eaf0;
+					border-radius: 14px;
+					background: #f8fafc;
+					color: #0d1c32;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					font-style: normal;
+					font-weight: 700;
+					line-height: 22px;
+					transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+
+					&::placeholder {
+						color: #94a3b8;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-style: normal;
+						font-weight: 600;
+						line-height: 22px;
+					}
+
+					&:hover {
+						border-color: rgba(255, 138, 0, 0.32);
+						background: #fffaf3;
+					}
+
+					&:focus {
+						border-color: #ff8a00;
+						background: #ffffff;
+						box-shadow: 0 0 0 4px rgba(255, 138, 0, 0.1);
+					}
+				}
+
+				.about-me-box {
+					align-items: flex-end;
+
+					.update-button {
+						display: flex;
+						min-width: 184px;
+						height: 48px;
+						padding: 0 20px;
+						justify-content: center;
+						align-items: center;
+						gap: 9px;
+						margin-top: 8px;
+						border-radius: 14px;
+						background: #0d1c32;
+						box-shadow: 0 14px 28px rgba(13, 28, 50, 0.18);
+						text-transform: none;
+						transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+						&:hover {
+							transform: translateY(-1px);
+							background: #ff8a00;
+							box-shadow: 0 16px 32px rgba(255, 138, 0, 0.28);
+						}
+
+						p {
+							color: #ffffff;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 14px;
 							font-style: normal;
-							font-weight: 600;
+							font-weight: 900;
 							line-height: normal;
 						}
-						input {
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
+
+						svg {
+							width: 19px;
+							height: 19px;
+							color: #ffffff;
+						}
+
+						&.Mui-disabled,
+						&:disabled {
+							background: #e2e8f0;
+							box-shadow: none;
+
+							p,
+							svg {
+								color: #94a3b8;
 							}
 						}
 					}
 				}
-				.address-box {
-					gap: 10px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					input {
-						height: 55px;
-						outline: none;
-						padding: 0px 15px;
-						border-radius: 8px;
-						border: 1px solid #ddd;
-						::placeholder {
-							color: #717171;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
-						}
-					}
-				}
-				.about-me-box {
-					gap: 10px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					.about-textarea {
-						height: 170px;
-						padding: 20px 15px;
-						border-radius: 8px;
-						border: 1px solid #ddd;
-						color: #717171;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
-					}
-					.update-button {
-						display: flex;
-						width: 170px;
-						height: 38px;
-						justify-content: center;
-						align-items: center;
-						gap: 10px;
-						align-self: flex-end;
-						margin-top: 30px;
-						border-radius: 12px;
-						background-color: #000000;
-						p {
-							color: #fff;
-							font-family: $font;
-							font-size: 13px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-					}
-					button:disabled {
-						background: #181a2045;
-					}
-				}
 			}
+
 			.bottom-box {
 				width: 100%;
 				padding: 30px;
 				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-				.top-inner-box {
-					gap: 20px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 15px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					.old-password-box {
-						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						input {
-							width: 50%;
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
-					}
-				}
-				.bottom-inner-box {
-					width: 100%;
-					flex-direction: row;
-					gap: 45px;
-					.new-password-box {
-						width: 100%;
-						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						input {
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
-					}
-				}
-				.change-password {
-					display: flex;
-					width: 170px;
-					height: 38px;
-					justify-content: center;
-					align-items: center;
-					gap: 10px;
-					align-self: flex-end;
-					margin-top: 18px;
-					border-radius: 12px;
-					background-color: #000000;
-					p {
-						color: #fff;
-						font-family: $font;
-						font-size: 13px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-				}
+				border: 1px solid #edf1f5;
+				border-radius: 20px;
+				background: #ffffff;
+				box-shadow: 0 16px 42px rgba(15, 23, 42, 0.06);
 			}
 		}
 	}

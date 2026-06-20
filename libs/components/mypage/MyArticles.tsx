@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
+import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import CommunityCard from '../common/CommunityCard';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -67,9 +70,31 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		return (
 			<div id="my-articles-page">
 				<Stack className="main-title-box">
+					<Stack className="title-icon">
+						<ArticleRoundedIcon />
+					</Stack>
 					<Stack className="right-box">
-						<Typography className="main-title">Article</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
+						<Typography className="eyebrow">TourX community</Typography>
+						<Typography className="main-title">My Articles</Typography>
+						<Typography className="sub-title">Manage your travel stories, guides, and destination notes.</Typography>
+					</Stack>
+					<Stack className="article-summary">
+						<Stack className="summary-item">
+							<AutoStoriesRoundedIcon />
+							<Stack>
+								<Typography className="summary-value">{totalCount ?? 0}</Typography>
+								<Typography className="summary-label">Published</Typography>
+							</Stack>
+						</Stack>
+						<Stack className="summary-item accent">
+							<FavoriteRoundedIcon />
+							<Stack>
+								<Typography className="summary-value">
+									{boardArticles?.reduce((sum: number, article: BoardArticle) => sum + (article?.articleLikes ?? 0), 0)}
+								</Typography>
+								<Typography className="summary-label">Likes</Typography>
+							</Stack>
+						</Stack>
 					</Stack>
 				</Stack>
 				<Stack className="article-list-box">

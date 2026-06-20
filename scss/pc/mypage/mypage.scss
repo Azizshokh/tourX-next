@@ -241,12 +241,15 @@
 							display: flex;
 							width: 100%;
 							height: auto;
-							flex-direction: row;
-							flex-wrap: wrap;
-							gap: 22px;
+							flex-direction: column;
+							flex-wrap: nowrap;
+							align-items: stretch;
+							gap: 34px;
+							> * {
+								width: 100%;
+							}
 							.card-config {
 								width: 296px;
-								height: 413px;
 								margin-bottom: 7px;
 								border-radius: 12px;
 								background: #fff;

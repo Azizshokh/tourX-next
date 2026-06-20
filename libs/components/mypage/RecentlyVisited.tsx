@@ -6,7 +6,10 @@ import PropertyCard from '../property/PropertyCard';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
 import { GET_VISITED_TOURS } from '../../../apollo/user/query';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
+import { sweetMixinErrorAlert } from '../../sweetAlert';
+import { Message } from '../../enums/common.enum';
 
 const RecentlyVisited: NextPage = () => {
 	const device = useDeviceDetect();
@@ -15,6 +18,7 @@ const RecentlyVisited: NextPage = () => {
 	const [searchVisited, setSearchVisited] = useState<T>({ page: 1, limit: 6 });
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
 	const {
 		loading: getVisitedToursLoading,
@@ -37,6 +41,23 @@ const RecentlyVisited: NextPage = () => {
 		setSearchVisited({ ...searchVisited, page: value });
 	};
 
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+			await likeTargetTourPackage({
+				variables: {
+					input: id,
+				},
+			});
+			await getVisitedToursRefetch({ input: searchVisited });
+		} catch (err: any) {
+			console.log('ERROR, likePropertyHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
+
 	if (device === 'mobile') {
 		return <div>NESTAR RECENTLY VISITED MOBILE</div>;
 	} else {
@@ -51,7 +72,7 @@ const RecentlyVisited: NextPage = () => {
 				<Stack className="favorites-list-box">
 					{recentlyVisited?.length ? (
 						recentlyVisited?.map((property: Property) => {
-							return <PropertyCard key={property?._id} property={property} recentlyVisited={true} />;
+							return <PropertyCard key={property?._id} property={property} likePropertyHandler={likePropertyHandler} />;
 						})
 					) : (
 						<div className={'no-data'}>

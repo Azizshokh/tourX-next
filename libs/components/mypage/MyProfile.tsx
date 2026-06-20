@@ -2,6 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Button, Stack, Typography } from '@mui/material';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
 import axios from 'axios';
 import { Messages, REACT_APP_API_URL } from '../../config';
 import { getJwtToken, updateStorage, updateUserInfo } from '../../auth';
@@ -115,14 +121,25 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 		return (
 			<div id="my-profile-page">
 				<Stack className="main-title-box">
+					<Stack className="title-icon">
+						<AccountCircleRoundedIcon />
+					</Stack>
 					<Stack className="right-box">
+						<Typography className="eyebrow">TourX account</Typography>
 						<Typography className="main-title">My Profile</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
+						<Typography className="sub-title">Keep your travel profile accurate for bookings, stories, and agent connections.</Typography>
+					</Stack>
+					<Stack className="profile-status">
+						<CheckCircleRoundedIcon />
+						<Typography>Active profile</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="top-box">
 					<Stack className="photo-box">
-						<Typography className="title">Photo</Typography>
+						<Typography className="title">
+							<PhotoCameraRoundedIcon />
+							Profile Photo
+						</Typography>
 						<Stack className="image-big-box">
 							<Stack className="image-box">
 								<img
@@ -151,7 +168,10 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 					</Stack>
 					<Stack className="small-input-box">
 						<Stack className="input-box">
-							<Typography className="title">Username</Typography>
+							<Typography className="title">
+								<BadgeRoundedIcon />
+								Username
+							</Typography>
 							<input
 								type="text"
 								placeholder="Your username"
@@ -160,7 +180,10 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 							/>
 						</Stack>
 						<Stack className="input-box">
-							<Typography className="title">Phone</Typography>
+							<Typography className="title">
+								<PhoneIphoneRoundedIcon />
+								Phone
+							</Typography>
 							<input
 								type="text"
 								placeholder="Your Phone"
@@ -170,7 +193,10 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 						</Stack>
 					</Stack>
 					<Stack className="address-box">
-						<Typography className="title">Address</Typography>
+						<Typography className="title">
+							<LocationOnRoundedIcon />
+							Address
+						</Typography>
 						<input
 							type="text"
 							placeholder="Your address"
@@ -181,19 +207,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 					<Stack className="about-me-box">
 						<Button className="update-button" onClick={updateTourPackageHandler} disabled={doDisabledCheck()}>
 							<Typography>Update Profile</Typography>
-							<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-								<g clipPath="url(#clip0_7065_6985)">
-									<path
-										d="M12.6389 0H4.69446C4.49486 0 4.33334 0.161518 4.33334 0.361122C4.33334 0.560727 4.49486 0.722245 4.69446 0.722245H11.7672L0.105803 12.3836C-0.0352676 12.5247 -0.0352676 12.7532 0.105803 12.8942C0.176321 12.9647 0.268743 13 0.361131 13C0.453519 13 0.545907 12.9647 0.616459 12.8942L12.2778 1.23287V8.30558C12.2778 8.50518 12.4393 8.6667 12.6389 8.6667C12.8385 8.6667 13 8.50518 13 8.30558V0.361122C13 0.161518 12.8385 0 12.6389 0Z"
-										fill="white"
-									/>
-								</g>
-								<defs>
-									<clipPath id="clip0_7065_6985">
-										<rect width="13" height="13" fill="white" />
-									</clipPath>
-								</defs>
-							</svg>
+							<CheckCircleRoundedIcon />
 						</Button>
 					</Stack>
 				</Stack>

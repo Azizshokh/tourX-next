@@ -180,6 +180,11 @@ export const GET_TOUR_PACKAGES = gql`
 				deletedAt
 				createdAt
 				updatedAt
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
 				memberData {
 					_id
 					memberType

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Stack, Tab, Typography, Button, Pagination } from '@mui/material';
+import { Button, Pagination } from '@mui/material';
 import CommunityCard from '../../libs/components/common/CommunityCard';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
@@ -16,6 +15,18 @@ import { GET_BOARD_ARTICLES } from '../../apollo/user/query';
 import { Messages } from '../../libs/config';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { LIKE_TARGET_BOARD_ARTICLE } from '../../apollo/user/mutation';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
+import LightbulbRoundedIcon from '@mui/icons-material/LightbulbRounded';
+import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
+import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+
+const CATEGORIES = [
+	{ value: 'FREE', label: 'Travel Stories', Icon: ArticleRoundedIcon },
+	{ value: 'RECOMMEND', label: 'Tips & Guides', Icon: LightbulbRoundedIcon },
+	{ value: 'NEWS', label: 'News', Icon: NewspaperRoundedIcon },
+	{ value: 'HUMOR', label: 'Humor', Icon: TagFacesRoundedIcon },
+] as const;
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -43,11 +54,8 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 		refetch: boardArticlesRefetch,
 	} = useQuery(GET_BOARD_ARTICLES, {
 		fetchPolicy: 'network-only',
-		variables: {
-			input: searchCommunity,
-		},
+		variables: { input: searchCommunity },
 		notifyOnNetworkStatusChange: true,
-
 		onCompleted: (data: T) => {
 			setBoardArticles(data?.getBoardArticles?.list);
 			setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total);
@@ -58,25 +66,17 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 	useEffect(() => {
 		if (!query?.articleCategory)
 			router.push(
-				{
-					pathname: router.pathname,
-					query: { articleCategory: 'FREE' },
-				},
+				{ pathname: router.pathname, query: { articleCategory: 'FREE' } },
 				router.pathname,
 				{ shallow: true },
 			);
 	}, []);
 
 	/** HANDLERS **/
-	const tabChangeHandler = async (e: T, value: string) => {
-		console.log(value);
-
+	const selectCategoryHandler = async (value: string) => {
 		setSearchCommunity({ ...searchCommunity, page: 1, search: { articleCategory: value as BoardArticleCategory } });
 		await router.push(
-			{
-				pathname: '/community',
-				query: { articleCategory: value },
-			},
+			{ pathname: '/community', query: { articleCategory: value } },
 			router.pathname,
 			{ shallow: true },
 		);
@@ -89,16 +89,10 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 	const likeArticleHandler = async (e: any, user: any, id: string) => {
 		try {
 			e.stopPropagation();
-
 			if (!id) return;
 			if (!user._id) throw new Error(Messages.error2);
 
-			await likeTargetBoardArticle({
-				variables: {
-					input: id,
-				},
-			});
-
+			await likeTargetBoardArticle({ variables: { input: id } });
 			await boardArticlesRefetch({ input: searchCommunity });
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
@@ -109,162 +103,52 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 
 	if (device === 'mobile') {
 		return <h1>COMMUNITY PAGE MOBILE</h1>;
-	} else {
-		return (
-			<div id="community-list-page">
-				<div className="container">
-					<TabContext value={searchCommunity.search.articleCategory}>
-						<Stack className="main-box">
-							<Stack className="left-config">
-								<Stack className={'image-info'}>
-									<img src={'/img/logo/TourX.svg'} alt="TourX" />
-									<Stack className={'community-name'}>
-										<Typography className={'name'}>TourX Community</Typography>
-									</Stack>
-								</Stack>
+	}
 
-								<TabList
-									orientation="vertical"
-									aria-label="lab API tabs example"
-									TabIndicatorProps={{
-										style: { display: 'none' },
-									}}
-									onChange={tabChangeHandler}
+	return (
+		<div className="community-list-page">
+			<div className="cl-inner">
+				{/* Left sidebar */}
+				<aside className="cl-sidebar">
+					<Button
+						className="cl-write-btn"
+						startIcon={<AddRoundedIcon />}
+						onClick={() => router.push({ pathname: '/mypage', query: { category: 'writeArticle' } })}
+					>
+						Create Travel Post
+					</Button>
+
+					<div className="cl-cat-section">
+						<span className="cl-cat-label">CATEGORIES</span>
+						<nav className="cl-cat-nav">
+							{CATEGORIES.map(({ value, label, Icon }) => (
+								<button
+									key={value}
+									className={`cl-cat-item${searchCommunity.search.articleCategory === value ? ' active' : ''}`}
+									onClick={() => selectCategoryHandler(value)}
 								>
-									<Tab
-										value={'FREE'}
-										label={'Free Board'}
-										className={`tab-button ${searchCommunity.search.articleCategory == 'FREE' ? 'active' : ''}`}
-									/>
-									<Tab
-										value={'RECOMMEND'}
-										label={'Recommendation'}
-										className={`tab-button ${searchCommunity.search.articleCategory == 'RECOMMEND' ? 'active' : ''}`}
-									/>
-									<Tab
-										value={'NEWS'}
-										label={'News'}
-										className={`tab-button ${searchCommunity.search.articleCategory == 'NEWS' ? 'active' : ''}`}
-									/>
-									<Tab
-										value={'HUMOR'}
-										label={'Humor'}
-										className={`tab-button ${searchCommunity.search.articleCategory == 'HUMOR' ? 'active' : ''}`}
-									/>
-								</TabList>
-							</Stack>
-							<Stack className="right-config">
-								<Stack className="panel-config">
-									<Stack className="title-box">
-										<Stack className="left">
-											<Typography className="title">{searchCommunity.search.articleCategory} BOARD</Typography>
-											<Typography className="sub-title">
-												Express your opinions freely here without content restrictions
-											</Typography>
-										</Stack>
-										<Button
-											onClick={() =>
-												router.push({
-													pathname: '/mypage',
-													query: {
-														category: 'writeArticle',
-													},
-												})
-											}
-											className="right"
-										>
-											Write
-										</Button>
-									</Stack>
+									<Icon className="cl-cat-icon" />
+									{label}
+								</button>
+							))}
+						</nav>
+					</div>
+				</aside>
 
-									<TabPanel value="FREE">
-										<Stack className="list-box">
-											{totalCount ? (
-												boardArticles?.map((boardArticle: BoardArticle) => {
-													return (
-														<CommunityCard
-															boardArticle={boardArticle}
-															key={boardArticle?._id}
-															likeArticleHandler={likeArticleHandler}
-														/>
-													);
-												})
-											) : (
-												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
-													<p>No Article found!</p>
-												</Stack>
-											)}
-										</Stack>
-									</TabPanel>
-									<TabPanel value="RECOMMEND">
-										<Stack className="list-box">
-											{totalCount ? (
-												boardArticles?.map((boardArticle: BoardArticle) => {
-													return (
-														<CommunityCard
-															boardArticle={boardArticle}
-															key={boardArticle?._id}
-															likeArticleHandler={likeArticleHandler}
-														/>
-													);
-												})
-											) : (
-												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
-													<p>No Article found!</p>
-												</Stack>
-											)}
-										</Stack>
-									</TabPanel>
-									<TabPanel value="NEWS">
-										<Stack className="list-box">
-											{totalCount ? (
-												boardArticles?.map((boardArticle: BoardArticle) => {
-													return (
-														<CommunityCard
-															boardArticle={boardArticle}
-															key={boardArticle?._id}
-															likeArticleHandler={likeArticleHandler}
-														/>
-													);
-												})
-											) : (
-												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
-													<p>No Article found!</p>
-												</Stack>
-											)}
-										</Stack>
-									</TabPanel>
-									<TabPanel value="HUMOR">
-										<Stack className="list-box">
-											{totalCount ? (
-												boardArticles?.map((boardArticle: BoardArticle) => {
-													return (
-														<CommunityCard
-															boardArticle={boardArticle}
-															key={boardArticle?._id}
-															likeArticleHandler={likeArticleHandler}
-														/>
-													);
-												})
-											) : (
-												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
-													<p>No Article found!</p>
-												</Stack>
-											)}
-										</Stack>
-									</TabPanel>
-								</Stack>
-							</Stack>
-						</Stack>
-					</TabContext>
-
-					{totalCount > 0 && (
-						<Stack className="pagination-config">
-							<Stack className="pagination-box">
+				{/* Main feed */}
+				<main className="cl-feed">
+					{totalCount > 0 ? (
+						<>
+							<div className="cl-grid">
+								{boardArticles.map((article: BoardArticle) => (
+									<CommunityCard
+										key={article._id}
+										boardArticle={article}
+										likeArticleHandler={likeArticleHandler}
+									/>
+								))}
+							</div>
+							<div className="cl-pagination">
 								<Pagination
 									count={Math.ceil(totalCount / searchCommunity.limit)}
 									page={searchCommunity.page}
@@ -272,18 +156,21 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 									color="primary"
 									onChange={paginationHandler}
 								/>
-							</Stack>
-							<Stack className="total-result">
-								<Typography>
+								<span>
 									Total {totalCount} article{totalCount > 1 ? 's' : ''} available
-								</Typography>
-							</Stack>
-						</Stack>
+								</span>
+							</div>
+						</>
+					) : (
+						<div className="cl-no-data">
+							<img src="/img/icons/icoAlert.svg" alt="" />
+							<p>No articles found!</p>
+						</div>
 					)}
-				</div>
+				</main>
 			</div>
-		);
-	}
+		</div>
+	);
 };
 
 Community.defaultProps = {

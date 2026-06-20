@@ -69,9 +69,84 @@
 						max-width: 480px;
 					}
 
+					.agent-action-row {
+						display: flex;
+						flex-direction: row;
+						flex-wrap: wrap;
+						gap: 10px;
+						margin-top: 2px;
+
+						button {
+							height: 44px;
+							padding: 0 18px;
+							border-radius: 999px;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 13px;
+							font-weight: 800;
+							line-height: 18px;
+							text-transform: none;
+							box-shadow: none;
+						}
+
+						.agent-like-btn {
+							border: 1px solid rgba(255, 138, 0, 0.28);
+							background: #ffffff;
+							color: #0d1c32;
+
+							svg {
+								color: #ff8a00;
+							}
+
+							&:hover,
+							&.active {
+								border-color: #ff8a00;
+								background: #fff1df;
+								color: #ff8a00;
+							}
+						}
+
+						.agent-follow-btn {
+							border: 1px solid #ff8a00;
+							background: #ff8a00;
+							color: #ffffff;
+							box-shadow: 0 12px 24px rgba(255, 138, 0, 0.24);
+
+							svg {
+								color: #ffffff;
+							}
+
+							&:hover {
+								border-color: #e87a00;
+								background: #e87a00;
+								box-shadow: 0 14px 28px rgba(255, 138, 0, 0.28);
+							}
+
+							&.following {
+								border-color: rgba(13, 28, 50, 0.14);
+								background: #ffffff;
+								color: #0d1c32;
+								box-shadow: none;
+
+								svg {
+									color: #0d1c32;
+								}
+
+								&:hover {
+									border-color: #ff8a00;
+									background: #fff7ed;
+									color: #ff8a00;
+
+									svg {
+										color: #ff8a00;
+									}
+								}
+							}
+						}
+					}
+
 					.agent-stats {
 						display: grid;
-						grid-template-columns: repeat(2, 1fr);
+						grid-template-columns: repeat(3, 1fr);
 						gap: 14px;
 						margin-top: 8px;
 
@@ -79,11 +154,36 @@
 							background: #ffffff;
 							border: 1.5px solid #f1e4d7;
 							border-radius: 14px;
-							padding: 18px 22px;
+							padding: 16px 18px;
 							display: flex;
-							flex-direction: column;
-							gap: 4px;
+							flex-direction: row;
+							align-items: center;
+							gap: 12px;
 							box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+
+							.stat-icon {
+								flex: 0 0 38px;
+								width: 38px;
+								height: 38px;
+								border-radius: 50%;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								background: #fff3e4;
+								color: #ff8a00;
+
+								svg {
+									width: 20px;
+									height: 20px;
+								}
+							}
+
+							.stat-copy {
+								min-width: 0;
+								display: flex;
+								flex-direction: column;
+								gap: 3px;
+							}
 
 							.stat-value {
 								color: #0d1c32;

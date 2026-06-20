@@ -1,18 +1,34 @@
 yarn run v1.22.22
 $ next dev
- ⚠ Port 3000 is in use, trying 3001 instead.
   ▲ Next.js 14.2.0
-  - Local:        http://localhost:3001
+  - Local:        http://localhost:3000
   - Environments: .env.local, .env.development
 
  ✓ Starting...
- ✓ Ready in 3.4s
- ○ Compiling / ...
- ✓ Compiled / in 7.7s (3288 modules)
-trendProperties:  []
- GET / 200 in 11903ms
- ✓ Compiled in 599ms (897 modules)
+ ✓ Ready in 4.8s
+ ○ Compiling /_error ...
 Browserslist: caniuse-lite is outdated. Please run:
   npx update-browserslist-db@latest
   Why you should do it regularly: https://github.com/browserslist/update-db#readme
- ✓ Compiled in 15.2s (897 modules)
+ ✓ Compiled /tour-package/detail in 64.7s (2729 modules)
+ GET /_next/static/webpack/2c3245aa6b24c804.webpack.hot-update.json 404 in 67090ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /tour-package/detail?id=66b200000000000000000006 200 in 30961ms
+ HEAD /tour-package/detail?id=66b200000000000000000006 200 in 59528ms
+ GET /tour-package/detail?id=66b200000000000000000006 200 in 554ms
+ HEAD /_next/static/webpack/2c3245aa6b24c804.webpack.hot-update.json 404 in 16ms
+ ✓ Compiled in 4.4s (793 modules)
+ ✓ Compiled in 2.8s (899 modules)
+ ✓ Compiled in 623ms (899 modules)
+ ○ Compiling /tour-package/detail ...
+ ✓ Compiled /tour-package/detail in 692ms (2729 modules)
+ HEAD /tour-package/detail?id=66b200000000000000000006 200 in 2186ms
+ ✓ Compiled in 5.8s (793 modules)
+ ✓ Compiled in 2.6s (793 modules)
+ ○ Compiling /agent/detail ...
+ ✓ Compiled /agent/detail in 5s (2719 modules)
+ HEAD /agent/detail?agentId=6a24e92ee767a7ce89741805 200 in 5503ms
+ ✓ Compiled in 442ms (899 modules)
+ ○ Compiling /agent/detail ...
+ ✓ Compiled /agent/detail in 1252ms (2719 modules)
+ HEAD /agent/detail?agentId=6a24e92ee767a7ce89741805 200 in 2663ms

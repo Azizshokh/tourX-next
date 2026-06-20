@@ -108,3 +108,10 @@ Validation: `yarn tsc --noEmit` passed.
 - **Bug 2 fixed**: `onCompleted` on `GET_TOUR_PACKAGE` fired on every `getTourPackageRefetch` (e.g., after liking), resetting `selectedDays`/`selectedTravelers` back to defaults. Fixed with a `hasInitializedSelectors` ref — initialization now runs exactly once per page mount.
 - Files: `pages/tour-package/detail.tsx`, `scss/pc/property/detail.scss`.
 - Verified with `npx tsc --noEmit` (0 errors).
+
+## 2026-06-20 - Agent detail like and follow actions
+- Added agent like, follow, and unfollow actions to the desktop agent detail hero using the existing member social GraphQL mutations.
+- Expanded the hero stats to expose backend counters for tour packages, followers, following, views, likes, and member-since year.
+- Files: `pages/agent/detail.tsx`, `scss/pc/agent/detail.scss`.
+- Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
+- Manual logged-in browser verification is still recommended for live like/follow toggle behavior.

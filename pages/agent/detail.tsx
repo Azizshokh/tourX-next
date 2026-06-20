@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
@@ -12,6 +12,14 @@ import {
 } from '../../libs/components/common/CommentMedia';
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
+import PersonRemoveRoundedIcon from '@mui/icons-material/PersonRemoveRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { TourPackage as Property } from '../../libs/types/tour-package/tour-package';
@@ -26,7 +34,13 @@ import { Messages, REACT_APP_API_URL } from '../../libs/config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { T } from '../../libs/types/common';
 import { GET_MEMBER, GET_TOUR_PACKAGES, GET_COMMENTS } from '../../apollo/user/query';
-import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
+import {
+	CREATE_COMMENT,
+	LIKE_TARGET_MEMBER,
+	LIKE_TARGET_TOUR_PACKAGE,
+	SUBSCRIBE,
+	UNSUBSCRIBE,
+} from '../../apollo/user/mutation';
 
 const objectIdRegex = /^[a-f\d]{24}$/i;
 
@@ -49,6 +63,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [agentComments, setAgentComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
+	const [followActionLoading, setFollowActionLoading] = useState<boolean>(false);
+	const followActionInFlightRef = useRef<boolean>(false);
 	const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
 		commentGroup: CommentGroup.MEMBER,
 		commentContent: '',
@@ -58,6 +74,9 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	/** APOLLO REQUESTS **/
 	const [createComment] = useMutation(CREATE_COMMENT);
 	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
+	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
+	const [subscribe] = useMutation(SUBSCRIBE);
+	const [unsubscribe] = useMutation(UNSUBSCRIBE);
 
 	const {
 		loading: getMemberLoading,
@@ -163,6 +182,104 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		setCommentInquiry({ ...commentInquiry });
 	};
 
+	const applyAgentFollowState = (nextFollowing: boolean, nextFollowerCount: number, refetchedAgent?: Member) => {
+		setAgent((prevAgent) => {
+			const baseAgent = refetchedAgent ?? prevAgent;
+			if (!baseAgent || !agentId) return baseAgent;
+
+			return {
+				...baseAgent,
+				memberFollowers: nextFollowerCount,
+				memberFollowings: prevAgent?.memberFollowings ?? baseAgent.memberFollowings,
+				meFollowed: [
+					{
+						followingId: baseAgent.meFollowed?.[0]?.followingId ?? agentId,
+						followerId: baseAgent.meFollowed?.[0]?.followerId ?? user?._id ?? '',
+						myFollowing: nextFollowing,
+					},
+				],
+			};
+		});
+	};
+
+	const refetchAgentHandler = async (id: string) => {
+		const { data } = await getMemberRefetch({ input: id });
+		if (data?.getMember) setAgent(data.getMember);
+	};
+
+	const likeAgentHandler = async () => {
+		try {
+			if (!agentId || !objectIdRegex.test(agentId)) throw new Error(Messages.error1);
+			if (!user?._id) throw new Error(Messages.error2);
+
+			await likeTargetMember({
+				variables: {
+					input: agentId,
+				},
+			});
+			await refetchAgentHandler(agentId);
+			await sweetTopSmallSuccessAlert('Success!', 800);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const subscribeHandler = async () => {
+		if (followActionInFlightRef.current) return;
+
+		try {
+			if (!agentId || !objectIdRegex.test(agentId)) throw new Error(Messages.error1);
+			if (!user?._id) throw new Error(Messages.error2);
+			if (user._id === agentId) throw new Error('Cannot follow yourself');
+
+			followActionInFlightRef.current = true;
+			setFollowActionLoading(true);
+			const nextFollowerCount = (agent?.memberFollowers ?? 0) + 1;
+
+			await subscribe({
+				variables: {
+					input: agentId,
+				},
+			});
+			applyAgentFollowState(true, nextFollowerCount);
+			await refetchAgentHandler(agentId);
+			await sweetTopSmallSuccessAlert('Subscribed!', 800);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		} finally {
+			followActionInFlightRef.current = false;
+			setFollowActionLoading(false);
+		}
+	};
+
+	const unsubscribeHandler = async () => {
+		if (followActionInFlightRef.current) return;
+
+		try {
+			if (!agentId || !objectIdRegex.test(agentId)) throw new Error(Messages.error1);
+			if (!user?._id) throw new Error(Messages.error2);
+			if (user._id === agentId) throw new Error('Cannot unfollow yourself');
+
+			followActionInFlightRef.current = true;
+			setFollowActionLoading(true);
+			const nextFollowerCount = Math.max((agent?.memberFollowers ?? 0) - 1, 0);
+
+			await unsubscribe({
+				variables: {
+					input: agentId,
+				},
+			});
+			applyAgentFollowState(false, nextFollowerCount);
+			await refetchAgentHandler(agentId);
+			await sweetTopSmallSuccessAlert('Unsubscribed!', 800);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		} finally {
+			followActionInFlightRef.current = false;
+			setFollowActionLoading(false);
+		}
+	};
+
 	const createCommentHandler = async () => {
 		try {
 			if (!user._id) throw new Error(Messages.error2);
@@ -206,6 +323,11 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
+
+	const isAgentLiked = Boolean(agent?.meLiked?.[0]?.myFavorite);
+	const isFollowingAgent = Boolean(agent?.meFollowed?.[0]?.myFollowing);
+	const isOwnAgentProfile = Boolean(user?._id && agentId && user._id === agentId);
+
 	if (device === 'mobile') {
 		return <div>AGENT DETAIL PAGE MOBILE</div>;
 	} else {
@@ -223,27 +345,82 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 						<Box className={'agent-content'}>
 							<Typography className={'agent-role'}>Travel Agent</Typography>
 							<Typography className={'agent-name'}>{agent?.memberFullName ?? agent?.memberNick}</Typography>
-							{agent?.memberDesc && (
-								<Typography className={'agent-desc-text'}>{agent.memberDesc}</Typography>
-							)}
+							{agent?.memberDesc && <Typography className={'agent-desc-text'}>{agent.memberDesc}</Typography>}
+							<Box className={'agent-action-row'}>
+								<Button
+									className={`agent-like-btn ${isAgentLiked ? 'active' : ''}`}
+									onClick={likeAgentHandler}
+									startIcon={isAgentLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />}
+								>
+									{isAgentLiked ? 'Liked' : 'Like Agent'}
+								</Button>
+								{!isOwnAgentProfile && (
+									<Button
+										className={`agent-follow-btn ${isFollowingAgent ? 'following' : ''}`}
+										onClick={isFollowingAgent ? unsubscribeHandler : subscribeHandler}
+										disabled={followActionLoading}
+										startIcon={isFollowingAgent ? <PersonRemoveRoundedIcon /> : <PersonAddAltRoundedIcon />}
+									>
+										{isFollowingAgent ? 'Unfollow' : 'Follow'}
+									</Button>
+								)}
+							</Box>
 							<Box className={'agent-stats'}>
 								<Box className={'stat-box'}>
-									<Typography className={'stat-value'}>{agent?.memberTours ?? 0}</Typography>
-									<Typography className={'stat-label'}>Tour Packages</Typography>
+									<Box className={'stat-icon'}>
+										<LuggageRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>{agent?.memberTours ?? 0}</Typography>
+										<Typography className={'stat-label'}>Tour Packages</Typography>
+									</Box>
 								</Box>
 								<Box className={'stat-box'}>
-									<Typography className={'stat-value'}>{agent?.memberLikes ?? 0}</Typography>
-									<Typography className={'stat-label'}>Likes</Typography>
+									<Box className={'stat-icon'}>
+										<GroupsRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>{agent?.memberFollowers ?? 0}</Typography>
+										<Typography className={'stat-label'}>Followers</Typography>
+									</Box>
 								</Box>
 								<Box className={'stat-box'}>
-									<Typography className={'stat-value'}>{agent?.memberViews ?? 0}</Typography>
-									<Typography className={'stat-label'}>Views</Typography>
+									<Box className={'stat-icon'}>
+										<PersonAddAltRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>{agent?.memberFollowings ?? 0}</Typography>
+										<Typography className={'stat-label'}>Following</Typography>
+									</Box>
 								</Box>
 								<Box className={'stat-box'}>
-									<Typography className={'stat-value'}>
-										{agent?.createdAt ? new Date(agent.createdAt).getFullYear() : '—'}
-									</Typography>
-									<Typography className={'stat-label'}>Member Since</Typography>
+									<Box className={'stat-icon'}>
+										<VisibilityRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>{agent?.memberViews ?? 0}</Typography>
+										<Typography className={'stat-label'}>Views</Typography>
+									</Box>
+								</Box>
+								<Box className={'stat-box'}>
+									<Box className={'stat-icon'}>
+										<FavoriteRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>{agent?.memberLikes ?? 0}</Typography>
+										<Typography className={'stat-label'}>Likes</Typography>
+									</Box>
+								</Box>
+								<Box className={'stat-box'}>
+									<Box className={'stat-icon'}>
+										<CalendarMonthRoundedIcon />
+									</Box>
+									<Box className={'stat-copy'}>
+										<Typography className={'stat-value'}>
+											{agent?.createdAt ? new Date(agent.createdAt).getFullYear() : '—'}
+										</Typography>
+										<Typography className={'stat-label'}>Member Since</Typography>
+									</Box>
 								</Box>
 							</Box>
 							{agent?.memberPhone && (

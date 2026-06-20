@@ -115,3 +115,17 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `pages/agent/detail.tsx`, `scss/pc/agent/detail.scss`.
 - Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
 - Manual logged-in browser verification is still recommended for live like/follow toggle behavior.
+
+## 2026-06-20 - Write article page TourX design refresh
+- Redesigned the desktop write article experience with a TourX community header, premium editor panels, category/title controls, writing tips, and a warm publish CTA.
+- Added fitting MUI icons for writing, destination insight, photo support, category, title, editor media, tips, and publish actions.
+- Preserved existing Toast UI editor, image upload flow, `CREATE_BOARD_ARTICLE` mutation, route behavior, and article payload shape.
+- Files: `libs/components/mypage/WriteArticle.tsx`, `libs/components/community/Teditor.tsx`, `scss/pc/mypage/writeArticle.scss`.
+- Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
+
+## 2026-06-20 - My page sidebar TourX navigation refresh
+- Rebuilt the desktop my page left navigation with TourX travel/account/community group labels and MUI icons.
+- Added warm orange, green, blue, purple, and red icon accents while preserving existing `category` query routing and logout behavior.
+- Updated the sidebar profile card, role badge, active menu state, hover states, and menu typography to match the TourX premium design mode.
+- Files: `libs/components/mypage/MyMenu.tsx`, `scss/pc/mypage/mypage.scss`.
+- Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.

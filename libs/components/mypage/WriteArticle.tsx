@@ -1,8 +1,11 @@
 import React from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
 const TuiEditor = dynamic(() => import('../community/Teditor'), { ssr: false });
 
 const WriteArticle: NextPage = () => {
@@ -14,12 +17,30 @@ const WriteArticle: NextPage = () => {
 		return (
 			<div id="write-article-page">
 				<Stack className="main-title-box">
+					<Box className="title-icon">
+						<EditNoteRoundedIcon />
+					</Box>
 					<Stack className="right-box">
-						<Typography className="main-title">Write an Article</Typography>
-						<Typography className="sub-title">Feel free to write your ideas!</Typography>
+						<Typography className="eyebrow">TourX Community</Typography>
+						<Typography className="main-title">Write a Travel Story</Typography>
+						<Typography className="sub-title">
+							Share a destination tip, travel guide, review, or local moment with other TourX explorers.
+						</Typography>
+					</Stack>
+					<Stack className="writing-hints">
+						<Box className="hint-pill">
+							<TravelExploreRoundedIcon />
+							<span>Destination insight</span>
+						</Box>
+						<Box className="hint-pill">
+							<PhotoCameraRoundedIcon />
+							<span>Photos supported</span>
+						</Box>
 					</Stack>
 				</Stack>
-				<TuiEditor />
+				<Box className="editor-shell">
+					<TuiEditor />
+				</Box>
 			</div>
 		);
 };

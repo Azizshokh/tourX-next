@@ -1,5 +1,10 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Box, Button, FormControl, MenuItem, Stack, Typography, Select, TextField } from '@mui/material';
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded';
+import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
+import PublishRoundedIcon from '@mui/icons-material/PublishRounded';
+import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
+import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded';
 import { BoardArticleCategory } from '../../enums/board-article.enum';
 import { Editor } from '@toast-ui/react-editor';
 import { getJwtToken } from '../../auth';
@@ -115,13 +120,14 @@ const TuiEditor = () => {
 	};
 
 	return (
-		<Stack>
-			<Stack direction="row" style={{ margin: '40px' }} justifyContent="space-evenly">
-				<Box component={'div'} className={'form_row'} style={{ width: '300px' }}>
-					<Typography style={{ color: '#7f838d', margin: '10px' }} variant="h3">
-						Category
-					</Typography>
-					<FormControl sx={{ width: '100%', background: 'white' }}>
+		<Stack className={'tourx-editor-config'}>
+			<Stack className={'editor-top-grid'}>
+				<Box component={'div'} className={'editor-field-card'}>
+					<Stack className={'field-label-row'}>
+						<CategoryRoundedIcon />
+						<Typography>Category</Typography>
+					</Stack>
+					<FormControl className={'category-control'}>
 						<Select
 							value={articleCategory}
 							onChange={changeCategoryHandler}
@@ -137,52 +143,68 @@ const TuiEditor = () => {
 						</Select>
 					</FormControl>
 				</Box>
-				<Box component={'div'} style={{ width: '300px', flexDirection: 'column' }}>
-					<Typography style={{ color: '#7f838d', margin: '10px' }} variant="h3">
-						Title
-					</Typography>
+				<Box component={'div'} className={'editor-field-card title-card'}>
+					<Stack className={'field-label-row'}>
+						<TitleRoundedIcon />
+						<Typography>Title</Typography>
+					</Stack>
 					<TextField
 						onChange={articleTitleHandler}
 						id="filled-basic"
-						label="Type Title"
-						style={{ width: '300px', background: 'white' }}
+						placeholder="Example: 5 hidden places to visit in Seoul"
+						className={'article-title-input'}
 					/>
+				</Box>
+				<Box component={'div'} className={'editor-guide-card'}>
+					<Stack className={'field-label-row'}>
+						<TipsAndUpdatesRoundedIcon />
+						<Typography>Writing tips</Typography>
+					</Stack>
+					<Typography className={'guide-copy'}>
+						Add a practical headline, include travel details, and use the image button for destination photos.
+					</Typography>
 				</Box>
 			</Stack>
 
-			<Editor
-				initialValue={'Type here'}
-				placeholder={'Type here'}
-				previewStyle={'vertical'}
-				height={'640px'}
-				// @ts-ignore
-				initialEditType={'WYSIWYG'}
-				toolbarItems={[
-					['heading', 'bold', 'italic', 'strike'],
-					['image', 'table', 'link'],
-					['ul', 'ol', 'task'],
-				]}
-				ref={editorRef}
-				hooks={{
-					addImageBlobHook: async (image: any, callback: any) => {
-						const uploadedImageURL = await uploadImage(image);
-						callback(uploadedImageURL);
-						return false;
-					},
-				}}
-				events={{
-					load: function (param: any) {},
-				}}
-			/>
+			<Box className={'editor-canvas-card'}>
+				<Stack className={'editor-toolbar-note'}>
+					<ImageRoundedIcon />
+					<Typography>Use the editor toolbar to add headings, links, lists, tables, and travel photos.</Typography>
+				</Stack>
+				<Editor
+					initialValue={'Type here'}
+					placeholder={'Type here'}
+					previewStyle={'vertical'}
+					height={'640px'}
+					// @ts-ignore
+					initialEditType={'WYSIWYG'}
+					toolbarItems={[
+						['heading', 'bold', 'italic', 'strike'],
+						['image', 'table', 'link'],
+						['ul', 'ol', 'task'],
+					]}
+					ref={editorRef}
+					hooks={{
+						addImageBlobHook: async (image: any, callback: any) => {
+							const uploadedImageURL = await uploadImage(image);
+							callback(uploadedImageURL);
+							return false;
+						},
+					}}
+					events={{
+						load: function (param: any) {},
+					}}
+				/>
+			</Box>
 
-			<Stack direction="row" justifyContent="center">
+			<Stack className={'publish-action-row'}>
 				<Button
 					variant="contained"
-					color="primary"
-					style={{ margin: '30px', width: '250px', height: '45px' }}
+					className={'publish-article-btn'}
 					onClick={handleRegisterButton}
+					startIcon={<PublishRoundedIcon />}
 				>
-					Register
+					Publish Article
 				</Button>
 			</Stack>
 		</Stack>

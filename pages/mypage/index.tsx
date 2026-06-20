@@ -48,6 +48,7 @@ const MyPage: NextPage = () => {
 		try {
 			if (!id) throw new Error(Messages.error1);
 			if (!user._id) throw new Error(Messages.error2);
+			if (user._id === id) throw new Error('You cannot follow yourself.');
 
 			await subscribe({
 				variables: {
@@ -55,7 +56,7 @@ const MyPage: NextPage = () => {
 				},
 			});
 			await sweetTopSmallSuccessAlert('Subscribed!', 800);
-			await refetch({ input: query });
+			if (refetch && query) await refetch({ input: query });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -65,13 +66,15 @@ const MyPage: NextPage = () => {
 		try {
 			if (!id) throw new Error(Messages.error1);
 			if (!user._id) throw new Error(Messages.error2);
+			if (user._id === id) throw new Error('You cannot unfollow yourself.');
+
 			await unsubscribe({
 				variables: {
 					input: id,
 				},
 			});
 			await sweetTopSmallSuccessAlert('Unsubscribed!', 800);
-			await refetch({ input: query });
+			if (refetch && query) await refetch({ input: query });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}

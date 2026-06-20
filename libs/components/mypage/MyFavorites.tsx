@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Pagination, Stack, Typography } from '@mui/material';
+import { Pagination, Stack, Typography, Box } from '@mui/material';
 import PropertyCard from '../property/PropertyCard';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
@@ -10,6 +10,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
@@ -32,8 +36,8 @@ const MyFavorites: NextPage = () => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setMyFavorites(data?.getFavorites?.list);
-			setTotal(data?.getFavorites?.metaCounter[0]?.total ?? 0);
+			setMyFavorites(data?.getFavorites?.list ?? []);
+			setTotal(data?.getFavorites?.metaCounter?.[0]?.total ?? 0);
 		},
 	});
 
@@ -52,7 +56,11 @@ const MyFavorites: NextPage = () => {
 					input: id,
 				},
 			});
-			await getFavoritesRefetch({ input: searchFavorites });
+			const nextPage =
+				myFavorites.length === 1 && searchFavorites.page > 1 ? searchFavorites.page - 1 : searchFavorites.page;
+			const nextSearchFavorites = { ...searchFavorites, page: nextPage };
+			if (nextPage !== searchFavorites.page) setSearchFavorites(nextSearchFavorites);
+			else await getFavoritesRefetch({ input: nextSearchFavorites });
 		} catch (err: any) {
 			console.log('ERROR, likePropertyHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
@@ -66,19 +74,52 @@ const MyFavorites: NextPage = () => {
 			<div id="my-favorites-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">My Favorites</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
+						<Stack className="title-kicker">
+							<FavoriteRoundedIcon />
+							<Typography>TourX wishlist</Typography>
+						</Stack>
+						<Typography className="main-title">Saved Trips</Typography>
+						<Typography className="sub-title">
+							Keep your favorite travel packages close, compare the details, and return when you are ready to book.
+						</Typography>
+					</Stack>
+					<Stack className="saved-summary-panel">
+						<Box className="summary-icon">
+							<TravelExploreRoundedIcon />
+						</Box>
+						<Stack className="summary-copy">
+							<Typography className="summary-value">{total}</Typography>
+							<Typography className="summary-label">saved package{total === 1 ? '' : 's'}</Typography>
+						</Stack>
+						<Stack className="summary-tags">
+							<Stack className="summary-tag">
+								<LuggageRoundedIcon />
+								<Typography>Curated tours</Typography>
+							</Stack>
+							<Stack className="summary-tag">
+								<PublicRoundedIcon />
+								<Typography>Global escapes</Typography>
+							</Stack>
+						</Stack>
 					</Stack>
 				</Stack>
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
 						myFavorites?.map((property: Property) => {
-							return <PropertyCard property={property} likePropertyHandler={likePropertyHandler} myFavorites={true} />;
+							return (
+								<PropertyCard
+									property={property}
+									likePropertyHandler={likePropertyHandler}
+									myFavorites={true}
+									key={property?._id}
+								/>
+							);
 						})
 					) : (
 						<div className={'no-data'}>
-							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Favorites found!</p>
+							<FavoriteRoundedIcon className="empty-icon" />
+							<strong>No saved trips yet!</strong>
+							<p>Explore TourX packages and tap the heart to build your shortlist.</p>
 						</div>
 					)}
 				</Stack>
@@ -86,7 +127,7 @@ const MyFavorites: NextPage = () => {
 					<Stack className="pagination-config">
 						<Stack className="pagination-box">
 							<Pagination
-								count={Math.ceil(total / searchFavorites.limit)}
+								count={Math.ceil(total / searchFavorites.limit) || 1}
 								page={searchFavorites.page}
 								shape="circular"
 								color="primary"
@@ -95,7 +136,7 @@ const MyFavorites: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} favorite package{total > 1 ? 's' : ''}
+								Total {total} saved trip{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

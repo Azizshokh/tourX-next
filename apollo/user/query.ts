@@ -321,8 +321,8 @@ export const GET_FAVORITES = gql`
 `;
 
 export const GET_VISITED_TOURS = gql`
-	query getVisitedToursTours($input: OrdinaryInquiry!) {
-		getVisitedToursTours(input: $input) {
+	query GetVisitedTours($input: OrdinaryInquiry!) {
+		getVisitedTours(input: $input) {
 			list {
 				_id
 				packageType

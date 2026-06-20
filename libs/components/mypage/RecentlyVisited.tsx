@@ -27,8 +27,8 @@ const RecentlyVisited: NextPage = () => {
 			input: searchVisited,
 		},
 		onCompleted: (data: T) => {
-			setRecentlyVisited(data?.getVisitedTours?.list);
-			setTotal(data?.getVisitedTours?.metaCounter[0]?.total || 0);
+			setRecentlyVisited(data?.getVisitedTours?.list ?? []);
+			setTotal(data?.getVisitedTours?.metaCounter?.[0]?.total ?? 0);
 		},
 	});
 
@@ -44,19 +44,19 @@ const RecentlyVisited: NextPage = () => {
 			<div id="recently-visited-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">Recently Visited</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
+						<Typography className="main-title">Recently Viewed</Typography>
+						<Typography className="sub-title">Tour packages you opened recently.</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="favorites-list-box">
 					{recentlyVisited?.length ? (
 						recentlyVisited?.map((property: Property) => {
-							return <PropertyCard property={property} recentlyVisited={true} />;
+							return <PropertyCard key={property?._id} property={property} recentlyVisited={true} />;
 						})
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No recently visited packages found!</p>
+							<p>No recently viewed packages yet!</p>
 						</div>
 					)}
 				</Stack>
@@ -64,7 +64,7 @@ const RecentlyVisited: NextPage = () => {
 					<Stack className="pagination-config">
 						<Stack className="pagination-box">
 							<Pagination
-								count={Math.ceil(total / searchVisited.limit)}
+								count={Math.ceil(total / searchVisited.limit) || 1}
 								page={searchVisited.page}
 								shape="circular"
 								color="primary"
@@ -73,7 +73,7 @@ const RecentlyVisited: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} recently visited package{total > 1 ? 's' : ''}
+								Total {total} recently viewed package{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

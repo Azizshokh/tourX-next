@@ -129,3 +129,10 @@ Validation: `yarn tsc --noEmit` passed.
 - Updated the sidebar profile card, role badge, active menu state, hover states, and menu typography to match the TourX premium design mode.
 - Files: `libs/components/mypage/MyMenu.tsx`, `scss/pc/mypage/mypage.scss`.
 - Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
+
+## 2026-06-20 - My page saved trips and follow list logic
+- Fixed recently viewed packages to call the backend `getVisitedTours` field and read the matching response key.
+- Updated saved trips copy, empty states, safe pagination counts, and page fallback after removing the last saved trip on a page.
+- Cleaned followers/following list wiring with valid member-id guards, safe `metaCounter` handling, self-follow prevention, and normalized `Followers` / `Following` labels.
+- Files: `apollo/user/query.ts`, `libs/components/mypage/MyFavorites.tsx`, `libs/components/mypage/RecentlyVisited.tsx`, `libs/components/member/MemberFollowers.tsx`, `libs/components/member/MemberFollowings.tsx`, `libs/components/member/MemberMenu.tsx`, `pages/mypage/index.tsx`, `pages/member/index.tsx`.
+- Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.

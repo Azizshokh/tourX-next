@@ -207,7 +207,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 											</g>
 										</svg>
 										<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-											Followings
+											Following
 										</Typography>
 										<Typography className="count-title" variant="subtitle1">
 											{member?.memberFollowings}

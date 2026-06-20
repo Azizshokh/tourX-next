@@ -12,6 +12,8 @@ import { userVar } from '../../../apollo/store';
 import { T } from '../../types/common';
 import { GET_MEMBER_FOLLOWERS } from '../../../apollo/user/query';
 
+const isValidObjectId = (id?: string) => Boolean(id && id.length === 24 && id !== 'undefined' && id !== 'null');
+
 interface MemberFollowsProps {
 	initialInput: FollowInquiry;
 	subscribeHandler: any;
@@ -25,10 +27,10 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
-	const category: any = router.query?.category ?? 'properties';
 	const [followInquiry, setFollowInquiry] = useState<FollowInquiry>(initialInput);
 	const [memberFollowers, setMemberFollowers] = useState<Follower[]>([]);
 	const user = useReactiveVar(userVar);
+	const followingId = followInquiry?.search?.followingId;
 
 	/** APOLLO REQUESTS **/
 	const {
@@ -37,45 +39,42 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 		error: getMemberFollowersError,
 		refetch: getMemberFollowersRefetch,
 	} = useQuery(GET_MEMBER_FOLLOWERS, {
-		fetchPolicy: 'network-only',
+		fetchPolicy: 'no-cache',
 		variables: { input: followInquiry },
-		skip:
-			!followInquiry?.search?.followingId ||
-			followInquiry?.search?.followingId?.length !== 24 ||
-			followInquiry?.search?.followingId === 'undefined' ||
-			followInquiry?.search?.followingId === 'null',
+		skip: !isValidObjectId(followingId),
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setMemberFollowers(data?.getMemberFollowers?.list);
-			setTotal(data?.getMemberFollowers?.metaCounter[0]?.total);
+			setMemberFollowers(data?.getMemberFollowers?.list ?? []);
+			setTotal(data?.getMemberFollowers?.metaCounter?.[0]?.total ?? 0);
 		},
 	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.memberId)
-			setFollowInquiry({ ...followInquiry, search: { followingId: router.query.memberId as string } });
-		else setFollowInquiry({ ...followInquiry, search: { followingId: user?._id } });
-	}, [router]);
+		const nextFollowingId = (router.query.memberId as string) || user?._id;
+		if (!nextFollowingId) return;
+
+		setFollowInquiry((prev) => ({ ...prev, page: 1, search: { followingId: nextFollowingId } }));
+	}, [router.query.memberId, user?._id]);
 
 	useEffect(() => {
+		if (!isValidObjectId(followingId)) return;
 		getMemberFollowersRefetch({ input: followInquiry }).then();
-	}, [followInquiry]);
+	}, [followInquiry, followingId, getMemberFollowersRefetch]);
 
 	/** HANDLERS **/
 	const paginationHandler = async (event: ChangeEvent<unknown>, value: number) => {
-		followInquiry.page = value;
-		setFollowInquiry({ ...followInquiry });
+		setFollowInquiry({ ...followInquiry, page: value });
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR FOLLOWS MOBILE</div>;
+		return <div>FOLLOW LIST MOBILE</div>;
 	} else {
 		return (
 			<div id="member-follows-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">{category === 'followers' ? 'Followers' : 'Followings'}</Typography>
+						<Typography className="main-title">Followers</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="follows-list-box">
@@ -110,7 +109,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 										<span>({follower?.followerData?.memberFollowers})</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
-										<p>Followings</p>
+										<p>Following</p>
 										<span>({follower?.followerData?.memberFollowings})</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
@@ -131,7 +130,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 										<span>({follower?.followerData?.memberLikes})</span>
 									</Box>
 								</Stack>
-								{user?._id !== follower?.followerId && (
+								{user?._id !== follower?.followerData?._id && (
 									<Stack className="action-box">
 										{follower.meFollowed && follower.meFollowed[0]?.myFollowing ? (
 											<>
@@ -168,7 +167,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 						<Stack className="pagination-box">
 							<Pagination
 								page={followInquiry.page}
-								count={Math.ceil(total / followInquiry.limit)}
+								count={Math.ceil(total / followInquiry.limit) || 1}
 								onChange={paginationHandler}
 								shape="circular"
 								color="primary"

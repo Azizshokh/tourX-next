@@ -135,11 +135,11 @@ const TuiEditor = () => {
 							inputProps={{ 'aria-label': 'Without label' }}
 						>
 							<MenuItem value={BoardArticleCategory.FREE}>
-								<span>Free</span>
+								<span>Travel Stories</span>
 							</MenuItem>
-							<MenuItem value={BoardArticleCategory.HUMOR}>Humor</MenuItem>
+							<MenuItem value={BoardArticleCategory.RECOMMEND}>Tips & Guides</MenuItem>
 							<MenuItem value={BoardArticleCategory.NEWS}>News</MenuItem>
-							<MenuItem value={BoardArticleCategory.RECOMMEND}>Recommendation</MenuItem>
+							<MenuItem value={BoardArticleCategory.HUMOR}>Humor</MenuItem>
 						</Select>
 					</FormControl>
 				</Box>

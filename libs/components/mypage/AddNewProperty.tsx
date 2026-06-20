@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
+import CollectionsRoundedIcon from '@mui/icons-material/CollectionsRounded';
+import ImageSearchRoundedIcon from '@mui/icons-material/ImageSearchRounded';
+import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded';
+import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
 import axios from 'axios';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -13,11 +17,14 @@ import { userVar } from '../../../apollo/store';
 import { GET_TOUR_PACKAGE } from '../../../apollo/user/query';
 import { CREATE_TOUR_PACKAGE, UPDATE_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 
+const MAX_PACKAGE_IMAGES = 5;
+
 const AddProperty = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const inputRef = useRef<any>(null);
 	const [insertPackageData, setInsertPackageData] = useState<TourPackageInput>(initialValues);
+	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
 	const packageId = router.query.packageId ?? router.query.propertyId;
@@ -61,10 +68,17 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	async function uploadImages() {
 		try {
 			const formData = new FormData();
-			const selectedFiles = inputRef.current.files;
+			const selectedFiles = Array.from(inputRef.current?.files ?? []) as File[];
+			const currentImages = insertPackageData.packageImages.slice(0, MAX_PACKAGE_IMAGES);
+			const availableSlots = MAX_PACKAGE_IMAGES - currentImages.length;
 
-			if (selectedFiles.length == 0) return false;
-			if (selectedFiles.length > 5) throw new Error('Cannot upload more than 5 images!');
+			if (selectedFiles.length === 0) return false;
+			if (availableSlots <= 0) {
+				throw new Error(`You already added ${MAX_PACKAGE_IMAGES} package images.`);
+			}
+			if (selectedFiles.length > availableSlots) {
+				throw new Error(`You can upload up to ${MAX_PACKAGE_IMAGES} package images.`);
+			}
 
 			formData.append(
 				'operations',
@@ -73,24 +87,21 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 						imagesUploader(files: $files, target: $target)
 					}`,
 					variables: {
-						files: [null, null, null, null, null],
+						files: selectedFiles.map(() => null),
 						target: 'tourPackage',
 					},
 				}),
 			);
 			formData.append(
 				'map',
-				JSON.stringify({
-					'0': ['variables.files.0'],
-					'1': ['variables.files.1'],
-					'2': ['variables.files.2'],
-					'3': ['variables.files.3'],
-					'4': ['variables.files.4'],
-				}),
+				JSON.stringify(
+					selectedFiles.reduce<Record<string, string[]>>((acc, _file, index) => {
+						acc[index] = [`variables.files.${index}`];
+						return acc;
+					}, {}),
+				),
 			);
-			for (const key in selectedFiles) {
-				if (/^\d+$/.test(key)) formData.append(`${key}`, selectedFiles[key]);
-			}
+			selectedFiles.forEach((file, index) => formData.append(`${index}`, file));
 
 			const response = await axios.post(`${process.env.REACT_APP_API_GRAPHQL_URL}`, formData, {
 				headers: {
@@ -100,31 +111,85 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 				},
 			});
 
-			setInsertPackageData({ ...insertPackageData, packageImages: response.data.data.imagesUploader });
+			const uploadedImages = response.data.data.imagesUploader ?? [];
+			setInsertPackageData((prev) => ({
+				...prev,
+				packageImages: [...(prev.packageImages ?? []).slice(0, MAX_PACKAGE_IMAGES), ...uploadedImages].slice(0, MAX_PACKAGE_IMAGES),
+			}));
 		} catch (err: any) {
 			await sweetMixinErrorAlert(err.message);
+		} finally {
+			if (inputRef.current) inputRef.current.value = '';
 		}
 	}
 
-	const doDisabledCheck = () => {
-		return (
-			insertPackageData.packageTitle.trim() === '' ||
-			insertPackageData.packagePrice <= 0 ||
-			!insertPackageData.packageType ||
-			insertPackageData.packageCountry.trim() === '' ||
-			insertPackageData.packageCity.trim() === '' ||
-			insertPackageData.packageAddress.trim() === '' ||
-			insertPackageData.durationDays <= 0 ||
-			insertPackageData.minPeople <= 0 ||
-			insertPackageData.maxPeople < insertPackageData.minPeople ||
-			insertPackageData.startDate === '' ||
-			insertPackageData.endDate === '' ||
-			insertPackageData.packageImages.length === 0
-		);
+	const validatePackageForm = async () => {
+		if (insertPackageData.packageTitle.trim() === '') {
+			await sweetMixinErrorAlert('Please enter a package title.');
+			return false;
+		}
+		if (insertPackageData.packagePrice <= 0) {
+			await sweetMixinErrorAlert('Please enter a valid package price.');
+			return false;
+		}
+		if (!insertPackageData.packageType) {
+			await sweetMixinErrorAlert('Please select a package type.');
+			return false;
+		}
+		if (insertPackageData.packageCountry.trim() === '') {
+			await sweetMixinErrorAlert('Please enter a destination country.');
+			return false;
+		}
+		if (insertPackageData.packageCity.trim() === '') {
+			await sweetMixinErrorAlert('Please enter a destination city.');
+			return false;
+		}
+		if (insertPackageData.packageAddress.trim() === '') {
+			await sweetMixinErrorAlert('Please enter a meeting point or package address.');
+			return false;
+		}
+		if (insertPackageData.durationDays <= 0) {
+			await sweetMixinErrorAlert('Please select a valid package duration.');
+			return false;
+		}
+		if (insertPackageData.minPeople <= 0) {
+			await sweetMixinErrorAlert('Minimum people must be at least 1.');
+			return false;
+		}
+		if (insertPackageData.maxPeople < insertPackageData.minPeople) {
+			await sweetMixinErrorAlert('Maximum people must be greater than or equal to minimum people.');
+			return false;
+		}
+		if (insertPackageData.startDate === '') {
+			await sweetMixinErrorAlert('Please select a package start date.');
+			return false;
+		}
+		if (insertPackageData.endDate === '') {
+			await sweetMixinErrorAlert('Please select a package end date.');
+			return false;
+		}
+		if (new Date(insertPackageData.endDate).getTime() < new Date(insertPackageData.startDate).getTime()) {
+			await sweetMixinErrorAlert('End date must be the same as or later than the start date.');
+			return false;
+		}
+		if (insertPackageData.packageImages.length === 0) {
+			await sweetMixinErrorAlert('Please upload at least one package image.');
+			return false;
+		}
+		if (insertPackageData.packageImages.length > MAX_PACKAGE_IMAGES) {
+			await sweetMixinErrorAlert(`You can upload up to ${MAX_PACKAGE_IMAGES} package images.`);
+			return false;
+		}
+
+		return true;
 	};
 
 	const insertPackageHandler = useCallback(async () => {
+		if (isSubmitting) return;
+		if (!(await validatePackageForm())) return;
+
 		try {
+			setIsSubmitting(true);
 			await createTourPackage({
 				variables: {
 					input: insertPackageData,
@@ -135,11 +200,17 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
+		} finally {
+			setIsSubmitting(false);
 		}
-	}, [insertPackageData]);
+	}, [insertPackageData, isSubmitting]);
 
 	const updatePackageHandler = useCallback(async () => {
+		if (isSubmitting) return;
+		if (!(await validatePackageForm())) return;
+
 		try {
+			setIsSubmitting(true);
 			await updateTourPackage({
 				variables: {
 					input: {
@@ -153,8 +224,10 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
+		} finally {
+			setIsSubmitting(false);
 		}
-	}, [insertPackageData, getTourPackageData]);
+	}, [insertPackageData, getTourPackageData, isSubmitting]);
 
 	if (user?.memberType !== 'AGENT') router.back();
 
@@ -371,11 +444,31 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 				<Typography className="upload-title">Upload package photos</Typography>
 				<Stack className="images-box">
 					<Stack className="upload-box">
+						<Stack className="upload-icon-box">
+							<UploadFileRoundedIcon />
+						</Stack>
 						<Stack className="text-box">
-							<Typography className="drag-title">Drag and drop images here</Typography>
-							<Typography className="format-title">Photos must be JPEG or PNG format and at least 2048x768</Typography>
+							<Typography className="drag-title">Add up to {MAX_PACKAGE_IMAGES} tour package images</Typography>
+							<Typography className="format-title">
+								Use clear destination, activity, hotel, guide, and experience photos. JPEG or PNG recommended.
+							</Typography>
+						</Stack>
+						<Stack className="upload-guide-grid">
+							<Stack className="guide-pill">
+								<ImageSearchRoundedIcon />
+								<Typography>Show real trip moments</Typography>
+							</Stack>
+							<Stack className="guide-pill">
+								<TipsAndUpdatesRoundedIcon />
+								<Typography>Tips & Guides friendly</Typography>
+							</Stack>
+							<Stack className="guide-pill">
+								<CollectionsRoundedIcon />
+								<Typography>{insertPackageData.packageImages.length}/{MAX_PACKAGE_IMAGES} selected</Typography>
+							</Stack>
 						</Stack>
 						<Button className="browse-button" onClick={() => inputRef.current.click()}>
+							<UploadFileRoundedIcon />
 							<Typography className="browse-button-text">Browse Files</Typography>
 							<input
 								ref={inputRef}
@@ -388,21 +481,39 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 						</Button>
 					</Stack>
 					<Stack className="gallery-box">
-						{insertPackageData?.packageImages.map((image: string) => (
-							<Stack className="image-box" key={image}>
-								<img src={`${REACT_APP_API_URL}/${image}`} alt="" />
-							</Stack>
-						))}
+						{Array.from({ length: MAX_PACKAGE_IMAGES }).map((_, index: number) => {
+							const image = insertPackageData?.packageImages?.[index];
+
+							return (
+								<Stack
+									className={`image-box ${image ? 'filled-image-box' : 'empty-image-box'}`}
+									key={image || `package-image-slot-${index}`}
+									onClick={!image ? () => inputRef.current?.click() : undefined}
+								>
+									{image ? (
+										<img src={`${REACT_APP_API_URL}/${image}`} alt={`Tour package photo ${index + 1}`} />
+									) : (
+										<Stack className="empty-image-content">
+											<ImageSearchRoundedIcon />
+											<Typography>Add photo</Typography>
+										</Stack>
+									)}
+									<Stack className="image-count-badge">
+										<Typography>{index + 1}</Typography>
+									</Stack>
+								</Stack>
+							);
+						})}
 					</Stack>
 				</Stack>
 
 				<Stack className="buttons-row">
 					<Button
 						className="next-button"
-						disabled={doDisabledCheck()}
+						disabled={isSubmitting}
 						onClick={packageId ? updatePackageHandler : insertPackageHandler}
 					>
-						<Typography className="next-button-text">Save</Typography>
+						<Typography className="next-button-text">{isSubmitting ? 'Saving...' : 'Save'}</Typography>
 					</Button>
 				</Stack>
 			</Stack>

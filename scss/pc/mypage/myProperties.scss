@@ -5,246 +5,573 @@
 			height: auto;
 			display: flex;
 			flex-direction: column;
-			gap: 57px;
+			gap: 28px;
+
 			.main-title-box {
-				width: auto;
-				height: auto;
+				width: 100%;
+				min-height: 174px;
+				padding: 28px 30px;
 				flex-direction: row;
 				justify-content: space-between;
+				align-items: center;
+				gap: 24px;
+				border: 1px solid rgba(255, 138, 0, 0.16);
+				border-radius: 22px;
+				background: linear-gradient(135deg, #fff8ed 0%, #ffffff 52%, #eef8ff 100%);
+				box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+
 				.right-box {
-					width: 315px;
-					.main-title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 30px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-						letter-spacing: 0.6px;
-						text-transform: capitalize;
+					width: min(620px, 100%);
+
+					.title-kicker {
+						width: fit-content;
+						padding: 8px 12px;
+						flex-direction: row;
+						align-items: center;
+						gap: 7px;
+						border-radius: 999px;
+						background: #0d1c32;
+						color: #ffffff;
+
+						svg {
+							width: 17px;
+							height: 17px;
+							color: #ff8a00;
+						}
+
+						p {
+							color: #ffffff;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 11px;
+							font-weight: 900;
+							line-height: 16px;
+							letter-spacing: 0.06em;
+							text-transform: uppercase;
+						}
 					}
+
+					.main-title {
+						margin-top: 14px;
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 34px;
+						font-style: normal;
+						font-weight: 900;
+						line-height: 42px;
+						letter-spacing: 0;
+					}
+
 					.sub-title {
-						color: #181a20;
-						font-family: $font;
+						margin-top: 8px;
+						max-width: 560px;
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
 						font-size: 14px;
 						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
+						font-weight: 600;
+						line-height: 23px;
+					}
+				}
+
+				.summary-box {
+					min-width: 190px;
+					padding: 18px 20px;
+					flex-direction: row;
+					align-items: center;
+					gap: 14px;
+					border: 1px solid rgba(255, 138, 0, 0.16);
+					border-radius: 18px;
+					background: rgba(255, 255, 255, 0.82);
+					box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+
+					> svg {
+						width: 42px;
+						height: 42px;
+						padding: 10px;
+						border-radius: 14px;
+						background: #ff8a00;
+						color: #ffffff;
+						box-shadow: 0 12px 24px rgba(255, 138, 0, 0.24);
+					}
+
+					.summary-value {
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 28px;
+						font-weight: 900;
+						line-height: 32px;
+					}
+
+					.summary-label {
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 800;
+						line-height: 18px;
+						text-transform: uppercase;
 					}
 				}
 			}
+
 			.property-list-box {
 				width: 100%;
 				height: auto;
+				padding: 20px;
+				border: 1px solid #edf2f7;
+				border-radius: 22px;
+				background: #ffffff;
+				box-shadow: 0 18px 48px rgba(15, 23, 42, 0.06);
+
 				.tab-name-box {
 					width: 100%;
-					height: 49px;
+					min-height: 76px;
+					padding: 8px;
 					flex-direction: row;
-					justify-content: center;
-					align-items: flex-end;
+					align-items: center;
 					gap: 10px;
-					border-radius: 12px 12px 0px 0px;
-					background: rgba(143, 143, 143, 0.08);
-					border-radius: 12px 12px 0px 0px;
-					border: 1px solid rgba(196, 196, 196, 0.79);
-					.tab-name {
-						width: 110px;
-						height: 32px;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						cursor: pointer;
-						color: #000;
-						font-family: $font;
-						font-size: 16px;
-						font-style: normal;
-						font-weight: 500;
-						line-height: 26px;
-					}
+					border-radius: 18px;
+					background: #f8fafc;
+
+					.tab-name,
 					.active-tab-name {
-						width: 110px;
-						height: 32px;
-						display: flex;
-						justify-content: center;
+						flex: 1;
+						min-height: 60px;
+						padding: 10px 14px;
+						flex-direction: row;
 						align-items: center;
-						border-bottom: 2px solid #eb6753;
+						gap: 11px;
+						border: 1px solid transparent;
+						border-radius: 14px;
 						cursor: pointer;
-						color: #eb6753;
-						font-family: $font;
-						font-size: 16px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: 26px;
+						transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+						> svg {
+							width: 34px;
+							height: 34px;
+							padding: 8px;
+							border-radius: 12px;
+							color: #ff8a00;
+							background: #fff3e4;
+						}
+
+						.tab-label {
+							color: #0d1c32;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 14px;
+							font-weight: 900;
+							line-height: 18px;
+						}
+
+						.tab-helper {
+							margin-top: 2px;
+							color: #64748b;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 11px;
+							font-weight: 700;
+							line-height: 16px;
+						}
+					}
+
+					.tab-name:hover {
+						transform: translateY(-1px);
+						background: #ffffff;
+						border-color: rgba(255, 138, 0, 0.18);
+					}
+
+					.active-tab-name {
+						background: #0d1c32;
+						border-color: #0d1c32;
+						box-shadow: 0 14px 28px rgba(13, 28, 50, 0.18);
+
+						> svg {
+							background: #ff8a00;
+							color: #ffffff;
+						}
+
+						.tab-label,
+						.tab-helper {
+							color: #ffffff;
+						}
 					}
 				}
 			}
+
 			.list-box {
 				width: 100%;
 				height: auto;
-				min-height: 700px;
-				padding: 30px 28px;
-				border-radius: 0px 0px 12px 12px;
-				border: 1px solid rgba(196, 196, 196, 0.79);
-				border-top: none;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				min-height: 560px;
+				padding-top: 18px;
+
 				.listing-title-box {
 					width: 100%;
-					height: auto;
+					min-height: 44px;
+					padding: 0 16px;
 					flex-direction: row;
-					gap: 90px;
-					padding: 18px 15px 18px 33px;
-					border-radius: 12px;
-					background: #f6f6f6;
+					align-items: center;
+					border-radius: 14px;
+					background: #f8fafc;
+
 					.title-text {
-						color: #181a20;
-						font-family: $font;
-						font-size: 15px;
+						color: #94a3b8;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 11px;
 						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					:first-child {
-						margin-right: 138px;
+						font-weight: 900;
+						line-height: 16px;
+						letter-spacing: 0.06em;
+						text-transform: uppercase;
+
+						&:nth-child(1) {
+							width: 385px;
+						}
+
+						&:nth-child(2) {
+							width: 150px;
+						}
+
+						&:nth-child(3) {
+							width: 110px;
+						}
+
+						&:nth-child(4) {
+							width: 82px;
+						}
 					}
 				}
+
 				.property-card-box {
 					width: 100%;
-					height: auto;
+					min-height: 148px;
 					flex-direction: row;
-					margin-top: 30px;
-					padding-bottom: 30px;
-					border-bottom: 1px solid #ddd;
+					align-items: center;
+					gap: 16px;
+					margin-top: 14px;
+					padding: 16px;
+					border: 1px solid #edf2f7;
+					border-radius: 18px;
+					background: #ffffff;
+					box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+					transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+					&:hover {
+						transform: translateY(-2px);
+						border-color: rgba(255, 138, 0, 0.24);
+						box-shadow: 0 20px 44px rgba(15, 23, 42, 0.08);
+					}
+
 					.image-box {
-						width: 110px;
-						height: 90px;
+						position: relative;
+						flex: 0 0 134px;
+						width: 134px;
+						height: 104px;
 						overflow: hidden;
-						margin-right: 25px;
-						padding-top: 1px;
+						border-radius: 16px;
+						background: #fff7ed;
+						cursor: pointer;
+
 						img {
 							width: 100%;
 							height: 100%;
-							object-fit: contain;
-							border-radius: 12px;
+							display: block;
+							object-fit: cover;
+							border-radius: 16px;
+							transition: transform 0.25s ease;
 						}
-					}
-					.information-box {
-						width: 200px;
-						height: auto;
-						padding: 5px 0px;
-						.name {
-							margin-bottom: 8px;
-							color: #181a20;
-							font-family: $font;
-							font-size: 13px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
+
+						&:hover img {
+							transform: scale(1.04);
 						}
-						.address {
-							margin-bottom: 13px;
-							color: #717171;
-							font-family: $font;
-							font-size: 11px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: normal;
-						}
-						.price {
-							color: #181a20;
-							font-family: $font;
-							font-size: 15px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: normal;
-						}
-					}
-					.date-box {
-						width: 135px;
-						height: 100%;
-						align-items: center;
-						justify-content: center;
-						margin-right: 55px;
-						.date {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
-						}
-					}
-					.status-box {
-						width: 100px;
-						height: 100%;
-						align-items: center;
-						justify-content: center;
-						margin-right: 60px;
-						.coloured-box {
-							width: 93px;
-							height: 36px;
+
+						.empty-card-image {
+							width: 100%;
+							height: 100%;
 							align-items: center;
 							justify-content: center;
-							border-radius: 60px;
-							cursor: pointer;
-							.status {
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
+							background: linear-gradient(135deg, #fff8ed 0%, #eef8ff 100%);
+
+							svg {
+								width: 36px;
+								height: 36px;
+								color: #ff8a00;
+							}
+						}
+
+						.image-badge {
+							position: absolute;
+							left: 9px;
+							bottom: 9px;
+							max-width: calc(100% - 18px);
+							padding: 5px 8px;
+							border-radius: 999px;
+							background: rgba(13, 28, 50, 0.82);
+							backdrop-filter: blur(8px);
+
+							p {
+								overflow: hidden;
+								color: #ffffff;
+								text-overflow: ellipsis;
+								white-space: nowrap;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 10px;
+								font-weight: 900;
+								line-height: 14px;
+								text-transform: uppercase;
 							}
 						}
 					}
-					.views-box {
-						width: 35px;
+
+					.information-box {
+						width: 235px;
+						height: auto;
+						min-width: 0;
+						padding: 2px 0;
+						cursor: pointer;
+
+						.name {
+							overflow: hidden;
+							color: #0d1c32;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 15px;
+							font-style: normal;
+							font-weight: 900;
+							line-height: 21px;
+						}
+
+						.destination-row {
+							margin-top: 7px;
+							flex-direction: row;
+							align-items: center;
+							gap: 5px;
+							min-width: 0;
+
+							svg {
+								width: 16px;
+								height: 16px;
+								color: #ff8a00;
+							}
+
+							.address {
+								overflow: hidden;
+								color: #64748b;
+								text-overflow: ellipsis;
+								white-space: nowrap;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-style: normal;
+								font-weight: 700;
+								line-height: 18px;
+							}
+						}
+
+						.meta-row {
+							margin-top: 10px;
+							flex-direction: row;
+							flex-wrap: wrap;
+							gap: 7px;
+
+							.meta-chip {
+								padding: 5px 8px;
+								flex-direction: row;
+								align-items: center;
+								gap: 5px;
+								border-radius: 999px;
+								background: #f8fafc;
+
+								svg {
+									width: 14px;
+									height: 14px;
+									color: #0ea5a0;
+								}
+
+								p {
+									color: #334155;
+									font-family: 'Plus Jakarta Sans', $font;
+									font-size: 11px;
+									font-weight: 800;
+									line-height: 14px;
+								}
+							}
+						}
+
+						.price {
+							margin-top: 10px;
+							color: #64748b;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-style: normal;
+							font-weight: 700;
+							line-height: 18px;
+
+							strong {
+								color: #ff383c;
+								font-size: 15px;
+								font-weight: 900;
+							}
+						}
+					}
+
+					.date-box {
+						width: 140px;
 						height: 100%;
 						align-items: center;
 						justify-content: center;
-						margin-right: 75px;
-						.views {
-							color: #181a20;
-							font-family: $font;
+
+						.date {
+							color: #334155;
+							font-family: 'Plus Jakarta Sans', $font;
 							font-size: 12px;
 							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
+							font-weight: 800;
+							line-height: 18px;
 						}
 					}
+
+					.status-box {
+						width: 108px;
+						height: 100%;
+						align-items: center;
+						justify-content: center;
+
+						.coloured-box {
+							min-width: 96px;
+							height: 38px;
+							padding: 0 13px;
+							align-items: center;
+							justify-content: center;
+							border-radius: 999px;
+							background: #ecfdf5 !important;
+							cursor: pointer;
+
+							.status {
+								color: #059669 !important;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 11px;
+								font-style: normal;
+								font-weight: 900;
+								line-height: 16px;
+								letter-spacing: 0.04em;
+							}
+						}
+					}
+
+					.closed-status-box {
+						.coloured-box {
+							background: #fff1f2 !important;
+
+							.status {
+								color: #ff383c !important;
+							}
+						}
+					}
+
+					.views-box {
+						width: 80px;
+						height: 100%;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+						gap: 5px;
+						color: #64748b;
+
+						svg {
+							width: 17px;
+							height: 17px;
+							color: #ff8a00;
+						}
+
+						.views {
+							color: #334155;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-style: normal;
+							font-weight: 900;
+							line-height: 18px;
+						}
+					}
+
 					.action-box {
 						width: auto;
 						height: 100%;
 						flex-direction: row;
 						align-items: center;
 						justify-content: center;
+						gap: 8px;
+
 						.icon-button {
 							width: 40px;
 							height: 40px;
-							border-radius: 4px;
-							:hover {
-								background: #f6f6f6;
+							border-radius: 12px;
+							background: #f8fafc;
+							transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+							&:hover {
+								transform: translateY(-1px);
+								background: #fff3e4;
 							}
+
 							.buttons {
-								color: #181a20;
+								width: 20px;
+								height: 20px;
+								color: #0d1c32;
+							}
+
+							&:last-child {
+								&:hover {
+									background: #fff1f2;
+								}
+
+								.buttons {
+									color: #ff383c;
+								}
 							}
 						}
 					}
 				}
+
+				.no-data {
+					min-height: 280px;
+					justify-content: center;
+					border-radius: 18px;
+					background: #f8fafc;
+
+					p {
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 15px;
+						font-weight: 800;
+					}
+				}
+
 				.pagination-config {
 					width: 100%;
 					height: auto;
 					justify-content: center;
 					align-items: center;
-					margin-top: 30px;
+					gap: 14px;
+					margin-top: 28px;
+
+					.pagination-box {
+						min-width: 330px;
+						height: 44px;
+						align-items: center;
+						justify-content: center;
+						border: 1px solid #edf2f7;
+						border-radius: 999px;
+						background: #ffffff;
+						box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+					}
+
 					.total-result {
 						p {
-							color: #181a20;
+							color: #64748b;
 							text-align: center;
-							font-family: $font;
-							font-size: 14px;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 13px;
 							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
+							font-weight: 800;
+							line-height: 20px;
 						}
 					}
 				}

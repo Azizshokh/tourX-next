@@ -2,8 +2,13 @@ import { Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import IconButton from '@mui/material/IconButton';
-import ModeIcon from '@mui/icons-material/Mode';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import ImageSearchRoundedIcon from '@mui/icons-material/ImageSearchRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { TourPackage as Property } from '../../types/tour-package/tour-package';
 import { formatterStr } from '../../utils';
 import Moment from 'react-moment';
@@ -23,6 +28,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 	const router = useRouter();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
+	const packageImage = property.packageImages?.[0];
 
 	/** HANDLERS **/
 	const pushEditProperty = async (id: string) => {
@@ -56,13 +62,39 @@ export const PropertyCard = (props: PropertyCardProps) => {
 		return (
 			<Stack className="property-card-box">
 				<Stack className="image-box" onClick={() => pushPropertyDetail(property?._id)}>
-					<img src={`${process.env.REACT_APP_API_URL}/${property.packageImages[0]}`} alt="" />
+					{packageImage ? (
+						<img src={`${process.env.REACT_APP_API_URL}/${packageImage}`} alt={property.packageTitle} />
+					) : (
+						<Stack className="empty-card-image">
+							<ImageSearchRoundedIcon />
+						</Stack>
+					)}
+					<Stack className="image-badge">
+						<Typography>{property.packageType}</Typography>
+					</Stack>
 				</Stack>
 				<Stack className="information-box" onClick={() => pushPropertyDetail(property?._id)}>
 					<Typography className="name">{property.packageTitle}</Typography>
-					<Typography className="address">{property.packageAddress}</Typography>
+					<Stack className="destination-row">
+						<LocationOnRoundedIcon />
+						<Typography className="address">
+							{property.packageCity}, {property.packageCountry}
+						</Typography>
+					</Stack>
+					<Stack className="meta-row">
+						<Stack className="meta-chip">
+							<CalendarMonthRoundedIcon />
+							<Typography>{property.durationDays} days</Typography>
+						</Stack>
+						<Stack className="meta-chip">
+							<GroupsRoundedIcon />
+							<Typography>
+								{property.minPeople}-{property.maxPeople} people
+							</Typography>
+						</Stack>
+					</Stack>
 					<Typography className="price">
-						<strong>${formatterStr(property?.packagePrice)}</strong>
+						From <strong>{property.packageCurrency || '$'} {formatterStr(property?.packagePrice)}</strong>
 					</Typography>
 				</Stack>
 				<Stack className="date-box">
@@ -70,7 +102,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 						<Moment format="DD MMMM, YYYY">{property.createdAt}</Moment>
 					</Typography>
 				</Stack>
-				<Stack className="status-box">
+				<Stack className={`status-box ${property.packageStatus === PackageStatus.CLOSED ? 'closed-status-box' : 'active-status-box'}`}>
 					<Stack className="coloured-box" sx={{ background: '#E5F0FD' }} onClick={handleClick}>
 						<Typography className="status" sx={{ color: '#3554d1' }}>
 							{property.packageStatus}
@@ -115,12 +147,13 @@ export const PropertyCard = (props: PropertyCardProps) => {
 				)}
 
 				<Stack className="views-box">
+					<VisibilityRoundedIcon />
 					<Typography className="views">{property.packageViews.toLocaleString()}</Typography>
 				</Stack>
 				{!memberPage && property.packageStatus === PackageStatus.ACTIVE && (
 					<Stack className="action-box">
 						<IconButton className="icon-button" onClick={() => pushEditProperty(property._id)}>
-							<ModeIcon className="buttons" />
+							<EditRoundedIcon className="buttons" />
 						</IconButton>
 						<IconButton className="icon-button" onClick={() => deletePropertyHandler(property._id)}>
 							<DeleteIcon className="buttons" />

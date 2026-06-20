@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
+import ArchiveRoundedIcon from '@mui/icons-material/ArchiveRounded';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import Inventory2RoundedIcon from '@mui/icons-material/Inventory2Rounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PropertyCard } from './PropertyCard';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
@@ -95,24 +99,45 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 			<div id="my-property-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
+						<Stack className="title-kicker">
+							<Inventory2RoundedIcon />
+							<Typography>Travel agent inventory</Typography>
+						</Stack>
 						<Typography className="main-title">My Packages</Typography>
-						<Typography className="sub-title">We are glad to see you again!</Typography>
+						<Typography className="sub-title">Manage live experiences, close unavailable trips, and keep your TourX catalog polished.</Typography>
+					</Stack>
+					<Stack className="summary-box">
+						<PublicRoundedIcon />
+						<Stack>
+							<Typography className="summary-value">{total}</Typography>
+							<Typography className="summary-label">
+								{searchFilter.search.packageStatus === PackageStatus.ACTIVE ? 'active packages' : 'closed packages'}
+							</Typography>
+						</Stack>
 					</Stack>
 				</Stack>
 				<Stack className="property-list-box">
 					<Stack className="tab-name-box">
-						<Typography
+						<Stack
 							onClick={() => changeStatusHandler(PackageStatus.ACTIVE)}
 							className={searchFilter.search.packageStatus === PackageStatus.ACTIVE ? 'active-tab-name' : 'tab-name'}
 						>
-							Active
-						</Typography>
-						<Typography
+							<CheckCircleRoundedIcon />
+							<Stack>
+								<Typography className="tab-label">Active</Typography>
+								<Typography className="tab-helper">Visible to travelers</Typography>
+							</Stack>
+						</Stack>
+						<Stack
 							onClick={() => changeStatusHandler(PackageStatus.CLOSED)}
 							className={searchFilter.search.packageStatus === PackageStatus.CLOSED ? 'active-tab-name' : 'tab-name'}
 						>
-							Closed
-						</Typography>
+							<ArchiveRoundedIcon />
+							<Stack>
+								<Typography className="tab-label">Closed</Typography>
+								<Typography className="tab-helper">Paused or unavailable</Typography>
+							</Stack>
+						</Stack>
 					</Stack>
 					<Stack className="list-box">
 						<Stack className="listing-title-box">

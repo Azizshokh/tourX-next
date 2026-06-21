@@ -371,6 +371,20 @@
 					line-height: 22px;
 				}
 			}
+
+			.faq-empty-state {
+				padding: 18px 24px;
+				border: 1px solid #f2d7c7;
+				border-radius: 8px;
+				background: #ffffff;
+
+				p {
+					color: #64748b;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 700;
+				}
+			}
 		}
 
 		@media (max-width: 1100px) {

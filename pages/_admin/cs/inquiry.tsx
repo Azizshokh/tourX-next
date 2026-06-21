@@ -15,6 +15,8 @@ import { InquiryList } from '../../../libs/components/admin/cs/InquiryList';
 
 const InquiryArticles: NextPage = (props: any) => {
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
+	const [searchCategory, setSearchCategory] = useState('TITLE');
+	const [searchInput, setSearchInput] = useState('');
 
 	/** APOLLO REQUESTS **/
 	/** LIFECYCLES **/
@@ -61,29 +63,32 @@ const InquiryArticles: NextPage = (props: any) => {
 							</List>
 							<Divider />
 							<Stack className={'search-area'} sx={{ m: '24px' }}>
-								<Select sx={{ width: '160px', mr: '20px' }} value={'searchCategory'}>
-									<MenuItem value={'mb_nick'}>mb_nick</MenuItem>
-									<MenuItem value={'mb_id'}>mb_id</MenuItem>
-								</Select>
-
 								<OutlinedInput
-									value={'searchInput'}
-									// onChange={(e) => handleInput(e.target.value)}
+									value={searchInput}
+									onChange={(e: any) => setSearchInput(e.target.value)}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search user name"
-									onKeyDown={(event) => {
-										// if (event.key == 'Enter') searchTargetHandler().then();
-									}}
+									placeholder="Search inquiry title or member"
 									endAdornment={
 										<>
-											{true && <CancelRoundedIcon onClick={() => {}} />}
-											<InputAdornment position="end" onClick={() => {}}>
+											{searchInput && <CancelRoundedIcon style={{ cursor: 'pointer' }} onClick={() => setSearchInput('')} />}
+											<InputAdornment position="end">
 												<img src="/img/icons/search_icon.png" alt={'searchIcon'} />
 											</InputAdornment>
 										</>
 									}
 								/>
+								<Select sx={{ width: '180px', ml: '20px' }} value={searchCategory}>
+									<MenuItem value={'TITLE'} onClick={() => setSearchCategory('TITLE')}>
+										Title
+									</MenuItem>
+									<MenuItem value={'MEMBER'} onClick={() => setSearchCategory('MEMBER')}>
+										Member
+									</MenuItem>
+									<MenuItem value={'STATUS'} onClick={() => setSearchCategory('STATUS')}>
+										Status
+									</MenuItem>
+								</Select>
 							</Stack>
 							<Divider />
 						</Box>

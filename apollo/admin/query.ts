@@ -155,6 +155,72 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
 `;
 
 /**************************
+ *          FAQ           *
+ *************************/
+
+export const GET_ALL_FAQ_CATEGORIES_BY_ADMIN = gql`
+	query GetAllFaqCategoriesByAdmin($input: FaqInquiry!) {
+		getAllFaqCategoriesByAdmin(input: $input) {
+			list {
+				_id
+				faqCategoryTitle
+				faqCategoryKey
+				faqCategoryStatus
+				faqCategoryOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+export const GET_ALL_FAQS_BY_ADMIN = gql`
+	query GetAllFaqsByAdmin($input: FaqInquiry!) {
+		getAllFaqsByAdmin(input: $input) {
+			list {
+				_id
+				faqCategoryId
+				faqQuestion
+				faqAnswer
+				faqStatus
+				faqOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+/**************************
+ *         NOTICE         *
+ *************************/
+
+export const GET_ALL_NOTICE_CATEGORIES_BY_ADMIN = gql`
+	query GetAllNoticeCategoriesByAdmin($input: NoticeInquiry!) {
+		getAllNoticeCategoriesByAdmin(input: $input) {
+			list {
+				_id
+				noticeCategoryTitle
+				noticeCategoryKey
+				noticeCategoryStatus
+				noticeCategoryOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+/**************************
  *         COMMENT        *
  *************************/
 

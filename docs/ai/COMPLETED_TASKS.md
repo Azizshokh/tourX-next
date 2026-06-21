@@ -151,3 +151,11 @@ Validation: `yarn tsc --noEmit` passed.
 - Replaced legacy real-estate FAQ copy with TourX booking, payments, package, agency, account, policy, community, and general support questions.
 - Files: `pages/cs/index.tsx`, `libs/components/cs/Faq.tsx`, `scss/pc/cs/cs.scss`.
 - Verified with `yarn.cmd tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
+
+## 2026-06-21 - Admin FAQ creation flow
+- Wired the admin FAQ page to the existing backend FAQ GraphQL API with real category loading, FAQ list pagination, status/category/text filtering, and an Add FAQ modal.
+- Added frontend FAQ Apollo documents and minimal FAQ types/enums matching backend `FaqInquiry`, `CreateFaqInput`, `Faq`, and `FaqCategory`.
+- Replaced placeholder admin FAQ table rows with real FAQ question, answer, category, order, date, and status data.
+- Files: `pages/_admin/cs/faq.tsx`, `libs/components/admin/cs/FaqList.tsx`, `apollo/admin/query.ts`, `apollo/admin/mutation.ts`, `libs/types/faq/*`, `libs/enums/faq.enum.ts`, `scss/pc/admin/admin.scss`.
+- Verified with `yarn.cmd tsc --noEmit`, `node_modules\.bin\sass scss\pc\main.scss $env:TEMP\tourx-sass-check.css`, and `yarn.cmd build`.
+- `yarn.cmd lint` remains interactive because Next prompts to configure ESLint when run directly; build lint/type validation passed.

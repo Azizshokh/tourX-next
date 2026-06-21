@@ -1,4 +1,4 @@
-export enum NoticeCategory {
+export enum NoticeCategoryType {
 	FAQ = 'FAQ',
 	TERMS = 'TERMS',
 	INQUIRY = 'INQUIRY',

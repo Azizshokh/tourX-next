@@ -146,6 +146,39 @@ export const REMOVE_BOARD_ARTICLE_BY_ADMIN = gql`
 `;
 
 /**************************
+ *          FAQ           *
+ *************************/
+
+export const CREATE_FAQ_BY_ADMIN = gql`
+	mutation CreateFaqByAdmin($input: CreateFaqInput!) {
+		createFaqByAdmin(input: $input) {
+			_id
+			faqCategoryId
+			faqQuestion
+			faqAnswer
+			faqStatus
+			faqOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const CREATE_FAQ_CATEGORY_BY_ADMIN = gql`
+	mutation CreateFaqCategoryByAdmin($input: CreateFaqCategoryInput!) {
+		createFaqCategoryByAdmin(input: $input) {
+			_id
+			faqCategoryTitle
+			faqCategoryKey
+			faqCategoryStatus
+			faqCategoryOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**************************
  *         COMMENT        *
  *************************/
 
@@ -158,6 +191,40 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
 			commentContent
 			commentRefId
 			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**************************
+ *         NOTICE         *
+ *************************/
+
+export const CREATE_NOTICE_BY_ADMIN = gql`
+	mutation CreateNoticeByAdmin($input: NoticeInput!) {
+		createNoticeByAdmin(input: $input) {
+			_id
+			noticeCategoryId
+			noticeTitle
+			noticeContent
+			noticeStatus
+			noticeViews
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const CREATE_NOTICE_CATEGORY_BY_ADMIN = gql`
+	mutation CreateNoticeCategoryByAdmin($input: NoticeCategoryInput!) {
+		createNoticeCategoryByAdmin(input: $input) {
+			_id
+			noticeCategoryTitle
+			noticeCategoryKey
+			noticeCategoryStatus
+			noticeCategoryOrder
 			createdAt
 			updatedAt
 		}

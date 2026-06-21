@@ -651,3 +651,46 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 		}
 	}
 `;
+
+/**************************
+ *          FAQ           *
+ *************************/
+
+export const GET_FAQ_CATEGORIES = gql`
+	query GetFaqCategories($input: FaqInquiry!) {
+		getFaqCategories(input: $input) {
+			list {
+				_id
+				faqCategoryTitle
+				faqCategoryKey
+				faqCategoryStatus
+				faqCategoryOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+export const GET_FAQS = gql`
+	query GetFaqs($input: FaqInquiry!) {
+		getFaqs(input: $input) {
+			list {
+				_id
+				faqCategoryId
+				faqQuestion
+				faqAnswer
+				faqStatus
+				faqOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;

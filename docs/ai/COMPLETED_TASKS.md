@@ -144,3 +144,10 @@ Validation: `yarn tsc --noEmit` passed.
 - Files included package cards/list/detail components, homepage package sections, my page package components, member package components, admin package list imports, route imports, locales, and package SCSS folders.
 - Verified with `yarn tsc --noEmit`, `node_modules\.bin\sass scss\pc\main.scss`, and `yarn build`.
 - `yarn lint` remains interactive because Next prompts to configure ESLint when run directly; build lint/type validation passed.
+
+## 2026-06-21 - TourX help page redesign
+- Rebuilt the desktop `/cs` page as a TourX help center with Popular Topics cards and a category-based FAQ layout.
+- Added MUI travel/support icons, warm orange active states, soft cream icon badges, peach borders, and compact help-center typography.
+- Replaced legacy real-estate FAQ copy with TourX booking, payments, package, agency, account, policy, community, and general support questions.
+- Files: `pages/cs/index.tsx`, `libs/components/cs/Faq.tsx`, `scss/pc/cs/cs.scss`.
+- Verified with `yarn.cmd tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.

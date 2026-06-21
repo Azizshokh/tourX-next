@@ -1,227 +1,230 @@
 #pc-wrap {
-  .cs-page {
-    position: relative;
-    padding: 60px 0px 60px;
-    width: 100%;
-    height: auto;
-    .container {
-      display: flex;
-      flex-direction: column;
-      .cs-main-info {
-        display: flex;
-        flex-direction: column;
-        .info {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          span {
-            color: #000;
-            font-family: $font;
-            font-size: 35px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            letter-spacing: 0.525px;
-          }
-          p {
-            color: #757575;
-            font-family: $font;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-          }
-        }
-        .btns {
-          margin-top: 50px;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          :first-child {
-            border-radius: 4px 0 0 4px;
-          }
-          :last-child {
-            border-radius: 0 4px 4px 0;
-          }
-          div {
-            width: 204px;
-            height: 46px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #EEE;
-            cursor: pointer;
-            color: #BDBDBD;
-            font-family: $font;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            letter-spacing: 0.42px;
-            &.active {
-              border: 1px solid #725CE8;
-              background: #EB6753;
-              color: #FFF;
-            }
-          }
-        }
-      }
-      .cs-content {
-        margin-top: 25px;
-        display: flex;
-        flex-direction: column;
-        .title {
-          margin-bottom: 25px;
-          color: #000;
-          font-family: $font;
-          font-size: 27px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: normal;
-          letter-spacing: 0.54px;
-        }
-        .pagination {
-          margin-top: 50px;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-        }
-        .notice-content {
-          .main {
-            border: 1px solid #EEE;
-            .top {
-              padding: 25px 33px;
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              span {
-                color: #000;
-                font-family: $font;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                text-transform: capitalize;
-              }
-            }
-            .bottom {
-              display: flex;
-              flex-direction: column;
-              .notice-card {
-                padding: 20px 14px 20px 30px;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                border: 1px solid #EEE;
-                &.event {
-                  background: #F6D79A;
-                }
-                div {
-                  padding: 6px 9px;
-                  border-radius: 12px;
-                  border: 1px solid #EB6753;
-                  color: #EB6753;
-                  font-family: $font;
-                  font-size: 12px;
-                  font-style: normal;
-                  font-weight: 400;
-                }
-                .notice-number {
-                  margin-left: 18px;
-                  width: 39px;
-                  color: #BDBDBD;
-                  font-family: $font;
-                  font-size: 14px;
-                  font-style: normal;
-                  font-weight: 400;
-                  line-height: normal;
-                }
-                .notice-title {
-                  width: 1060px;
-                  color: #000;
-                  font-family: $font;
-                  font-size: 16px;
-                  font-style: normal;
-                  font-weight: 400;
-                  line-height: normal;
-                }
-                .notice-date {
-                  color: #BDBDBD;
-                  font-family: $font;
-                  font-size: 14px;
-                  font-style: normal;
-                  font-weight: 400;
-                  line-height: normal;
-                }
-              }
-            }
+	.cs-page {
+		position: relative;
+		padding: 40px 0 84px;
+		width: 100%;
+		min-height: 780px;
+		background: #fbfaf8;
 
-          }
+		.container {
+			display: flex;
+			flex-direction: column;
+			width: min(1240px, 100%);
+		}
 
-        }
-        .faq-content {
-          margin-top: 25px;
-          display: flex;
-          flex-direction: column;
-          .categories {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            div {
-              width: 14%;
-              height: 40px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              color: #BDBDBD;
-              text-align: center;
-              font-family: $font;
-              font-size: 15px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-              letter-spacing: -0.225px;
-              cursor: pointer;
-              &.active {
-                border-bottom: 1px solid #EB6753;
-                color: #EB6753;
-              }
-            }
-          }
-          .wrap {
-            margin-top: 50px;
-            .MuiAccordionDetails-root {
-              padding: 30px 20px;
-              background: #FAFAFA;
-            }
-            .badge {
-              margin: 0 24px;
-              display: inline-block;
-              padding: 4px 10px;
-              border: 1px solid #725CE8;
-              border-radius: 7px;
-              color: #725CE8;
-            }
-            .question {
-              .badge {
-                background: #e92C28;
-                color: #fff;
-              }
-            }
-            .answer {
-              margin-left: 80px;
-              display: flex;
-              white-space: nowrap;
-              align-items: center;
-              flex-direction: row;
-              .badge {
-                color: #EB6753;
-                border: 1px solid #EB6753;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+		.help-topics-section {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.section-eyebrow {
+			color: #1f2937;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 800;
+			line-height: 18px;
+		}
+
+		.topic-grid {
+			margin-top: 32px;
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 28px 24px;
+		}
+
+		.topic-card {
+			min-height: 132px;
+			padding: 24px 22px 22px;
+			display: flex;
+			flex-direction: column;
+			border: 1px solid #f2d7c7;
+			border-radius: 8px;
+			background: #ffffff;
+			box-sizing: border-box;
+			box-shadow: 0 10px 24px rgba(15, 23, 42, 0.03);
+			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+			&:hover {
+				transform: translateY(-2px);
+				border-color: #f3b27e;
+				box-shadow: 0 18px 34px rgba(255, 138, 0, 0.12);
+			}
+
+			.topic-icon {
+				width: 28px;
+				height: 28px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 6px;
+				background: rgba(255, 56, 60, 0.09);
+				color: #FF383C;
+
+				svg {
+					width: 16px;
+					height: 16px;
+				}
+			}
+
+			.topic-title {
+				margin-top: 22px;
+				color: #1f2937;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 800;
+				line-height: 18px;
+			}
+
+			.topic-desc {
+				margin-top: 7px;
+				color: #64748b;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 12px;
+				font-weight: 600;
+				line-height: 17px;
+			}
+		}
+
+		.faq-heading {
+			margin-top: 126px;
+			align-items: center;
+
+			.faq-title {
+				color: #1f2937;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 800;
+				line-height: 18px;
+			}
+
+			.faq-subtitle {
+				margin-top: 8px;
+				color: #6b7280;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 12px;
+				font-weight: 600;
+				line-height: 17px;
+			}
+		}
+
+		.cs-content {
+			margin-top: 56px;
+			width: 100%;
+		}
+
+		.faq-content {
+			width: 100%;
+			display: grid;
+			grid-template-columns: 300px minmax(0, 1fr);
+			gap: 40px;
+			align-items: flex-start;
+		}
+
+		.faq-categories {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+
+			button {
+				width: 100%;
+				height: 42px;
+				padding: 0 16px;
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				border: none;
+				border-radius: 5px;
+				background: transparent;
+				color: #253044;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 800;
+				line-height: 18px;
+				text-align: left;
+				cursor: pointer;
+				transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+
+				svg {
+					width: 16px;
+					height: 16px;
+					color: #FF383C;
+				}
+
+				&:hover {
+					background: rgba(255, 56, 60, 0.08);
+					color: #FF383C;
+				}
+
+				&.active {
+					background: #FF383C;
+					color: #ffffff;
+					box-shadow: 0 10px 22px rgba(255, 56, 60, 0.18);
+
+					svg {
+						color: #ffffff;
+					}
+				}
+			}
+		}
+
+		.faq-accordion-panel {
+			display: flex;
+			flex-direction: column;
+			gap: 18px;
+
+			.MuiAccordion-root {
+				border: 1px solid #f2d7c7;
+				border-radius: 8px;
+				background: #ffffff;
+				box-shadow: none;
+				overflow: hidden;
+			}
+
+			.faq-question {
+				padding: 0 24px;
+				color: #334155;
+				font-family: 'Plus Jakarta Sans', $font;
+
+				p {
+					color: #334155;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 700;
+					line-height: 18px;
+				}
+
+				svg {
+					color: #334155;
+				}
+			}
+
+			.faq-answer {
+				padding: 8px 24px 26px;
+				border-top: 1px solid rgba(242, 215, 199, 0.55);
+				background: #fffdfa;
+
+				p {
+					color: #475569;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 600;
+					line-height: 22px;
+				}
+			}
+		}
+
+		@media (max-width: 1100px) {
+			.topic-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.faq-content {
+				grid-template-columns: 240px minmax(0, 1fr);
+				gap: 28px;
+			}
+		}
+	}
 }

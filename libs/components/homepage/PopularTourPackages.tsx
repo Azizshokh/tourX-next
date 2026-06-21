@@ -5,6 +5,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import PopularTourPackageCard from './PopularTourPackageCard';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import Link from 'next/link';
@@ -73,6 +77,20 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 	} else {
 		return (
 			<Stack className={'popular-tour-packages'}>
+				<Box component={'div'} className={'popular-bg-icons'} aria-hidden={'true'}>
+					<span className={'popular-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'popular-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'popular-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'popular-bg-icon location'}>
+						<LocationOnRoundedIcon />
+					</span>
+				</Box>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>

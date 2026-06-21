@@ -9,6 +9,19 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import BeachAccessRoundedIcon from '@mui/icons-material/BeachAccessRounded';
+import AnchorRoundedIcon from '@mui/icons-material/AnchorRounded';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
+import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
+import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
+import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Faq from '../../libs/components/cs/Faq';
@@ -72,6 +85,53 @@ const CS: NextPage = () => {
 
 	return (
 		<Stack className={'cs-page'}>
+			<Box component={'div'} className={'cs-bg-icons'} aria-hidden={'true'}>
+				<span className={'cs-bg-icon plane'}>
+					<FlightTakeoffRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon earth'}>
+					<PublicRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon bag'}>
+					<LuggageRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon location'}>
+					<LocationOnRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon compass'}>
+					<ExploreRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon map'}>
+					<MapRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon beach'}>
+					<BeachAccessRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon anchor'}>
+					<AnchorRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon camera'}>
+					<CameraAltRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon agent'}>
+					<SupportAgentRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon sail'}>
+					<SailingRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon hotel'}>
+					<HotelRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon sun'}>
+					<WbSunnyRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon discover'}>
+					<TravelExploreRoundedIcon />
+				</span>
+				<span className={'cs-bg-icon hike'}>
+					<HikingRoundedIcon />
+				</span>
+			</Box>
 			<Stack className={'container'}>
 				<Stack className={'help-topics-section'}>
 					<Typography className={'section-eyebrow'}>Popular Topics</Typography>

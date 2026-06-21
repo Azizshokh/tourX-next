@@ -5,6 +5,21 @@ import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Stack, Box, Button, Pagination } from '@mui/material';
 import { Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import BeachAccessRoundedIcon from '@mui/icons-material/BeachAccessRounded';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
+import AnchorRoundedIcon from '@mui/icons-material/AnchorRounded';
+import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
+import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
+import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import AgentCard from '../../libs/components/common/AgentCard';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -134,6 +149,53 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	} else {
 		return (
 			<Stack className={'agent-list-page'}>
+				<Box component={'div'} className={'agent-page-bg-icons'} aria-hidden={'true'}>
+					<span className={'agent-page-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon location'}>
+						<LocationOnRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon agent'}>
+						<SupportAgentRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon discover'}>
+						<TravelExploreRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon compass'}>
+						<ExploreRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon map'}>
+						<MapRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon beach'}>
+						<BeachAccessRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon camera'}>
+						<CameraAltRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon anchor'}>
+						<AnchorRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon sail'}>
+						<SailingRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon hotel'}>
+						<HotelRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon sun'}>
+						<WbSunnyRoundedIcon />
+					</span>
+					<span className={'agent-page-bg-icon hike'}>
+						<HikingRoundedIcon />
+					</span>
+				</Box>
 				<Stack className={'container'}>
 					<Stack className={'filter'}>
 						<Box component={'div'} className={'left'}>

@@ -3,8 +3,163 @@
 #pc-wrap {
 	.home-page {
 		position: relative;
+		overflow: hidden;
 		width: 100%;
 		height: auto;
+
+		.home-bg-icons {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+
+			.home-bg-icon {
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+
+				&.plane {
+					top: 90px;
+					left: 1.5%;
+					width: 160px;
+					height: 160px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(-14deg);
+				}
+
+				&.landing {
+					top: 240px;
+					right: 1.5%;
+					width: 148px;
+					height: 148px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(10deg);
+				}
+
+				&.earth {
+					top: 600px;
+					left: 1%;
+					width: 190px;
+					height: 190px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(8deg);
+				}
+
+				&.bag {
+					top: 440px;
+					right: 1.5%;
+					width: 135px;
+					height: 135px;
+					color: rgba(255, 56, 60, 0.065);
+					transform: rotate(14deg);
+				}
+
+				&.location {
+					top: 340px;
+					left: 1.5%;
+					width: 105px;
+					height: 105px;
+					color: rgba(28, 173, 158, 0.085);
+					transform: rotate(-10deg);
+				}
+
+				&.compass {
+					top: 1040px;
+					left: 1.5%;
+					width: 130px;
+					height: 130px;
+					color: rgba(255, 138, 0, 0.075);
+					transform: rotate(20deg);
+				}
+
+				&.map {
+					top: 920px;
+					right: 1.5%;
+					width: 122px;
+					height: 122px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(-8deg);
+				}
+
+				&.discover {
+					top: 740px;
+					left: 1.5%;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 138, 0, 0.065);
+					transform: rotate(-16deg);
+				}
+
+				&.agent {
+					top: 820px;
+					right: 1%;
+					width: 112px;
+					height: 112px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(12deg);
+				}
+
+				&.beach {
+					top: 1280px;
+					left: 1%;
+					width: 122px;
+					height: 122px;
+					color: rgba(28, 173, 158, 0.08);
+					transform: rotate(-12deg);
+				}
+
+				&.camera {
+					top: 1180px;
+					right: 1.5%;
+					width: 102px;
+					height: 102px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(18deg);
+				}
+
+				&.anchor {
+					top: 1440px;
+					right: 1.5%;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 138, 0, 0.065);
+					transform: rotate(10deg);
+				}
+
+				&.sail {
+					top: 1380px;
+					left: 1.5%;
+					width: 120px;
+					height: 120px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(-18deg);
+				}
+
+				&.hike {
+					top: 1600px;
+					right: 1.5%;
+					width: 106px;
+					height: 106px;
+					color: rgba(28, 173, 158, 0.075);
+					transform: rotate(-10deg);
+				}
+
+				&.sun {
+					top: 80px;
+					right: 5%;
+					width: 95px;
+					height: 95px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(20deg);
+				}
+			}
+		}
 
 		.info-box {
 			width: 100%;
@@ -1185,6 +1340,80 @@
 			padding: 80px 0;
 			height: auto;
 
+			&.top-tour-packages {
+				position: relative;
+				overflow: hidden;
+
+				.top-package-bg-icons {
+					position: absolute;
+					inset: 0;
+					z-index: 0;
+					pointer-events: none;
+
+					.top-package-bg-icon {
+						position: absolute;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+
+						svg {
+							width: 100%;
+							height: 100%;
+						}
+
+						&.plane {
+							top: 34px;
+							left: 5%;
+							width: 128px;
+							height: 128px;
+							color: rgba(255, 138, 0, 0.1);
+							transform: rotate(-16deg);
+						}
+
+						&.earth {
+							right: 4%;
+							top: 78px;
+							width: 150px;
+							height: 150px;
+							color: rgba(15, 35, 62, 0.055);
+							transform: rotate(10deg);
+						}
+
+						&.bag {
+							left: 18%;
+							bottom: 38px;
+							width: 108px;
+							height: 108px;
+							color: rgba(255, 56, 60, 0.075);
+							transform: rotate(13deg);
+						}
+
+						&.location {
+							right: 20%;
+							bottom: 64px;
+							width: 96px;
+							height: 96px;
+							color: rgba(28, 173, 158, 0.09);
+							transform: rotate(-8deg);
+						}
+
+						&.compass {
+							top: 156px;
+							left: 36%;
+							width: 88px;
+							height: 88px;
+							color: rgba(255, 138, 0, 0.075);
+							transform: rotate(22deg);
+						}
+					}
+				}
+
+				.container {
+					position: relative;
+					z-index: 1;
+				}
+			}
+
 			.container {
 				.card-box {
 					margin-top: 34px;
@@ -1600,10 +1829,71 @@
 
 		.popular-tour-packages {
 			padding: 86px 0 80px;
+			position: relative;
+			overflow: hidden;
 			height: auto;
 			background: linear-gradient(180deg, #ffffff 0%, #f1f8ff 100%);
 
+			.popular-bg-icons {
+				position: absolute;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+
+				.popular-bg-icon {
+					position: absolute;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 999px;
+
+					svg {
+						width: 100%;
+						height: 100%;
+					}
+
+					&.plane {
+						top: 30px;
+						left: 56px;
+						width: 126px;
+						height: 126px;
+						color: rgba(255, 138, 0, 0.1);
+						transform: rotate(-16deg);
+					}
+
+					&.earth {
+						right: 44px;
+						top: 74px;
+						width: 142px;
+						height: 142px;
+						color: rgba(15, 35, 62, 0.055);
+						transform: rotate(10deg);
+					}
+
+					&.bag {
+						left: 12%;
+						bottom: 52px;
+						width: 112px;
+						height: 112px;
+						color: rgba(255, 56, 60, 0.075);
+						transform: rotate(12deg);
+					}
+
+					&.location {
+						right: 17%;
+						bottom: 82px;
+						width: 96px;
+						height: 96px;
+						color: rgba(28, 173, 158, 0.095);
+						transform: rotate(-8deg);
+					}
+				}
+			}
+
 			.container {
+				position: relative;
+				z-index: 1;
+
 				.card-box {
 					margin-top: 34px;
 
@@ -2311,13 +2601,154 @@
 					}
 				}
 			}
+
+			@media (max-width: 1024px) {
+				.popular-bg-icons {
+					.popular-bg-icon {
+						&.plane {
+							left: 18px;
+							width: 92px;
+							height: 92px;
+						}
+
+						&.earth {
+							right: 12px;
+							width: 106px;
+							height: 106px;
+						}
+
+						&.bag {
+							left: 5%;
+							width: 84px;
+							height: 84px;
+						}
+
+						&.location {
+							right: 10%;
+							width: 74px;
+							height: 74px;
+						}
+					}
+				}
+			}
+
+			@media (max-width: 768px) {
+				.popular-bg-icons {
+					display: none;
+				}
+			}
+
+			@media (max-width: 1024px) {
+				&.top-tour-packages {
+					.top-package-bg-icons {
+						.top-package-bg-icon {
+							&.plane {
+								left: 18px;
+								width: 92px;
+								height: 92px;
+							}
+
+							&.earth {
+								right: 10px;
+								width: 108px;
+								height: 108px;
+							}
+
+							&.bag {
+								left: 8%;
+								width: 78px;
+								height: 78px;
+							}
+
+							&.location {
+								right: 12%;
+								width: 74px;
+								height: 74px;
+							}
+
+							&.compass {
+								left: 34%;
+								width: 66px;
+								height: 66px;
+							}
+						}
+					}
+				}
+			}
+
+			@media (max-width: 768px) {
+				&.top-tour-packages {
+					.top-package-bg-icons {
+						display: none;
+					}
+				}
+			}
 		}
 
 		.travel-inspiration {
 			padding: 84px 0;
+			position: relative;
+			overflow: hidden;
 			background: #ffffff;
 
+			.inspiration-bg-icons {
+				position: absolute;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+
+				.inspiration-bg-icon {
+					position: absolute;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					svg {
+						width: 100%;
+						height: 100%;
+					}
+
+					&.compass {
+						top: 34px;
+						left: 7%;
+						width: 118px;
+						height: 118px;
+						color: rgba(255, 56, 60, 0.075);
+						transform: rotate(18deg);
+					}
+
+					&.map {
+						top: 92px;
+						right: 10%;
+						width: 108px;
+						height: 108px;
+						color: rgba(28, 173, 158, 0.09);
+						transform: rotate(-12deg);
+					}
+
+					&.camera {
+						left: 22%;
+						bottom: 34px;
+						width: 86px;
+						height: 86px;
+						color: rgba(255, 138, 0, 0.09);
+						transform: rotate(-8deg);
+					}
+
+					&.discover {
+						right: 4%;
+						bottom: 42px;
+						width: 132px;
+						height: 132px;
+						color: rgba(15, 35, 62, 0.055);
+						transform: rotate(10deg);
+					}
+				}
+			}
+
 			.container {
+				position: relative;
+				z-index: 1;
 				flex-direction: column;
 			}
 
@@ -2383,9 +2814,68 @@
 
 		.community-discussions {
 			padding: 84px 0;
+			position: relative;
+			overflow: hidden;
 			background: #f1f8ff;
 
+			.community-bg-icons {
+				position: absolute;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+
+				.community-bg-icon {
+					position: absolute;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					svg {
+						width: 100%;
+						height: 100%;
+					}
+
+					&.forum {
+						top: 46px;
+						left: 4%;
+						width: 112px;
+						height: 112px;
+						color: rgba(255, 138, 0, 0.08);
+						transform: rotate(-10deg);
+					}
+
+					&.discover {
+						top: 70px;
+						right: 12%;
+						width: 122px;
+						height: 122px;
+						color: rgba(28, 173, 158, 0.08);
+						transform: rotate(12deg);
+					}
+
+					&.review {
+						left: 17%;
+						bottom: 44px;
+						width: 88px;
+						height: 88px;
+						color: rgba(255, 56, 60, 0.075);
+						transform: rotate(9deg);
+					}
+
+					&.earth {
+						right: 5%;
+						bottom: 22px;
+						width: 142px;
+						height: 142px;
+						color: rgba(15, 35, 62, 0.055);
+						transform: rotate(-8deg);
+					}
+				}
+			}
+
 			.container {
+				position: relative;
+				z-index: 1;
 				flex-direction: column;
 			}
 
@@ -2579,38 +3069,125 @@
 		}
 
 		.top-agents {
+			padding: 96px 0 104px;
+			height: auto;
+			min-height: 690px;
 			background: #f6f3f2;
 
-			.container .wrapper .card-wrapper {
-				height: 380px;
+			.container {
+				position: relative;
+				overflow: visible;
 
-				.top-agents-swiper,
+				.info-box,
+				.wrapper {
+					position: relative;
+					z-index: 1;
+				}
+
+				.agents-bg-icons {
+					position: absolute;
+					inset: 0;
+					z-index: 0;
+					pointer-events: none;
+
+					.agents-bg-icon {
+						position: absolute;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+
+						svg {
+							width: 100%;
+							height: 100%;
+						}
+
+						&.agent {
+							top: 24px;
+							left: 3%;
+							width: 112px;
+							height: 112px;
+							color: rgba(255, 138, 0, 0.085);
+							transform: rotate(-8deg);
+						}
+
+						&.plane {
+							top: 44px;
+							right: 5%;
+							width: 126px;
+							height: 126px;
+							color: rgba(255, 56, 60, 0.07);
+							transform: rotate(16deg);
+						}
+
+						&.bag {
+							left: 16%;
+							bottom: 34px;
+							width: 94px;
+							height: 94px;
+							color: rgba(28, 173, 158, 0.085);
+							transform: rotate(11deg);
+						}
+
+						&.earth {
+							right: 18%;
+							bottom: 16px;
+							width: 118px;
+							height: 118px;
+							color: rgba(15, 35, 62, 0.055);
+							transform: rotate(-12deg);
+						}
+					}
+				}
+			}
+
+			.container .wrapper {
+				margin-top: 56px;
+				align-items: center;
+			}
+
+			.container .wrapper .card-wrapper {
+				height: 430px;
+				overflow: visible;
+
+				.top-agents-swiper {
+					height: 410px;
+					padding: 10px 0 40px;
+					box-sizing: border-box;
+				}
+
 				.top-agents-slide {
-					height: 380px;
+					height: 390px;
+					overflow: visible;
 				}
 
 				.top-agent-card {
 					width: 320px;
-					height: 360px;
-					padding: 28px 24px;
+					height: 390px;
+					padding: 26px 22px 22px;
+					box-sizing: border-box;
+					overflow: hidden;
 					align-items: center;
-					border: 1px solid #e4e2e1;
+					justify-content: flex-start;
+					border: 1px solid rgba(255, 138, 0, 0.18);
 					border-radius: 24px;
-					background: #ffffff;
+					background: linear-gradient(180deg, #ffffff 0%, #fffaf6 100%);
 					box-shadow: 0 18px 45px rgba(8, 24, 44, 0.08);
-					transition: transform 0.2s ease, box-shadow 0.2s ease;
+					transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 
 					&:hover {
 						transform: translateY(-6px);
+						border-color: rgba(255, 138, 0, 0.34);
 						box-shadow: 0 26px 60px rgba(8, 24, 44, 0.16);
 					}
 
 					.avatar {
-						width: 96px;
-						height: 96px;
-						padding: 4px;
+						width: 94px;
+						height: 94px;
+						padding: 5px;
+						box-sizing: border-box;
 						border-radius: 50%;
-						background: #ffdcc4;
+						background: linear-gradient(135deg, #ff8a00 0%, #ff383c 100%);
+						box-shadow: 0 14px 30px rgba(255, 138, 0, 0.18);
 						cursor: pointer;
 
 						img {
@@ -2623,73 +3200,90 @@
 					}
 
 					strong {
-						margin-top: 16px;
-						color: #1b1c1c;
+						max-width: 100%;
+						margin-top: 14px;
+						overflow: hidden;
+						color: #0f1f33;
 						font-family: 'Plus Jakarta Sans', $font;
-						font-size: 19px;
-						font-weight: 800;
-						line-height: 26px;
+						font-size: 18px;
+						font-weight: 900;
+						line-height: 24px;
 						text-transform: capitalize;
+						text-overflow: ellipsis;
+						white-space: nowrap;
 						cursor: pointer;
 					}
 
 					.role {
-						margin-top: 4px;
-						color: #e86f00;
+						margin-top: 6px;
+						padding: 5px 12px;
+						border-radius: 999px;
+						background: rgba(255, 138, 0, 0.1);
+						color: #ff7a00;
 						font-family: 'Plus Jakarta Sans', $font;
-						font-size: 13px;
-						font-weight: 800;
+						font-size: 11px;
+						font-weight: 900;
+						line-height: 15px;
 						text-transform: capitalize;
 					}
 
 					.agent-stats {
-						margin: 18px 0;
+						margin: 16px 0 14px;
 						width: 100%;
 						display: grid;
 						grid-template-columns: repeat(3, 1fr);
-						gap: 10px;
-						padding: 16px 0;
-						border-top: 1px solid #e4e2e1;
-						border-bottom: 1px solid #e4e2e1;
+						gap: 8px;
 
 						div {
+							min-width: 0;
+							padding: 10px 6px;
 							display: flex;
 							flex-direction: column;
 							align-items: center;
-							gap: 2px;
+							gap: 3px;
+							border: 1px solid rgba(219, 231, 242, 0.9);
+							border-radius: 14px;
+							background: rgba(255, 255, 255, 0.82);
 						}
 
 						b {
-							color: #1b1c1c;
+							color: #0f1f33;
 							font-family: 'Plus Jakarta Sans', $font;
-							font-size: 17px;
-							font-weight: 800;
+							font-size: 16px;
+							font-weight: 900;
+							line-height: 20px;
 						}
 
 						em {
-							color: #564334;
+							color: #64748b;
 							font-family: 'Plus Jakarta Sans', $font;
-							font-size: 12px;
+							font-size: 10px;
 							font-style: normal;
-							font-weight: 600;
+							font-weight: 800;
+							line-height: 13px;
+							text-transform: uppercase;
 						}
 					}
 
 					.view-profile {
+						margin-top: auto;
 						width: 100%;
 						padding: 12px 0;
 						border: 0;
-						border-radius: 10px;
-						background: #515f78;
+						border-radius: 12px;
+						background: #ff8a00;
 						color: #ffffff;
 						font-family: 'Plus Jakarta Sans', $font;
 						font-size: 14px;
-						font-weight: 800;
+						font-weight: 900;
 						cursor: pointer;
-						transition: opacity 0.2s ease;
+						box-shadow: 0 12px 24px rgba(255, 138, 0, 0.22);
+						transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 
 						&:hover {
-							opacity: 0.88;
+							transform: translateY(-1px);
+							background: #ff383c;
+							box-shadow: 0 14px 28px rgba(255, 56, 60, 0.22);
 						}
 					}
 				}
@@ -2785,9 +3379,181 @@
 	.home-page {
 		.trend-tour-packages {
 			padding: 34px 0 52px;
+			position: relative;
+			overflow: hidden;
 			background: #ffffff;
 
+			.trend-bg-icons {
+				position: absolute;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+
+				.trend-bg-icon {
+					position: absolute;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 999px;
+
+					svg {
+						width: 100%;
+						height: 100%;
+					}
+
+					&.plane {
+						top: 24px;
+						left: 42px;
+						width: 132px;
+						height: 132px;
+						color: rgba(255, 138, 0, 0.11);
+						transform: rotate(-18deg);
+					}
+
+					&.passport {
+						top: 44px;
+						right: 72px;
+						width: 108px;
+						height: 108px;
+						color: rgba(255, 56, 60, 0.08);
+						transform: rotate(10deg);
+					}
+
+					&.location {
+						top: 252px;
+						left: 4%;
+						width: 96px;
+						height: 96px;
+						color: rgba(28, 173, 158, 0.1);
+						transform: rotate(8deg);
+					}
+
+					&.earth {
+						right: 34px;
+						bottom: 38px;
+						width: 146px;
+						height: 146px;
+						color: rgba(15, 35, 62, 0.06);
+						transform: rotate(-8deg);
+					}
+
+					&.bag {
+						left: 13%;
+						bottom: 42px;
+						width: 114px;
+						height: 114px;
+						color: rgba(255, 138, 0, 0.09);
+						transform: rotate(14deg);
+					}
+
+					&.map {
+						top: 154px;
+						right: 18%;
+						width: 92px;
+						height: 92px;
+						color: rgba(28, 173, 158, 0.08);
+						transform: rotate(-12deg);
+					}
+
+					&.compass {
+						top: 94px;
+						left: 28%;
+						width: 86px;
+						height: 86px;
+						color: rgba(255, 56, 60, 0.07);
+						transform: rotate(22deg);
+					}
+
+					&.camera {
+						right: 21%;
+						bottom: 88px;
+						width: 88px;
+						height: 88px;
+						color: rgba(255, 138, 0, 0.08);
+						transform: rotate(9deg);
+					}
+
+					&.route {
+						top: 356px;
+						left: 24%;
+						width: 104px;
+						height: 104px;
+						color: rgba(15, 35, 62, 0.055);
+						transform: rotate(-16deg);
+					}
+				}
+			}
+
+			@media (max-width: 1024px) {
+				.trend-bg-icons {
+					.trend-bg-icon {
+						&.plane {
+							left: 18px;
+							width: 96px;
+							height: 96px;
+						}
+
+						&.passport {
+							right: 24px;
+							width: 82px;
+							height: 82px;
+						}
+
+						&.location {
+							left: -8px;
+							width: 74px;
+							height: 74px;
+						}
+
+						&.earth {
+							right: 10px;
+							width: 104px;
+							height: 104px;
+						}
+
+						&.bag {
+							left: 6%;
+							width: 86px;
+							height: 86px;
+						}
+
+						&.map {
+							right: 14%;
+							width: 70px;
+							height: 70px;
+						}
+
+						&.compass {
+							left: 32%;
+							width: 66px;
+							height: 66px;
+						}
+
+						&.camera {
+							right: 18%;
+							width: 68px;
+							height: 68px;
+						}
+
+						&.route {
+							left: 28%;
+							width: 76px;
+							height: 76px;
+						}
+					}
+				}
+			}
+
+			@media (max-width: 768px) {
+				.trend-bg-icons {
+					display: none;
+				}
+			}
+
 			.container {
+				position: relative;
+				z-index: 1;
+
 				.info-box {
 					.left {
 						span {

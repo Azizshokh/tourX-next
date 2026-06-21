@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Button, Pagination } from '@mui/material';
+import { Box, Button, Pagination } from '@mui/material';
 import CommunityCard from '../../libs/components/common/CommunityCard';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
@@ -20,6 +20,21 @@ import LightbulbRoundedIcon from '@mui/icons-material/LightbulbRounded';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
+import RateReviewRoundedIcon from '@mui/icons-material/RateReviewRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import AnchorRoundedIcon from '@mui/icons-material/AnchorRounded';
+import BeachAccessRoundedIcon from '@mui/icons-material/BeachAccessRounded';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
+import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 
 const CATEGORIES = [
 	{ value: 'FREE', label: 'Travel Stories', Icon: ArticleRoundedIcon },
@@ -107,6 +122,53 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 
 	return (
 		<div className="community-list-page">
+			<Box component="div" className="community-page-bg-icons" aria-hidden="true">
+				<span className="community-page-bg-icon plane">
+					<FlightTakeoffRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon earth">
+					<PublicRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon compass">
+					<ExploreRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon map">
+					<MapRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon forum">
+					<ForumRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon review">
+					<RateReviewRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon bag">
+					<LuggageRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon location">
+					<LocationOnRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon anchor">
+					<AnchorRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon beach">
+					<BeachAccessRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon camera">
+					<CameraAltRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon agent">
+					<SupportAgentRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon sail">
+					<SailingRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon hotel">
+					<HotelRoundedIcon />
+				</span>
+				<span className="community-page-bg-icon sun">
+					<WbSunnyRoundedIcon />
+				</span>
+			</Box>
 			<div className="cl-inner">
 				{/* Left sidebar */}
 				<aside className="cl-sidebar">

@@ -13,6 +13,11 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
 import TopTourPackageCard from './TopTourPackageCard';
@@ -111,6 +116,23 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 
 	return (
 		<Stack className={'top-tour-packages'}>
+			<Box component={'div'} className={'top-package-bg-icons'} aria-hidden={'true'}>
+				<span className={'top-package-bg-icon plane'}>
+					<FlightTakeoffRoundedIcon />
+				</span>
+				<span className={'top-package-bg-icon earth'}>
+					<PublicRoundedIcon />
+				</span>
+				<span className={'top-package-bg-icon bag'}>
+					<LuggageRoundedIcon />
+				</span>
+				<span className={'top-package-bg-icon location'}>
+					<LocationOnRoundedIcon />
+				</span>
+				<span className={'top-package-bg-icon compass'}>
+					<ExploreRoundedIcon />
+				</span>
+			</Box>
 			<Stack className={'container'}>
 				<Stack className={'info-box'}>
 					<Box component={'div'} className={'left'}>

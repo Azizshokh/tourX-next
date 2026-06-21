@@ -1,6 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { Stack } from '@mui/material';
+import { Stack, Box } from '@mui/material';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import useDeviceDetect from '../../hooks/useDeviceDetect';
 
 const inspirationItems = [
 	{ title: 'Beach Escapes', image: '/img/banner/TourX%20background.png', href: '/tour-package' },
@@ -12,8 +17,26 @@ const inspirationItems = [
 ];
 
 const TravelInspiration = () => {
+	const device = useDeviceDetect();
+
 	return (
 		<Stack className={'travel-inspiration'}>
+			{device !== 'mobile' && (
+				<Box component={'div'} className={'inspiration-bg-icons'} aria-hidden={'true'}>
+					<span className={'inspiration-bg-icon compass'}>
+						<ExploreRoundedIcon />
+					</span>
+					<span className={'inspiration-bg-icon map'}>
+						<MapRoundedIcon />
+					</span>
+					<span className={'inspiration-bg-icon camera'}>
+						<PhotoCameraRoundedIcon />
+					</span>
+					<span className={'inspiration-bg-icon discover'}>
+						<TravelExploreRoundedIcon />
+					</span>
+				</Box>
+			)}
 			<Stack className={'container'}>
 				<Stack className={'info-box'}>
 					<div className={'left'}>

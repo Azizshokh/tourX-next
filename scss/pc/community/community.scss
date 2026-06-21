@@ -1,20 +1,177 @@
 #pc-wrap {
 	.community-list-page {
+		position: relative;
 		padding-top: 133px;
 		padding-bottom: 80px;
 		background: #fafaf8;
-		min-height: 100vh;
 		width: 100%;
+
+		.community-page-bg-icons {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+
+			.community-page-bg-icon {
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+
+				&.plane {
+					top: 52px;
+					left: 6%;
+					width: 142px;
+					height: 142px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(-14deg);
+				}
+
+				&.earth {
+					top: 112px;
+					right: 5%;
+					width: 172px;
+					height: 172px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(9deg);
+				}
+
+				&.compass {
+					left: 26%;
+					top: 250px;
+					width: 112px;
+					height: 112px;
+					color: rgba(255, 56, 60, 0.065);
+					transform: rotate(22deg);
+				}
+
+				&.map {
+					right: 18%;
+					top: 410px;
+					width: 120px;
+					height: 120px;
+					color: rgba(28, 173, 158, 0.08);
+					transform: rotate(-10deg);
+				}
+
+				&.forum {
+					left: 8%;
+					bottom: 86px;
+					width: 128px;
+					height: 128px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(12deg);
+				}
+
+				&.review {
+					right: 8%;
+					bottom: 118px;
+					width: 108px;
+					height: 108px;
+					color: rgba(255, 56, 60, 0.065);
+					transform: rotate(-8deg);
+				}
+
+				&.bag {
+					left: 2%;
+					top: 380px;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 56, 60, 0.06);
+					transform: rotate(14deg);
+				}
+
+				&.location {
+					right: 2%;
+					top: 290px;
+					width: 96px;
+					height: 96px;
+					color: rgba(28, 173, 158, 0.085);
+					transform: rotate(-10deg);
+				}
+
+				&.anchor {
+					left: 14%;
+					bottom: 250px;
+					width: 106px;
+					height: 106px;
+					color: rgba(255, 138, 0, 0.075);
+					transform: rotate(8deg);
+				}
+
+				&.beach {
+					right: 14%;
+					bottom: 220px;
+					width: 110px;
+					height: 110px;
+					color: rgba(28, 173, 158, 0.075);
+					transform: rotate(-16deg);
+				}
+
+				&.camera {
+					left: 4%;
+					top: 560px;
+					width: 92px;
+					height: 92px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(20deg);
+				}
+
+				&.agent {
+					right: 4%;
+					top: 560px;
+					width: 98px;
+					height: 98px;
+					color: rgba(15, 35, 62, 0.048);
+					transform: rotate(-14deg);
+				}
+
+				&.sail {
+					left: 20%;
+					top: 490px;
+					width: 104px;
+					height: 104px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(18deg);
+				}
+
+				&.hotel {
+					left: 3%;
+					top: 240px;
+					width: 88px;
+					height: 88px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(-8deg);
+				}
+
+				&.sun {
+					right: 20%;
+					top: 190px;
+					width: 85px;
+					height: 85px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(16deg);
+				}
+			}
+		}
 
 		/* ── Outer wrapper ── */
 		.cl-inner {
-			width: min(1280px, 100%);
+			position: relative;
+			z-index: 1;
+			width: min(1180px, 100%);
 			margin: 0 auto;
 			padding: 0 32px;
 			display: flex;
 			flex-direction: row;
-			gap: 32px;
+			gap: 28px;
 			align-items: flex-start;
+			justify-content: center;
 		}
 
 		/* ────────────────────────────────
@@ -22,10 +179,11 @@
 		──────────────────────────────── */
 		.cl-sidebar {
 			flex: 0 0 230px;
+			width: 230px;
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
-			position: sticky;
+			position: -webkit-sticky;
 			top: 110px;
 
 			/* "Create Travel Post" button */
@@ -132,14 +290,16 @@
 		   Main feed
 		──────────────────────────────── */
 		.cl-feed {
-			flex: 1;
+			flex: 0 1 720px;
 			min-width: 0;
 
 			/* 3-column article grid */
 			.cl-grid {
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
+				grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
 				gap: 20px;
+				justify-content: center;
+				align-items: start;
 			}
 
 			/* Empty state */
@@ -187,6 +347,10 @@
 		   Premium article card
 		──────────────────────────────── */
 		.community-article-card {
+			width: 300px;
+			min-height: 334px;
+			display: flex;
+			flex-direction: column;
 			background: #ffffff;
 			border-radius: 16px;
 			border: 1px solid rgba(226, 232, 240, 0.85);
@@ -204,7 +368,8 @@
 			.cac-image-wrap {
 				position: relative;
 				width: 100%;
-				aspect-ratio: 16 / 9;
+				height: 168px;
+				flex-shrink: 0;
 				overflow: hidden;
 
 				.cac-img {
@@ -276,6 +441,7 @@
 
 			/* ── Card body ── */
 			.cac-body {
+				flex: 1;
 				padding: 16px;
 				display: flex;
 				flex-direction: column;
@@ -289,7 +455,6 @@
 					font-weight: 700;
 					line-height: 1.45;
 					display: -webkit-box;
-					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
 					overflow: hidden;
 				}
@@ -351,6 +516,7 @@
 
 				/* Stats row */
 				.cac-stats {
+					margin-top: auto;
 					display: flex;
 					flex-direction: row;
 					gap: 14px;
@@ -371,6 +537,12 @@
 						}
 					}
 				}
+			}
+		}
+
+		@media (max-width: 768px) {
+			.community-page-bg-icons {
+				display: none;
 			}
 		}
 	}

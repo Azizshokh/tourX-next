@@ -1,9 +1,167 @@
 #pc-wrap {
 	#tour-package-list-page {
+		position: relative;
+		overflow: hidden;
 		padding-bottom: 60px;
 		background: #fafaf8;
 
+		.tour-list-bg-icons {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+
+			.tour-list-bg-icon {
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+
+				&.plane {
+					top: 42px;
+					left: 4%;
+					width: 132px;
+					height: 132px;
+					color: rgba(255, 138, 0, 0.09);
+					transform: rotate(-16deg);
+				}
+
+				&.earth {
+					top: 96px;
+					right: 4%;
+					width: 150px;
+					height: 150px;
+					color: rgba(15, 35, 62, 0.052);
+					transform: rotate(10deg);
+				}
+
+				&.bag {
+					left: 7%;
+					bottom: 84px;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 56, 60, 0.07);
+					transform: rotate(12deg);
+				}
+
+				&.location {
+					right: 18%;
+					top: 360px;
+					width: 96px;
+					height: 96px;
+					color: rgba(28, 173, 158, 0.085);
+					transform: rotate(-8deg);
+				}
+
+				&.compass {
+					right: 9%;
+					bottom: 150px;
+					width: 104px;
+					height: 104px;
+					color: rgba(255, 138, 0, 0.075);
+					transform: rotate(22deg);
+				}
+
+				&.map {
+					left: 16%;
+					top: 200px;
+					width: 110px;
+					height: 110px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(-8deg);
+				}
+
+				&.agent {
+					left: 5%;
+					top: 290px;
+					width: 98px;
+					height: 98px;
+					color: rgba(255, 138, 0, 0.075);
+					transform: rotate(10deg);
+				}
+
+				&.beach {
+					left: 14%;
+					bottom: 200px;
+					width: 108px;
+					height: 108px;
+					color: rgba(28, 173, 158, 0.08);
+					transform: rotate(-14deg);
+				}
+
+				&.camera {
+					right: 4%;
+					top: 290px;
+					width: 92px;
+					height: 92px;
+					color: rgba(255, 56, 60, 0.06);
+					transform: rotate(18deg);
+				}
+
+				&.anchor {
+					left: 2%;
+					top: 490px;
+					width: 114px;
+					height: 114px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(-10deg);
+				}
+
+				&.sail {
+					right: 14%;
+					bottom: 100px;
+					width: 120px;
+					height: 120px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(14deg);
+				}
+
+				&.hotel {
+					left: 8%;
+					top: 600px;
+					width: 100px;
+					height: 100px;
+					color: rgba(28, 173, 158, 0.075);
+					transform: rotate(8deg);
+				}
+
+				&.sun {
+					right: 2%;
+					top: 510px;
+					width: 88px;
+					height: 88px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(-20deg);
+				}
+
+				&.discover {
+					left: 20%;
+					top: 430px;
+					width: 102px;
+					height: 102px;
+					color: rgba(15, 35, 62, 0.048);
+					transform: rotate(16deg);
+				}
+
+				&.hike {
+					right: 5%;
+					top: 470px;
+					width: 96px;
+					height: 96px;
+					color: rgba(28, 173, 158, 0.07);
+					transform: rotate(-12deg);
+				}
+			}
+		}
+
 		.container {
+			position: relative;
+			z-index: 1;
 			width: min(1280px, 100%);
 			margin: 0 auto;
 			padding: 0 32px;
@@ -653,6 +811,48 @@
 						}
 					}
 				}
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.tour-list-bg-icons {
+				.tour-list-bg-icon {
+					&.plane {
+						left: 12px;
+						width: 92px;
+						height: 92px;
+					}
+
+					&.earth {
+						right: 8px;
+						width: 108px;
+						height: 108px;
+					}
+
+					&.bag {
+						left: 2%;
+						width: 84px;
+						height: 84px;
+					}
+
+					&.location {
+						right: 8%;
+						width: 72px;
+						height: 72px;
+					}
+
+					&.compass {
+						right: 4%;
+						width: 76px;
+						height: 76px;
+					}
+				}
+			}
+		}
+
+		@media (max-width: 768px) {
+			.tour-list-bg-icons {
+				display: none;
 			}
 		}
 	}

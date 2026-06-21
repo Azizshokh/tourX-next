@@ -2,6 +2,21 @@ import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Box, Button, Menu, MenuItem, Pagination, Stack, Typography } from '@mui/material';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import BeachAccessRoundedIcon from '@mui/icons-material/BeachAccessRounded';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
+import AnchorRoundedIcon from '@mui/icons-material/AnchorRounded';
+import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
+import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useMutation, useQuery } from '@apollo/client';
@@ -156,6 +171,53 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 
 	return (
 		<div id="tour-package-list-page">
+			<Box component="div" className="tour-list-bg-icons" aria-hidden="true">
+				<span className="tour-list-bg-icon plane">
+					<FlightTakeoffRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon earth">
+					<PublicRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon bag">
+					<LuggageRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon location">
+					<LocationOnRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon compass">
+					<ExploreRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon map">
+					<MapRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon agent">
+					<SupportAgentRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon beach">
+					<BeachAccessRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon camera">
+					<CameraAltRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon anchor">
+					<AnchorRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon sail">
+					<SailingRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon hotel">
+					<HotelRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon sun">
+					<WbSunnyRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon discover">
+					<TravelExploreRoundedIcon />
+				</span>
+				<span className="tour-list-bg-icon hike">
+					<HikingRoundedIcon />
+				</span>
+			</Box>
 			<div className="container">
 				<Stack direction="row" className="tour-package-page">
 					{/* Sidebar */}

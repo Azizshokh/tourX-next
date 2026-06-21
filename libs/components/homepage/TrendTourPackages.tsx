@@ -3,6 +3,15 @@ import Link from 'next/link';
 import { Stack, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
+import AltRouteRoundedIcon from '@mui/icons-material/AltRouteRounded';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
@@ -104,6 +113,35 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 
 		return (
 			<Stack className={'trend-tour-packages'}>
+				<Box component={'div'} className={'trend-bg-icons'} aria-hidden={'true'}>
+					<span className={'trend-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon passport'}>
+						<AssignmentIndRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon location'}>
+						<LocationOnRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon map'}>
+						<MapRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon compass'}>
+						<ExploreRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon camera'}>
+						<PhotoCameraRoundedIcon />
+					</span>
+					<span className={'trend-bg-icon route'}>
+						<AltRouteRoundedIcon />
+					</span>
+				</Box>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>

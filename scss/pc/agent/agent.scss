@@ -1,10 +1,168 @@
 #pc-wrap {
 	.agent-list-page {
+		position: relative;
+		overflow: hidden;
 		background: #fafaf8;
 		padding-bottom: 80px;
 		width: 100%;
 
+		.agent-page-bg-icons {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+
+			.agent-page-bg-icon {
+				position: absolute;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+
+				&.plane {
+					top: 44px;
+					left: 4%;
+					width: 150px;
+					height: 150px;
+					color: rgba(255, 138, 0, 0.09);
+					transform: rotate(-16deg);
+				}
+
+				&.earth {
+					top: 118px;
+					right: 4%;
+					width: 168px;
+					height: 168px;
+					color: rgba(15, 35, 62, 0.05);
+					transform: rotate(10deg);
+				}
+
+				&.bag {
+					left: 8%;
+					bottom: 100px;
+					width: 126px;
+					height: 126px;
+					color: rgba(255, 56, 60, 0.07);
+					transform: rotate(14deg);
+				}
+
+				&.location {
+					right: 18%;
+					top: 430px;
+					width: 108px;
+					height: 108px;
+					color: rgba(28, 173, 158, 0.085);
+					transform: rotate(-8deg);
+				}
+
+				&.agent {
+					left: 29%;
+					top: 188px;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(12deg);
+				}
+
+				&.discover {
+					right: 7%;
+					bottom: 74px;
+					width: 132px;
+					height: 132px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(-18deg);
+				}
+
+				&.compass {
+					left: 14%;
+					top: 340px;
+					width: 106px;
+					height: 106px;
+					color: rgba(255, 56, 60, 0.06);
+					transform: rotate(22deg);
+				}
+
+				&.map {
+					right: 12%;
+					top: 240px;
+					width: 112px;
+					height: 112px;
+					color: rgba(15, 35, 62, 0.048);
+					transform: rotate(-10deg);
+				}
+
+				&.beach {
+					left: 4%;
+					top: 520px;
+					width: 98px;
+					height: 98px;
+					color: rgba(28, 173, 158, 0.08);
+					transform: rotate(-14deg);
+				}
+
+				&.camera {
+					left: 20%;
+					bottom: 180px;
+					width: 94px;
+					height: 94px;
+					color: rgba(255, 138, 0, 0.07);
+					transform: rotate(18deg);
+				}
+
+				&.anchor {
+					right: 2%;
+					top: 590px;
+					width: 118px;
+					height: 118px;
+					color: rgba(255, 138, 0, 0.065);
+					transform: rotate(-8deg);
+				}
+
+				&.sail {
+					left: 10%;
+					top: 700px;
+					width: 110px;
+					height: 110px;
+					color: rgba(15, 35, 62, 0.045);
+					transform: rotate(14deg);
+				}
+
+				&.hotel {
+					right: 15%;
+					bottom: 200px;
+					width: 102px;
+					height: 102px;
+					color: rgba(28, 173, 158, 0.075);
+					transform: rotate(-16deg);
+				}
+
+				&.sun {
+					left: 2%;
+					top: 300px;
+					width: 90px;
+					height: 90px;
+					color: rgba(255, 138, 0, 0.08);
+					transform: rotate(20deg);
+				}
+
+				&.hike {
+					right: 25%;
+					bottom: 100px;
+					width: 96px;
+					height: 96px;
+					color: rgba(255, 56, 60, 0.06);
+					transform: rotate(-12deg);
+				}
+			}
+		}
+
 		.container {
+			position: relative;
+			z-index: 1;
 			width: min(1280px, 100%);
 			margin: 0 auto;
 			padding: 40px 32px 0;
@@ -376,6 +534,12 @@
 					font-size: 13px;
 					font-weight: 600;
 				}
+			}
+		}
+
+		@media (max-width: 768px) {
+			.agent-page-bg-icons {
+				display: none;
 			}
 		}
 	}

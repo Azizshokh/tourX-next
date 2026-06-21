@@ -17,6 +17,15 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import PersonRemoveRoundedIcon from '@mui/icons-material/PersonRemoveRounded';
 import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import MapRoundedIcon from '@mui/icons-material/MapRounded';
+import BeachAccessRoundedIcon from '@mui/icons-material/BeachAccessRounded';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
+import AnchorRoundedIcon from '@mui/icons-material/AnchorRounded';
 import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
@@ -333,6 +342,38 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	} else {
 		return (
 			<Stack className={'agent-detail-page'}>
+				<Box component={'div'} className={'agent-detail-bg-icons'} aria-hidden={'true'}>
+					<span className={'agent-detail-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon location'}>
+						<LocationOnRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon compass'}>
+						<ExploreRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon bg-agent'}>
+						<SupportAgentRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon map'}>
+						<MapRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon beach'}>
+						<BeachAccessRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon camera'}>
+						<CameraAltRoundedIcon />
+					</span>
+					<span className={'agent-detail-bg-icon anchor'}>
+						<AnchorRoundedIcon />
+					</span>
+				</Box>
 				<Stack className={'container'}>
 					<Stack className={'agent-info'}>
 						<Box className={'agent-photo-wrap'}>

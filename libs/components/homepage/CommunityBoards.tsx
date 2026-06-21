@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack } from '@mui/material';
+import { Stack, Box } from '@mui/material';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import RateReviewRoundedIcon from '@mui/icons-material/RateReviewRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import CommunityCard from './CommunityCard';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
@@ -59,6 +63,20 @@ const CommunityBoards = () => {
 
 		return (
 			<Stack className={'community-discussions'}>
+				<Box component={'div'} className={'community-bg-icons'} aria-hidden={'true'}>
+					<span className={'community-bg-icon forum'}>
+						<ForumRoundedIcon />
+					</span>
+					<span className={'community-bg-icon discover'}>
+						<TravelExploreRoundedIcon />
+					</span>
+					<span className={'community-bg-icon review'}>
+						<RateReviewRoundedIcon />
+					</span>
+					<span className={'community-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+				</Box>
 				<Stack className={'container'}>
 					<Stack className={'discussions-head'}>
 						<div className={'left'}>

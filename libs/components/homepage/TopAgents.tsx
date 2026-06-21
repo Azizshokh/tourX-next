@@ -3,8 +3,12 @@ import { useRouter } from 'next/router';
 import { Stack, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 import TopAgentCard from './TopAgentCard';
 import { Member } from '../../types/member/member';
 import { AgentsInquiry } from '../../types/member/member.input';
@@ -72,6 +76,20 @@ const TopAgents = (props: TopAgentsProps) => {
 		return (
 			<Stack className={'top-agents'}>
 				<Stack className={'container'}>
+					<Box component={'div'} className={'agents-bg-icons'} aria-hidden={'true'}>
+						<span className={'agents-bg-icon agent'}>
+							<SupportAgentRoundedIcon />
+						</span>
+						<span className={'agents-bg-icon plane'}>
+							<FlightTakeoffRoundedIcon />
+						</span>
+						<span className={'agents-bg-icon bag'}>
+							<LuggageRoundedIcon />
+						</span>
+						<span className={'agents-bg-icon earth'}>
+							<PublicRoundedIcon />
+						</span>
+					</Box>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
 							<span>Top Agents</span>
@@ -93,7 +111,7 @@ const TopAgents = (props: TopAgentsProps) => {
 								className={'top-agents-swiper'}
 								slidesPerView={'auto'}
 								spaceBetween={29}
-								modules={[Autoplay, Navigation, Pagination]}
+								modules={[Autoplay, Navigation]}
 								navigation={{
 									nextEl: '.swiper-agents-next',
 									prevEl: '.swiper-agents-prev',

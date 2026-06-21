@@ -16,8 +16,8 @@ import moment from 'moment';
 import Link from 'next/link';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
-import Review from '../../libs/components/property/Review';
-import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
+import Review from '../../libs/components/tourPackage/Review';
+import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
 	CommentMediaPicker,
@@ -220,9 +220,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	}
 
 	return (
-		<div id={'property-detail-page'}>
+		<div id={'tour-package-detail-page'}>
 			<div className={'container'}>
-				<Stack className={'property-detail-config'}>
+				<Stack className={'tour-package-detail-config'}>
 					<Stack className={'detail-breadcrumb'}>
 						<Link href={'/tour-package'}>All tours</Link>
 						<span>/</span>
@@ -230,7 +230,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 					</Stack>
 					<Stack className={'detail-main-grid'}>
 						<Stack className={'detail-main-left'}>
-							<Stack className={'property-info-config'}>
+							<Stack className={'tour-package-info-config'}>
 								<Stack className={'info'}>
 									<Stack className={'left-box'}>
 										<Stack className={'top-box'}>
@@ -336,7 +336,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 									</Stack>
 								</Stack>
 							</Stack>
-							<Stack className={'property-desc-config'}>
+							<Stack className={'tour-package-desc-config'}>
 								<Stack className={'left-config'}>
 							<Stack className={'prop-desc-config'}>
 								<Stack className={'top'}>
@@ -478,7 +478,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 						</Stack>
 					</Stack>
 					{relatedPackages.length !== 0 && (
-						<Stack className={'similar-properties-config'}>
+						<Stack className={'similar-tour-packages-config'}>
 							<Stack className={'title-pagination-box'}>
 								<Stack className={'title-box'}>
 									<Typography className={'main-title'}>Related Packages</Typography>
@@ -487,9 +487,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 							</Stack>
 							<Stack className={'cards-box'}>
 								{relatedPackages.map((tourPackage: TourPackage) => (
-									<PropertyBigCard
-										property={tourPackage}
-										likePropertyHandler={likePackageHandler}
+									<TourPackageBigCard
+										tourPackage={tourPackage}
+										likeTourPackageHandler={likePackageHandler}
 										key={tourPackage?._id}
 									/>
 								))}

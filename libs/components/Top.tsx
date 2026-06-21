@@ -155,7 +155,7 @@ const Top = () => {
 					<div> {t('Community')} </div>
 				</Link>
 				<Link href={'/cs'}>
-					<div> {t('CS')} </div>
+					<div> {t('Help')} </div>
 				</Link>
 			</Stack>
 		);
@@ -188,7 +188,7 @@ const Top = () => {
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('CS')} </div>
+								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('Help')} </div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>

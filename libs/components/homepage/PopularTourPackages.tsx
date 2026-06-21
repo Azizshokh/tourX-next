@@ -5,22 +5,22 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import PopularPropertyCard from './PopularPropertyCard';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import PopularTourPackageCard from './PopularTourPackageCard';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import Link from 'next/link';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
 
-interface PopularPropertiesProps {
+interface PopularTourPackagesProps {
 	initialInput: TourPackagesInquiry;
 }
 
-const PopularProperties = (props: PopularPropertiesProps) => {
+const PopularTourPackages = (props: PopularTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const [popularProperties, setPopularProperties] = useState<Property[]>([]);
+	const [popularTourPackages, setPopularTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
 	const {
@@ -35,33 +35,33 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setPopularProperties(data?.getTourPackages?.list);
+			setPopularTourPackages(data?.getTourPackages?.list);
 		},
 	});
 
 	/** HANDLERS **/
 
-	if (!popularProperties) return null;
+	if (!popularTourPackages) return null;
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'popular-properties'}>
+			<Stack className={'popular-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<span>Popular packages</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'popular-property-swiper'}
+							className={'popular-tour-package-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
 							spaceBetween={25}
 							modules={[Autoplay]}
 						>
-							{popularProperties.map((property: Property) => {
+							{popularTourPackages.map((tourPackage: TourPackage) => {
 								return (
-									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
+									<SwiperSlide key={tourPackage._id} className={'popular-tour-package-slide'}>
+										<PopularTourPackageCard tourPackage={tourPackage} />
 									</SwiperSlide>
 								);
 							})}
@@ -72,7 +72,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 		);
 	} else {
 		return (
-			<Stack className={'popular-properties'}>
+			<Stack className={'popular-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
@@ -90,7 +90,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'popular-property-swiper'}
+							className={'popular-tour-package-swiper'}
 							slidesPerView={'auto'}
 							spaceBetween={25}
 							modules={[Autoplay, Navigation, Pagination]}
@@ -102,10 +102,10 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 								el: '.swiper-popular-pagination',
 							}}
 						>
-							{popularProperties.map((property: Property) => {
+							{popularTourPackages.map((tourPackage: TourPackage) => {
 								return (
-									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
+									<SwiperSlide key={tourPackage._id} className={'popular-tour-package-slide'}>
+										<PopularTourPackageCard tourPackage={tourPackage} />
 									</SwiperSlide>
 								);
 							})}
@@ -122,7 +122,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 	}
 };
 
-PopularProperties.defaultProps = {
+PopularTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 7,
@@ -132,4 +132,4 @@ PopularProperties.defaultProps = {
 	},
 };
 
-export default PopularProperties;
+export default PopularTourPackages;

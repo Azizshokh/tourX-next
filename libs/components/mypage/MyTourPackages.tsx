@@ -6,9 +6,9 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import Inventory2RoundedIcon from '@mui/icons-material/Inventory2Rounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from './PropertyCard';
+import { TourPackageCard } from './TourPackageCard';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { AgentTourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { T } from '../../types/common';
 import { PackageStatus } from '../../enums/package.enum';
@@ -18,10 +18,10 @@ import { GET_AGENT_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { UPDATE_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetConfirmAlert, sweetErrorHandling } from '../../sweetAlert';
 
-const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
+const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const [searchFilter, setSearchFilter] = useState<AgentTourPackagesInquiry>(initialInput);
-	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
+	const [agentTourPackages, setAgentTourPackages] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
@@ -39,7 +39,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getAgentTourPackages?.list);
+			setAgentTourPackages(data?.getAgentTourPackages?.list);
 			setTotal(data?.getAgentTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
@@ -53,7 +53,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		setSearchFilter({ ...searchFilter, search: { packageStatus: value } });
 	};
 
-	const deletePropertyHandler = async (id: string) => {
+	const deleteTourPackageHandler = async (id: string) => {
 		try {
 			if (await sweetConfirmAlert('Are you sure to delete this package?')) {
 				await updateTourPackage({
@@ -93,10 +93,10 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>MY PACKAGES MOBILE</div>;
+		return <div>MY TOUR PACKAGES MOBILE</div>;
 	} else {
 		return (
-			<div id="my-property-page">
+			<div id="my-tour-package-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
 						<Stack className="title-kicker">
@@ -116,7 +116,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 						</Stack>
 					</Stack>
 				</Stack>
-				<Stack className="property-list-box">
+				<Stack className="tour-package-list-box">
 					<Stack className="tab-name-box">
 						<Stack
 							onClick={() => changeStatusHandler(PackageStatus.ACTIVE)}
@@ -150,24 +150,24 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 							)}
 						</Stack>
 
-						{agentProperties?.length === 0 ? (
+						{agentTourPackages?.length === 0 ? (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
 								<p>No package found!</p>
 							</div>
 						) : (
-							agentProperties.map((property: Property) => {
+							agentTourPackages.map((tourPackage: TourPackage) => {
 								return (
-									<PropertyCard
-										property={property}
-										deletePropertyHandler={deletePropertyHandler}
+									<TourPackageCard
+										tourPackage={tourPackage}
+										deleteTourPackageHandler={deleteTourPackageHandler}
 										updateTourPackageHandler={updateTourPackageHandler}
 									/>
 								);
 							})
 						)}
 
-						{agentProperties.length !== 0 && (
+						{agentTourPackages.length !== 0 && (
 							<Stack className="pagination-config">
 								<Stack className="pagination-box">
 									<Pagination
@@ -190,7 +190,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	}
 };
 
-MyProperties.defaultProps = {
+MyTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 5,
@@ -201,4 +201,4 @@ MyProperties.defaultProps = {
 	},
 };
 
-export default MyProperties;
+export default MyTourPackages;

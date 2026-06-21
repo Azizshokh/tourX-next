@@ -4,9 +4,9 @@ import { Stack, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
-import TrendPropertyCard from './TrendPropertyCard';
+import TrendTourPackageCard from './TrendTourPackageCard';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
@@ -15,14 +15,14 @@ import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAler
 import { Message } from '../../enums/common.enum';
 import { REACT_APP_API_URL } from '../../config';
 
-interface TrendPropertiesProps {
+interface TrendTourPackagesProps {
 	initialInput: TourPackagesInquiry;
 }
 
-const TrendProperties = (props: TrendPropertiesProps) => {
+const TrendTourPackages = (props: TrendTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const [trendProperties, setTrendProperties] = useState<Property[]>([]);
+	const [trendTourPackages, setTrendTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
 	const [liketargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
@@ -39,12 +39,12 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTrendProperties(data?.getTourPackages?.list);
+			setTrendTourPackages(data?.getTourPackages?.list);
 		},
 	});
 
 	/** HANDLERS **/
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeTourPackageHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
@@ -56,17 +56,17 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 
 			await sweetTopSmallSuccessAlert('succes', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler: ', err.message);
+			console.log('ERROR, likeTourPackageHandler: ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
-	if (!trendProperties) return null;
-	const featuredPackages = trendProperties.slice(0, 3);
+	if (!trendTourPackages) return null;
+	const featuredPackages = trendTourPackages.slice(0, 3);
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'trend-properties'}>
+			<Stack className={'trend-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
@@ -75,17 +75,17 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
-						{trendProperties.length === 0 ? (
+						{trendTourPackages.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
 								Trends Empty
 							</Box>
 						) : (
 							<Stack className={'trend-feature-grid'}>
-								{featuredPackages.map((property: Property, index: number) => (
-									<TrendPropertyCard
-										key={property._id}
-										property={property}
-										likePropertyHandler={likePropertyHandler}
+								{featuredPackages.map((tourPackage: TourPackage, index: number) => (
+									<TrendTourPackageCard
+										key={tourPackage._id}
+										tourPackage={tourPackage}
+										likeTourPackageHandler={likeTourPackageHandler}
 										variant={index === 0 ? 'featured' : 'compact'}
 									/>
 								))}
@@ -98,12 +98,12 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	} else {
 		const featured = featuredPackages[0];
 		const sidePackages = featuredPackages.slice(1, 3);
-		const imageOf = (p?: Property) =>
+		const imageOf = (p?: TourPackage) =>
 			p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
-		const ratingOf = (p?: Property) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
+		const ratingOf = (p?: TourPackage) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
 
 		return (
-			<Stack className={'trend-properties'}>
+			<Stack className={'trend-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
@@ -137,7 +137,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 									</Link>
 								)}
 								<div className={'topbento-side'}>
-									{sidePackages.map((p: Property) => (
+									{sidePackages.map((p: TourPackage) => (
 										<Link key={p._id} href={`/tour-package/detail?id=${p._id}`} className={'topbento-card small'}>
 											<span className={'topbento-media'} style={{ backgroundImage: `url(${imageOf(p)})` }} />
 											<span className={'topbento-overlay'} />
@@ -159,7 +159,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	}
 };
 
-TrendProperties.defaultProps = {
+TrendTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
@@ -169,4 +169,4 @@ TrendProperties.defaultProps = {
 	},
 };
 
-export default TrendProperties;
+export default TrendTourPackages;

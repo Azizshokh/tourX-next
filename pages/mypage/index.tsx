@@ -4,10 +4,10 @@ import { NextPage } from 'next';
 import { Stack } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import MyProperties from '../../libs/components/mypage/MyProperties';
+import MyTourPackages from '../../libs/components/mypage/MyTourPackages';
 import MyFavorites from '../../libs/components/mypage/MyFavorites';
 import RecentlyVisited from '../../libs/components/mypage/RecentlyVisited';
-import AddProperty from '../../libs/components/mypage/AddNewProperty';
+import AddTourPackage from '../../libs/components/mypage/AddNewTourPackage';
 import MyProfile from '../../libs/components/mypage/MyProfile';
 import MyArticles from '../../libs/components/mypage/MyArticles';
 import { useMutation, useReactiveVar } from '@apollo/client';
@@ -32,6 +32,8 @@ const MyPage: NextPage = () => {
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 	const category: any = router.query?.category ?? 'myProfile';
+	const activeCategory =
+		category === 'addProperty' ? 'addTourPackage' : category === 'myProperties' ? 'myTourPackages' : category;
 
 	/** APOLLO REQUESTS **/
 	const [subscribe] = useMutation(SUBSCRIBE);
@@ -119,14 +121,14 @@ const MyPage: NextPage = () => {
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
-									{category === 'addProperty' && <AddProperty />}
-									{category === 'myProperties' && <MyProperties />}
-									{category === 'myFavorites' && <MyFavorites />}
-									{category === 'recentlyVisited' && <RecentlyVisited />}
-									{category === 'myArticles' && <MyArticles />}
-									{category === 'writeArticle' && <WriteArticle />}
-									{category === 'myProfile' && <MyProfile />}
-									{category === 'followers' && (
+									{activeCategory === 'addTourPackage' && <AddTourPackage />}
+									{activeCategory === 'myTourPackages' && <MyTourPackages />}
+									{activeCategory === 'myFavorites' && <MyFavorites />}
+									{activeCategory === 'recentlyVisited' && <RecentlyVisited />}
+									{activeCategory === 'myArticles' && <MyArticles />}
+									{activeCategory === 'writeArticle' && <WriteArticle />}
+									{activeCategory === 'myProfile' && <MyProfile />}
+									{activeCategory === 'followers' && (
 										<MemberFollowers
 											initialInput={{ page: 1, limit: 5, search: {} }}
 											subscribeHandler={subscribeHandler}
@@ -135,7 +137,7 @@ const MyPage: NextPage = () => {
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
 										/>
 									)}
-									{category === 'followings' && (
+									{activeCategory === 'followings' && (
 										<MemberFollowings
 											initialInput={{ page: 1, limit: 5, search: {} }}
 											subscribeHandler={subscribeHandler}

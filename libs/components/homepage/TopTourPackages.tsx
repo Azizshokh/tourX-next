@@ -15,10 +15,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
-import TopPropertyCard from './TopPropertyCard';
+import TopTourPackageCard from './TopTourPackageCard';
 import { REACT_APP_API_URL } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
@@ -27,15 +27,15 @@ import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAler
 import { Message } from '../../enums/common.enum';
 import { userVar } from '../../../apollo/store';
 
-interface TopPropertiesProps {
+interface TopTourPackagesProps {
 	initialInput: TourPackagesInquiry;
 }
 
-const TopProperties = (props: TopPropertiesProps) => {
+const TopTourPackages = (props: TopTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
-	const [topProperties, setTopProperties] = useState<Property[]>([]);
+	const [topTourPackages, setTopTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
@@ -52,12 +52,12 @@ const TopProperties = (props: TopPropertiesProps) => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTopProperties(data?.getTourPackages?.list);
+			setTopTourPackages(data?.getTourPackages?.list);
 		},
 	});
 
 	/** HANDLERS **/
-	const likePropertyHandler = async (currentUser: T, id: string) => {
+	const likeTourPackageHandler = async (currentUser: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!currentUser._id) throw new Error(Message.NOT_AUTHENTICATED);
@@ -67,30 +67,30 @@ const TopProperties = (props: TopPropertiesProps) => {
 
 			await sweetTopSmallSuccessAlert('succes', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler: ', err.message);
+			console.log('ERROR, likeTourPackageHandler: ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<span>Top packages</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'top-property-swiper'}
+							className={'top-tour-package-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
 							spaceBetween={15}
 							modules={[Autoplay]}
 						>
-							{topProperties.map((property: Property) => {
+							{topTourPackages.map((tourPackage: TourPackage) => {
 								return (
-									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+									<SwiperSlide className={'top-tour-package-slide'} key={tourPackage?._id}>
+										<TopTourPackageCard tourPackage={tourPackage} likeTourPackageHandler={likeTourPackageHandler} />
 									</SwiperSlide>
 								);
 							})}
@@ -101,16 +101,16 @@ const TopProperties = (props: TopPropertiesProps) => {
 		);
 	}
 
-	const imageOf = (p?: Property) =>
+	const imageOf = (p?: TourPackage) =>
 		p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
-	const ratingOf = (p?: Property) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
+	const ratingOf = (p?: TourPackage) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
 	const formatCount = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`);
-	const inclusionLabel = (p: Property) =>
+	const inclusionLabel = (p: TourPackage) =>
 		p.flightIncluded ? 'Flight Inc.' : p.hotelIncluded ? 'Hotel Inc.' : 'Guide Inc.';
-	const styleLabel = (p: Property) => (p.guideIncluded ? '5-Star' : 'Boutique');
+	const styleLabel = (p: TourPackage) => (p.guideIncluded ? '5-Star' : 'Boutique');
 
 	return (
-		<Stack className={'top-properties'}>
+		<Stack className={'top-tour-packages'}>
 			<Stack className={'container'}>
 				<Stack className={'info-box'}>
 					<Box component={'div'} className={'left'}>
@@ -127,7 +127,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 					</Box>
 				</Stack>
 				<Stack className={'card-box'}>
-					{(topProperties || []).length === 0 ? (
+					{(topTourPackages || []).length === 0 ? (
 						<Box component={'div'} className={'empty-list'}>
 							Top Empty
 						</Box>
@@ -139,7 +139,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 							modules={[Navigation]}
 							navigation={{ prevEl: '.top-prev', nextEl: '.top-next' }}
 						>
-							{topProperties.map((p: Property) => {
+							{topTourPackages.map((p: TourPackage) => {
 								const liked = Boolean(p?.meLiked && p.meLiked[0]?.myFavorite);
 								return (
 									<SwiperSlide key={p._id} className={'top-row-slide'}>
@@ -149,7 +149,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 													className={`fav-btn ${liked ? 'on' : ''}`}
 													onClick={(e) => {
 														e.stopPropagation();
-														likePropertyHandler(user, p._id);
+														likeTourPackageHandler(user, p._id);
 													}}
 													aria-label={'favorite'}
 												>
@@ -204,7 +204,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 	);
 };
 
-TopProperties.defaultProps = {
+TopTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
@@ -214,4 +214,4 @@ TopProperties.defaultProps = {
 	},
 };
 
-export default TopProperties;
+export default TopTourPackages;

@@ -2,10 +2,10 @@ import { NextPage } from 'next';
 import useDeviceDetect from '../libs/hooks/useDeviceDetect';
 import withLayoutMain from '../libs/components/layout/LayoutHome';
 import CommunityBoards from '../libs/components/homepage/CommunityBoards';
-import PopularProperties from '../libs/components/homepage/PopularProperties';
+import PopularTourPackages from '../libs/components/homepage/PopularTourPackages';
 import TopAgents from '../libs/components/homepage/TopAgents';
-import TrendProperties from '../libs/components/homepage/TrendProperties';
-import TopProperties from '../libs/components/homepage/TopProperties';
+import TrendTourPackages from '../libs/components/homepage/TrendTourPackages';
+import TopTourPackages from '../libs/components/homepage/TopTourPackages';
 import { Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
 import TravelInspiration from '../libs/components/homepage/TravelInspiration';
@@ -23,10 +23,10 @@ const Home: NextPage = () => {
 	if (device === 'mobile') {
 		return (
 			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
+				<TrendTourPackages />
+				<PopularTourPackages />
 				<Advertisement />
-				<TopProperties />
+				<TopTourPackages />
 				<TravelInspiration />
 				<TopAgents />
 			</Stack>
@@ -34,10 +34,10 @@ const Home: NextPage = () => {
 	} else {
 		return (
 			<Stack className={'home-page'}>
-				<TrendProperties />
-				<PopularProperties />
+				<TrendTourPackages />
+				<PopularTourPackages />
 				<Advertisement />
-				<TopProperties />
+				<TopTourPackages />
 				<TravelInspiration />
 				<TopAgents />
 				<CommunityBoards />

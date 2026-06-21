@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography, Box } from '@mui/material';
-import PropertyCard from '../property/PropertyCard';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import TourPackageCard from '../tourPackage/TourPackageCard';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
 import { GET_FAVORITES } from '../../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
@@ -17,7 +17,7 @@ import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
-	const [myFavorites, setMyFavorites] = useState<Property[]>([]);
+	const [myFavorites, setMyFavorites] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
 
@@ -46,7 +46,7 @@ const MyFavorites: NextPage = () => {
 		setSearchFavorites({ ...searchFavorites, page: value });
 	};
 
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeTourPackageHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
@@ -62,13 +62,13 @@ const MyFavorites: NextPage = () => {
 			if (nextPage !== searchFavorites.page) setSearchFavorites(nextSearchFavorites);
 			else await getFavoritesRefetch({ input: nextSearchFavorites });
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR MY FAVORITES MOBILE</div>;
+		return <div>SAVED TRIPS MOBILE</div>;
 	} else {
 		return (
 			<div id="my-favorites-page">
@@ -105,13 +105,13 @@ const MyFavorites: NextPage = () => {
 				</Stack>
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
-						myFavorites?.map((property: Property) => {
+						myFavorites?.map((tourPackage: TourPackage) => {
 							return (
-								<PropertyCard
-									property={property}
-									likePropertyHandler={likePropertyHandler}
+								<TourPackageCard
+									tourPackage={tourPackage}
+									likeTourPackageHandler={likeTourPackageHandler}
 									myFavorites={true}
-									key={property?._id}
+									key={tourPackage?._id}
 								/>
 							);
 						})

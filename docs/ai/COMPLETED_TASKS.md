@@ -136,3 +136,11 @@ Validation: `yarn tsc --noEmit` passed.
 - Cleaned followers/following list wiring with valid member-id guards, safe `metaCounter` handling, self-follow prevention, and normalized `Followers` / `Following` labels.
 - Files: `apollo/user/query.ts`, `libs/components/mypage/MyFavorites.tsx`, `libs/components/mypage/RecentlyVisited.tsx`, `libs/components/member/MemberFollowers.tsx`, `libs/components/member/MemberFollowings.tsx`, `libs/components/member/MemberMenu.tsx`, `pages/mypage/index.tsx`, `pages/member/index.tsx`.
 - Verified with `yarn tsc --noEmit` and `node_modules\.bin\sass scss\pc\main.scss`.
+
+## 2026-06-21 - Frontend TourPackage naming cleanup
+- Renamed remaining package-backed frontend component files, folders, symbols, imports, and SCSS imports from legacy `Property` / `Properties` naming to `TourPackage` / `TourPackages`.
+- Kept compatibility URLs and query categories where needed: `/property`, `/property/detail`, admin `/_admin/properties`, my page `addProperty` / `myProperties`, and member fallback `category=properties`.
+- Updated visible package copy in support/about surfaces and renamed safe component-owned CSS selectors for package cards, homepage package sections, and member package lists.
+- Files included package cards/list/detail components, homepage package sections, my page package components, member package components, admin package list imports, route imports, locales, and package SCSS folders.
+- Verified with `yarn tsc --noEmit`, `node_modules\.bin\sass scss\pc\main.scss`, and `yarn build`.
+- `yarn lint` remains interactive because Next prompts to configure ESLint when run directly; build lint/type validation passed.

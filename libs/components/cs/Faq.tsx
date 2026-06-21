@@ -33,7 +33,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const Faq = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
-	const [category, setCategory] = useState<string>('property');
+	const [category, setCategory] = useState<string>('tourPackage');
 	const [expanded, setExpanded] = useState<string | false>('panel1');
 
 	/** APOLLO REQUESTS **/
@@ -49,21 +49,21 @@ const Faq = () => {
 	};
 
 	const data: any = {
-		property: [
+		tourPackage: [
 			{
 				id: '00f5a45ed8897f8090116a01',
-				subject: 'Are the properties displayed on the site reliable?',
-				content: 'of course we only have verified properties',
+				subject: 'Are the tour packages displayed on the site reliable?',
+				content: 'Yes, TourX works with verified travel agents and curated package information.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a22',
-				subject: 'What types of properties do you offer?',
-				content: 'We offer single-family homes, condos, townhouses, apartments, and penthouses',
+				subject: 'What types of tour packages do you offer?',
+				content: 'We offer adventure trips, cultural tours, family escapes, city breaks, and guided experiences.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a21',
-				subject: 'How can I search for properties on your website?',
-				content: 'Simply use our search bar to enter location, price range, minrooms/bathrooms, and property type.',
+				subject: 'How can I search for tour packages on your website?',
+				content: 'Use the search filters to choose destination, price range, duration, people count, and package type.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a23',
@@ -72,7 +72,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a24',
-				subject: 'What should I consider when buying a property?',
+				subject: 'What should I consider when buying a tourPackage?',
 				content: 'Location, condition, size, amenities, and future development plans.',
 			},
 			{
@@ -82,22 +82,22 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a29',
-				subject: 'What happens if I encounter issues with the property after purchase?',
+				subject: 'What happens if I encounter issues with the tourPackage after purchase?',
 				content: 'We offer post-purchase support to address any concerns promptly.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a28',
-				subject: 'Do you offer properties in specific neighborhoods?',
-				content: 'Yes, we have listings in various neighborhoods based on your preferences.',
+				subject: 'Do you offer tour packages in specific destinations?',
+				content: 'Yes, you can browse packages by country, city, and destination preferences.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a27',
-				subject: 'Can I sell my property through your website?',
-				content: 'Absolutely, we provide services for selling properties as well.',
+				subject: 'Can I sell my tourPackage through your website?',
+				content: 'Travel agents can publish and manage TourX packages from their account.',
 			},
 			{
 				id: '00f5a45ed8897f8090116b99',
-				subject: 'What if I need help understanding legal aspects of property purchase?',
+				subject: 'What if I need help understanding legal aspects of tourPackage purchase?',
 				content: 'Our team can provide basic guidance and recommend legal professionals if needed.',
 			},
 		],
@@ -115,7 +115,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a92',
 				subject: 'Is there an option for installment payments?',
-				content: 'Yes, we offer installment payment plans for certain properties. Please inquire for more details.',
+				content: 'Payment options can vary by travel agent and package. Please inquire for more details.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a93',
@@ -162,17 +162,17 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a03',
 				subject: 'What should buyers pay attention to?',
-				content: 'Buyers should check and decide whether the property they want to buy or rent is actually suitable!',
+				content: 'Buyers should check and decide whether the tourPackage they want to buy or rent is actually suitable!',
 			},
 			{
 				id: '00f5a45ed8897f8090116a85',
-				subject: 'How can I determine if a property is within my budget?',
+				subject: 'How can I determine if a tourPackage is within my budget?',
 				content:
 					'Calculate your budget by considering your income, down payment, and potential mortgage payments. Our agents can assist you within your budget.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a84',
-				subject: 'What documents do I need to provide when purchasing a property?',
+				subject: 'What documents do I need to provide when purchasing a tourPackage?',
 				content:
 					"You'll typically need identification, proof of income, bank statements, and any necessary loan documentation. Our team will guide you through.",
 			},
@@ -184,37 +184,37 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a82',
-				subject: 'Can I negotiate the price of a property?',
+				subject: 'Can I negotiate the price of a tourPackage?',
 				content:
-					'Yes, you can negotiate the price of a property. Our agents will assist you in making competitive offers and negotiating terms with the seller.',
+					'Yes, you can negotiate the price of a tourPackage. Our agents will assist you in making competitive offers and negotiating terms with the seller.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a81',
-				subject: 'What are some red flags to watch out for when viewing properties?',
+				subject: 'What are some red flags to watch out for when choosing tour packages?',
 				content:
 					'Watch out for signs of structural damage, water damage, mold, outdated systems, and undesirable neighborhood conditions.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a80',
-				subject: 'Do you provide assistance with property inspections?',
+				subject: 'Do you provide assistance with tourPackage inspections?',
 				content:
-					'Yes, we can recommend reputable inspectors and accompany you during property inspections to identify any potential issues.',
+					'Yes, we can recommend reputable inspectors and accompany you during tourPackage inspections to identify any potential issues.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a79',
-				subject: 'How long does it typically take to find the right property?',
+				subject: 'How long does it typically take to find the right tourPackage?',
 				content:
-					'The timeframe varies depending on your preferences and market conditions. Our agents will work diligently to find the right property as quickly as possible.',
+					'The timeframe varies depending on your preferences and market conditions. Our agents will work diligently to find the right tourPackage as quickly as possible.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a78',
-				subject: 'What are the advantages of using a real estate agent when buying a property?',
+				subject: 'What are the advantages of using a real estate agent when buying a tourPackage?',
 				content:
 					'Real estate agents provide expertise, negotiation skills, and guidance throughout the buying process, ultimately saving you time and hassle.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a77',
-				subject: 'What happens if I change my mind about a property after making an offer?',
+				subject: 'What happens if I change my mind about a tourPackage after making an offer?',
 				content:
 					'Depending on the terms of the offer and the stage of the transaction, you may have options to withdraw your offer.',
 			},
@@ -239,8 +239,8 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a64',
-				subject: 'What are some effective marketing strategies for selling properties?',
-				content: 'Use social media, online platforms, networking events, and direct mail.',
+				subject: 'What are some effective marketing strategies for tour packages?',
+				content: 'Use quality photos, clear itineraries, social media, destination guides, and traveler reviews.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a65',
@@ -302,7 +302,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a56',
-				subject: 'Do members receive discounts on property listings or services?',
+				subject: 'Do members receive discounts on tourPackage listings or services?',
 				content: 'Membership discounts are not part of our current offerings.',
 			},
 			{
@@ -440,12 +440,12 @@ const Faq = () => {
 			<Stack className={'faq-content'}>
 				<Box className={'categories'} component={'div'}>
 					<div
-						className={category === 'property' ? 'active' : ''}
+						className={category === 'tourPackage' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler('property');
+							changeCategoryHandler('tourPackage');
 						}}
 					>
-						Property
+						Tour Package
 					</div>
 					<div
 						className={category === 'payment' ? 'active' : ''}

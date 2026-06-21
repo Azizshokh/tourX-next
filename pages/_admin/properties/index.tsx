@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { TabContext } from '@mui/lab';
 import TablePagination from '@mui/material/TablePagination';
-import { PropertyPanelList } from '../../../libs/components/admin/properties/PropertyList';
+import { TourPackagePanelList } from '../../../libs/components/admin/tourPackages/TourPackageList';
 import { AllTourPackagesInquiry } from '../../../libs/types/tour-package/tour-package.input';
 import { TourPackage } from '../../../libs/types/tour-package/tour-package';
 import { PackageStatus } from '../../../libs/enums/package.enum';
@@ -20,7 +20,7 @@ import { GET_ALL_TOUR_PACKAGES_BY_ADMIN } from '../../../apollo/admin/query';
 import { REMOVE_TOUR_PACKAGE_BY_ADMIN, UPDATE_TOUR_PACKAGE_BY_ADMIN } from '../../../apollo/admin/mutation';
 import { T } from '../../../libs/types/common';
 
-const AdminProperties: NextPage = ({ initialInquiry }: any) => {
+const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
 	const [tourPackagesInquiry, setTourPackagesInquiry] = useState<AllTourPackagesInquiry>(initialInquiry);
 	const [packages, setPackages] = useState<TourPackage[]>([]);
@@ -193,7 +193,7 @@ const AdminProperties: NextPage = ({ initialInquiry }: any) => {
 							</Stack>
 							<Divider />
 						</Box>
-						<PropertyPanelList
+						<TourPackagePanelList
 							packages={packages}
 							anchorEl={anchorEl}
 							menuIconClickHandler={menuIconClickHandler}
@@ -218,7 +218,7 @@ const AdminProperties: NextPage = ({ initialInquiry }: any) => {
 	);
 };
 
-AdminProperties.defaultProps = {
+AdminTourPackages.defaultProps = {
 	initialInquiry: {
 		page: 1,
 		limit: 10,
@@ -228,4 +228,4 @@ AdminProperties.defaultProps = {
 	},
 };
 
-export default withAdminLayout(AdminProperties);
+export default withAdminLayout(AdminTourPackages);

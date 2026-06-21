@@ -2,54 +2,54 @@ import React from 'react';
 import { Stack, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 
-interface TrendPropertyCardProps {
-	property: Property;
-	likePropertyHandler: any;
+interface TrendTourPackageCardProps {
+	tourPackage: TourPackage;
+	likeTourPackageHandler: any;
 	variant?: 'featured' | 'compact';
 }
 
-const TrendPropertyCard = (props: TrendPropertyCardProps) => {
-	const { property, variant = 'compact' } = props;
+const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
+	const { tourPackage, variant = 'compact' } = props;
 	const router = useRouter();
-	const imageUrl = property?.packageImages?.[0]
-		? `${REACT_APP_API_URL}/${property.packageImages[0]}`
+	const imageUrl = tourPackage?.packageImages?.[0]
+		? `${REACT_APP_API_URL}/${tourPackage.packageImages[0]}`
 		: '/img/banner/TourX%20background.png';
 	const isFeatured = variant === 'featured';
-	const priceLabel = `From $${Number(property?.packagePrice || 0).toLocaleString()}`;
-	const ratingLabel = `${Math.min(5, 4.6 + ((property?.packageRank || 0) % 4) / 10).toFixed(1)} Rating`;
-	const toursCount = Math.max(property?.packageViews || 0, 24);
+	const priceLabel = `From $${Number(tourPackage?.packagePrice || 0).toLocaleString()}`;
+	const ratingLabel = `${Math.min(5, 4.6 + ((tourPackage?.packageRank || 0) % 4) / 10).toFixed(1)} Rating`;
+	const toursCount = Math.max(tourPackage?.packageViews || 0, 24);
 	const toursLabel = isFeatured ? `${toursCount}+ Tours Available` : `${toursCount}+ Tours`;
 
 	/** HANDLERS **/
-	const pushDetailHandler = async (propertyId: string) => {
-		console.log('ID:', propertyId);
+	const pushDetailHandler = async (tourPackageId: string) => {
+		console.log('ID:', tourPackageId);
 		await router.push({
 			pathname: '/tour-package/detail',
-			query: { id: propertyId },
+			query: { id: tourPackageId },
 		});
 	};
 
 	return (
 		<Stack
 			className={`trend-card-box ${variant}`}
-			key={property._id}
+			key={tourPackage._id}
 			onClick={() => {
-				pushDetailHandler(property._id);
+				pushDetailHandler(tourPackage._id);
 			}}
 		>
 			<span className={'trend-card-media'} style={{ backgroundImage: `url(${imageUrl})` }} />
 			<span className={'trend-card-overlay'} />
-			<span className={'trend-card-chip'}>{property.packageTitle || 'Signature Escape'}</span>
+			<span className={'trend-card-chip'}>{tourPackage.packageTitle || 'Signature Escape'}</span>
 			<Box component={'div'} className={'trend-card-content'}>
 				<div className={'trend-card-topline'}>
-					<span>{property.packageType}</span>
+					<span>{tourPackage.packageType}</span>
 					{!isFeatured && <strong>{priceLabel}</strong>}
 				</div>
-				<h3>{property.packageTitle}</h3>
+				<h3>{tourPackage.packageTitle}</h3>
 				<div className={'trend-card-meta'}>
 					{isFeatured ? (
 						<>
@@ -70,14 +70,14 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					)}
 				</div>
 				<p>
-					{property.packageDesc || property.packageAddress || 'Curated travel experience with trusted TourX experts.'}
+					{tourPackage.packageDesc || tourPackage.packageAddress || 'Curated travel experience with trusted TourX experts.'}
 				</p>
 				<div className={'trend-card-actions'}>
 					<button
 						type="button"
 						onClick={(event) => {
 							event.stopPropagation();
-							pushDetailHandler(property._id);
+							pushDetailHandler(tourPackage._id);
 						}}
 					>
 						{isFeatured ? 'Explore Now' : 'Explore'}
@@ -89,4 +89,4 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 	);
 };
 
-export default TrendPropertyCard;
+export default TrendTourPackageCard;

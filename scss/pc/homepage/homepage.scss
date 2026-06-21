@@ -137,7 +137,7 @@
 			}
 		}
 
-		.trend-properties {
+		.trend-tour-packages {
 			padding: 108px 0px 76px;
 			width: 100%;
 			height: 697px;
@@ -161,13 +161,13 @@
 						align-items: center;
 					}
 
-					.trend-property-swiper {
+					.trend-tour-package-swiper {
 						width: 100%;
 						height: 400px;
 						display: flex;
 						flex-direction: row;
 
-						.trend-property-slide {
+						.trend-tour-package-slide {
 							width: auto;
 							height: auto;
 							display: flex;
@@ -323,7 +323,7 @@
 			}
 		}
 
-		.popular-properties {
+		.popular-tour-packages {
 			padding: 132px 0px 94px;
 			width: 100%;
 			height: 816px;
@@ -343,13 +343,13 @@
 					flex-direction: row;
 					justify-content: space-between;
 
-					.popular-property-swiper {
+					.popular-tour-package-swiper {
 						width: 100%;
 						height: 425px;
 						display: flex;
 						flex-direction: row;
 
-						.popular-property-slide {
+						.popular-tour-package-slide {
 							width: auto;
 							height: auto;
 							display: flex;
@@ -561,7 +561,7 @@
 			box-shadow: -3px 0px 20px 14px #34343480;
 		}
 
-		.top-properties {
+		.top-tour-packages {
 			padding: 108px 0px 76px;
 			width: 100%;
 			height: 697px;
@@ -577,13 +577,13 @@
 					display: flex;
 					flex-direction: row;
 
-					.top-property-swiper {
+					.top-tour-package-swiper {
 						width: 100%;
 						height: 400px;
 						display: flex;
 						flex-direction: row;
 
-						.top-property-slide {
+						.top-tour-package-slide {
 							width: auto;
 							height: auto;
 							display: flex;
@@ -1180,8 +1180,8 @@
 			}
 		}
 
-		.trend-properties,
-		.top-properties {
+		.trend-tour-packages,
+		.top-tour-packages {
 			padding: 80px 0;
 			height: auto;
 
@@ -1189,8 +1189,8 @@
 				.card-box {
 					margin-top: 34px;
 
-					.trend-property-swiper,
-					.top-property-swiper {
+					.trend-tour-package-swiper,
+					.top-tour-package-swiper {
 						height: 470px;
 					}
 				}
@@ -1598,7 +1598,7 @@
 			}
 		}
 
-		.popular-properties {
+		.popular-tour-packages {
 			padding: 86px 0 80px;
 			height: auto;
 			background: linear-gradient(180deg, #ffffff 0%, #f1f8ff 100%);
@@ -1607,12 +1607,12 @@
 				.card-box {
 					margin-top: 34px;
 
-					.popular-property-swiper {
+					.popular-tour-package-swiper {
 						height: 420px;
 						padding: 10px 4px 30px;
 					}
 
-					.popular-property-slide {
+					.popular-tour-package-slide {
 						width: 260px !important;
 					}
 
@@ -2038,7 +2038,7 @@
 	.home-page {
 		background: #fbf9f8;
 
-		.trend-properties {
+		.trend-tour-packages {
 			padding: 88px 0 84px;
 			height: auto;
 			background: #ffffff;
@@ -2701,7 +2701,7 @@
 @media (max-width: 1024px) {
 	#pc-wrap {
 		.home-page {
-			.trend-properties {
+			.trend-tour-packages {
 				.trend-feature-grid {
 					height: 520px;
 					gap: 18px;
@@ -2724,7 +2724,7 @@
 @media (max-width: 768px) {
 	#pc-wrap {
 		.home-page {
-			.trend-properties {
+			.trend-tour-packages {
 				.trend-feature-grid {
 					display: flex;
 					flex-direction: column;
@@ -2739,7 +2739,7 @@
 				}
 			}
 
-			.top-properties {
+			.top-tour-packages {
 				.topbento-grid {
 					display: flex;
 					flex-direction: column;
@@ -2753,7 +2753,7 @@
 				}
 			}
 
-			.trend-properties {
+			.trend-tour-packages {
 				.topbento-grid {
 					display: flex;
 					flex-direction: column;
@@ -2783,7 +2783,7 @@
 
 #pc-wrap {
 	.home-page {
-		.trend-properties {
+		.trend-tour-packages {
 			padding: 34px 0 52px;
 			background: #ffffff;
 

@@ -9,6 +9,6 @@ export const getServerSideProps: GetServerSideProps = async ({ resolvedUrl }) =>
 	};
 };
 
-export default function PropertyDetailRedirect() {
+export default function TourPackageDetailRedirect() {
 	return null;
 }

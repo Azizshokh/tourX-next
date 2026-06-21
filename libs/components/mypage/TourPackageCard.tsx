@@ -9,37 +9,37 @@ import ImageSearchRoundedIcon from '@mui/icons-material/ImageSearchRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { formatterStr } from '../../utils';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
 import { PackageStatus } from '../../enums/package.enum';
 
-interface PropertyCardProps {
-	property: Property;
-	deletePropertyHandler?: any;
+interface TourPackageCardProps {
+	tourPackage: TourPackage;
+	deleteTourPackageHandler?: any;
 	memberPage?: boolean;
 	updateTourPackageHandler?: any;
 }
 
-export const PropertyCard = (props: PropertyCardProps) => {
-	const { property, deletePropertyHandler, memberPage, updateTourPackageHandler } = props;
+export const TourPackageCard = (props: TourPackageCardProps) => {
+	const { tourPackage, deleteTourPackageHandler, memberPage, updateTourPackageHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
-	const packageImage = property.packageImages?.[0];
+	const packageImage = tourPackage.packageImages?.[0];
 
 	/** HANDLERS **/
-	const pushEditProperty = async (id: string) => {
-		console.log('+pushEditProperty: ', id);
+	const pushEditTourPackage = async (id: string) => {
+		console.log('+pushEditTourPackage: ', id);
 		await router.push({
 			pathname: '/mypage',
-			query: { category: 'addProperty', packageId: id },
+			query: { category: 'addTourPackage', packageId: id },
 		});
 	};
 
-	const pushPropertyDetail = async (id: string) => {
+	const pushTourPackageDetail = async (id: string) => {
 		if (memberPage)
 			await router.push({
 				pathname: '/tour-package/detail',
@@ -60,56 +60,56 @@ export const PropertyCard = (props: PropertyCardProps) => {
 		return <div>MOBILE PACKAGE CARD</div>;
 	} else
 		return (
-			<Stack className="property-card-box">
-				<Stack className="image-box" onClick={() => pushPropertyDetail(property?._id)}>
+			<Stack className="tour-package-card-box">
+				<Stack className="image-box" onClick={() => pushTourPackageDetail(tourPackage?._id)}>
 					{packageImage ? (
-						<img src={`${process.env.REACT_APP_API_URL}/${packageImage}`} alt={property.packageTitle} />
+						<img src={`${process.env.REACT_APP_API_URL}/${packageImage}`} alt={tourPackage.packageTitle} />
 					) : (
 						<Stack className="empty-card-image">
 							<ImageSearchRoundedIcon />
 						</Stack>
 					)}
 					<Stack className="image-badge">
-						<Typography>{property.packageType}</Typography>
+						<Typography>{tourPackage.packageType}</Typography>
 					</Stack>
 				</Stack>
-				<Stack className="information-box" onClick={() => pushPropertyDetail(property?._id)}>
-					<Typography className="name">{property.packageTitle}</Typography>
+				<Stack className="information-box" onClick={() => pushTourPackageDetail(tourPackage?._id)}>
+					<Typography className="name">{tourPackage.packageTitle}</Typography>
 					<Stack className="destination-row">
 						<LocationOnRoundedIcon />
 						<Typography className="address">
-							{property.packageCity}, {property.packageCountry}
+							{tourPackage.packageCity}, {tourPackage.packageCountry}
 						</Typography>
 					</Stack>
 					<Stack className="meta-row">
 						<Stack className="meta-chip">
 							<CalendarMonthRoundedIcon />
-							<Typography>{property.durationDays} days</Typography>
+							<Typography>{tourPackage.durationDays} days</Typography>
 						</Stack>
 						<Stack className="meta-chip">
 							<GroupsRoundedIcon />
 							<Typography>
-								{property.minPeople}-{property.maxPeople} people
+								{tourPackage.minPeople}-{tourPackage.maxPeople} people
 							</Typography>
 						</Stack>
 					</Stack>
 					<Typography className="price">
-						From <strong>{property.packageCurrency || '$'} {formatterStr(property?.packagePrice)}</strong>
+						From <strong>{tourPackage.packageCurrency || '$'} {formatterStr(tourPackage?.packagePrice)}</strong>
 					</Typography>
 				</Stack>
 				<Stack className="date-box">
 					<Typography className="date">
-						<Moment format="DD MMMM, YYYY">{property.createdAt}</Moment>
+						<Moment format="DD MMMM, YYYY">{tourPackage.createdAt}</Moment>
 					</Typography>
 				</Stack>
-				<Stack className={`status-box ${property.packageStatus === PackageStatus.CLOSED ? 'closed-status-box' : 'active-status-box'}`}>
+				<Stack className={`status-box ${tourPackage.packageStatus === PackageStatus.CLOSED ? 'closed-status-box' : 'active-status-box'}`}>
 					<Stack className="coloured-box" sx={{ background: '#E5F0FD' }} onClick={handleClick}>
 						<Typography className="status" sx={{ color: '#3554d1' }}>
-							{property.packageStatus}
+							{tourPackage.packageStatus}
 						</Typography>
 					</Stack>
 				</Stack>
-				{!memberPage && property.packageStatus !== PackageStatus.CLOSED && (
+				{!memberPage && tourPackage.packageStatus !== PackageStatus.CLOSED && (
 					<Menu
 						anchorEl={anchorEl}
 						open={open}
@@ -130,13 +130,13 @@ export const PropertyCard = (props: PropertyCardProps) => {
 							},
 						}}
 					>
-						{property.packageStatus === PackageStatus.ACTIVE && (
+						{tourPackage.packageStatus === PackageStatus.ACTIVE && (
 							<>
 								<MenuItem
 									disableRipple
 									onClick={() => {
 										handleClose();
-										updateTourPackageHandler(PackageStatus.CLOSED, property?._id);
+										updateTourPackageHandler(PackageStatus.CLOSED, tourPackage?._id);
 									}}
 								>
 									Close
@@ -148,14 +148,14 @@ export const PropertyCard = (props: PropertyCardProps) => {
 
 				<Stack className="views-box">
 					<VisibilityRoundedIcon />
-					<Typography className="views">{property.packageViews.toLocaleString()}</Typography>
+					<Typography className="views">{tourPackage.packageViews.toLocaleString()}</Typography>
 				</Stack>
-				{!memberPage && property.packageStatus === PackageStatus.ACTIVE && (
+				{!memberPage && tourPackage.packageStatus === PackageStatus.ACTIVE && (
 					<Stack className="action-box">
-						<IconButton className="icon-button" onClick={() => pushEditProperty(property._id)}>
+						<IconButton className="icon-button" onClick={() => pushEditTourPackage(tourPackage._id)}>
 							<EditRoundedIcon className="buttons" />
 						</IconButton>
-						<IconButton className="icon-button" onClick={() => deletePropertyHandler(property._id)}>
+						<IconButton className="icon-button" onClick={() => deleteTourPackageHandler(tourPackage._id)}>
 							<DeleteIcon className="buttons" />
 						</IconButton>
 					</Stack>

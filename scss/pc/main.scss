@@ -4,14 +4,14 @@
 
 @import './homepage/homepage.scss';
 
-@import './property/property.scss';
-@import './property/detail.scss';
+@import './tourPackage/tourPackage.scss';
+@import './tourPackage/detail.scss';
 
 @import './agent/agent.scss';
 @import './agent/detail.scss';
 @import './mypage/mypage.scss';
-@import './mypage/addNewProperty.scss';
-@import './mypage/myProperties.scss';
+@import './mypage/addNewTourPackage.scss';
+@import './mypage/myTourPackages.scss';
 @import './mypage/myFavorites.scss';
 @import './mypage/mySaved.scss';
 @import './mypage/myProfile.scss';
@@ -31,7 +31,7 @@
 @import './member/memberPage.scss';
 @import './member/memberFollows.scss';
 @import './member/memberArticles.scss';
-@import './member/memberProperties.scss';
+@import './member/memberTourPackages.scss';
 
 body {
 	-ms-overflow-style: none;

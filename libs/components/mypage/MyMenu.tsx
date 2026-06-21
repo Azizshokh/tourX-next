@@ -31,20 +31,26 @@ interface MenuItemConfig {
 const MyMenu = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
-	const activeCategory: string = (router.query.category as string) ?? 'myProfile';
+	const queryCategory = (router.query.category as string) ?? 'myProfile';
+	const activeCategory: string =
+		queryCategory === 'addProperty'
+			? 'addTourPackage'
+			: queryCategory === 'myProperties'
+			? 'myTourPackages'
+			: queryCategory;
 	const user = useReactiveVar(userVar);
 
 	const travelItems: MenuItemConfig[] = [
 		...(user.memberType === 'AGENT'
 			? [
 					{
-						category: 'addProperty',
+						category: 'addTourPackage',
 						label: 'Add Package',
 						icon: <AddLocationAltRoundedIcon />,
 						accent: '#ff8a00',
 					},
 					{
-						category: 'myProperties',
+						category: 'myTourPackages',
 						label: 'My Packages',
 						icon: <LuggageRoundedIcon />,
 						accent: '#1f8f62',

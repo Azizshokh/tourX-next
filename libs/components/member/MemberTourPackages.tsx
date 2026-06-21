@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from '../mypage/PropertyCard';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackageCard } from '../mypage/TourPackageCard';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { T } from '../../types/common';
 import { useRouter } from 'next/router';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 
-const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
+const MemberTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const { memberId } = router.query;
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>({ ...initialInput });
-	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
+	const [agentTourPackages, setAgentTourPackages] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 
 	/** APOLLO REQUESTS **/
@@ -30,7 +30,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		skip: !searchFilter?.search?.memberId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getTourPackages?.list);
+			setAgentTourPackages(data?.getTourPackages?.list);
 			setTotal(data?.getTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
@@ -54,15 +54,15 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		return <div>MEMBER PACKAGES MOBILE</div>;
 	} else {
 		return (
-			<div id="member-properties-page">
+			<div id="member-tour-packages-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
 						<Typography className="main-title">Packages</Typography>
 					</Stack>
 				</Stack>
-				<Stack className="properties-list-box">
+				<Stack className="tour-packages-list-box">
 					<Stack className="list-box">
-						{agentProperties?.length > 0 && (
+						{agentTourPackages?.length > 0 && (
 							<Stack className="listing-title-box">
 								<Typography className="title-text">Listing title</Typography>
 								<Typography className="title-text">Date Published</Typography>
@@ -70,17 +70,17 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 								<Typography className="title-text">View</Typography>
 							</Stack>
 						)}
-						{agentProperties?.length === 0 && (
+						{agentTourPackages?.length === 0 && (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
 								<p>No package found!</p>
 							</div>
 						)}
-						{agentProperties?.map((property: Property) => {
-							return <PropertyCard property={property} memberPage={true} key={property?._id} />;
+						{agentTourPackages?.map((tourPackage: TourPackage) => {
+							return <TourPackageCard tourPackage={tourPackage} memberPage={true} key={tourPackage?._id} />;
 						})}
 
-						{agentProperties.length !== 0 && (
+						{agentTourPackages.length !== 0 && (
 							<Stack className="pagination-config">
 								<Stack className="pagination-box">
 									<Pagination
@@ -103,7 +103,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	}
 };
 
-MyProperties.defaultProps = {
+MemberTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 5,
@@ -114,4 +114,4 @@ MyProperties.defaultProps = {
 	},
 };
 
-export default MyProperties;
+export default MemberTourPackages;

@@ -19,7 +19,7 @@ import { CREATE_TOUR_PACKAGE, UPDATE_TOUR_PACKAGE } from '../../../apollo/user/m
 
 const MAX_PACKAGE_IMAGES = 5;
 
-const AddProperty = ({ initialValues, ...props }: any) => {
+const AddTourPackage = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const inputRef = useRef<any>(null);
@@ -27,7 +27,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
-	const packageId = router.query.packageId ?? router.query.propertyId;
+	const packageId = router.query.packageId;
 
 	const [createTourPackage] = useMutation(CREATE_TOUR_PACKAGE);
 	const [updateTourPackage] = useMutation(UPDATE_TOUR_PACKAGE);
@@ -197,7 +197,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			});
 
 			await sweetMixinSuccessAlert('This package has been created successfully.');
-			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
+			await router.push({ pathname: '/mypage', query: { category: 'myTourPackages' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		} finally {
@@ -221,7 +221,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			});
 
 			await sweetMixinSuccessAlert('This package has been updated successfully.');
-			await router.push({ pathname: '/mypage', query: { category: 'myProperties' } });
+			await router.push({ pathname: '/mypage', query: { category: 'myTourPackages' } });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		} finally {
@@ -236,7 +236,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	}
 
 	return (
-		<div id="add-property-page">
+		<div id="add-tour-package-page">
 			<Stack className="main-title-box">
 				<Typography className="main-title">{packageId ? 'Edit Tour Package' : 'Add Tour Package'}</Typography>
 				<Typography className="sub-title">Manage your travel package listing.</Typography>
@@ -430,7 +430,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 						))}
 					</Stack>
 
-					<Typography className="property-title">Package Description</Typography>
+					<Typography className="tour-package-title">Package Description</Typography>
 					<Stack className="config-column">
 						<Typography className="title">Description</Typography>
 						<textarea
@@ -521,7 +521,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	);
 };
 
-AddProperty.defaultProps = {
+AddTourPackage.defaultProps = {
 	initialValues: {
 		packageTitle: '',
 		packagePrice: 0,
@@ -543,4 +543,4 @@ AddProperty.defaultProps = {
 	},
 };
 
-export default AddProperty;
+export default AddTourPackage;

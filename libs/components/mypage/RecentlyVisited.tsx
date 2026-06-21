@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
-import PropertyCard from '../property/PropertyCard';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import TourPackageCard from '../tourPackage/TourPackageCard';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { T } from '../../types/common';
 import { GET_VISITED_TOURS } from '../../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
@@ -13,7 +13,7 @@ import { Message } from '../../enums/common.enum';
 
 const RecentlyVisited: NextPage = () => {
 	const device = useDeviceDetect();
-	const [recentlyVisited, setRecentlyVisited] = useState<Property[]>([]);
+	const [recentlyVisited, setRecentlyVisited] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchVisited, setSearchVisited] = useState<T>({ page: 1, limit: 6 });
 
@@ -41,7 +41,7 @@ const RecentlyVisited: NextPage = () => {
 		setSearchVisited({ ...searchVisited, page: value });
 	};
 
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeTourPackageHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
@@ -53,13 +53,13 @@ const RecentlyVisited: NextPage = () => {
 			});
 			await getVisitedToursRefetch({ input: searchVisited });
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR RECENTLY VISITED MOBILE</div>;
+		return <div>RECENTLY VIEWED MOBILE</div>;
 	} else {
 		return (
 			<div id="recently-visited-page">
@@ -71,8 +71,8 @@ const RecentlyVisited: NextPage = () => {
 				</Stack>
 				<Stack className="favorites-list-box">
 					{recentlyVisited?.length ? (
-						recentlyVisited?.map((property: Property) => {
-							return <PropertyCard key={property?._id} property={property} likePropertyHandler={likePropertyHandler} />;
+						recentlyVisited?.map((tourPackage: TourPackage) => {
+							return <TourPackageCard key={tourPackage?._id} tourPackage={tourPackage} likeTourPackageHandler={likeTourPackageHandler} />;
 						})
 					) : (
 						<div className={'no-data'}>

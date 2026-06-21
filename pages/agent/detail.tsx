@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
+import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
 import ReviewCard from '../../libs/components/agent/ReviewCard';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
@@ -22,7 +22,7 @@ import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { TourPackage as Property } from '../../libs/types/tour-package/tour-package';
+import { TourPackage } from '../../libs/types/tour-package/tour-package';
 import { Member } from '../../libs/types/member/member';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { userVar } from '../../apollo/store';
@@ -58,8 +58,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const [agentId, setAgentId] = useState<string | null>(null);
 	const [agent, setAgent] = useState<Member | null>(null);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(initialInput);
-	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
-	const [propertyTotal, setPropertyTotal] = useState<number>(0);
+	const [agentTourPackages, setAgentTourPackages] = useState<TourPackage[]>([]);
+	const [tourPackagesTotal, setTourPackagesTotal] = useState<number>(0);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [agentComments, setAgentComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
@@ -119,8 +119,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		skip: !searchFilter.search.memberId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setAgentProperties(data?.getTourPackages?.list);
-			setPropertyTotal(data?.getTourPackages?.metaCounter[0]?.total ?? 0);
+			setAgentTourPackages(data?.getTourPackages?.list);
+			setTourPackagesTotal(data?.getTourPackages?.metaCounter[0]?.total ?? 0);
 		},
 	});
 
@@ -172,7 +172,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		}
 	};
 
-	const propertyPaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
+	const tourPackagePaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
 		searchFilter.page = value;
 		setSearchFilter({ ...searchFilter });
 	};
@@ -307,7 +307,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		}
 	};
 
-	const likePropertyHandler = async (user: any, id: string) => {
+	const likeTourPackageHandler = async (user: any, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Messages.error2);
@@ -319,7 +319,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			await getTourPackagesRefetch({ input: searchFilter });
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
@@ -433,38 +433,38 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 					</Stack>
 					<Stack className={'agent-home-list'}>
 						<Stack className={'card-wrap'}>
-							{agentProperties.map((property: Property) => {
+							{agentTourPackages.map((tourPackage: TourPackage) => {
 								return (
-									<div className={'wrap-main'} key={property?._id}>
-										<PropertyBigCard
-											property={property}
-											likePropertyHandler={likePropertyHandler}
-											key={property?._id}
+									<div className={'wrap-main'} key={tourPackage?._id}>
+										<TourPackageBigCard
+											tourPackage={tourPackage}
+											likeTourPackageHandler={likeTourPackageHandler}
+											key={tourPackage?._id}
 										/>
 									</div>
 								);
 							})}
 						</Stack>
 						<Stack className={'pagination'}>
-							{propertyTotal ? (
+							{tourPackagesTotal ? (
 								<>
 									<Stack className="pagination-box">
 										<Pagination
 											page={searchFilter.page}
-											count={Math.ceil(propertyTotal / searchFilter.limit) || 1}
-											onChange={propertyPaginationChangeHandler}
+											count={Math.ceil(tourPackagesTotal / searchFilter.limit) || 1}
+											onChange={tourPackagePaginationChangeHandler}
 											shape="circular"
 											color="primary"
 										/>
 									</Stack>
 									<span>
-										Total {propertyTotal} propert{propertyTotal > 1 ? 'ies' : 'y'} available
+										Total {tourPackagesTotal} package{tourPackagesTotal > 1 ? 's' : ''} available
 									</span>
 								</>
 							) : (
 								<div className={'no-data'}>
 									<img src="/img/icons/icoAlert.svg" alt="" />
-									<p>No properties found!</p>
+									<p>No tour packages found!</p>
 								</div>
 							)}
 						</Stack>

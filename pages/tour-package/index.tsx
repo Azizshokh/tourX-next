@@ -5,8 +5,8 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useMutation, useQuery } from '@apollo/client';
-import PropertyCard from '../../libs/components/property/PropertyCard';
-import Filter from '../../libs/components/property/Filter';
+import TourPackageCard from '../../libs/components/tourPackage/TourPackageCard';
+import Filter from '../../libs/components/tourPackage/Filter';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { TourPackagesInquiry } from '../../libs/types/tour-package/tour-package.input';
@@ -155,9 +155,9 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	return (
-		<div id="property-list-page">
+		<div id="tour-package-list-page">
 			<div className="container">
-				<Stack direction="row" className="property-page">
+				<Stack direction="row" className="tour-package-page">
 					{/* Sidebar */}
 					<Stack className="filter-config">
 						<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
@@ -226,9 +226,9 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 								</Box>
 							) : (
 								tourPackages.slice(0, PACKAGE_LIST_LIMIT).map((tourPackage: TourPackage) => (
-									<PropertyCard
-										property={tourPackage}
-										likePropertyHandler={likePackageHandler}
+									<TourPackageCard
+										tourPackage={tourPackage}
+										likeTourPackageHandler={likePackageHandler}
 										key={tourPackage?._id}
 									/>
 								))

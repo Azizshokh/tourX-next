@@ -86,7 +86,7 @@ const headCells: readonly HeadCell[] = [
 
 interface EnhancedTableProps {
 	numSelected: number;
-	onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+	onRequestSort: (event: React.MouseEvent<unknown>, tourPackage: keyof Data) => void;
 	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	order: Order;
 	orderBy: string;
@@ -111,7 +111,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 	);
 }
 
-interface PropertyPanelListType {
+interface TourPackagePanelListType {
 	packages: TourPackage[];
 	anchorEl: any;
 	menuIconClickHandler: any;
@@ -120,7 +120,7 @@ interface PropertyPanelListType {
 	removePackageHandler: any;
 }
 
-export const PropertyPanelList = (props: PropertyPanelListType) => {
+export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 	const {
 		packages,
 		anchorEl,

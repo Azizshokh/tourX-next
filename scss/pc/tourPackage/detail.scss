@@ -1,5 +1,5 @@
-﻿#pc-wrap {
-	#property-detail-page {
+#pc-wrap {
+	#tour-package-detail-page {
 		position: relative;
 		padding-top: 56px;
 		padding-bottom: 120px;
@@ -7,7 +7,7 @@
 		font-family: 'Plus Jakarta Sans', $font;
 		color: #0d1c32;
 
-		.property-detail-config {
+		.tour-package-detail-config {
 			width: min(1280px, 100%);
 			margin: 0 auto;
 			padding: 0 32px;
@@ -16,7 +16,7 @@
 			/* ============================================================
 			   HERO + INFO HEADER
 			   ============================================================ */
-			.property-info-config {
+			.tour-package-info-config {
 				width: 100%;
 				gap: 32px;
 
@@ -222,7 +222,7 @@
 			/* ============================================================
 			   DESCRIPTION + SIDEBAR LAYOUT
 			   ============================================================ */
-			.property-desc-config {
+			.tour-package-desc-config {
 				width: 100%;
 				flex-direction: row;
 				align-items: flex-start;
@@ -564,7 +564,7 @@
 			/* ============================================================
 			   RELATED PACKAGES
 			   ============================================================ */
-			.similar-properties-config {
+			.similar-tour-packages-config {
 				width: 100%;
 				gap: 28px;
 				padding-top: 48px;
@@ -608,13 +608,13 @@
 }
 
 #pc-wrap {
-	#property-detail-page {
+	#tour-package-detail-page {
 		padding: 34px 0 76px;
 		background: #fffdfb;
 		color: #111827;
 		top: 75px;
 
-		.property-detail-config {
+		.tour-package-detail-config {
 			width: min(1120px, 100%);
 			padding: 0 24px;
 			gap: 42px;
@@ -654,7 +654,7 @@
 			gap: 34px;
 		}
 
-		.property-info-config {
+		.tour-package-info-config {
 			gap: 18px;
 
 			.info {
@@ -850,7 +850,7 @@
 			}
 		}
 
-		.property-desc-config {
+		.tour-package-desc-config {
 			width: 100%;
 			display: block;
 		}
@@ -1221,7 +1221,7 @@
 			}
 		}
 
-		.similar-properties-config {
+		.similar-tour-packages-config {
 			width: 100%;
 			gap: 31px;
 			padding-top: 48px;
@@ -1261,7 +1261,7 @@
 					width: 100%;
 				}
 
-				.property-big-card-box {
+				.tour-package-big-card-box {
 					width: 100%;
 					height: auto;
 					margin: 0;
@@ -1368,13 +1368,13 @@
 
 @media (max-width: 1180px) {
 	#pc-wrap {
-		#property-detail-page {
+		#tour-package-detail-page {
 			.detail-main-grid {
 				grid-template-columns: minmax(0, 1fr) 280px;
 				gap: 22px;
 			}
 
-			.property-info-config .images {
+			.tour-package-info-config .images {
 				height: 300px;
 			}
 		}

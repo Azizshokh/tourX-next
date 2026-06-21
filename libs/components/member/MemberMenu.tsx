@@ -19,6 +19,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const category: any = router.query?.category;
+	const activeCategory = category === 'properties' ? 'tourPackages' : category;
 	const [member, setMember] = useState<Member | null>(null);
 	const { memberId } = router.query;
 
@@ -88,17 +89,17 @@ const MemberMenu = (props: MemberMenuProps) => {
 						</Typography>
 						<List className={'sub-section'}>
 							{member?.memberType === 'AGENT' && (
-								<ListItem className={category === 'properties' ? 'focus' : ''}>
+								<ListItem className={activeCategory === 'tourPackages' ? 'focus' : ''}>
 									<Link
 										href={{
 											pathname: '/member',
-											query: { ...router.query, category: 'properties' },
+											query: { ...router.query, category: 'tourPackages' },
 										}}
 										scroll={false}
 										style={{ width: '100%' }}
 									>
 										<div className={'flex-box'}>
-											{category === 'properties' ? (
+											{activeCategory === 'tourPackages' ? (
 												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 											) : (
 												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />

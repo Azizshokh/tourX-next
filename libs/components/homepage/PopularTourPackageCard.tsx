@@ -2,29 +2,29 @@ import React from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { TourPackage as Property } from '../../types/tour-package/tour-package';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { REACT_APP_API_URL, topPackageRank } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 
-interface PopularPropertyCardProps {
-	property: Property;
+interface PopularTourPackageCardProps {
+	tourPackage: TourPackage;
 }
 
-const PopularPropertyCard = (props: PopularPropertyCardProps) => {
-	const { property } = props;
+const PopularTourPackageCard = (props: PopularTourPackageCardProps) => {
+	const { tourPackage } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
-	const pushDetailHandler = async (propertyId: string) => {
-		console.log('ID:', propertyId);
+	const pushDetailHandler = async (tourPackageId: string) => {
+		console.log('ID:', tourPackageId);
 		await router.push({
 			pathname: '/tour-package/detail',
-			query: { id: propertyId },
+			query: { id: tourPackageId },
 		});
 	};
 
@@ -34,12 +34,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages[0]})` }}
 					onClick={() => {
-						pushDetailHandler(property._id);
+						pushDetailHandler(tourPackage._id);
 					}}
 				>
-					{property && property?.packageRank >= topPackageRank ? (
+					{tourPackage && tourPackage?.packageRank >= topPackageRank ? (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
@@ -48,73 +48,73 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 						''
 					)}
 
-					<div className={'price'}>${property.packagePrice}</div>
-					<span className={'rating-badge'}>{property.packageViews || 0} views</span>
+					<div className={'price'}>${tourPackage.packagePrice}</div>
+					<span className={'rating-badge'}>{tourPackage.packageViews || 0} views</span>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<div className={'meta-row'}>
-						<span>{property.packageCountry || 'Popular destination'}</span>
-						<em>{property.packageType}</em>
+						<span>{tourPackage.packageCountry || 'Popular destination'}</span>
+						<em>{tourPackage.packageType}</em>
 					</div>
 					<strong
 						className={'title'}
 						onClick={() => {
-							pushDetailHandler(property._id);
+							pushDetailHandler(tourPackage._id);
 						}}
 					>
-						{property.packageTitle}
+						{tourPackage.packageTitle}
 					</strong>
-					<p className={'desc'}>{property.packageAddress}</p>
+					<p className={'desc'}>{tourPackage.packageAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.minPeople} min</span>
+							<span>{tourPackage?.minPeople} min</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.maxPeople} max</span>
+							<span>{tourPackage?.maxPeople} max</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.durationDays} days</span>
+							<span>{tourPackage?.durationDays} days</span>
 						</div>
 					</div>
 					<div className={'trust-row'}>
-						<span>{property.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{property.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{property.flightIncluded ? 'Flight' : 'Local pickup'}</span>
+						<span>{tourPackage.guideIncluded ? 'Guide' : 'Self guided'}</span>
+						<span>{tourPackage.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
+						<span>{tourPackage.flightIncluded ? 'Flight' : 'Local pickup'}</span>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>{property?.hotelIncluded ? 'Hotel' : 'package'}</p>
+						<p>{tourPackage?.hotelIncluded ? 'Hotel' : 'package'}</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
-							<Typography className="view-cnt">{property?.packageViews}</Typography>
+							<Typography className="view-cnt">{tourPackage?.packageViews}</Typography>
 						</div>
 					</div>
 				</Box>
 			</Stack>
 		);
 	} else {
-		const destinationName = property?.packageCountry || property?.packageTitle || 'Destination';
-		const toursCount = Math.max(20, Math.round((property?.packageViews || 100) / 10) * 10);
+		const destinationName = tourPackage?.packageCountry || tourPackage?.packageTitle || 'Destination';
+		const toursCount = Math.max(20, Math.round((tourPackage?.packageViews || 100) / 10) * 10);
 
 		return (
 			<Stack
 				className="popular-card-box"
 				onClick={() => {
-					pushDetailHandler(property._id);
+					pushDetailHandler(tourPackage._id);
 				}}
 			>
 				<span
 					className={'card-media'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.packageImages[0]})` }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages[0]})` }}
 				/>
 				<span className={'card-shade'} />
 
-				{property && property?.packageRank >= topPackageRank && (
+				{tourPackage && tourPackage?.packageRank >= topPackageRank && (
 					<div className={'card-top-badge'}>
 						<img src="/img/icons/electricity.svg" alt="" />
 						<span>Top</span>
@@ -128,18 +128,18 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 
 				<div className={'card-hover'}>
 					<div className={'hover-meta'}>
-						<span className={'price'}>From ${property?.packagePrice}</span>
+						<span className={'price'}>From ${tourPackage?.packagePrice}</span>
 						<span className={'dot'}>•</span>
-						<span className={'duration'}>{property?.durationDays} days</span>
+						<span className={'duration'}>{tourPackage?.durationDays} days</span>
 					</div>
-					<p className={'hover-title'}>{property?.packageTitle}</p>
+					<p className={'hover-title'}>{tourPackage?.packageTitle}</p>
 					<div className={'hover-cta'}>
 						<span>Explore Tours</span>
 						<div className={'view-like-box'}>
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
-							<Typography className="view-cnt">{property?.packageViews}</Typography>
+							<Typography className="view-cnt">{tourPackage?.packageViews}</Typography>
 						</div>
 					</div>
 				</div>
@@ -148,4 +148,4 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	}
 };
 
-export default PopularPropertyCard;
+export default PopularTourPackageCard;

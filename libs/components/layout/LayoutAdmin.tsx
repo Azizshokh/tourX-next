@@ -13,6 +13,12 @@ import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import Chip from '@mui/material/Chip';
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import { getJwtToken, logOut, updateUserInfo } from '../../auth';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -62,6 +68,20 @@ const withAdminLayout = (Component: ComponentType) => {
 
 		return (
 			<main id="pc-wrap" className="admin">
+				<Box component={'div'} className={'admin-bg-icons'} aria-hidden={'true'}>
+					<span className={'admin-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'admin-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'admin-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'admin-bg-icon discover'}>
+						<TravelExploreRoundedIcon />
+					</span>
+				</Box>
 				<Box component={'div'} sx={{ display: 'flex' }}>
 					<AppBar
 						position="fixed"
@@ -73,6 +93,14 @@ const withAdminLayout = (Component: ComponentType) => {
 						}}
 					>
 						<Toolbar>
+							<Box component={'div'} className={'admin-topbar-title'}>
+								<AdminPanelSettingsRoundedIcon />
+								<Box component={'div'}>
+									<Typography component={'strong'}>TourX Admin Console</Typography>
+									<Typography component={'span'}>Manage travelers, packages, stories, and support.</Typography>
+								</Box>
+								<Chip label={'Admin'} size={'small'} className={'admin-role-chip'} />
+							</Box>
 							<Tooltip title="Open settings">
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<Avatar

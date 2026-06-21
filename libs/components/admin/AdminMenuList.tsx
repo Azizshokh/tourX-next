@@ -6,7 +6,10 @@ import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { ChatsCircle, Headset, User, UserCircleGear } from 'phosphor-react';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 import cookies from 'js-cookie';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 
@@ -61,7 +64,17 @@ const AdminMenuList = (props: any) => {
 				setClickSubMenu('Board Create');
 				break;
 			default:
-				setClickSubMenu('List');
+				switch (pathnames[1]) {
+					case 'properties':
+						setClickSubMenu('Package List');
+						break;
+					case 'community':
+						setClickSubMenu('Article List');
+						break;
+					default:
+						setClickSubMenu('User List');
+						break;
+				}
 				break;
 		}
 	}, []);
@@ -80,30 +93,30 @@ const AdminMenuList = (props: any) => {
 	const menu_set = [
 		{
 			title: 'Users',
-			icon: <User size={20} color="#bdbdbd" weight="fill" />,
+			icon: <GroupsRoundedIcon className={'admin-menu-icon'} />,
 			on_click: () => subMenuChangeHandler('Users'),
 		},
 		{
 			title: 'Packages',
-			icon: <UserCircleGear size={20} color="#bdbdbd" weight="fill" />,
+			icon: <LuggageRoundedIcon className={'admin-menu-icon'} />,
 			on_click: () => subMenuChangeHandler('Packages'),
 		},
 		{
 			title: 'Community',
-			icon: <ChatsCircle size={20} color="#bdbdbd" weight="fill" />,
+			icon: <ForumRoundedIcon className={'admin-menu-icon'} />,
 			on_click: () => subMenuChangeHandler('Community'),
 		},
 		{
 			title: 'Cs',
-			icon: <Headset size={20} color="#bdbdbd" weight="fill" />,
+			icon: <SupportAgentRoundedIcon className={'admin-menu-icon'} />,
 			on_click: () => subMenuChangeHandler('Cs'),
 		},
 	];
 
 	const sub_menu_set: any = {
-		Users: [{ title: 'List', url: '/_admin/users' }],
-		Packages: [{ title: 'List', url: '/_admin/properties' }],
-		Community: [{ title: 'List', url: '/_admin/community' }],
+		Users: [{ title: 'User List', url: '/_admin/users' }],
+		Packages: [{ title: 'Package List', url: '/_admin/properties' }],
+		Community: [{ title: 'Article List', url: '/_admin/community' }],
 		Cs: [
 			{ title: 'FAQ', url: '/_admin/cs/faq' },
 			{ title: 'Notice', url: '/_admin/cs/notice' },

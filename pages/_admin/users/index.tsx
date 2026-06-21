@@ -11,6 +11,7 @@ import { TabContext } from '@mui/lab';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import TablePagination from '@mui/material/TablePagination';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import { MembersInquiry } from '../../../libs/types/member/member.input';
 import { Member } from '../../../libs/types/member/member';
 import { MemberStatus, MemberType } from '../../../libs/enums/member.enum';
@@ -165,9 +166,14 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 
 	return (
 		<Box component={'div'} className={'content'}>
-			<Typography variant={'h2'} className={'tit'} sx={{ mb: '24px' }}>
-				Member List
-			</Typography>
+			<Box component={'div'} className={'admin-page-title'}>
+				<span className={'title-icon'}>
+					<GroupsRoundedIcon />
+				</span>
+				<Typography variant={'h2'} className={'tit'}>
+					User List
+				</Typography>
+			</Box>
 			<Box component={'div'} className={'table-wrap'}>
 				<Box component={'div'} sx={{ width: '100%', typography: 'body1' }}>
 					<TabContext value={value}>

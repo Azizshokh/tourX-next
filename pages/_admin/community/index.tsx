@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import Select from '@mui/material/Select';
 import { TabContext } from '@mui/lab';
 import TablePagination from '@mui/material/TablePagination';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import CommunityArticleList from '../../../libs/components/admin/community/CommunityArticleList';
 import { AllBoardArticlesInquiry } from '../../../libs/types/board-article/board-article.input';
 import { BoardArticle } from '../../../libs/types/board-article/board-article';
@@ -158,9 +159,14 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 
 	return (
 		<Box component={'div'} className={'content'}>
-			<Typography variant={'h2'} className={'tit'} sx={{ mb: '24px' }}>
-				Arricle List
-			</Typography>
+			<Box component={'div'} className={'admin-page-title'}>
+				<span className={'title-icon'}>
+					<ArticleRoundedIcon />
+				</span>
+				<Typography variant={'h2'} className={'tit'}>
+					Article List
+				</Typography>
+			</Box>
 			<Box component={'div'} className={'table-wrap'}>
 				<Box component={'div'} sx={{ width: '100%', typography: 'body1' }}>
 					<TabContext value={value}>

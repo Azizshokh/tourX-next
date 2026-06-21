@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
-import { Box, List, ListItem, Stack } from '@mui/material';
+import { Box, InputAdornment, List, ListItem, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { TabContext } from '@mui/lab';
 import TablePagination from '@mui/material/TablePagination';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { TourPackagePanelList } from '../../../libs/components/admin/tourPackages/TourPackageList';
 import { AllTourPackagesInquiry } from '../../../libs/types/tour-package/tour-package.input';
 import { TourPackage } from '../../../libs/types/tour-package/tour-package';
@@ -27,6 +30,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 	const [packagesTotal, setPackagesTotal] = useState<number>(0);
 	const [value, setValue] = useState(tourPackagesInquiry?.search?.packageStatus ?? 'ALL');
 	const [searchCountry, setSearchCountry] = useState('ALL');
+	const [searchText, setSearchText] = useState(tourPackagesInquiry?.search?.text ?? '');
 
 	/** APOLLO REQUESTS **/
 	const [updateTourPackageByAdmin] = useMutation(UPDATE_TOUR_PACKAGE_BY_ADMIN);
@@ -124,6 +128,39 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 		});
 	};
 
+	const textHandler = useCallback((value: string) => {
+		try {
+			setSearchText(value);
+		} catch (err: any) {
+			console.log('textHandler: ', err.message);
+		}
+	}, []);
+
+	const searchTextHandler = () => {
+		try {
+			setTourPackagesInquiry({
+				...tourPackagesInquiry,
+				page: 1,
+				search: {
+					...tourPackagesInquiry.search,
+					text: searchText,
+				},
+			});
+		} catch (err: any) {
+			console.log('searchTextHandler: ', err.message);
+		}
+	};
+
+	const clearSearchTextHandler = () => {
+		const { text, ...search } = tourPackagesInquiry.search ?? {};
+		setSearchText('');
+		setTourPackagesInquiry({
+			...tourPackagesInquiry,
+			page: 1,
+			search,
+		});
+	};
+
 	const updateTourPackageHandler = async (updateData: TourPackageUpdate) => {
 		try {
 			await updateTourPackageByAdmin({
@@ -141,9 +178,14 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 
 	return (
 		<Box component={'div'} className={'content'}>
-			<Typography variant={'h2'} className={'tit'} sx={{ mb: '24px' }}>
-				Package List
-			</Typography>
+			<Box component={'div'} className={'admin-page-title'}>
+				<span className={'title-icon'}>
+					<LuggageRoundedIcon />
+				</span>
+				<Typography variant={'h2'} className={'tit'}>
+					Package List
+				</Typography>
+			</Box>
 			<Box component={'div'} className={'table-wrap'}>
 				<Box component={'div'} sx={{ width: '100%', typography: 'body1' }}>
 					<TabContext value={value}>
@@ -180,7 +222,27 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 							</List>
 							<Divider />
 							<Stack className={'search-area'} sx={{ m: '24px' }}>
-								<Select sx={{ width: '180px', mr: '20px' }} value={searchCountry}>
+								<OutlinedInput
+									value={searchText}
+									onChange={(e: any) => textHandler(e.target.value)}
+									sx={{ width: '100%' }}
+									className={'search'}
+									placeholder="Search package title, city, or address"
+									onKeyDown={(event) => {
+										if (event.key == 'Enter') searchTextHandler();
+									}}
+									endAdornment={
+										<>
+											{searchText && (
+												<CancelRoundedIcon style={{ cursor: 'pointer' }} onClick={clearSearchTextHandler} />
+											)}
+											<InputAdornment position="end" onClick={() => searchTextHandler()}>
+												<img src="/img/icons/search_icon.png" alt={'searchIcon'} />
+											</InputAdornment>
+										</>
+									}
+								/>
+								<Select sx={{ width: '180px', ml: '20px' }} value={searchCountry}>
 									<MenuItem value={'ALL'} onClick={() => searchCountryHandler('ALL')}>
 										ALL COUNTRIES
 									</MenuItem>

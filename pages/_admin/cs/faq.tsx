@@ -12,6 +12,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import TablePagination from '@mui/material/TablePagination';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import { FaqArticlesPanelList } from '../../../libs/components/admin/cs/FaqList';
 
 const FaqArticles: NextPage = (props: any) => {
@@ -25,7 +26,12 @@ const FaqArticles: NextPage = (props: any) => {
 		// @ts-ignore
 		<Box component={'div'} className={'content'}>
 			<Box component={'div'} className={'title flex_space'}>
-				<Typography variant={'h2'}>FAQ Management</Typography>
+				<Box component={'div'} className={'admin-page-title compact'}>
+					<span className={'title-icon'}>
+						<HelpOutlineRoundedIcon />
+					</span>
+					<Typography variant={'h2'}>FAQ</Typography>
+				</Box>
 				<Button
 					className="btn_add"
 					variant={'contained'}

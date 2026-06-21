@@ -68,6 +68,7 @@ interface ALTSearch {
 	packageStatus?: PackageStatus;
 	packageCountryList?: string[];
 	packageCityList?: string[];
+	text?: string;
 }
 
 export interface AllTourPackagesInquiry {

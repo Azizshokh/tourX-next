@@ -12,6 +12,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import TablePagination from '@mui/material/TablePagination';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded';
 import { NoticeList } from '../../../libs/components/admin/cs/NoticeList';
 
 const AdminNotice: NextPage = (props: any) => {
@@ -25,7 +26,12 @@ const AdminNotice: NextPage = (props: any) => {
 		// @ts-ignore
 		<Box component={'div'} className={'content'}>
 			<Box component={'div'} className={'title flex_space'}>
-				<Typography variant={'h2'}>Notice Management</Typography>
+				<Box component={'div'} className={'admin-page-title compact'}>
+					<span className={'title-icon'}>
+						<CampaignRoundedIcon />
+					</span>
+					<Typography variant={'h2'}>Notice</Typography>
+				</Box>
 				<Button
 					className="btn_add"
 					variant={'contained'}

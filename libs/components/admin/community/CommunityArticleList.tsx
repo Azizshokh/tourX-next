@@ -142,7 +142,7 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 						{articles.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
-									<span className={'no-data'}>data not found!</span>
+									<span className={'no-data'}>Data not found!</span>
 								</TableCell>
 							</TableRow>
 						)}

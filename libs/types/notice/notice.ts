@@ -22,8 +22,7 @@ export interface Notice {
 	noticeTitle: string;
 	noticeContent: string;
 	noticeStatus: NoticeStatus;
-	noticeViews: number;
-	memberId: string;
+	noticeOrder: number;
 	createdAt: Date;
 	updatedAt: Date;
 }

@@ -19,11 +19,22 @@ import { CREATE_TOUR_PACKAGE, UPDATE_TOUR_PACKAGE } from '../../../apollo/user/m
 
 const MAX_PACKAGE_IMAGES = 5;
 
+interface NumericInputDraft {
+	packagePrice: string;
+	minPeople: string;
+	maxPeople: string;
+}
+
 const AddTourPackage = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const inputRef = useRef<any>(null);
 	const [insertPackageData, setInsertPackageData] = useState<TourPackageInput>(initialValues);
+	const [numericInputDraft, setNumericInputDraft] = useState<NumericInputDraft>({
+		packagePrice: String(initialValues.packagePrice ?? 0),
+		minPeople: String(initialValues.minPeople ?? 1),
+		maxPeople: String(initialValues.maxPeople ?? 1),
+	});
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
@@ -63,7 +74,28 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 			packageDesc: tourPackage.packageDesc ?? '',
 			packageImages: tourPackage.packageImages ?? [],
 		});
+		setNumericInputDraft({
+			packagePrice: String(tourPackage.packagePrice ?? 0),
+			minPeople: String(tourPackage.minPeople ?? 1),
+			maxPeople: String(tourPackage.maxPeople ?? 1),
+		});
 	}, [getTourPackageData]);
+
+	const numericInputChangeHandler = (field: keyof NumericInputDraft, value: string) => {
+		setNumericInputDraft((prev) => ({ ...prev, [field]: value }));
+
+		const numericValue = Number(value);
+		if (value.trim() === '' || Number.isNaN(numericValue)) return;
+
+		setInsertPackageData((prev) => ({ ...prev, [field]: numericValue }));
+	};
+
+	const getNormalizedPackageInput = (): TourPackageInput => ({
+		...insertPackageData,
+		packagePrice: Number(numericInputDraft.packagePrice),
+		minPeople: Number(numericInputDraft.minPeople),
+		maxPeople: Number(numericInputDraft.maxPeople),
+	});
 
 	async function uploadImages() {
 		try {
@@ -124,11 +156,13 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 	}
 
 	const validatePackageForm = async () => {
+		const normalizedInput = getNormalizedPackageInput();
+
 		if (insertPackageData.packageTitle.trim() === '') {
 			await sweetMixinErrorAlert('Please enter a package title.');
 			return false;
 		}
-		if (insertPackageData.packagePrice <= 0) {
+		if (!Number.isFinite(normalizedInput.packagePrice) || normalizedInput.packagePrice <= 0) {
 			await sweetMixinErrorAlert('Please enter a valid package price.');
 			return false;
 		}
@@ -152,11 +186,11 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 			await sweetMixinErrorAlert('Please select a valid package duration.');
 			return false;
 		}
-		if (insertPackageData.minPeople <= 0) {
+		if (!Number.isFinite(normalizedInput.minPeople) || normalizedInput.minPeople <= 0) {
 			await sweetMixinErrorAlert('Minimum people must be at least 1.');
 			return false;
 		}
-		if (insertPackageData.maxPeople < insertPackageData.minPeople) {
+		if (!Number.isFinite(normalizedInput.maxPeople) || normalizedInput.maxPeople < normalizedInput.minPeople) {
 			await sweetMixinErrorAlert('Maximum people must be greater than or equal to minimum people.');
 			return false;
 		}
@@ -190,9 +224,10 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 
 		try {
 			setIsSubmitting(true);
+			const normalizedInput = getNormalizedPackageInput();
 			await createTourPackage({
 				variables: {
-					input: insertPackageData,
+					input: normalizedInput,
 				},
 			});
 
@@ -203,7 +238,7 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 		} finally {
 			setIsSubmitting(false);
 		}
-	}, [insertPackageData, isSubmitting]);
+	}, [insertPackageData, isSubmitting, numericInputDraft]);
 
 	const updatePackageHandler = useCallback(async () => {
 		if (isSubmitting) return;
@@ -211,11 +246,12 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 
 		try {
 			setIsSubmitting(true);
+			const normalizedInput = getNormalizedPackageInput();
 			await updateTourPackage({
 				variables: {
 					input: {
 						_id: getTourPackageData?.getTourPackage?._id,
-						...insertPackageData,
+						...normalizedInput,
 					},
 				},
 			});
@@ -227,7 +263,7 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 		} finally {
 			setIsSubmitting(false);
 		}
-	}, [insertPackageData, getTourPackageData, isSubmitting]);
+	}, [insertPackageData, getTourPackageData, isSubmitting, numericInputDraft]);
 
 	if (user?.memberType !== 'AGENT') router.back();
 
@@ -262,10 +298,8 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 								type="number"
 								className="description-input"
 								placeholder="Price"
-								value={insertPackageData.packagePrice}
-								onChange={({ target: { value } }) =>
-									setInsertPackageData({ ...insertPackageData, packagePrice: Number(value) })
-								}
+								value={numericInputDraft.packagePrice}
+								onChange={({ target: { value } }) => numericInputChangeHandler('packagePrice', value)}
 							/>
 						</Stack>
 						<Stack className="price-year-after-price">
@@ -371,8 +405,8 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 								type="number"
 								min={1}
 								className="description-input"
-								value={insertPackageData.minPeople}
-								onChange={({ target: { value } }) => setInsertPackageData({ ...insertPackageData, minPeople: Number(value) })}
+								value={numericInputDraft.minPeople}
+								onChange={({ target: { value } }) => numericInputChangeHandler('minPeople', value)}
 							/>
 						</Stack>
 						<Stack className="price-year-after-price">
@@ -381,8 +415,8 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 								type="number"
 								min={1}
 								className="description-input"
-								value={insertPackageData.maxPeople}
-								onChange={({ target: { value } }) => setInsertPackageData({ ...insertPackageData, maxPeople: Number(value) })}
+								value={numericInputDraft.maxPeople}
+								onChange={({ target: { value } }) => numericInputChangeHandler('maxPeople', value)}
 							/>
 						</Stack>
 					</Stack>

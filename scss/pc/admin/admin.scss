@@ -1046,11 +1046,24 @@
       line-height: 1.55;
       -webkit-box-orient: vertical;
     }
+
+    .notice-content-preview {
+      display: -webkit-box;
+      max-width: 420px;
+      overflow: hidden;
+      color: #64748b;
+      line-height: 1.55;
+      -webkit-box-orient: vertical;
+    }
   }
 }
 
 .admin-faq-modal {
-  .MuiPaper-root {
+  .MuiPaper-root,
+  .MuiDialog-paperScrollPaper {
+    width: min(760px, calc(100vw - 48px));
+    max-height: none;
+    overflow: hidden !important;
     border-radius: 22px;
     border: 1px solid rgba(255, 138, 0, 0.18);
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
@@ -1066,6 +1079,7 @@
 
   .MuiDialogContent-root {
     padding: 18px 28px 10px;
+    overflow: hidden !important;
   }
 
   .faq-modal-form {
@@ -1096,11 +1110,14 @@
 
     .faq-answer-field {
       .MuiOutlinedInput-root {
-        min-height: 220px;
+        height: 150px;
+        min-height: 150px;
+        overflow: hidden;
       }
 
       textarea.MuiInputBase-input {
-        min-height: 178px;
+        height: 108px !important;
+        min-height: 108px;
         overflow: hidden !important;
         line-height: 1.65;
         resize: none;
@@ -1185,7 +1202,11 @@
 }
 
 .admin-notice-modal {
-  .MuiPaper-root {
+  .MuiPaper-root,
+  .MuiDialog-paperScrollPaper {
+    width: min(760px, calc(100vw - 48px));
+    max-height: none;
+    overflow: hidden !important;
     border-radius: 22px;
     border: 1px solid rgba(255, 138, 0, 0.18);
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
@@ -1201,6 +1222,7 @@
 
   .MuiDialogContent-root {
     padding: 18px 28px 10px;
+    overflow: hidden !important;
   }
 
   .notice-modal-form {
@@ -1231,11 +1253,14 @@
 
     .notice-content-field {
       .MuiOutlinedInput-root {
-        min-height: 180px;
+        height: 150px;
+        min-height: 150px;
+        overflow: hidden;
       }
 
       textarea.MuiInputBase-input {
-        min-height: 140px;
+        height: 108px !important;
+        min-height: 108px;
         overflow: hidden !important;
         line-height: 1.65;
         resize: none;

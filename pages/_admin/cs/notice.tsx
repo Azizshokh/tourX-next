@@ -28,18 +28,33 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded';
 import { useMutation, useQuery } from '@apollo/client';
 import { NoticeList } from '../../../libs/components/admin/cs/NoticeList';
-import { NoticeCategory } from '../../../libs/types/notice/notice';
-import { CreateNoticeCategoryInput, CreateNoticeInput, NoticeInquiry } from '../../../libs/types/notice/notice.input';
+import { Notice, NoticeCategory } from '../../../libs/types/notice/notice';
+import {
+	CreateNoticeCategoryInput,
+	CreateNoticeInput,
+	NoticeInquiry,
+	UpdateNoticeInput,
+} from '../../../libs/types/notice/notice.input';
 import { NoticeStatus } from '../../../libs/enums/notice.enum';
 import { T } from '../../../libs/types/common';
-import { GET_ALL_NOTICE_CATEGORIES_BY_ADMIN } from '../../../apollo/admin/query';
-import { CREATE_NOTICE_BY_ADMIN, CREATE_NOTICE_CATEGORY_BY_ADMIN } from '../../../apollo/admin/mutation';
-import { sweetErrorHandling, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
+import {
+	CREATE_NOTICE_BY_ADMIN,
+	CREATE_NOTICE_CATEGORY_BY_ADMIN,
+	DELETE_NOTICE_BY_ADMIN,
+	UPDATE_NOTICE_BY_ADMIN,
+} from '../../../apollo/admin/mutation';
+import { GET_ALL_NOTICE_CATEGORIES_BY_ADMIN, GET_ALL_NOTICES_BY_ADMIN } from '../../../apollo/admin/query';
+import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
 
 const defaultNoticeCategories: CreateNoticeCategoryInput[] = [
-	{ noticeCategoryTitle: 'FAQ', noticeCategoryKey: 'faq', noticeCategoryOrder: 1 },
-	{ noticeCategoryTitle: 'Terms', noticeCategoryKey: 'terms', noticeCategoryOrder: 2 },
-	{ noticeCategoryTitle: 'Inquiry', noticeCategoryKey: 'inquiry', noticeCategoryOrder: 3 },
+	{ noticeCategoryTitle: 'Booking Help', noticeCategoryKey: 'booking-help', noticeCategoryOrder: 1 },
+	{ noticeCategoryTitle: 'Payments & Refunds', noticeCategoryKey: 'payments-refunds', noticeCategoryOrder: 2 },
+	{ noticeCategoryTitle: 'Tour Packages', noticeCategoryKey: 'tour-packages', noticeCategoryOrder: 3 },
+	{ noticeCategoryTitle: 'Travel Agencies', noticeCategoryKey: 'travel-agencies', noticeCategoryOrder: 4 },
+	{ noticeCategoryTitle: 'Account & Profile', noticeCategoryKey: 'account-profile', noticeCategoryOrder: 5 },
+	{ noticeCategoryTitle: 'Travel Documents', noticeCategoryKey: 'travel-documents', noticeCategoryOrder: 6 },
+	{ noticeCategoryTitle: 'Visa Information', noticeCategoryKey: 'visa-information', noticeCategoryOrder: 7 },
+	{ noticeCategoryTitle: 'Travel Safety', noticeCategoryKey: 'travel-safety', noticeCategoryOrder: 8 },
 ];
 
 const initialNoticeForm: CreateNoticeInput = {
@@ -48,9 +63,17 @@ const initialNoticeForm: CreateNoticeInput = {
 	noticeContent: '',
 };
 
-const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
-	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
-	const [searchCategory, setSearchCategory] = useState('TITLE');
+const getMissingNoticeCategories = (categories: NoticeCategory[]) => {
+	const existingKeys = new Set(categories.map((category) => category.noticeCategoryKey));
+	return defaultNoticeCategories.filter((category) => !existingKeys.has(category.noticeCategoryKey));
+};
+
+const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: any) => {
+	const [noticeInquiry, setNoticeInquiry] = useState<NoticeInquiry>(initialInquiry);
+	const [notices, setNotices] = useState<Notice[]>([]);
+	const [noticeTotal, setNoticeTotal] = useState<number>(0);
+	const [value, setValue] = useState<string>(initialInquiry?.search?.noticeStatus ?? 'ALL');
+	const [categoryFilter, setCategoryFilter] = useState('ALL');
 	const [searchInput, setSearchInput] = useState('');
 
 	const [noticeCategories, setNoticeCategories] = useState<NoticeCategory[]>([]);
@@ -74,8 +97,26 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 		},
 	});
 
+	const {
+		loading: getAllNoticesByAdminLoading,
+		refetch: getAllNoticesByAdminRefetch,
+	} = useQuery(GET_ALL_NOTICES_BY_ADMIN, {
+		fetchPolicy: 'network-only',
+		variables: { input: noticeInquiry },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setNotices(data?.getAllNoticesByAdmin?.list ?? []);
+			setNoticeTotal(data?.getAllNoticesByAdmin?.metaCounter?.[0]?.total ?? 0);
+		},
+		onError: (err) => {
+			sweetErrorHandling(err).then();
+		},
+	});
+
 	const [createNoticeByAdmin] = useMutation(CREATE_NOTICE_BY_ADMIN);
 	const [createNoticeCategoryByAdmin] = useMutation(CREATE_NOTICE_CATEGORY_BY_ADMIN);
+	const [updateNoticeByAdmin] = useMutation(UPDATE_NOTICE_BY_ADMIN);
+	const [deleteNoticeByAdmin] = useMutation(DELETE_NOTICE_BY_ADMIN);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -85,8 +126,13 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 	}, [openCreateModal, noticeCategories, createForm.noticeCategoryId]);
 
 	/** HANDLERS **/
+	const getValidCategoryId = (categories: NoticeCategory[], selectedId?: string) => {
+		if (selectedId && categories.some((category) => category._id === selectedId)) return selectedId;
+		return categories[0]?._id ?? '';
+	};
+
 	const openCreateModalHandler = () => {
-		const initialId = noticeCategories[0]?._id ?? '';
+		const initialId = getValidCategoryId(noticeCategories, createForm.noticeCategoryId);
 		setCreateForm((prev) => ({ ...prev, noticeCategoryId: initialId }));
 		setOpenCreateModal(true);
 	};
@@ -99,24 +145,106 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 
 	const isCreateDisabled = () => {
 		if (isSubmitting || noticeCategories.length === 0) return true;
-		if (!createForm.noticeCategoryId) return true;
-		if (!createForm.noticeTitle.trim()) return true;
-		if (!createForm.noticeContent.trim()) return true;
 		return false;
+	};
+
+	const missingNoticeCategories = getMissingNoticeCategories(noticeCategories);
+
+	const validateCreateForm = async () => {
+		if (!createForm.noticeCategoryId) {
+			await sweetMixinErrorAlert('Please select a notice category.');
+			return false;
+		}
+		if (!createForm.noticeTitle.trim()) {
+			await sweetMixinErrorAlert('Please enter a notice title.');
+			return false;
+		}
+		if (!createForm.noticeContent.trim()) {
+			await sweetMixinErrorAlert('Please enter notice content.');
+			return false;
+		}
+		return true;
+	};
+
+	const changePageHandler = async (event: unknown, newPage: number) => {
+		const nextInquiry = { ...noticeInquiry, page: newPage + 1 };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
+	};
+
+	const changeRowsPerPageHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
+		const nextInquiry = { ...noticeInquiry, limit: parseInt(event.target.value, 10), page: 1 };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
+	};
+
+	const tabChangeHandler = async (newValue: string) => {
+		setValue(newValue);
+		const nextSearch = { ...noticeInquiry.search };
+
+		if (newValue === 'ALL') delete nextSearch.noticeStatus;
+		else nextSearch.noticeStatus = newValue as NoticeStatus;
+
+		const nextInquiry = { ...noticeInquiry, page: 1, search: nextSearch };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
+	};
+
+	const categoryFilterHandler = async (selectedValue: string) => {
+		setCategoryFilter(selectedValue);
+		const nextSearch = { ...noticeInquiry.search };
+
+		if (selectedValue === 'ALL') delete nextSearch.noticeCategoryId;
+		else nextSearch.noticeCategoryId = selectedValue;
+
+		const nextInquiry = { ...noticeInquiry, page: 1, search: nextSearch };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
+	};
+
+	const searchTextHandler = async () => {
+		const text = searchInput.trim();
+		const nextSearch = { ...noticeInquiry.search };
+
+		if (text) nextSearch.text = text;
+		else delete nextSearch.text;
+
+		const nextInquiry = { ...noticeInquiry, page: 1, search: nextSearch };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
+	};
+
+	const clearSearchTextHandler = async () => {
+		setSearchInput('');
+		const nextSearch = { ...noticeInquiry.search };
+		delete nextSearch.text;
+		const nextInquiry = { ...noticeInquiry, page: 1, search: nextSearch };
+		setNoticeInquiry(nextInquiry);
+		await getAllNoticesByAdminRefetch({ input: nextInquiry });
 	};
 
 	const createDefaultCategoriesHandler = async () => {
 		if (isCreatingCategories) return;
 		try {
 			setIsCreatingCategories(true);
-			for (const input of defaultNoticeCategories) {
+			const missingCategories = getMissingNoticeCategories(noticeCategories);
+
+			for (const input of missingCategories) {
 				await createNoticeCategoryByAdmin({ variables: { input } });
 			}
+
 			const result = await getAllNoticeCategoriesByAdminRefetch({ input: categoryInquiry });
 			const categories = result?.data?.getAllNoticeCategoriesByAdmin?.list ?? [];
+			const firstTourXCategory = categories.find((category: NoticeCategory) =>
+				defaultNoticeCategories.some((defaultCategory) => defaultCategory.noticeCategoryKey === category.noticeCategoryKey),
+			);
+
 			setNoticeCategories(categories);
-			setCreateForm((prev) => ({ ...prev, noticeCategoryId: categories[0]?._id ?? '' }));
-			await sweetTopSmallSuccessAlert('Notice categories created!', 900);
+			setCreateForm((prev) => ({
+				...prev,
+				noticeCategoryId: firstTourXCategory?._id ?? getValidCategoryId(categories, prev.noticeCategoryId),
+			}));
+			await sweetTopSmallSuccessAlert('TourX notice categories synced!', 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		} finally {
@@ -126,9 +254,18 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 
 	const createNoticeHandler = async () => {
 		if (isCreateDisabled()) return;
+		if (!(await validateCreateForm())) return;
 		try {
 			setIsSubmitting(true);
-			await createNoticeByAdmin({ variables: { input: createForm } });
+			const input: CreateNoticeInput = {
+				noticeCategoryId: createForm.noticeCategoryId,
+				noticeTitle: createForm.noticeTitle.trim(),
+				noticeContent: createForm.noticeContent.trim(),
+			};
+
+			await createNoticeByAdmin({ variables: { input } });
+			await getAllNoticeCategoriesByAdminRefetch({ input: categoryInquiry });
+			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
 			await sweetTopSmallSuccessAlert('Notice created!', 900);
 			setOpenCreateModal(false);
 			setCreateForm(initialNoticeForm);
@@ -139,8 +276,29 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 		}
 	};
 
+	const updateNoticeStatusHandler = async (input: UpdateNoticeInput) => {
+		try {
+			await updateNoticeByAdmin({ variables: { input } });
+			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
+			await sweetTopSmallSuccessAlert('Notice status updated!', 900);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const deleteNoticeHandler = async (noticeId: string) => {
+		try {
+			await deleteNoticeByAdmin({ variables: { input: noticeId } });
+			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
+			await sweetTopSmallSuccessAlert('Notice deleted!', 900);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const selectedModalCategoryId = getValidCategoryId(noticeCategories, createForm.noticeCategoryId);
+
 	return (
-		// @ts-ignore
 		<Box component={'div'} className={'content'}>
 			<Box component={'div'} className={'title flex_space'}>
 				<Box component={'div'} className={'admin-page-title compact'}>
@@ -161,20 +319,32 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
 				<Box component={'div'} sx={{ width: '100%', typography: 'body1' }}>
-					<TabContext value={'value'}>
+					<TabContext value={value}>
 						<Box component={'div'}>
 							<List className={'tab-menu'}>
-								<ListItem value="all" className={'li on'}>
-									All (0)
+								<ListItem value="ALL" className={value === 'ALL' ? 'li on' : 'li'} onClick={() => tabChangeHandler('ALL')}>
+									All
 								</ListItem>
-								<ListItem value="active" className={'li'}>
-									Active (0)
+								<ListItem
+									value={NoticeStatus.ACTIVE}
+									className={value === NoticeStatus.ACTIVE ? 'li on' : 'li'}
+									onClick={() => tabChangeHandler(NoticeStatus.ACTIVE)}
+								>
+									Active
 								</ListItem>
-								<ListItem value="blocked" className={'li'}>
-									Blocked (0)
+								<ListItem
+									value={NoticeStatus.HOLD}
+									className={value === NoticeStatus.HOLD ? 'li on' : 'li'}
+									onClick={() => tabChangeHandler(NoticeStatus.HOLD)}
+								>
+									Hold
 								</ListItem>
-								<ListItem value="deleted" className={'li'}>
-									Deleted (0)
+								<ListItem
+									value={NoticeStatus.DELETE}
+									className={value === NoticeStatus.DELETE ? 'li on' : 'li'}
+									onClick={() => tabChangeHandler(NoticeStatus.DELETE)}
+								>
+									Delete
 								</ListItem>
 							</List>
 							<Divider />
@@ -182,44 +352,56 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 								<OutlinedInput
 									value={searchInput}
 									onChange={(e: any) => setSearchInput(e.target.value)}
+									onKeyDown={(e: any) => {
+										if (e.key === 'Enter') searchTextHandler().then();
+									}}
 									sx={{ width: '100%' }}
 									className={'search'}
 									placeholder="Search notice title or content"
 									endAdornment={
 										<>
 											{searchInput && (
-												<CancelRoundedIcon style={{ cursor: 'pointer' }} onClick={() => setSearchInput('')} />
+												<CancelRoundedIcon style={{ cursor: 'pointer' }} onClick={clearSearchTextHandler} />
 											)}
 											<InputAdornment position="end">
-												<img src="/img/icons/search_icon.png" alt={'searchIcon'} />
+												<img src="/img/icons/search_icon.png" alt={'searchIcon'} onClick={searchTextHandler} />
 											</InputAdornment>
 										</>
 									}
 								/>
-								<Select sx={{ width: '180px', ml: '20px' }} value={searchCategory}>
-									<MenuItem value={'TITLE'} onClick={() => setSearchCategory('TITLE')}>
-										Title
+								<Select
+									sx={{ width: '240px', ml: '20px' }}
+									value={categoryFilter}
+									onChange={(e: any) => categoryFilterHandler(String(e.target.value))}
+								>
+									<MenuItem value={'ALL'}>
+										All Categories
 									</MenuItem>
-									<MenuItem value={'CONTENT'} onClick={() => setSearchCategory('CONTENT')}>
-										Content
-									</MenuItem>
-									<MenuItem value={'STATUS'} onClick={() => setSearchCategory('STATUS')}>
-										Status
-									</MenuItem>
+									{noticeCategories.map((category: NoticeCategory) => (
+										<MenuItem value={category._id} key={category._id}>
+											{category.noticeCategoryTitle}
+										</MenuItem>
+									))}
 								</Select>
 							</Stack>
 							<Divider />
 						</Box>
-						<NoticeList anchorEl={anchorEl} />
+						<NoticeList
+							notices={notices}
+							categories={noticeCategories}
+							loading={getAllNoticesByAdminLoading}
+							updateNoticeStatusHandler={updateNoticeStatusHandler}
+							deleteNoticeHandler={deleteNoticeHandler}
+						/>
 
 						<TablePagination
-							rowsPerPageOptions={[20, 40, 60]}
+							rowsPerPageOptions={[10, 20, 40, 60]}
 							component="div"
-							count={4}
-							rowsPerPage={10}
-							page={1}
-							onPageChange={() => {}}
-							onRowsPerPageChange={() => {}}
+							count={noticeTotal}
+							rowsPerPage={noticeInquiry.limit}
+							page={noticeInquiry.page - 1}
+							onPageChange={changePageHandler}
+							onRowsPerPageChange={changeRowsPerPageHandler}
 						/>
 					</TabContext>
 				</Box>
@@ -231,6 +413,7 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 				onClose={closeCreateModalHandler}
 				maxWidth={'md'}
 				fullWidth
+				scroll={'body'}
 			>
 				<DialogTitle>Add Notice</DialogTitle>
 				<DialogContent>
@@ -240,7 +423,7 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 							<Select
 								labelId="notice-category-label"
 								label="Category"
-								value={createForm.noticeCategoryId}
+								value={selectedModalCategoryId}
 								onChange={(e: any) =>
 									setCreateForm((p) => ({ ...p, noticeCategoryId: String(e.target.value) }))
 								}
@@ -253,9 +436,13 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 							</Select>
 						</FormControl>
 
-						{!noticeCategoriesLoading && noticeCategories.length === 0 && (
+						{!noticeCategoriesLoading && missingNoticeCategories.length > 0 && (
 							<Stack className={'notice-empty-category-box'}>
-								<Typography className={'empty-helper'}>No active notice categories available.</Typography>
+								<Typography className={'empty-helper'}>
+									{noticeCategories.length === 0
+										? 'No active notice categories available.'
+										: `${missingNoticeCategories.length} TourX notice categories missing.`}
+								</Typography>
 								<Button
 									className={'btn_seed_notice_categories'}
 									type={'button'}
@@ -264,7 +451,7 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 									disabled={isCreatingCategories}
 								>
 									<AutoFixHighRoundedIcon />
-									{isCreatingCategories ? 'Creating...' : 'Create Default Categories'}
+									{isCreatingCategories ? 'Syncing...' : 'Sync TourX Categories'}
 								</Button>
 							</Stack>
 						)}
@@ -284,7 +471,7 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 							inputProps={{ maxLength: 5000 }}
 							fullWidth
 							multiline
-							minRows={8}
+							rows={5}
 						/>
 					</Stack>
 				</DialogContent>
@@ -311,6 +498,13 @@ const AdminNotice: NextPage = ({ categoryInquiry, ...props }: any) => {
 };
 
 AdminNotice.defaultProps = {
+	initialInquiry: {
+		page: 1,
+		limit: 10,
+		sort: 'createdAt',
+		direction: 'DESC',
+		search: {},
+	},
 	categoryInquiry: {
 		page: 1,
 		limit: 100,

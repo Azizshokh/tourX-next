@@ -178,6 +178,36 @@ export const CREATE_FAQ_CATEGORY_BY_ADMIN = gql`
 	}
 `;
 
+export const UPDATE_FAQ_BY_ADMIN = gql`
+	mutation UpdateFaqByAdmin($input: UpdateFaqInput!) {
+		updateFaqByAdmin(input: $input) {
+			_id
+			faqCategoryId
+			faqQuestion
+			faqAnswer
+			faqStatus
+			faqOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const DELETE_FAQ_BY_ADMIN = gql`
+	mutation DeleteFaqByAdmin($input: String!) {
+		deleteFaqByAdmin(faqId: $input) {
+			_id
+			faqCategoryId
+			faqQuestion
+			faqAnswer
+			faqStatus
+			faqOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
 /**************************
  *         COMMENT        *
  *************************/
@@ -202,15 +232,14 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
  *************************/
 
 export const CREATE_NOTICE_BY_ADMIN = gql`
-	mutation CreateNoticeByAdmin($input: NoticeInput!) {
+	mutation CreateNoticeByAdmin($input: CreateNoticeInput!) {
 		createNoticeByAdmin(input: $input) {
 			_id
 			noticeCategoryId
 			noticeTitle
 			noticeContent
 			noticeStatus
-			noticeViews
-			memberId
+			noticeOrder
 			createdAt
 			updatedAt
 		}
@@ -218,13 +247,43 @@ export const CREATE_NOTICE_BY_ADMIN = gql`
 `;
 
 export const CREATE_NOTICE_CATEGORY_BY_ADMIN = gql`
-	mutation CreateNoticeCategoryByAdmin($input: NoticeCategoryInput!) {
+	mutation CreateNoticeCategoryByAdmin($input: CreateNoticeCategoryInput!) {
 		createNoticeCategoryByAdmin(input: $input) {
 			_id
 			noticeCategoryTitle
 			noticeCategoryKey
 			noticeCategoryStatus
 			noticeCategoryOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const UPDATE_NOTICE_BY_ADMIN = gql`
+	mutation UpdateNoticeByAdmin($input: UpdateNoticeInput!) {
+		updateNoticeByAdmin(input: $input) {
+			_id
+			noticeCategoryId
+			noticeTitle
+			noticeContent
+			noticeStatus
+			noticeOrder
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const DELETE_NOTICE_BY_ADMIN = gql`
+	mutation DeleteNoticeByAdmin($input: String!) {
+		deleteNoticeByAdmin(noticeId: $input) {
+			_id
+			noticeCategoryId
+			noticeTitle
+			noticeContent
+			noticeStatus
+			noticeOrder
 			createdAt
 			updatedAt
 		}

@@ -29,11 +29,16 @@ import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import { useMutation, useQuery } from '@apollo/client';
 import { FaqArticlesPanelList } from '../../../libs/components/admin/cs/FaqList';
 import { Faq, FaqCategory } from '../../../libs/types/faq/faq';
-import { CreateFaqCategoryInput, CreateFaqInput, FaqInquiry } from '../../../libs/types/faq/faq.input';
+import { CreateFaqCategoryInput, CreateFaqInput, FaqInquiry, UpdateFaqInput } from '../../../libs/types/faq/faq.input';
 import { FaqStatus } from '../../../libs/enums/faq.enum';
 import { T } from '../../../libs/types/common';
 import { GET_ALL_FAQ_CATEGORIES_BY_ADMIN, GET_ALL_FAQS_BY_ADMIN } from '../../../apollo/admin/query';
-import { CREATE_FAQ_BY_ADMIN, CREATE_FAQ_CATEGORY_BY_ADMIN } from '../../../apollo/admin/mutation';
+import {
+	CREATE_FAQ_BY_ADMIN,
+	CREATE_FAQ_CATEGORY_BY_ADMIN,
+	DELETE_FAQ_BY_ADMIN,
+	UPDATE_FAQ_BY_ADMIN,
+} from '../../../apollo/admin/mutation';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
 
 interface FaqFormState {
@@ -106,6 +111,8 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 
 	const [createFaqByAdmin] = useMutation(CREATE_FAQ_BY_ADMIN);
 	const [createFaqCategoryByAdmin] = useMutation(CREATE_FAQ_CATEGORY_BY_ADMIN);
+	const [updateFaqByAdmin] = useMutation(UPDATE_FAQ_BY_ADMIN);
+	const [deleteFaqByAdmin] = useMutation(DELETE_FAQ_BY_ADMIN);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -267,6 +274,26 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		}
 	};
 
+	const updateFaqStatusHandler = async (input: UpdateFaqInput) => {
+		try {
+			await updateFaqByAdmin({ variables: { input } });
+			await getAllFaqsByAdminRefetch({ input: faqInquiry });
+			await sweetTopSmallSuccessAlert('FAQ status updated!', 900);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const deleteFaqHandler = async (faqId: string) => {
+		try {
+			await deleteFaqByAdmin({ variables: { input: faqId } });
+			await getAllFaqsByAdminRefetch({ input: faqInquiry });
+			await sweetTopSmallSuccessAlert('FAQ deleted!', 900);
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
 	const selectedModalCategoryId = getValidCategoryId(faqCategories, createForm.faqCategoryId);
 
 	return (
@@ -301,6 +328,13 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									className={value === FaqStatus.ACTIVE ? 'li on' : 'li'}
 								>
 									Active
+								</ListItem>
+								<ListItem
+									onClick={(e) => tabChangeHandler(e, FaqStatus.HOLD)}
+									value={FaqStatus.HOLD}
+									className={value === FaqStatus.HOLD ? 'li on' : 'li'}
+								>
+									Hold
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, FaqStatus.DELETE)}
@@ -347,7 +381,13 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 							</Stack>
 							<Divider />
 						</Box>
-						<FaqArticlesPanelList faqs={faqs} categories={faqCategories} loading={getAllFaqsByAdminLoading} />
+						<FaqArticlesPanelList
+							faqs={faqs}
+							categories={faqCategories}
+							loading={getAllFaqsByAdminLoading}
+							updateFaqStatusHandler={updateFaqStatusHandler}
+							deleteFaqHandler={deleteFaqHandler}
+						/>
 
 						<TablePagination
 							rowsPerPageOptions={[10, 20, 40, 60]}
@@ -362,7 +402,14 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 				</Box>
 			</Box>
 
-			<Dialog className={'admin-faq-modal'} open={openCreateModal} onClose={closeCreateModalHandler} maxWidth={'md'} fullWidth>
+			<Dialog
+				className={'admin-faq-modal'}
+				open={openCreateModal}
+				onClose={closeCreateModalHandler}
+				maxWidth={'md'}
+				fullWidth
+				scroll={'body'}
+			>
 				<DialogTitle>Add FAQ</DialogTitle>
 				<DialogContent>
 					<Stack className={'faq-modal-form'}>
@@ -413,7 +460,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 							inputProps={{ maxLength: 2000 }}
 							fullWidth
 							multiline
-							minRows={10}
+							rows={5}
 						/>
 					</Stack>
 				</DialogContent>

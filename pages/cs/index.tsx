@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { NextPage } from 'next';
+import { useQuery } from '@apollo/client';
 import { Box, Stack, Typography } from '@mui/material';
 import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
 import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded';
@@ -26,49 +27,79 @@ import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Faq from '../../libs/components/cs/Faq';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GET_NOTICE_CATEGORIES, GET_NOTICES } from '../../apollo/user/query';
+import { Direction } from '../../libs/enums/common.enum';
+import { NoticeStatus } from '../../libs/enums/notice.enum';
+import { Notice, NoticeCategory } from '../../libs/types/notice/notice';
+import { NoticeInquiry } from '../../libs/types/notice/notice.input';
+import { T } from '../../libs/types/common';
 
 const popularTopics = [
 	{
+		key: 'booking-help',
 		title: 'Booking Help',
 		description: 'Modify, cancel, or confirm your travel bookings.',
 		Icon: ConfirmationNumberRoundedIcon,
 	},
 	{
+		key: 'payments-refunds',
 		title: 'Payments & Refunds',
 		description: 'Payment methods, invoices and refund status.',
 		Icon: PaymentsRoundedIcon,
 	},
 	{
+		key: 'tour-packages',
 		title: 'Tour Packages',
 		description: 'Details on itineraries and included activities.',
 		Icon: TravelExploreRoundedIcon,
 	},
 	{
+		key: 'travel-agencies',
 		title: 'Travel Agencies',
 		description: 'Connect with certified local travel partners.',
 		Icon: SupportAgentRoundedIcon,
 	},
 	{
+		key: 'account-profile',
 		title: 'Account & Profile',
 		description: 'Update security, settings, and travel history.',
 		Icon: AccountCircleRoundedIcon,
 	},
 	{
+		key: 'travel-documents',
 		title: 'Travel Documents',
 		description: 'Vouchers, insurance, and confirmation slips.',
 		Icon: ArticleRoundedIcon,
 	},
 	{
+		key: 'visa-information',
 		title: 'Visa Information',
 		description: 'Global entry requirements and visa assistance.',
 		Icon: MoreHorizRoundedIcon,
 	},
 	{
+		key: 'travel-safety',
 		title: 'Travel Safety',
 		description: 'Security protocols and emergency guidelines.',
 		Icon: SecurityRoundedIcon,
 	},
 ];
+
+const noticeCategoryInquiry: NoticeInquiry = {
+	page: 1,
+	limit: 100,
+	sort: 'noticeCategoryOrder',
+	direction: Direction.ASC,
+	search: {},
+};
+
+const noticeInquiry: NoticeInquiry = {
+	page: 1,
+	limit: 200,
+	sort: 'noticeOrder',
+	direction: Direction.ASC,
+	search: {},
+};
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -78,6 +109,48 @@ export const getStaticProps = async ({ locale }: any) => ({
 
 const CS: NextPage = () => {
 	const device = useDeviceDetect();
+	const [noticeCategories, setNoticeCategories] = useState<NoticeCategory[]>([]);
+	const [notices, setNotices] = useState<Notice[]>([]);
+
+	useQuery(GET_NOTICE_CATEGORIES, {
+		fetchPolicy: 'network-only',
+		variables: { input: noticeCategoryInquiry },
+		onCompleted: (data: T) => {
+			setNoticeCategories(data?.getNoticeCategories?.list ?? []);
+		},
+		onError: (err) => {
+			console.warn('getNoticeCategories error:', err.message);
+		},
+	});
+
+	useQuery(GET_NOTICES, {
+		fetchPolicy: 'network-only',
+		variables: { input: noticeInquiry },
+		onCompleted: (data: T) => {
+			setNotices(data?.getNotices?.list ?? []);
+		},
+		onError: (err) => {
+			console.warn('getNotices error:', err.message);
+		},
+	});
+
+	const noticeDescriptionsByCategoryKey = useMemo(() => {
+		const categoryKeyById = new Map(
+			noticeCategories
+				.filter((category) => category.noticeCategoryStatus === NoticeStatus.ACTIVE)
+				.map((category) => [category._id, category.noticeCategoryKey]),
+		);
+		const descriptionMap: Record<string, string> = {};
+
+		notices
+			.filter((notice) => notice.noticeStatus === NoticeStatus.ACTIVE)
+			.forEach((notice) => {
+				const categoryKey = categoryKeyById.get(notice.noticeCategoryId);
+				if (categoryKey && !descriptionMap[categoryKey]) descriptionMap[categoryKey] = notice.noticeContent;
+			});
+
+		return descriptionMap;
+	}, [noticeCategories, notices]);
 
 	if (device === 'mobile') {
 		return <h1>CS PAGE MOBILE</h1>;
@@ -136,13 +209,13 @@ const CS: NextPage = () => {
 				<Stack className={'help-topics-section'}>
 					<Typography className={'section-eyebrow'}>Popular Topics</Typography>
 					<Box component={'div'} className={'topic-grid'}>
-						{popularTopics.map(({ title, description, Icon }) => (
+						{popularTopics.map(({ key, title, description, Icon }) => (
 							<Box component={'article'} className={'topic-card'} key={title}>
 								<Box component={'div'} className={'topic-icon'}>
 									<Icon />
 								</Box>
 								<Typography className={'topic-title'}>{title}</Typography>
-								<Typography className={'topic-desc'}>{description}</Typography>
+								<Typography className={'topic-desc'}>{noticeDescriptionsByCategoryKey[key] ?? description}</Typography>
 							</Box>
 						))}
 					</Box>

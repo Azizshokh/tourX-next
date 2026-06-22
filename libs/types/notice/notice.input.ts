@@ -13,8 +13,19 @@ export interface CreateNoticeInput {
 	noticeContent: string;
 }
 
-interface NoticeCategorySearch {
+export interface UpdateNoticeInput {
+	_id: string;
+	noticeCategoryId?: string;
+	noticeTitle?: string;
+	noticeContent?: string;
 	noticeStatus?: NoticeStatus;
+	noticeOrder?: number;
+}
+
+interface NoticeCategorySearch {
+	noticeCategoryId?: string;
+	noticeStatus?: NoticeStatus;
+	text?: string;
 }
 
 export interface NoticeInquiry {

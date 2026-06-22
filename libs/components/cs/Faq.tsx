@@ -309,7 +309,7 @@ const Faq = () => {
 			return;
 		}
 
-		if (activeCategory.items.length > 0 && !activeCategory.items.some((item) => item.id === expanded)) {
+		if (activeCategory.items.length > 0 && expanded !== false && !activeCategory.items.some((item) => item.id === expanded)) {
 			setExpanded(activeCategory.items[0].id);
 		}
 		if (activeCategory.items.length === 0 && expanded !== false) setExpanded(false);

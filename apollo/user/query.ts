@@ -694,3 +694,46 @@ export const GET_FAQS = gql`
 		}
 	}
 `;
+
+/**************************
+ *         NOTICE         *
+ *************************/
+
+export const GET_NOTICE_CATEGORIES = gql`
+	query GetNoticeCategories($input: NoticeInquiry!) {
+		getNoticeCategories(input: $input) {
+			list {
+				_id
+				noticeCategoryTitle
+				noticeCategoryKey
+				noticeCategoryStatus
+				noticeCategoryOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
+export const GET_NOTICES = gql`
+	query GetNotices($input: NoticeInquiry!) {
+		getNotices(input: $input) {
+			list {
+				_id
+				noticeCategoryId
+				noticeTitle
+				noticeContent
+				noticeStatus
+				noticeOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;

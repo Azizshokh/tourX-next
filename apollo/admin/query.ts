@@ -220,6 +220,26 @@ export const GET_ALL_NOTICE_CATEGORIES_BY_ADMIN = gql`
 	}
 `;
 
+export const GET_ALL_NOTICES_BY_ADMIN = gql`
+	query GetAllNoticesByAdmin($input: NoticeInquiry!) {
+		getAllNoticesByAdmin(input: $input) {
+			list {
+				_id
+				noticeCategoryId
+				noticeTitle
+				noticeContent
+				noticeStatus
+				noticeOrder
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
 /**************************
  *         COMMENT        *
  *************************/

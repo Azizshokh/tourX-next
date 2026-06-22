@@ -14,6 +14,15 @@ export interface CreateFaqCategoryInput {
 	faqCategoryOrder?: number;
 }
 
+export interface UpdateFaqInput {
+	_id: string;
+	faqCategoryId?: string;
+	faqQuestion?: string;
+	faqAnswer?: string;
+	faqStatus?: FaqStatus;
+	faqOrder?: number;
+}
+
 interface FaqSearch {
 	faqCategoryId?: string;
 	faqStatus?: FaqStatus;

@@ -286,3 +286,46 @@ export const GET_COMMENTS = gql`
 		}
 	}
 `;
+
+export const GET_ALL_COMMENTS_BY_ADMIN = gql`
+	query GetAllCommentsByAdmin($input: AllCommentsInquiry!) {
+		getAllCommentsByAdmin(input: $input) {
+			list {
+				_id
+				commentStatus
+				commentGroup
+				commentContent
+				commentRefId
+				memberId
+				createdAt
+				updatedAt
+				memberData {
+					_id
+					memberType
+					memberStatus
+					memberAuthType
+					memberPhone
+					memberNick
+					memberFullName
+					memberImage
+					memberAddress
+					memberDesc
+					memberWarnings
+					memberBlocks
+					memberTours
+					memberRank
+					memberPoints
+					memberLikes
+					memberViews
+					deletedAt
+					createdAt
+					updatedAt
+					accessToken
+				}
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;

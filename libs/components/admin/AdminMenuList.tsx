@@ -10,6 +10,7 @@ import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
 import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import cookies from 'js-cookie';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 
@@ -38,6 +39,9 @@ const AdminMenuList = (props: any) => {
 				break;
 			case 'community':
 				setClickMenu(['Community']);
+				break;
+			case 'comments':
+				setClickMenu(['Comments']);
 				break;
 			case 'cs':
 				setClickMenu(['Cs']);
@@ -111,12 +115,18 @@ const AdminMenuList = (props: any) => {
 			icon: <SupportAgentRoundedIcon className={'admin-menu-icon'} />,
 			on_click: () => subMenuChangeHandler('Cs'),
 		},
+		{
+			title: 'Comments',
+			icon: <ChatBubbleOutlineRoundedIcon className={'admin-menu-icon'} />,
+			on_click: () => subMenuChangeHandler('Comments'),
+		},
 	];
 
 	const sub_menu_set: any = {
 		Users: [{ title: 'User List', url: '/_admin/users' }],
 		Packages: [{ title: 'Package List', url: '/_admin/properties' }],
 		Community: [{ title: 'Article List', url: '/_admin/community' }],
+		Comments: [{ title: 'Comment List', url: '/_admin/comments' }],
 		Cs: [
 			{ title: 'FAQ', url: '/_admin/cs/faq' },
 			{ title: 'Notice', url: '/_admin/cs/notice' },

@@ -227,6 +227,51 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
 	}
 `;
 
+export const PAUSE_COMMENT_BY_ADMIN = gql`
+	mutation PauseCommentByAdmin($input: String!) {
+		pauseComment(commentId: $input) {
+			_id
+			commentStatus
+			commentGroup
+			commentContent
+			commentRefId
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const ACTIVATE_COMMENT_BY_ADMIN = gql`
+	mutation ActivateCommentByAdmin($input: String!) {
+		activateComment(commentId: $input) {
+			_id
+			commentStatus
+			commentGroup
+			commentContent
+			commentRefId
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+export const DELETE_COMMENT_BY_ADMIN = gql`
+	mutation DeleteCommentByAdmin($input: String!) {
+		deleteComment(commentId: $input) {
+			_id
+			commentStatus
+			commentGroup
+			commentContent
+			commentRefId
+			memberId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
 /**************************
  *         NOTICE         *
  *************************/

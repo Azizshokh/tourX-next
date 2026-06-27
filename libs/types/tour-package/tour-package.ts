@@ -37,6 +37,8 @@ export interface TourPackage {
 	startDate: Date | string;
 	endDate: Date | string;
 	deletedAt?: Date;
+	closedAt?: Date;
+	activatedAt?: Date;
 	createdAt: Date;
 	updatedAt: Date;
 	meLiked?: MeLiked[];

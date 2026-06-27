@@ -71,6 +71,8 @@ export const GET_ALL_TOUR_PACKAGES_BY_ADMIN = gql`
 				startDate
 				endDate
 				deletedAt
+				closedAt
+				activatedAt
 				createdAt
 				updatedAt
 				memberData {

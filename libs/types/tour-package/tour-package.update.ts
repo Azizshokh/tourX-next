@@ -20,5 +20,7 @@ export interface TourPackageUpdate {
 	packageImages?: string[];
 	startDate?: string;
 	endDate?: string;
-	deletedAt?: Date;
+	deletedAt?: Date | null;
+	closedAt?: Date | null;
+	activatedAt?: Date | null;
 }

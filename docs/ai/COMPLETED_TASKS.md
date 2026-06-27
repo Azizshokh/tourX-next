@@ -159,3 +159,13 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `pages/_admin/cs/faq.tsx`, `libs/components/admin/cs/FaqList.tsx`, `apollo/admin/query.ts`, `apollo/admin/mutation.ts`, `libs/types/faq/*`, `libs/enums/faq.enum.ts`, `scss/pc/admin/admin.scss`.
 - Verified with `yarn.cmd tsc --noEmit`, `node_modules\.bin\sass scss\pc\main.scss $env:TEMP\tourx-sass-check.css`, and `yarn.cmd build`.
 - `yarn.cmd lint` remains interactive because Next prompts to configure ESLint when run directly; build lint/type validation passed.
+
+## 2026-06-27 - Admin package status management
+- Wired the admin package table to the new ADMIN-only `updatePackageStatus(packageId, status)` GraphQL mutation.
+- Added status confirmation, optimistic row updates, rollback on mutation failure, per-row disabled state, and local row replacement/removal without refetching the whole package list after status changes.
+- Kept public package visibility unchanged through existing public package queries that only return `ACTIVE` packages; admin package queries still show all statuses.
+- Displayed `DELETE` wire status as `DELETED` in the admin UI to preserve the current GraphQL enum while matching TourX product language.
+- Files: `pages/_admin/properties/index.tsx`, `libs/components/admin/tourPackages/TourPackageList.tsx`, `apollo/admin/mutation.ts`, `apollo/admin/query.ts`, `libs/types/tour-package/tour-package.ts`, `libs/types/tour-package/tour-package.update.ts`.
+- Validation: `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with existing Browserslist/i18next warnings.
+- Remaining issue: manual browser verification against a running backend is still recommended for live admin status changes.
+- Next recommended step: run through admin status transitions in the browser for `ACTIVE`, `CLOSED`, and `DELETED` rows with real package data.

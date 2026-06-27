@@ -16,7 +16,6 @@ import Avatar from '@mui/material/Avatar';
 import { Stack } from '@mui/material';
 import { TourPackage } from '../../../types/tour-package/tour-package';
 import { REACT_APP_API_URL } from '../../../config';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import { PackageStatus } from '../../../enums/package.enum';
 
@@ -40,48 +39,13 @@ interface HeadCell {
 }
 
 const headCells: readonly HeadCell[] = [
-	{
-		id: 'id',
-		numeric: true,
-		disablePadding: false,
-		label: 'PKG ID',
-	},
-	{
-		id: 'title',
-		numeric: true,
-		disablePadding: false,
-		label: 'TITLE',
-	},
-	{
-		id: 'price',
-		numeric: false,
-		disablePadding: false,
-		label: 'PRICE',
-	},
-	{
-		id: 'agent',
-		numeric: false,
-		disablePadding: false,
-		label: 'AGENT',
-	},
-	{
-		id: 'location',
-		numeric: false,
-		disablePadding: false,
-		label: 'DESTINATION',
-	},
-	{
-		id: 'type',
-		numeric: false,
-		disablePadding: false,
-		label: 'TYPE',
-	},
-	{
-		id: 'status',
-		numeric: false,
-		disablePadding: false,
-		label: 'STATUS',
-	},
+	{ id: 'id', numeric: true, disablePadding: false, label: 'PKG ID' },
+	{ id: 'title', numeric: true, disablePadding: false, label: 'TITLE' },
+	{ id: 'price', numeric: false, disablePadding: false, label: 'PRICE' },
+	{ id: 'agent', numeric: false, disablePadding: false, label: 'AGENT' },
+	{ id: 'location', numeric: false, disablePadding: false, label: 'DESTINATION' },
+	{ id: 'type', numeric: false, disablePadding: false, label: 'TYPE' },
+	{ id: 'status', numeric: false, disablePadding: false, label: 'STATUS' },
 ];
 
 interface EnhancedTableProps {
@@ -117,8 +81,20 @@ interface TourPackagePanelListType {
 	menuIconClickHandler: any;
 	menuIconCloseHandler: any;
 	updateTourPackageHandler: any;
-	removePackageHandler: any;
+	updatingPackageId: string | null;
 }
+
+const statusBadgeClass: Record<PackageStatus, string> = {
+	[PackageStatus.ACTIVE]: 'badge success',
+	[PackageStatus.CLOSED]: 'badge warning',
+	[PackageStatus.DELETE]: 'badge error',
+};
+
+const statusLabel: Record<PackageStatus, string> = {
+	[PackageStatus.ACTIVE]: 'ACTIVE',
+	[PackageStatus.CLOSED]: 'CLOSED',
+	[PackageStatus.DELETE]: 'DELETED',
+};
 
 export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 	const {
@@ -127,7 +103,7 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 		menuIconClickHandler,
 		menuIconCloseHandler,
 		updateTourPackageHandler,
-		removePackageHandler,
+		updatingPackageId,
 	} = props;
 
 	return (
@@ -150,7 +126,11 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 								const packageImage = `${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0] ?? ''}`;
 
 								return (
-									<TableRow hover key={tourPackage?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+									<TableRow
+										hover
+										key={tourPackage?._id}
+										sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+									>
 										<TableCell align="left">{tourPackage._id}</TableCell>
 										<TableCell align="left" className={'name'}>
 											{tourPackage.packageStatus === PackageStatus.ACTIVE ? (
@@ -180,54 +160,39 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 										</TableCell>
 										<TableCell align="center">{tourPackage.packageType}</TableCell>
 										<TableCell align="center">
-											{tourPackage.packageStatus === PackageStatus.DELETE && (
-												<Button
-													variant="outlined"
-													sx={{ p: '3px', border: 'none', ':hover': { border: '1px solid #000000' } }}
-													onClick={() => removePackageHandler(tourPackage._id)}
-												>
-													<DeleteIcon fontSize="small" />
-												</Button>
-											)}
+											<Button
+												onClick={(e) => menuIconClickHandler(e, index)}
+												className={statusBadgeClass[tourPackage.packageStatus]}
+												disabled={updatingPackageId === tourPackage._id}
+											>
+												{statusLabel[tourPackage.packageStatus]}
+											</Button>
 
-											{tourPackage.packageStatus === PackageStatus.CLOSED && (
-												<Button className={'badge warning'}>{tourPackage.packageStatus}</Button>
-											)}
-
-											{tourPackage.packageStatus === PackageStatus.ACTIVE && (
-												<>
-													<Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}>
-														{tourPackage.packageStatus}
-													</Button>
-
-													<Menu
-														className={'menu-modal'}
-														MenuListProps={{
-															'aria-labelledby': 'fade-button',
-														}}
-														anchorEl={anchorEl[index]}
-														open={Boolean(anchorEl[index])}
-														onClose={menuIconCloseHandler}
-														TransitionComponent={Fade}
-														sx={{ p: 1 }}
-													>
-														{Object.values(PackageStatus)
-															.filter((status) => status !== tourPackage.packageStatus)
-															.map((status: PackageStatus) => (
-																<MenuItem
-																	onClick={() =>
-																		updateTourPackageHandler({ _id: tourPackage._id, packageStatus: status })
-																	}
-																	key={status}
-																>
-																	<Typography variant={'subtitle1'} component={'span'}>
-																		{status}
-																	</Typography>
-																</MenuItem>
-															))}
-													</Menu>
-												</>
-											)}
+											<Menu
+												className={'menu-modal'}
+												MenuListProps={{ 'aria-labelledby': 'fade-button' }}
+												anchorEl={anchorEl[index]}
+												open={Boolean(anchorEl[index])}
+												onClose={menuIconCloseHandler}
+												TransitionComponent={Fade}
+												sx={{ p: 1 }}
+											>
+												{Object.values(PackageStatus)
+													.filter((s) => s !== tourPackage.packageStatus)
+													.map((status: PackageStatus) => (
+														<MenuItem
+															key={status}
+															disabled={Boolean(updatingPackageId)}
+															onClick={() =>
+																updateTourPackageHandler({ _id: tourPackage._id, packageStatus: status })
+															}
+														>
+															<Typography variant={'subtitle1'} component={'span'}>
+																{statusLabel[status]}
+															</Typography>
+														</MenuItem>
+													))}
+											</Menu>
 										</TableCell>
 									</TableRow>
 								);

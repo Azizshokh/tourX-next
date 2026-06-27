@@ -20,7 +20,7 @@ import { sweetConfirmAlert, sweetErrorHandling } from '../../../libs/sweetAlert'
 import { TourPackageUpdate } from '../../../libs/types/tour-package/tour-package.update';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_ALL_TOUR_PACKAGES_BY_ADMIN } from '../../../apollo/admin/query';
-import { REMOVE_TOUR_PACKAGE_BY_ADMIN, UPDATE_TOUR_PACKAGE_BY_ADMIN } from '../../../apollo/admin/mutation';
+import { UPDATE_PACKAGE_STATUS } from '../../../apollo/admin/mutation';
 import { T } from '../../../libs/types/common';
 
 const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
@@ -31,10 +31,10 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 	const [value, setValue] = useState(tourPackagesInquiry?.search?.packageStatus ?? 'ALL');
 	const [searchCountry, setSearchCountry] = useState('ALL');
 	const [searchText, setSearchText] = useState(tourPackagesInquiry?.search?.text ?? '');
+	const [updatingPackageId, setUpdatingPackageId] = useState<string | null>(null);
 
 	/** APOLLO REQUESTS **/
-	const [updateTourPackageByAdmin] = useMutation(UPDATE_TOUR_PACKAGE_BY_ADMIN);
-	const [removeTourPackageByAdmin] = useMutation(REMOVE_TOUR_PACKAGE_BY_ADMIN);
+	const [updatePackageStatus] = useMutation(UPDATE_PACKAGE_STATUS);
 
 	const { refetch: getAllTourPackagesByAdminRefetch } = useQuery(GET_ALL_TOUR_PACKAGES_BY_ADMIN, {
 		fetchPolicy: 'network-only',
@@ -91,23 +91,6 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 		});
 	};
 
-	const removePackageHandler = async (id: string) => {
-		try {
-			if (await sweetConfirmAlert('Are you sure to remove this package?')) {
-				await removeTourPackageByAdmin({
-					variables: {
-						input: id,
-					},
-				});
-
-				await getAllTourPackagesByAdminRefetch({ input: tourPackagesInquiry });
-			}
-			menuIconCloseHandler();
-		} catch (err: any) {
-			sweetErrorHandling(err).then();
-		}
-	};
-
 	const searchCountryHandler = async (newValue: string) => {
 		setSearchCountry(newValue);
 
@@ -162,17 +145,63 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 	};
 
 	const updateTourPackageHandler = async (updateData: TourPackageUpdate) => {
+		const currentPackage = packages.find((tourPackage) => tourPackage._id === updateData._id);
+		const nextStatus = updateData.packageStatus;
+
+		if (!currentPackage || !nextStatus || currentPackage.packageStatus === nextStatus || updatingPackageId) return;
+
+		const confirmed = await sweetConfirmAlert(
+			`Change package status from ${currentPackage.packageStatus === PackageStatus.DELETE ? 'DELETED' : currentPackage.packageStatus} to ${
+				nextStatus === PackageStatus.DELETE ? 'DELETED' : nextStatus
+			}?`,
+		);
+		if (!confirmed) return;
+
+		const previousPackages = packages;
+		const previousTotal = packagesTotal;
+		const optimisticPackage: TourPackage = {
+			...currentPackage,
+			packageStatus: nextStatus,
+			updatedAt: new Date(),
+		};
+
+		const shouldShowPackage = (tourPackage: TourPackage) =>
+			value === 'ALL' || tourPackage.packageStatus === tourPackagesInquiry.search?.packageStatus;
+
+		const applyPackageUpdate = (updatedPackage: TourPackage) => {
+			setPackages((currentPackages) => {
+				if (!shouldShowPackage(updatedPackage)) {
+					return currentPackages.filter((tourPackage) => tourPackage._id !== updatedPackage._id);
+				}
+
+				return currentPackages.map((tourPackage) =>
+					tourPackage._id === updatedPackage._id ? { ...tourPackage, ...updatedPackage } : tourPackage,
+				);
+			});
+		};
+
 		try {
-			await updateTourPackageByAdmin({
+			setUpdatingPackageId(updateData._id);
+			applyPackageUpdate(optimisticPackage);
+			if (!shouldShowPackage(optimisticPackage) && value !== 'ALL') {
+				setPackagesTotal((total) => Math.max(0, total - 1));
+			}
+
+			const { data } = await updatePackageStatus({
 				variables: {
-					input: updateData,
+					packageId: updateData._id,
+					status: nextStatus,
 				},
 			});
 			menuIconCloseHandler();
-			await getAllTourPackagesByAdminRefetch({ input: tourPackagesInquiry });
+			if (data?.updatePackageStatus) applyPackageUpdate(data.updatePackageStatus);
 		} catch (err: any) {
+			setPackages(previousPackages);
+			setPackagesTotal(previousTotal);
 			menuIconCloseHandler();
 			sweetErrorHandling(err).then();
+		} finally {
+			setUpdatingPackageId(null);
 		}
 	};
 
@@ -217,7 +246,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 									value={PackageStatus.DELETE}
 									className={value === PackageStatus.DELETE ? 'li on' : 'li'}
 								>
-									Delete
+									Deleted
 								</ListItem>
 							</List>
 							<Divider />
@@ -261,7 +290,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 							menuIconClickHandler={menuIconClickHandler}
 							menuIconCloseHandler={menuIconCloseHandler}
 							updateTourPackageHandler={updateTourPackageHandler}
-							removePackageHandler={removePackageHandler}
+							updatingPackageId={updatingPackageId}
 						/>
 
 						<TablePagination

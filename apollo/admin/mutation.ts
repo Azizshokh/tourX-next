@@ -65,8 +65,69 @@ export const UPDATE_TOUR_PACKAGE_BY_ADMIN = gql`
 			startDate
 			endDate
 			deletedAt
+			closedAt
+			activatedAt
 			createdAt
 			updatedAt
+		}
+	}
+`;
+
+export const UPDATE_PACKAGE_STATUS = gql`
+	mutation UpdatePackageStatus($packageId: String!, $status: PackageStatus!) {
+		updatePackageStatus(packageId: $packageId, status: $status) {
+			_id
+			packageType
+			packageStatus
+			packageTitle
+			packageCountry
+			packageCity
+			packageAddress
+			packageDesc
+			packagePrice
+			packageCurrency
+			durationDays
+			minPeople
+			maxPeople
+			flightIncluded
+			hotelIncluded
+			guideIncluded
+			packageViews
+			packageLikes
+			packageComments
+			packageRank
+			packageImages
+			memberId
+			startDate
+			endDate
+			deletedAt
+			closedAt
+			activatedAt
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberWarnings
+				memberBlocks
+				memberTours
+				memberRank
+				memberPoints
+				memberLikes
+				memberViews
+				deletedAt
+				createdAt
+				updatedAt
+				accessToken
+			}
 		}
 	}
 `;
@@ -99,6 +160,8 @@ export const REMOVE_TOUR_PACKAGE_BY_ADMIN = gql`
 			startDate
 			endDate
 			deletedAt
+			closedAt
+			activatedAt
 			createdAt
 			updatedAt
 		}

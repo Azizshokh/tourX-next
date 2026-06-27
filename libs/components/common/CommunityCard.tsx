@@ -188,6 +188,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 						{boardArticle?.articleComments}
 					</span>
 				</Box>
+
 			</Box>
 		</Box>
 	);

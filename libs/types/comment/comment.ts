@@ -11,6 +11,8 @@ export interface Comment {
 	commentVideo?: string | null;
 	commentRefId: string;
 	memberId: string;
+	likesCount?: number;
+	isLiked?: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 	/** from aggregation **/

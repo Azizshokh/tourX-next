@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import useDeviceDetect from '../libs/hooks/useDeviceDetect';
 import withLayoutMain from '../libs/components/layout/LayoutHome';
-import CommunityBoards from '../libs/components/homepage/CommunityBoards';
+import CommunityComments from '../libs/components/homepage/CommunityComments';
 import PopularTourPackages from '../libs/components/homepage/PopularTourPackages';
 import TopAgents from '../libs/components/homepage/TopAgents';
 import TrendTourPackages from '../libs/components/homepage/TrendTourPackages';
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
 				<TopTourPackages />
 				<TravelInspiration />
 				<TopAgents />
-				<CommunityBoards />
+				<CommunityComments />
 			</Stack>
 		);
 	}

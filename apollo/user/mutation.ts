@@ -347,3 +347,17 @@ export const UNSUBSCRIBE = gql`
 		}
 	}
 `;
+
+/**************************
+ *         COMMENT        *
+ *************************/
+
+export const TOGGLE_COMMENT_LIKE = gql`
+	mutation ToggleCommentLike($input: String!) {
+		toggleCommentLike(commentId: $input) {
+			commentId
+			likesCount
+			isLiked
+		}
+	}
+`;

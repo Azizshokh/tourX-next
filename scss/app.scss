@@ -58,4 +58,42 @@ hr {
 		margin: 0 auto;
 		display: flex;
 	}
+
+	.comment-like-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		margin-top: 8px;
+
+		.like-icon-btn {
+			padding: 4px;
+			color: #c0ccda;
+			transition: color 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+
+			.like-icon {
+				font-size: 17px !important;
+			}
+
+			&:hover:not(:disabled) {
+				color: #ff383c;
+				transform: scale(1.2);
+			}
+
+			&:disabled {
+				opacity: 0.45;
+			}
+		}
+
+		.like-count {
+			font-size: 12px !important;
+			font-weight: 700 !important;
+			color: #7c8796 !important;
+			line-height: 1 !important;
+			min-width: 14px;
+		}
+
+		&.liked .like-icon-btn {
+			color: #ff383c;
+		}
+	}
 }

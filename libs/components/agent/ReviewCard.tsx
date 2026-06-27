@@ -5,6 +5,7 @@ import { Comment } from '../../types/comment/comment';
 import Moment from 'react-moment';
 import { REACT_APP_API_URL } from '../../config';
 import { CommentMediaDisplay } from '../common/CommentMedia';
+import CommentLikeButton from '../common/CommentLikeButton';
 
 interface ReviewCardProps {
 	fromMyPage?: string;
@@ -35,6 +36,11 @@ const ReviewCard = (props: ReviewCardProps) => {
 				</div>
 				<p>{comment.commentContent}</p>
 				<CommentMediaDisplay images={comment.commentImages} video={comment.commentVideo} />
+				<CommentLikeButton
+					commentId={comment._id}
+					initialLiked={comment.isLiked}
+					initialCount={comment.likesCount}
+				/>
 				{fromMyPage && (
 					<Stack className="reply-button-box">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

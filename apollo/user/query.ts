@@ -508,6 +508,8 @@ export const GET_COMMENTS = gql`
 				commentVideo
 				commentRefId
 				memberId
+				likesCount
+				isLiked
 				createdAt
 				updatedAt
 				memberData {
@@ -733,6 +735,33 @@ export const GET_NOTICES = gql`
 			}
 			metaCounter {
 				total
+			}
+		}
+	}
+`;
+
+/**************************
+ *         COMMENT        *
+ *************************/
+
+export const GET_TOP_LIKED_COMMENTS = gql`
+	query GetTopLikedComments($limit: Int) {
+		getTopLikedComments(limit: $limit) {
+			_id
+			commentStatus
+			commentGroup
+			commentContent
+			commentRefId
+			memberId
+			likesCount
+			isLiked
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberNick
+				memberImage
+				memberType
 			}
 		}
 	}

@@ -3730,3 +3730,389 @@
 		}
 	}
 }
+
+/* =====================================================================
+   Travel Community Comments — Premium Testimonial Carousel
+   ===================================================================== */
+#pc-wrap {
+	.home-page {
+		.community-discussions {
+			padding: 100px 0 110px;
+			background: linear-gradient(180deg, #fffcf7 0%, #fff8f0 60%, #fdf4e8 100%);
+			min-height: 680px;
+
+			.community-bg-icons {
+				.community-bg-icon svg {
+					opacity: 0.55;
+				}
+			}
+
+			.container {
+				align-items: center;
+				flex-direction: column;
+				position: relative;
+				z-index: 1;
+			}
+
+			.tc-deco {
+				position: absolute;
+				pointer-events: none;
+				z-index: 0;
+				user-select: none;
+				mix-blend-mode: multiply;
+
+				&.tc-deco-plane {
+					top: -10px;
+					left: 20px;
+					width: 340px;
+					opacity: 0.9;
+					transform: rotate(-8deg);
+					filter: drop-shadow(0 12px 28px rgba(13, 28, 50, 0.1));
+				}
+
+				&.tc-deco-travel {
+					bottom: -10px;
+					right: 20px;
+					width: 340px;
+					opacity: 0.88;
+					transform: rotate(8deg);
+					filter: drop-shadow(0 12px 28px rgba(13, 28, 50, 0.08));
+				}
+			}
+
+			.tc-header {
+				text-align: center;
+				margin-bottom: 56px;
+				position: relative;
+				z-index: 1;
+
+				.tc-eyebrow {
+					display: block;
+					margin-bottom: 14px;
+					color: #ff8a00;
+					font-family: 'Plus Jakarta Sans', sans-serif;
+					font-size: 12px;
+					font-weight: 900;
+					letter-spacing: 0.15em;
+					text-transform: uppercase;
+				}
+
+				.tc-main-title {
+					margin: 0 0 12px !important;
+					color: #0d1c32 !important;
+					font-family: 'Plus Jakarta Sans', sans-serif !important;
+					font-size: 42px !important;
+					font-weight: 900 !important;
+					line-height: 52px !important;
+					letter-spacing: -0.5px;
+					text-transform: none !important;
+				}
+
+				.tc-subtitle {
+					color: #64748b !important;
+					font-family: 'Plus Jakarta Sans', sans-serif;
+					font-size: 16px;
+					line-height: 26px;
+				}
+			}
+
+			.tc-carousel-wrap {
+				position: relative;
+				z-index: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 28px;
+				width: 100%;
+
+				.tc-arrow {
+					flex-shrink: 0;
+					width: 54px;
+					height: 54px;
+					border-radius: 50%;
+					border: 1.5px solid rgba(13, 28, 50, 0.12);
+					background: #ffffff;
+					color: #0d1c32;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					box-shadow: 0 8px 24px rgba(13, 28, 50, 0.1);
+					transition: background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, color 0.22s ease;
+
+					svg {
+						width: 24px;
+						height: 24px;
+					}
+
+					&:hover {
+						background: #ff8a00;
+						border-color: #ff8a00;
+						color: #ffffff;
+						transform: scale(1.08);
+						box-shadow: 0 12px 30px rgba(255, 138, 0, 0.38);
+					}
+				}
+
+				.tc-swiper {
+					width: 680px;
+					overflow: hidden;
+				}
+
+				.tc-slide {
+					display: flex;
+					justify-content: center;
+					align-items: flex-start;
+				}
+			}
+
+			.tc-card-outer {
+				position: relative;
+				padding-top: 60px;
+				width: 640px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.tc-rank {
+				position: absolute;
+				top: 42px;
+				right: 40px;
+				z-index: 10;
+				width: 34px;
+				height: 34px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #ffffff;
+				font-family: 'Plus Jakarta Sans', sans-serif;
+				font-size: 11px;
+				font-weight: 900;
+				box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+				border: 2.5px solid rgba(255, 255, 255, 0.9);
+			}
+
+			.tc-avatar-ring {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 5;
+				padding: 4px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, #ff8a00 0%, #ff383c 100%);
+				box-shadow: 0 14px 34px rgba(255, 138, 0, 0.4);
+
+				.tc-avatar {
+					width: 96px !important;
+					height: 96px !important;
+					border: 3px solid #ffffff;
+				}
+			}
+
+			.tc-card {
+				width: 100%;
+				padding: 54px 52px 36px;
+				box-sizing: border-box;
+				border-radius: 28px;
+				background: #ffffff;
+				border: 1px solid rgba(13, 28, 50, 0.07);
+				text-align: center;
+
+				.tc-quote-icon {
+					font-size: 80px !important;
+					color: rgba(255, 138, 0, 0.13);
+					display: block;
+					line-height: 1;
+					margin-bottom: -14px;
+					margin-top: -8px;
+				}
+
+				.tc-text {
+					font-family: 'Plus Jakarta Sans', sans-serif !important;
+					font-size: 16px !important;
+					line-height: 30px !important;
+					color: #1e2d3d !important;
+					font-style: italic;
+					margin: 0 0 24px !important;
+					min-height: 90px;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-line-clamp: 5;
+					line-clamp: 5;
+					-webkit-box-orient: vertical;
+				}
+
+				.tc-divider {
+					width: 52px;
+					height: 3px;
+					background: linear-gradient(90deg, #ff8a00, #ff383c);
+					border-radius: 2px;
+					margin: 0 auto 18px;
+				}
+
+				.tc-author-name {
+					font-family: 'Plus Jakarta Sans', sans-serif !important;
+					font-size: 18px !important;
+					font-weight: 900 !important;
+					color: #0d1c32 !important;
+					margin: 0 0 4px !important;
+					display: block;
+				}
+
+				.tc-author-role {
+					font-family: 'Plus Jakarta Sans', sans-serif !important;
+					font-size: 11px !important;
+					font-weight: 800 !important;
+					color: #ff8a00 !important;
+					letter-spacing: 0.1em;
+					text-transform: uppercase;
+					display: block;
+				}
+
+				.tc-like-row {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 10px;
+					margin-top: 20px;
+					padding-top: 18px;
+					border-top: 1px solid #f0f4f8;
+
+					.tc-like-btn {
+						border: none;
+						background: none;
+						cursor: pointer;
+						padding: 5px;
+						border-radius: 50%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						color: #c0ccda;
+						transition: color 0.2s ease, transform 0.18s ease;
+
+						svg {
+							width: 22px;
+							height: 22px;
+						}
+
+						&.liked {
+							color: #ff383c;
+						}
+
+						&:hover:not(:disabled) {
+							transform: scale(1.18);
+							color: #ff383c;
+						}
+
+						&:disabled {
+							opacity: 0.5;
+							cursor: not-allowed;
+						}
+
+						&.tc-like-static {
+							cursor: default;
+							color: #ff8a00;
+							pointer-events: none;
+						}
+					}
+
+					.tc-like-count {
+						font-family: 'Plus Jakarta Sans', sans-serif !important;
+						font-size: 14px !important;
+						font-weight: 800 !important;
+						color: #475569 !important;
+					}
+
+					.tc-dot-sep {
+						color: #c0ccda;
+						font-size: 18px;
+						line-height: 1;
+					}
+
+					.tc-date {
+						font-family: 'Plus Jakarta Sans', sans-serif !important;
+						font-size: 12px !important;
+						color: #94a3b8 !important;
+						font-weight: 600 !important;
+					}
+				}
+			}
+
+			.tc-dots {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 36px;
+				position: relative;
+				z-index: 1;
+
+				.tc-dot {
+					border: none;
+					cursor: pointer;
+					height: 8px;
+					width: 8px;
+					border-radius: 50%;
+					background: rgba(13, 28, 50, 0.18);
+					transition: background 0.25s ease, width 0.25s ease, border-radius 0.25s ease;
+					padding: 0;
+
+					&.active {
+						background: #ff8a00;
+						width: 26px;
+						border-radius: 4px;
+						box-shadow: 0 0 12px rgba(255, 138, 0, 0.4);
+					}
+				}
+			}
+
+			.tc-view-all {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 40px;
+				padding: 13px 28px;
+				border-radius: 11px;
+				border: 1.5px solid rgba(255, 138, 0, 0.42);
+				color: #ff8a00;
+				font-family: 'Plus Jakarta Sans', sans-serif;
+				font-size: 14px;
+				font-weight: 800;
+				text-decoration: none;
+				position: relative;
+				z-index: 1;
+				transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+
+				svg {
+					width: 18px;
+					height: 18px;
+					transition: transform 0.22s ease;
+				}
+
+				&:hover {
+					background: #ff8a00;
+					border-color: #ff8a00;
+					color: #ffffff;
+					box-shadow: 0 14px 32px rgba(255, 138, 0, 0.38);
+
+					svg {
+						transform: translateX(3px);
+					}
+				}
+			}
+
+			.tc-empty {
+				position: relative;
+				z-index: 1;
+				text-align: center;
+				color: #94a3b8;
+				font-family: 'Plus Jakarta Sans', sans-serif;
+				font-size: 15px;
+				font-weight: 600;
+				padding: 60px 0;
+			}
+		}
+	}
+}

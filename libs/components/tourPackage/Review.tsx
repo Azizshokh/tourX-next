@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { CommentMediaDisplay } from '../common/CommentMedia';
+import CommentLikeButton from '../common/CommentLikeButton';
 
 interface ReviewProps {
 	comment: Comment;
@@ -49,6 +50,11 @@ const Review = (props: ReviewProps) => {
 				<Stack className={'desc-box'}>
 					<Typography className={'description'}>{comment.commentContent}</Typography>
 					<CommentMediaDisplay images={comment.commentImages} video={comment.commentVideo} />
+					<CommentLikeButton
+						commentId={comment._id}
+						initialLiked={comment.isLiked}
+						initialCount={comment.likesCount}
+					/>
 				</Stack>
 			</Stack>
 		);

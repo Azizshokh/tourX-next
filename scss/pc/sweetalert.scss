@@ -1,0 +1,200 @@
+@import '../variables.scss';
+
+// ── TourX SweetAlert2 theme ──────────────────────────────────────────────────
+
+// Popup card
+.tourx-swal {
+  padding: 36px 32px 28px !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+}
+
+// Title
+.tourx-swal-title {
+  padding: 0 0 6px !important;
+  color: #0d1c32 !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  line-height: 30px !important;
+  letter-spacing: 0 !important;
+}
+
+// Body text / html container
+.tourx-swal-body {
+  margin: 0 !important;
+  padding: 4px 0 0 !important;
+  color: #475569 !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+}
+
+// Confirm button (orange)
+.tourx-swal-confirm {
+  height: 44px !important;
+  padding: 0 26px !important;
+  border-radius: 11px !important;
+  background: #ff8a00 !important;
+  color: #ffffff !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  box-shadow: 0 12px 24px rgba(255, 138, 0, 0.3) !important;
+  border: none !important;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+
+  &:hover {
+    background: #e87a00 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 16px 28px rgba(255, 138, 0, 0.38) !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.3) !important;
+  }
+}
+
+// Cancel / secondary button (light slate)
+.tourx-swal-cancel {
+  height: 44px !important;
+  padding: 0 26px !important;
+  border-radius: 11px !important;
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  border: none !important;
+  transition: background 0.2s ease !important;
+
+  &:hover {
+    background: #e2e8f0 !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.18) !important;
+  }
+}
+
+// Icon tweaks scoped to our popup class ─────────────────────────────────────
+
+.tourx-swal {
+  .swal2-icon {
+    margin: 0 auto 20px !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-width: 3px !important;
+  }
+
+  // Success
+  .swal2-icon.swal2-success {
+    border-color: #10b981 !important;
+    color: #10b981 !important;
+
+    .swal2-success-ring {
+      border-color: rgba(16, 185, 129, 0.24) !important;
+    }
+
+    [class^='swal2-success-line'] {
+      background-color: #10b981 !important;
+    }
+  }
+
+  // Error
+  .swal2-icon.swal2-error {
+    border-color: #ff383c !important;
+    color: #ff383c !important;
+
+    [class^='swal2-x-mark-line'] {
+      background-color: #ff383c !important;
+    }
+  }
+
+  // Question
+  .swal2-icon.swal2-question {
+    border-color: #ff8a00 !important;
+    color: #ff8a00 !important;
+  }
+
+  // Warning
+  .swal2-icon.swal2-warning {
+    border-color: #ff8a00 !important;
+    color: #ff8a00 !important;
+  }
+
+  // Info
+  .swal2-icon.swal2-info {
+    border-color: #3b82f6 !important;
+    color: #3b82f6 !important;
+  }
+
+  // Actions row spacing
+  .swal2-actions {
+    gap: 10px !important;
+    margin: 24px 0 0 !important;
+    flex-wrap: wrap !important;
+  }
+
+  // Timer progress bar
+  .swal2-timer-progress-bar {
+    background: #ff8a00 !important;
+    border-radius: 0 0 22px 22px !important;
+  }
+}
+
+// ── Toast variant ────────────────────────────────────────────────────────────
+
+.tourx-toast {
+  padding: 14px 18px !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14) !important;
+  font-family: 'Plus Jakarta Sans', $font !important;
+
+  .swal2-title {
+    color: #0d1c32 !important;
+    font-family: 'Plus Jakarta Sans', $font !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+  }
+
+  .swal2-icon {
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 10px 0 0 !important;
+    border-width: 2px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .swal2-icon.swal2-success {
+    border-color: #10b981 !important;
+    color: #10b981 !important;
+
+    [class^='swal2-success-line'] {
+      background-color: #10b981 !important;
+    }
+
+    .swal2-success-ring {
+      border-color: rgba(16, 185, 129, 0.24) !important;
+    }
+  }
+
+  .swal2-icon.swal2-error {
+    border-color: #ff383c !important;
+    color: #ff383c !important;
+
+    [class^='swal2-x-mark-line'] {
+      background-color: #ff383c !important;
+    }
+  }
+
+  .swal2-timer-progress-bar {
+    background: #ff8a00 !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+}

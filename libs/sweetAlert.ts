@@ -2,17 +2,46 @@ import Swal from 'sweetalert2';
 import 'animate.css';
 import { Messages } from './config';
 
+// ── TourX base mixin ─────────────────────────────────────────────────────────
+
+const tourxSwal = Swal.mixin({
+	background: '#ffffff',
+	color: '#0d1c32',
+	confirmButtonColor: '#ff8a00',
+	cancelButtonColor: '#f1f5f9',
+	customClass: {
+		popup: 'tourx-swal',
+		title: 'tourx-swal-title',
+		htmlContainer: 'tourx-swal-body',
+		confirmButton: 'tourx-swal-confirm',
+		cancelButton: 'tourx-swal-cancel',
+	},
+});
+
+const tourxToast = Swal.mixin({
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	timerProgressBar: true,
+	customClass: {
+		popup: 'tourx-toast',
+	},
+});
+
+// ── Exports ──────────────────────────────────────────────────────────────────
+
 export const sweetErrorHandling = async (err: any) => {
-	await Swal.fire({
+	await tourxSwal.fire({
 		icon: 'error',
+		title: 'Something went wrong',
 		text: err.message,
-		showConfirmButton: false,
+		showConfirmButton: true,
+		confirmButtonText: 'OK',
 	});
 };
 
 export const sweetTopSuccessAlert = async (msg: string, duration: number = 2000) => {
-	await Swal.fire({
-		position: 'center',
+	await tourxSwal.fire({
 		icon: 'success',
 		title: msg.replace('Definer: ', ''),
 		showConfirmButton: false,
@@ -21,54 +50,45 @@ export const sweetTopSuccessAlert = async (msg: string, duration: number = 2000)
 };
 
 export const sweetContactAlert = async (msg: string, duration: number = 10000) => {
-	await Swal.fire({
+	await tourxSwal.fire({
 		title: msg,
-		showClass: {
-			popup: 'animate__bounceIn',
-		},
+		showClass: { popup: 'animate__bounceIn' },
 		showConfirmButton: false,
 		timer: duration,
-	}).then();
-};
-
-export const sweetConfirmAlert = (msg: string) => {
-	return new Promise(async (resolve, reject) => {
-		await Swal.fire({
-			icon: 'question',
-			text: msg,
-			showClass: {
-				popup: 'animate__bounceIn',
-			},
-			showCancelButton: true,
-			showConfirmButton: true,
-			confirmButtonColor: '#e92C28',
-			cancelButtonColor: '#bdbdbd',
-		}).then((response) => {
-			if (response?.isConfirmed) resolve(true);
-			else resolve(false);
-		});
 	});
 };
 
-export const sweetLoginConfirmAlert = (msg: string) => {
-	return new Promise(async (resolve, reject) => {
-		await Swal.fire({
+export const sweetConfirmAlert = (msg: string): Promise<boolean> => {
+	return new Promise(async (resolve) => {
+		const response = await tourxSwal.fire({
+			icon: 'question',
+			text: msg,
+			showClass: { popup: 'animate__bounceIn' },
+			showCancelButton: true,
+			showConfirmButton: true,
+			confirmButtonText: 'Confirm',
+			cancelButtonText: 'Cancel',
+		});
+		resolve(response?.isConfirmed ?? false);
+	});
+};
+
+export const sweetLoginConfirmAlert = (msg: string): Promise<boolean> => {
+	return new Promise(async (resolve) => {
+		const response = await tourxSwal.fire({
+			icon: 'question',
 			text: msg,
 			showCancelButton: true,
 			showConfirmButton: true,
-			color: '#212121',
-			confirmButtonColor: '#e92C28',
-			cancelButtonColor: '#bdbdbd',
 			confirmButtonText: 'Login',
-		}).then((response) => {
-			if (response?.isConfirmed) resolve(true);
-			else resolve(false);
+			cancelButtonText: 'Cancel',
 		});
+		resolve(response?.isConfirmed ?? false);
 	});
 };
 
 export const sweetErrorAlert = async (msg: string, duration: number = 3000) => {
-	await Swal.fire({
+	await tourxSwal.fire({
 		icon: 'error',
 		title: msg,
 		showConfirmButton: false,
@@ -77,7 +97,7 @@ export const sweetErrorAlert = async (msg: string, duration: number = 3000) => {
 };
 
 export const sweetMixinErrorAlert = async (msg: string, duration: number = 3000) => {
-	await Swal.fire({
+	await tourxSwal.fire({
 		icon: 'error',
 		title: msg,
 		showConfirmButton: false,
@@ -86,7 +106,7 @@ export const sweetMixinErrorAlert = async (msg: string, duration: number = 3000)
 };
 
 export const sweetMixinSuccessAlert = async (msg: string, duration: number = 2000) => {
-	await Swal.fire({
+	await tourxSwal.fire({
 		icon: 'success',
 		title: msg,
 		showConfirmButton: false,
@@ -95,15 +115,17 @@ export const sweetMixinSuccessAlert = async (msg: string, duration: number = 200
 };
 
 export const sweetBasicAlert = async (text: string) => {
-	Swal.fire(text);
+	await tourxSwal.fire({ text });
 };
 
 export const sweetErrorHandlingForAdmin = async (err: any) => {
 	const errorMessage = err.message ?? Messages.error1;
-	await Swal.fire({
+	await tourxSwal.fire({
 		icon: 'error',
+		title: 'Error',
 		text: errorMessage,
-		showConfirmButton: false,
+		showConfirmButton: true,
+		confirmButtonText: 'OK',
 	});
 };
 
@@ -112,20 +134,11 @@ export const sweetTopSmallSuccessAlert = async (
 	duration: number = 2000,
 	enable_forward: boolean = false,
 ) => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: duration,
-		timerProgressBar: true,
-	});
-
-	Toast.fire({
+	await tourxToast.fire({
 		icon: 'success',
 		title: msg,
-	}).then((data) => {
-		if (enable_forward) {
-			window.location.reload();
-		}
+		timer: duration,
 	});
+
+	if (enable_forward) window.location.reload();
 };

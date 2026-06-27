@@ -19,6 +19,8 @@ import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
 import { useTranslation } from 'next-i18next';
 
@@ -160,14 +162,21 @@ const MyMenu = () => {
 							<Typography className={'p-number'}>{user?.memberPhone}</Typography>
 						</Box>
 						{user?.memberType === 'ADMIN' ? (
-							<a href="/_admin/users" target={'_blank'} rel="noreferrer">
-								<Typography className={'view-list'}>
+							<Box className={'admin-view-wrap'} component={'div'}>
+								<Typography className={'view-list view-list--admin'}>
 									<AdminPanelSettingsRoundedIcon />
-									{user?.memberType}
+									Admin
 								</Typography>
-							</a>
+								<a href="/_admin/users" target={'_blank'} rel="noreferrer" className={'admin-go-btn'}>
+									<DashboardRoundedIcon />
+									<span>Admin Panel</span>
+									<ArrowForwardRoundedIcon className={'arrow'} />
+								</a>
+							</Box>
 						) : (
-							<Typography className={'view-list'}>{user?.memberType === 'AGENT' ? t('mypage:menu.travelAgent') : t('mypage:menu.traveler')}</Typography>
+							<Typography className={'view-list'}>
+								{user?.memberType === 'AGENT' ? t('mypage:menu.travelAgent') : t('mypage:menu.traveler')}
+							</Typography>
 						)}
 					</Stack>
 				</Stack>

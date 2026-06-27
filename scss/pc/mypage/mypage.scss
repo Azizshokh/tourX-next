@@ -275,6 +275,62 @@
 										width: 15px;
 										height: 15px;
 									}
+
+									&.view-list--admin {
+										background: rgba(13, 28, 50, 0.08);
+										color: #0d1c32;
+
+										svg {
+											color: #0d1c32;
+										}
+									}
+								}
+
+								.admin-view-wrap {
+									display: flex;
+									flex-direction: column;
+									align-items: center;
+									gap: 8px;
+									margin-top: 10px;
+
+									.admin-go-btn {
+										display: inline-flex;
+										align-items: center;
+										gap: 7px;
+										padding: 9px 16px;
+										border-radius: 12px;
+										background: linear-gradient(135deg, #0d1c32 0%, #1a2f4a 100%);
+										color: #ffffff;
+										font-family: 'Plus Jakarta Sans', $font;
+										font-size: 12px;
+										font-weight: 900;
+										letter-spacing: 0.02em;
+										text-decoration: none;
+										box-shadow: 0 10px 22px rgba(13, 28, 50, 0.22);
+										transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+										svg {
+											width: 16px;
+											height: 16px;
+											flex-shrink: 0;
+										}
+
+										svg:first-of-type {
+											color: #ff8a00;
+										}
+
+										.arrow {
+											width: 14px;
+											height: 14px;
+											color: rgba(255, 255, 255, 0.5);
+											margin-left: 2px;
+										}
+
+										&:hover {
+											transform: translateY(-2px);
+											box-shadow: 0 14px 28px rgba(13, 28, 50, 0.32);
+										}
+									}
 								}
 							}
 						}

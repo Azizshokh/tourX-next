@@ -3,7 +3,9 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Box, Button, Stack, Typography, IconButton, Backdrop, Pagination } from '@mui/material';
+import { Box, Button, Stack, Typography, IconButton, Backdrop } from '@mui/material';
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Moment from 'react-moment';
 import { userVar } from '../../apollo/store';
@@ -95,6 +97,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	const [updateComment] = useMutation(UPDATE_COMMENT);
 
 	const { refetch: boardArticleRefetch } = useQuery(GET_BOARD_ARTICLE, {
+		skip: !articleId,
 		fetchPolicy: 'network-only',
 		variables: { input: articleId },
 		notifyOnNetworkStatusChange: true,
@@ -107,6 +110,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	});
 
 	const { refetch: getCommentsRefetch } = useQuery(GET_COMMENTS, {
+		skip: !searchFilter.search.commentRefId,
 		fetchPolicy: 'cache-and-network',
 		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
@@ -392,6 +396,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 							</Stack>
 
 							{/* Comment list */}
+							<Box className={'cd-comment-list'}>
 							{comments.map((commentData) => (
 								<Stack className={'cd-comment-item'} key={commentData._id}>
 									<Stack className={'cd-comment-header'}>
@@ -488,16 +493,39 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 									</Box>
 								</Stack>
 							))}
+							</Box>
 
 							{total > 0 && (
 								<Stack className={'cd-pagination'}>
-									<Pagination
-										count={Math.ceil(total / searchFilter.limit) || 1}
-										page={searchFilter.page}
-										shape={'circular'}
-										color={'primary'}
-										onChange={paginationHandler}
-									/>
+									<button
+										className={'cd-page-btn'}
+										onClick={(e) => paginationHandler(e, searchFilter.page - 1)}
+										disabled={searchFilter.page <= 1}
+									>
+										<ChevronLeftRoundedIcon />
+									</button>
+
+									<Stack className={'cd-page-track'}>
+										{Array.from({ length: Math.ceil(total / searchFilter.limit) }, (_, i) => i + 1).map((n) => (
+											<button
+												key={n}
+												className={`cd-page-dot ${n === searchFilter.page ? 'active' : ''}`}
+												onClick={(e) => paginationHandler(e, n)}
+											/>
+										))}
+									</Stack>
+
+									<button
+										className={'cd-page-btn'}
+										onClick={(e) => paginationHandler(e, searchFilter.page + 1)}
+										disabled={searchFilter.page >= Math.ceil(total / searchFilter.limit)}
+									>
+										<ChevronRightRoundedIcon />
+									</button>
+
+									<Typography className={'cd-page-label'}>
+										{searchFilter.page} / {Math.ceil(total / searchFilter.limit)}
+									</Typography>
 								</Stack>
 							)}
 						</Box>
@@ -511,7 +539,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 CommunityDetail.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 5,
+		limit: 1,
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: { commentRefId: '' },

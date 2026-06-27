@@ -969,14 +969,28 @@
 			}
 		}
 
+		/* Comment list wrapper */
+		.cd-comment-list {
+			border: 1px solid #f1f5f9;
+			border-radius: 14px;
+			overflow: hidden;
+			background: #fafbfc;
+		}
+
 		/* Individual comment */
 		.cd-comment-item {
-			padding: 20px 0;
+			padding: 20px 22px;
 			border-bottom: 1px solid #f1f5f9;
+			background: #ffffff;
 			gap: 0;
+			transition: background 0.15s;
 
 			&:last-of-type {
 				border-bottom: none;
+			}
+
+			&:hover {
+				background: #fffdf9;
 			}
 		}
 
@@ -1142,8 +1156,80 @@
 
 		/* Pagination */
 		.cd-pagination {
+			flex-direction: row !important;
 			align-items: center;
+			justify-content: center;
+			gap: 12px;
 			padding-top: 24px;
+
+			/* Prev / Next arrow buttons */
+			.cd-page-btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 36px;
+				height: 36px;
+				border-radius: 10px;
+				border: 1.5px solid #e5e7eb;
+				background: #ffffff;
+				color: #0d1c32;
+				cursor: pointer;
+				flex-shrink: 0;
+				transition: background 0.18s, border-color 0.18s, color 0.18s;
+
+				svg {
+					font-size: 20px !important;
+				}
+
+				&:hover:not(:disabled) {
+					border-color: #ff8a00;
+					background: #fff8f0;
+					color: #ff8a00;
+				}
+
+				&:disabled {
+					opacity: 0.32;
+					cursor: default;
+				}
+			}
+
+			/* Dot track */
+			.cd-page-track {
+				flex-direction: row !important;
+				align-items: center;
+				gap: 6px;
+
+				.cd-page-dot {
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					border: none;
+					background: #d1d5db;
+					cursor: pointer;
+					padding: 0;
+					transition: background 0.18s, transform 0.18s, width 0.2s;
+
+					&:hover {
+						background: #ff8a00;
+					}
+
+					&.active {
+						background: #ff8a00;
+						width: 22px;
+						border-radius: 4px;
+						transform: none;
+					}
+				}
+			}
+
+			/* Page label */
+			.cd-page-label {
+				color: #9ca3af !important;
+				font-family: 'Plus Jakarta Sans', $font !important;
+				font-size: 12px !important;
+				font-weight: 700 !important;
+				white-space: nowrap;
+			}
 		}
 	}
 }

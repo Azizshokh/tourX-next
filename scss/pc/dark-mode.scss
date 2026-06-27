@@ -243,6 +243,15 @@ html.dark {
       &:after {
         background: linear-gradient(180deg, rgba(7,16,30,0) 0%, #07101e 100%) !important;
       }
+
+      .container {
+        span {
+          background: rgba(13,26,45,0.58) !important;
+          border-color: var(--border-orange) !important;
+          color: var(--text-primary) !important;
+          box-shadow: var(--shadow-card) !important;
+        }
+      }
     }
 
     // ── Hero header (direct child of #pc-wrap, sibling of #main) ─────────
@@ -631,6 +640,106 @@ html.dark {
     // ══════════════════════════════════════════════════════════════════════
     //  AGENT DETAIL PAGE  (/agent/detail)
     // ══════════════════════════════════════════════════════════════════════
+    .about-page {
+      background: var(--bg-page) !important;
+
+      .about-hero {
+        background: var(--bg-page) !important;
+
+        &::before {
+          background: linear-gradient(90deg, rgba(7,16,30,0.96) 0%, rgba(7,16,30,0.86) 48%, rgba(13,26,45,0.72) 100%) !important;
+        }
+
+        &::after {
+          background: linear-gradient(180deg, rgba(7,16,30,0) 0%, var(--bg-page) 100%) !important;
+        }
+
+        .eyebrow {
+          background: rgba(255,138,0,0.14) !important;
+          color: var(--brand-orange) !important;
+        }
+
+        h1 {
+          color: var(--text-primary) !important;
+          text-shadow: 0 18px 44px rgba(0,0,0,0.42) !important;
+        }
+
+        p {
+          color: var(--text-secondary) !important;
+        }
+
+        .secondary-action {
+          background: rgba(13,26,45,0.62) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+
+          &:hover {
+            background: rgba(255,138,0,0.12) !important;
+            border-color: var(--border-orange) !important;
+          }
+        }
+
+        .hero-media {
+          box-shadow: var(--shadow-deep) !important;
+
+          &::after {
+            background: linear-gradient(180deg, rgba(7,16,30,0.08) 0%, rgba(7,16,30,0.5) 100%) !important;
+          }
+        }
+
+        .floating-note {
+          background: rgba(13,26,45,0.82) !important;
+          border-color: var(--border-orange) !important;
+          color: var(--text-primary) !important;
+        }
+      }
+
+      .about-stats .container,
+      .mission-card,
+      .about-values article {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: var(--shadow-card) !important;
+      }
+
+      .about-stats div,
+      .mission-card .icon-box {
+        background: var(--bg-card-alt) !important;
+      }
+
+      .about-stats span,
+      .section-heading p,
+      .mission-card p,
+      .about-feature p,
+      .about-values article p {
+        color: var(--text-secondary) !important;
+      }
+
+      .section-heading h2,
+      .mission-card h3,
+      .about-feature h2,
+      .about-feature li,
+      .about-values h2,
+      .about-values article h3 {
+        color: var(--text-primary) !important;
+      }
+
+      .about-feature {
+        background: var(--bg-card) !important;
+
+        .feature-image {
+          box-shadow: var(--shadow-deep) !important;
+        }
+      }
+
+      .about-help .container {
+        background:
+          linear-gradient(90deg, rgba(7,16,30,0.94), rgba(13,26,45,0.88)),
+          url('/img/events/Footer%20img.png') center / cover no-repeat !important;
+        border: 1px solid var(--border-orange) !important;
+      }
+    }
+
     .agent-detail-page {
       background: var(--bg-page) !important;
 

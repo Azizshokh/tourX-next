@@ -55,6 +55,10 @@ const withLayoutBasic = (Component: any) => {
 					title = 'layout.help';
 					desc = 'We are glad to see you again!';
 					break;
+				case '/about':
+					title = 'layout.about';
+					desc = 'layout.aboutTourX';
+					break;
 				case '/account/join':
 					title = 'layout.loginSignup';
 					desc = 'layout.authProcess';

@@ -559,13 +559,16 @@ body::-webkit-scrollbar {
 			position: relative;
 			z-index: 1;
 			width: min(1180px, 100%);
-			margin-top: 52px;
+			margin: 439px auto 0;
 			padding: 0 32px;
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
+			align-items: center;
+			gap: 14px;
+			text-align: center;
 
 			strong {
+				max-width: 760px;
 				color: #fff;
 				font-family: 'Plus Jakarta Sans', $font;
 				font-size: 52px;
@@ -578,20 +581,21 @@ body::-webkit-scrollbar {
 			}
 
 			span {
-				width: max-content;
-				max-width: 560px;
-				padding: 8px 14px;
+				width: fit-content;
+				max-width: min(620px, 100%);
+				padding: 9px 16px;
 				border-radius: 999px;
 				border: 1px solid rgba(255, 255, 255, 0.34);
-				background: rgba(255, 255, 255, 0.14);
-				backdrop-filter: blur(8px);
+				background: rgba(255, 255, 255, 0.16);
+				backdrop-filter: blur(12px);
 				color: rgba(255, 255, 255, 0.94);
 				font-family: 'Plus Jakarta Sans', $font;
 				font-size: 15px;
 				font-style: normal;
 				font-weight: 800;
 				line-height: 20px;
-				letter-spacing: 0.02em;
+				letter-spacing: 0;
+				box-shadow: 0 16px 38px rgba(8, 18, 35, 0.14);
 			}
 		}
 	}

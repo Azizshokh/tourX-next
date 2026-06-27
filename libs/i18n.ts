@@ -9,7 +9,8 @@ export const COMMUNITY_NAMESPACES = [...COMMON_NAMESPACES, 'community'];
 export const ADMIN_NAMESPACES = [...COMMON_NAMESPACES, 'admin', 'package', 'community'];
 export const MYPAGE_NAMESPACES = [...COMMON_NAMESPACES, 'mypage', 'package', 'agent', 'community'];
 export const CS_NAMESPACES = [...COMMON_NAMESPACES, 'community'];
-export const ALL_NAMESPACES = ['common', 'auth', 'home', 'package', 'agent', 'community', 'admin', 'mypage', 'footer', 'errors'];
+export const ABOUT_NAMESPACES = [...COMMON_NAMESPACES, 'about'];
+export const ALL_NAMESPACES = ['common', 'auth', 'home', 'package', 'agent', 'community', 'admin', 'mypage', 'about', 'footer', 'errors'];
 
 export const getI18nProps = async (locale: string | undefined, namespaces: string[] = COMMON_NAMESPACES) => ({
 	...(await serverSideTranslations(locale ?? 'en', namespaces)),

@@ -1,154 +1,188 @@
 import React from 'react';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Stack, Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
+import RouteRoundedIcon from '@mui/icons-material/RouteRounded';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
+import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
+import { useTranslation } from 'next-i18next';
+import { ABOUT_NAMESPACES, getI18nProps } from '../../libs/i18n';
 
 const About: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'about']);
 
 	if (device === 'mobile') {
-		return <div>ABOUT PAGE MOBILE</div>;
-	} else {
-		return (
-			<Stack className={'about-page'}>
-				<Stack className={'intro'}>
-					<Stack className={'container'}>
-						<Stack className={'left'}>
-							<strong>We're on a Mission to Change View of Real Estate Field.</strong>
-						</Stack>
-						<Stack className={'right'}>
-							<p>
-								It doesn’t matter how organized you are — a surplus of toys will always ensure your house is a mess
-								waiting to happen. Fortunately, getting kids on board with the idea of ditching their stuff is a lot
-								easier than it sounds.
-								<br />
-								<br />
-								Maecenas quis viverra metus, et efficitur ligula. Nam congue augue et ex congue, sed luctus lectus
-								congue. Integer convallis condimentum sem. Duis elementum tortor eget condimentum tempor. Praesent
-								sollicitudin lectus ut pharetra pulvinar.
-							</p>
-							<Stack className={'boxes'}>
-								<div className={'box'}>
-									<div>
-										<img src="/img/icons/garden.svg" alt="" />
-									</div>
-									<span>Modern Villa</span>
-									<p>Nullam sollicitudin blandit Nullam maximus.</p>
-								</div>
-								<div className={'box'}>
-									<div>
-										<img src="/img/icons/securePayment.svg" alt="" />
-									</div>
-									<span>Secure Payment</span>
-									<p>Nullam sollicitudin blandit Nullam maximus.</p>
-								</div>
-							</Stack>
-						</Stack>
-					</Stack>
-				</Stack>
-				<Stack className={'statistics'}>
-					<Stack className={'container'}>
-						<Stack className={'banner'}>
-							<img src="/img/banner/header1.svg" alt="" />
-						</Stack>
-						<Stack className={'info'}>
-							<Box component={'div'}>
-								<strong>4M</strong>
-								<p>Award Winning</p>
-							</Box>
-							<Box component={'div'}>
-								<strong>12K</strong>
-								<p>Tour Package Ready</p>
-							</Box>
-							<Box component={'div'}>
-								<strong>20M</strong>
-								<p>Happy Customer</p>
-							</Box>
-						</Stack>
-					</Stack>
-				</Stack>
-				<Stack className={'agents'}>
-					<Stack className={'container'}>
-						<span className={'title'}>Our Exclusive Agetns</span>
-						<p className={'desc'}>Aliquam lacinia diam quis lacus euismod</p>
-						<Stack className={'wrap'}>
-							{/*{[1, 2, 3, 4, 5].map(() => {*/}
-							{/*	return <AgentCard />;*/}
-							{/*})}*/}
-						</Stack>
-					</Stack>
-				</Stack>
-				<Stack className={'options'}>
-					<img src="/img/banner/aboutBanner.svg" alt="" className={'about-banner'} />
-					<Stack className={'container'}>
-						<strong>Let’s find the right selling option for you</strong>
-						<Stack>
-							<div className={'icon-box'}>
-								<img src="/img/icons/security.svg" alt="" />
-							</div>
-							<div className={'text-box'}>
-								<span>Tour Package Management</span>
-								<p>Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.</p>
-							</div>
-						</Stack>
-						<Stack>
-							<div className={'icon-box'}>
-								<img src="/img/icons/keywording.svg" alt="" />
-							</div>
-							<div className={'text_-box'}>
-								<span>Tour Package Management</span>
-								<p>Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.</p>
-							</div>
-						</Stack>
-						<Stack>
-							<div className={'icon-box'}>
-								<img src="/img/icons/investment.svg" alt="" />
-							</div>
-							<div className={'text-box'}>
-								<span>Tour Package Management</span>
-								<p>Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.</p>
-							</div>
-						</Stack>
-						<Stack className={'btn'}>
-							Learn More
-							<img src="/img/icons/rightup.svg" alt="" />
-						</Stack>
-					</Stack>
-				</Stack>
-				<Stack className={'partners'}>
-					<Stack className={'container'}>
-						<span>Trusted bu the world's best</span>
-						<Stack className={'wrap'}>
-							<img src="/img/icons/brands/amazon.svg" alt="" />
-							<img src="/img/icons/brands/amd.svg" alt="" />
-							<img src="/img/icons/brands/cisco.svg" alt="" />
-							<img src="/img/icons/brands/dropcam.svg" alt="" />
-							<img src="/img/icons/brands/spotify.svg" alt="" />
-						</Stack>
-					</Stack>
-				</Stack>
-				<Stack className={'help'}>
-					<Stack className={'container'}>
-						<Box component={'div'} className={'left'}>
-							<strong>Need help? Talk to our expert.</strong>
-								<p>Talk to our experts or browse through more tour packages.</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'white'}>
-								Contact Us
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
-							<div className={'black'}>
-								<img src="/img/icons/call.svg" alt="" />
-								920 851 9087
-							</div>
-						</Box>
-					</Stack>
-				</Stack>
-			</Stack>
-		);
+		return <div>{t('common:mobile.about')}</div>;
 	}
+
+	const missionCards = [
+		{
+			icon: <TravelExploreRoundedIcon />,
+			title: t('about:mission.card1Title'),
+			body: t('about:mission.card1Body'),
+		},
+		{
+			icon: <VerifiedRoundedIcon />,
+			title: t('about:mission.card2Title'),
+			body: t('about:mission.card2Body'),
+		},
+		{
+			icon: <ForumRoundedIcon />,
+			title: t('about:mission.card3Title'),
+			body: t('about:mission.card3Body'),
+		},
+	];
+
+	const values = [
+		{ title: t('about:values.oneTitle'), body: t('about:values.oneBody') },
+		{ title: t('about:values.twoTitle'), body: t('about:values.twoBody') },
+		{ title: t('about:values.threeTitle'), body: t('about:values.threeBody') },
+	];
+
+	return (
+		<Stack className={'about-page'}>
+			<section className={'about-hero'}>
+				<Stack className={'container'}>
+					<Stack className={'hero-copy'}>
+						<span className={'eyebrow'}>{t('about:hero.kicker')}</span>
+						<h1>{t('about:hero.title')}</h1>
+						<p>{t('about:hero.subtitle')}</p>
+						<Stack className={'hero-actions'}>
+							<Link href={'/tour-package'} className={'primary-action'}>
+								{t('about:hero.primary')}
+								<ArrowOutwardRoundedIcon />
+							</Link>
+							<Link href={'/agent'} className={'secondary-action'}>
+								{t('about:hero.secondary')}
+							</Link>
+						</Stack>
+					</Stack>
+					<Box className={'hero-media'}>
+						<img src={'/img/events/about_us_img.png'} alt={t('about:hero.imageAlt')} />
+						<div className={'floating-note'}>
+							<RouteRoundedIcon />
+							<span>{t('about:stats.destinations')}</span>
+						</div>
+					</Box>
+				</Stack>
+			</section>
+
+			<section className={'about-stats'}>
+				<Stack className={'container'}>
+					<div>
+						<strong>40+</strong>
+						<span>{t('about:stats.destinations')}</span>
+					</div>
+					<div>
+						<strong>120+</strong>
+						<span>{t('about:stats.agents')}</span>
+					</div>
+					<div>
+						<strong>8K+</strong>
+						<span>{t('about:stats.travelers')}</span>
+					</div>
+					<div>
+						<strong>24/7</strong>
+						<span>{t('about:stats.support')}</span>
+					</div>
+				</Stack>
+			</section>
+
+			<section className={'about-mission'}>
+				<Stack className={'container'}>
+					<Stack className={'section-heading'}>
+						<span>{t('about:mission.eyebrow')}</span>
+						<h2>{t('about:mission.title')}</h2>
+						<p>{t('about:mission.body')}</p>
+					</Stack>
+					<Stack className={'mission-grid'}>
+						{missionCards.map((card) => (
+							<article className={'mission-card'} key={card.title}>
+								<div className={'icon-box'}>{card.icon}</div>
+								<h3>{card.title}</h3>
+								<p>{card.body}</p>
+							</article>
+						))}
+					</Stack>
+				</Stack>
+			</section>
+
+			<section className={'about-feature'}>
+				<Stack className={'container'}>
+					<Box className={'feature-image'}>
+						<img src={'/img/events/travel_concepts.png'} alt={t('about:feature.imageAlt')} />
+					</Box>
+					<Stack className={'feature-copy'}>
+						<span className={'eyebrow'}>{t('about:feature.eyebrow')}</span>
+						<h2>{t('about:feature.title')}</h2>
+						<p>{t('about:feature.body')}</p>
+						<ul>
+							<li>
+								<VerifiedRoundedIcon />
+								{t('about:feature.item1')}
+							</li>
+							<li>
+								<FavoriteRoundedIcon />
+								{t('about:feature.item2')}
+							</li>
+							<li>
+								<SupportAgentRoundedIcon />
+								{t('about:feature.item3')}
+							</li>
+						</ul>
+					</Stack>
+				</Stack>
+			</section>
+
+			<section className={'about-values'}>
+				<Stack className={'container'}>
+					<h2>{t('about:values.title')}</h2>
+					<Stack className={'values-grid'}>
+						{values.map((value, index) => (
+							<article key={value.title}>
+								<span>{String(index + 1).padStart(2, '0')}</span>
+								<h3>{value.title}</h3>
+								<p>{value.body}</p>
+							</article>
+						))}
+					</Stack>
+				</Stack>
+			</section>
+
+			<section className={'about-help'}>
+				<Stack className={'container'}>
+					<Stack className={'left'}>
+						<h2>{t('about:cta.title')}</h2>
+						<p>{t('about:cta.body')}</p>
+					</Stack>
+					<Stack className={'right'}>
+						<Link href={'/cs'} className={'outline-action'}>
+							{t('about:cta.contact')}
+							<ArrowOutwardRoundedIcon />
+						</Link>
+						<a href={`tel:${t('about:cta.phone').replace(/\\s/g, '')}`} className={'phone-action'}>
+							<PhoneRoundedIcon />
+							{t('about:cta.phone')}
+						</a>
+					</Stack>
+				</Stack>
+			</section>
+		</Stack>
+	);
 };
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ABOUT_NAMESPACES)),
+	},
+});
 
 export default withLayoutBasic(About);

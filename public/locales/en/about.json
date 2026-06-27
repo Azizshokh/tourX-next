@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "kicker": "About TourX",
+    "title": "Travel experiences built with trusted local experts",
+    "subtitle": "TourX connects travelers with curated tour packages, verified travel agents, and real community insight so every trip feels easier to choose and better to remember.",
+    "primary": "Explore packages",
+    "secondary": "Meet agents",
+    "imageAlt": "TourX travel marketplace"
+  },
+  "stats": {
+    "destinations": "Destinations curated",
+    "agents": "Verified travel agents",
+    "travelers": "Traveler stories",
+    "support": "Support mindset"
+  },
+  "mission": {
+    "eyebrow": "Our mission",
+    "title": "Make discovery, planning, and local trust feel seamless.",
+    "body": "Travel marketplaces can feel noisy. TourX is designed to make the important signals clear: what is included, who hosts the experience, where travelers are going, and how people felt after the trip.",
+    "card1Title": "Curated packages",
+    "card1Body": "Adventure, cultural, family, honeymoon, cruise, and business trips organized for clear comparison.",
+    "card2Title": "Local expertise",
+    "card2Body": "Travel agents can build reputation through packages, profiles, reviews, followers, and helpful answers.",
+    "card3Title": "Community signal",
+    "card3Body": "Traveler posts, comments, and shared tips help people choose with more confidence."
+  },
+  "feature": {
+    "eyebrow": "TourX",
+    "title": "A marketplace shaped for real travel decisions",
+    "body": "TourX keeps the booking journey practical: browse destinations, compare inclusions, save trips, follow agencies, and learn from the community before choosing your next tour.",
+    "item1": "Transparent trip details",
+    "item2": "Saved trips and recently viewed packages",
+    "item3": "Agent profiles with social proof",
+    "imageAlt": "TourX curated trips"
+  },
+  "values": {
+    "title": "What guides TourX",
+    "oneTitle": "Clarity first",
+    "oneBody": "Packages should be easy to scan, compare, and understand.",
+    "twoTitle": "Trust through people",
+    "twoBody": "Agents and travelers both add context that static listings cannot.",
+    "threeTitle": "Travel with care",
+    "threeBody": "Good journeys need useful details, responsible expectations, and responsive support."
+  },
+  "cta": {
+    "title": "Ready to plan a better trip?",
+    "body": "Start with curated packages or explore the agents behind each experience.",
+    "contact": "Contact us",
+    "phone": "920 851 9087"
+  }
+}

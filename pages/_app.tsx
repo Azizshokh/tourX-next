@@ -7,6 +7,7 @@ import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../apollo/client';
 import { appWithTranslation } from 'next-i18next';
 import nextI18NextConfig from '../next-i18next.config';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import '../scss/app.scss';
 import '../scss/pc/main.scss';
 import '../scss/mobile/main.scss';
@@ -17,12 +18,14 @@ const App = ({ Component, pageProps }: AppProps) => {
 	const client = useApollo(pageProps.initialApolloState);
 
 	return (
-		<ApolloProvider client={client}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Component {...pageProps} />
-			</ThemeProvider>
-		</ApolloProvider>
+		<NextThemesProvider attribute="class" defaultTheme="light" enableSystem={false}>
+			<ApolloProvider client={client}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Component {...pageProps} />
+				</ThemeProvider>
+			</ApolloProvider>
+		</NextThemesProvider>
 	);
 };
 

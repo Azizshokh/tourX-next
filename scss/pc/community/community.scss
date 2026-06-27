@@ -825,6 +825,52 @@
 		.cd-content {
 			min-height: 80px;
 			margin-bottom: 32px;
+
+			// Toast UI viewer wrapper
+			.tv-wrapper {
+				background: transparent;
+				border-radius: 10px;
+			}
+
+			// Toast UI viewer content — light mode
+			.toastui-editor-contents {
+				color: #1e2d3d;
+
+				p, li, td, th, caption { color: #1e2d3d; }
+				h1, h2, h3, h4, h5, h6 { color: #0d1c32; border-bottom-color: #f1f5f9; }
+				a { color: #ff8a00; &:hover { color: #e87a00; } }
+				strong { color: #0d1c32; }
+				em { color: #475569; }
+
+				blockquote {
+					border-left-color: #ff8a00;
+					background: #fffbf5;
+					p { color: #64748b; }
+				}
+
+				code {
+					background: #f6f3f2;
+					color: #c0392b;
+					border-radius: 4px;
+				}
+
+				pre {
+					background: #f6f3f2;
+					border: 1px solid rgba(226, 232, 240, 0.9);
+					border-radius: 8px;
+					code { background: transparent; color: #1e2d3d; }
+				}
+
+				table {
+					th { background: #f8fafc; color: #0d1c32; border-color: #e2e8f0; }
+					td { color: #374151; border-color: #e2e8f0; }
+					tr:nth-child(even) td { background: #fafbfc; }
+				}
+
+				hr { border-color: #f1f5f9; }
+
+				img { border-radius: 8px; }
+			}
 		}
 
 		/* Bottom like button */

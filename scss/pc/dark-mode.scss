@@ -1,0 +1,2422 @@
+@import '../variables.scss';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TourX Dark Mode — Comprehensive overrides
+// Triggered when next-themes sets class="dark" on <html>
+// ═══════════════════════════════════════════════════════════════════════════
+
+html.dark {
+
+  // ── Base ───────────────────────────────────────────────────────────────
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    &::-webkit-scrollbar-thumb { background: #1e3048; }
+    &::-webkit-scrollbar-track { background: #0a1422; }
+  }
+
+  a  { color: var(--text-primary); }
+  hr { border-color: var(--border) !important; }
+
+  // ── MUI globals ────────────────────────────────────────────────────────
+
+  .MuiPaper-root {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .MuiMenu-paper,
+  .MuiPopover-paper,
+  .MuiMenu-root .MuiPaper-root {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-orange) !important;
+    box-shadow: var(--shadow-deep) !important;
+  }
+
+  .MuiMenuItem-root {
+    color: var(--text-primary) !important;
+    &:hover { background: var(--bg-hover) !important; }
+  }
+
+  .MuiDivider-root { border-color: var(--border) !important; }
+
+  .MuiOutlinedInput-root {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    .MuiOutlinedInput-notchedOutline { border-color: var(--border) !important; }
+    &:hover .MuiOutlinedInput-notchedOutline { border-color: var(--border-orange) !important; }
+    &.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--brand-orange) !important; }
+  }
+
+  .MuiInputLabel-root     { color: var(--text-muted) !important; }
+  .MuiInputBase-input     { color: var(--text-primary) !important; }
+  .MuiSelect-icon         { color: var(--text-secondary) !important; }
+  .MuiFormHelperText-root { color: var(--text-muted) !important; }
+  .MuiTableCell-root      { color: var(--text-secondary) !important; border-bottom-color: var(--border) !important; }
+  .MuiDialog-paper        { background: var(--bg-card) !important; }
+  .MuiTableContainer-root { background: var(--bg-card) !important; }
+  .MuiChip-root           { background: var(--bg-card-alt) !important; color: var(--text-primary) !important; }
+
+  .MuiListItemButton-root:hover { background: var(--bg-hover) !important; }
+
+  .MuiAccordion-root       { background: var(--bg-card) !important; color: var(--text-primary) !important; border-color: var(--border) !important; }
+  .MuiAccordionSummary-root { color: var(--text-primary) !important; }
+  .MuiAccordionDetails-root { background: var(--bg-card-alt) !important; }
+
+  .MuiTabs-root           { background: var(--bg-card-alt) !important; }
+  .MuiTab-root            { color: var(--text-secondary) !important; }
+  .MuiTab-root.Mui-selected { color: var(--brand-orange) !important; }
+  .MuiTabs-indicator      { background-color: var(--brand-orange) !important; }
+
+  .MuiCheckbox-root       { color: var(--text-muted) !important; }
+  .MuiCheckbox-root.Mui-checked { color: var(--brand-orange) !important; }
+
+  .MuiPaginationItem-root {
+    color: var(--text-secondary) !important;
+    &.Mui-selected { background: var(--brand-orange) !important; color: #fff !important; }
+  }
+
+  // ── SweetAlert2 ────────────────────────────────────────────────────────
+  .tourx-swal {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-orange) !important;
+  }
+  .tourx-swal-title { color: var(--text-primary) !important; }
+  .tourx-swal-body  { color: var(--text-secondary) !important; }
+  .tourx-toast {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    .swal2-title { color: var(--text-primary) !important; }
+  }
+
+  // ── Advanced Filter Modal (MUI Modal portal — renders outside #pc-wrap) ─
+  .advanced-filter-modal {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-orange) !important;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.60), 0 0 0 1px rgba(255,138,0,0.08) !important;
+    border-radius: 11px !important;
+
+    // ── Close button ────────────────────────────────────────────────────
+    .close {
+      background: rgba(255, 138, 0, 0.12) !important;
+      color: var(--brand-orange) !important;
+      &:hover { background: var(--brand-orange) !important; color: #fff !important; }
+    }
+
+    // ── Top: title + search input ───────────────────────────────────────
+    .top > span { color: var(--text-primary) !important; }
+
+    .top div.search-input-box {
+      background: var(--bg-input) !important;
+      border-color: var(--border-orange) !important;
+
+      img { filter: invert(57%) sepia(96%) saturate(2476%) hue-rotate(2deg) brightness(102%) contrast(104%) !important; }
+      input {
+        color: var(--text-primary) !important;
+        background: transparent !important;
+        &::placeholder { color: var(--text-muted) !important; }
+      }
+      &:focus-within {
+        border-color: var(--brand-orange) !important;
+        background: rgba(255,138,0,0.06) !important;
+        box-shadow: 0 12px 28px rgba(255,138,0,0.12) !important;
+      }
+    }
+
+    // ── Divider ─────────────────────────────────────────────────────────
+    hr { border-color: var(--border) !important; }
+
+    // ── Middle: label + MUI Select / room buttons ───────────────────────
+    .middle .row-box .box {
+      > span { color: var(--text-muted) !important; }
+
+      .inside {
+        // Duration range separator
+        .minus-line { background: var(--brand-orange) !important; }
+
+        // Room-count toggle buttons
+        div.room {
+          background: var(--bg-input) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          &.active {
+            border-color: var(--brand-orange) !important;
+            background: var(--brand-orange) !important;
+            color: #fff !important;
+          }
+          &:hover:not(.active) {
+            border-color: var(--brand-orange) !important;
+            color: var(--brand-orange) !important;
+          }
+        }
+
+        em { color: var(--text-secondary) !important; }
+
+        // MUI Select field
+        .MuiOutlinedInput-root {
+          background: var(--bg-input) !important;
+          color: var(--text-primary) !important;
+
+          &:hover { background: rgba(255,138,0,0.08) !important; }
+          &.Mui-focused { background: var(--bg-card) !important; }
+
+          .MuiOutlinedInput-notchedOutline { border-color: var(--border) !important; }
+          &:hover .MuiOutlinedInput-notchedOutline,
+          &.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--brand-orange) !important; }
+
+          .MuiSelect-icon { color: var(--brand-orange) !important; }
+        }
+        .MuiSelect-select { color: var(--text-primary) !important; }
+      }
+    }
+
+    // ── Bottom: reset + search btn ──────────────────────────────────────
+    .bottom > div {
+      color: var(--text-secondary) !important;
+      img { filter: invert(48%) sepia(14%) saturate(500%) hue-rotate(180deg) brightness(90%) contrast(88%) !important; }
+      &:hover {
+        color: var(--brand-orange) !important;
+        img { filter: invert(57%) sepia(96%) saturate(2476%) hue-rotate(2deg) brightness(102%) contrast(104%) !important; }
+      }
+      span { color: inherit !important; }
+    }
+  }
+
+  // ── MUI Select dropdown paper (renders at body level) ────────────────
+  .MuiPopover-root .MuiPaper-root {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-orange) !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.50) !important;
+
+    .MuiMenuItem-root {
+      color: var(--text-secondary) !important;
+      &:hover, &.Mui-selected { background: rgba(255,138,0,0.10) !important; color: var(--brand-orange) !important; }
+      &.Mui-selected:hover { background: rgba(255,138,0,0.18) !important; }
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // #PC-WRAP
+  // ═══════════════════════════════════════════════════════════════════════
+
+  #pc-wrap {
+    background-color: var(--bg-page);
+
+    // ── Navbar ────────────────────────────────────────────────────────────
+    #top .navbar .navbar-main {
+      background: var(--bg-navbar) !important;
+      border-bottom-color: var(--border-orange) !important;
+      box-shadow: var(--shadow-navbar) !important;
+
+      .router-box div {
+        color: var(--text-secondary);
+        &:hover, &.active { color: var(--brand-orange); }
+      }
+
+      .user-box .join-box {
+        border-color: var(--border-orange);
+        background: transparent;
+        svg  { color: var(--brand-orange); }
+        span { color: var(--text-primary); }
+      }
+
+      .lan-box .notification-icon { color: var(--text-secondary); }
+    }
+
+    .theme-toggle-btn {
+      border-color: var(--border);
+      color: var(--text-secondary);
+      &:hover {
+        background: var(--bg-hover);
+        border-color: var(--border-orange);
+        color: var(--brand-orange);
+      }
+    }
+
+    // ── Header basic (inner pages banner) ─────────────────────────────────
+    .header-basic {
+      background:
+        linear-gradient(90deg, rgba(7,16,30,0.32) 12%, rgba(7,16,30,0.62) 44%, rgba(7,16,30,0.28) 100%),
+        linear-gradient(180deg, rgba(7,16,30,0.42) 0%, rgba(7,16,30,0.72) 100%),
+        url('/img/banner/Layout%20bg.png') center / cover no-repeat !important;
+
+      &:after {
+        background: linear-gradient(180deg, rgba(7,16,30,0) 0%, #07101e 100%) !important;
+      }
+    }
+
+    // ── Hero header (direct child of #pc-wrap, sibling of #main) ─────────
+    .header-main {
+      background:
+        linear-gradient(180deg, rgba(7,16,30,0.38) 0%, rgba(7,16,30,0.28) 48%, rgba(7,16,30,0.74) 100%),
+        url('/img/banner/TourX%20background.png') center / cover no-repeat !important;
+
+      .hero-video {
+        opacity: 0.42 !important;
+        filter: saturate(1.05) contrast(1.02) brightness(0.86) !important;
+      }
+
+      .hero-video-overlay {
+        background:
+          radial-gradient(circle at 50% 38%, rgba(255,138,0,0.16) 0%, rgba(255,138,0,0.06) 30%, rgba(255,138,0,0) 62%),
+          linear-gradient(90deg, rgba(7,16,30,0.48) 0%, rgba(7,16,30,0.24) 50%, rgba(7,16,30,0.48) 100%),
+          linear-gradient(180deg, rgba(7,16,30,0.18) 0%, rgba(7,16,30,0.14) 50%, var(--bg-page) 100%) !important;
+        backdrop-filter: saturate(1.02) brightness(0.96) !important;
+      }
+
+      .container .hero-content {
+        .hero-kicker {
+          border-color: rgba(255,138,0,0.42) !important;
+          background: rgba(255,138,0,0.18) !important;
+          color: #ffd7ad !important;
+          box-shadow: 0 12px 30px rgba(255,138,0,0.16) !important;
+        }
+
+        h1 {
+          color: #f8fafc !important;
+          text-shadow: 0 18px 44px rgba(0,0,0,0.5) !important;
+          span { color: var(--brand-orange) !important; }
+        }
+
+        p {
+          color: rgba(226,234,245,0.88) !important;
+          text-shadow: 0 12px 34px rgba(0,0,0,0.42) !important;
+        }
+
+        .hero-trust-row strong,
+        .hero-trust-row span {
+          background: rgba(13,26,45,0.68) !important;
+          border: 1px solid rgba(255,138,0,0.22) !important;
+          color: #e2eaf5 !important;
+          box-shadow: 0 12px 28px rgba(0,0,0,0.24) !important;
+        }
+      }
+
+      .search-box {
+        background: rgba(13, 26, 45, 0.72) !important;
+        border: 1px solid var(--border-orange) !important;
+        box-shadow: var(--shadow-deep) !important;
+        backdrop-filter: blur(12px) !important;
+
+        .select-box .box {
+          background: rgba(13, 26, 45, 0.85) !important;
+          border-color: rgba(255,138,0,0.18) !important;
+          .field-copy small { color: rgba(255,255,255,0.55) !important; }
+          .field-copy span  { color: #e2eaf5 !important; }
+          svg { color: rgba(255,255,255,0.55) !important; }
+          &:hover, &.on {
+            border-color: var(--brand-orange) !important;
+            background: rgba(255,138,0,0.12) !important;
+          }
+        }
+
+        .search-box-other {
+          .advanced-filter {
+            background: rgba(255, 138, 0, 0.12) !important;
+            border-color: rgba(255, 138, 0, 0.35) !important;
+            transition: background 0.2s ease, border-color 0.2s ease !important;
+
+            &:hover {
+              background: rgba(255, 138, 0, 0.22) !important;
+              border-color: rgba(255, 138, 0, 0.55) !important;
+            }
+
+            img {
+              filter: invert(57%) sepia(96%) saturate(2476%) hue-rotate(2deg) brightness(102%) contrast(104%) !important;
+            }
+
+            span {
+              color: var(--brand-orange) !important;
+            }
+          }
+
+          .search-btn {
+            background: var(--brand-orange) !important;
+            box-shadow: 0 16px 30px rgba(255, 138, 0, 0.28) !important;
+
+            &:hover {
+              background: #e87a00 !important;
+              box-shadow: 0 20px 36px rgba(255, 138, 0, 0.38) !important;
+            }
+
+            span { color: #ffffff !important; }
+            img  { filter: brightness(0) invert(1) !important; }
+          }
+        }
+
+        .filter-location,
+        .filter-type,
+        .filter-rooms {
+          background: var(--bg-card) !important;
+          border: 1px solid var(--border-orange) !important;
+          box-shadow: var(--shadow-deep) !important;
+          div span, span { color: var(--text-primary) !important; }
+        }
+
+        .filter-location {
+          scrollbar-color: var(--brand-orange) var(--bg-card-alt) !important;
+
+          &::-webkit-scrollbar-track {
+            background: var(--bg-card-alt) !important;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: var(--brand-orange) !important;
+            border-color: var(--bg-card-alt) !important;
+          }
+
+          div {
+            background: var(--bg-card-alt) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text-primary) !important;
+
+            span {
+              color: var(--text-primary) !important;
+            }
+
+            &:hover {
+              background: var(--brand-orange) !important;
+              border-color: var(--brand-orange) !important;
+
+              span {
+                color: #ffffff !important;
+              }
+            }
+          }
+        }
+
+        .filter-type div {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border) !important;
+          span { color: var(--text-primary) !important; }
+          &:hover { background: var(--brand-orange) !important; span { color: #fff !important; } }
+        }
+
+        .filter-rooms span {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+
+          &:hover {
+            background: var(--brand-orange) !important;
+            border-color: var(--brand-orange) !important;
+            color: #ffffff !important;
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  HOMEPAGE
+    // ══════════════════════════════════════════════════════════════════════
+    .home-page {
+      background: var(--bg-page) !important;
+
+      // Section backgrounds
+      .trend-tour-packages,
+      .top-tour-packages    { background: var(--bg-card) !important; }
+      .popular-tour-packages { background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-alt) 100%) !important; }
+      .travel-inspiration    { background: var(--bg-card) !important; }
+
+      // Info-box nav arrows
+      .info-box .right {
+        .more-box {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          span { color: var(--text-secondary) !important; }
+        }
+        .nav-arrow {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          &:hover { border-color: var(--brand-red) !important; background: var(--brand-red) !important; color: #fff !important; }
+        }
+      }
+
+      // Top-row cards (used in popular/top/trend sections)
+      .top-row-card {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        .fav-btn { background: rgba(13,26,45,0.88) !important; }
+        .card-body {
+          .top-line .rating { color: var(--text-primary) !important; }
+          .title    { color: var(--text-primary) !important; }
+          .chip-row { border-bottom-color: var(--border) !important; }
+          .foot-stat { color: var(--text-secondary) !important; }
+          .foot-stat svg { color: var(--text-muted) !important; }
+        }
+      }
+
+      // Old bento-style .info card areas
+      .info {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        .title  { color: var(--text-primary) !important; }
+        .desc   { color: var(--text-secondary) !important; }
+        .bott p { color: var(--text-primary) !important; }
+        .bott .view-like-box .view-cnt { color: var(--text-secondary) !important; }
+      }
+
+      // ── Top Agents section ──────────────────────────────────────────────
+      .top-agents {
+        background: #0a1422 !important;
+
+        .switch-btn {
+          background: var(--bg-card) !important;
+          box-shadow: 0 10px 35px rgba(0,0,0,0.4) !important;
+          svg { color: var(--text-primary) !important; }
+        }
+
+        // The actual card (TopAgentCard.tsx uses className="top-agent-card")
+        .top-agent-card {
+          background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-alt) 100%) !important;
+          border-color: rgba(255,138,0,0.25) !important;
+          box-shadow: 0 18px 45px rgba(0,0,0,0.5) !important;
+
+          strong { color: var(--text-primary) !important; }
+          span   { color: var(--text-secondary) !important; }
+
+          .agent-stats div {
+            background: rgba(255,138,0,0.06) !important;
+            border-color: var(--border) !important;
+            b  { color: var(--text-primary) !important; }
+            em { color: var(--text-secondary) !important; }
+          }
+        }
+      }
+
+      // ── Community Discussions / Testimonials section ────────────────────
+      .community-discussions {
+        // Replace the warm cream gradient with a deep dark equivalent
+        background: linear-gradient(180deg, #07101e 0%, #0a1525 60%, #0d1a2d 100%) !important;
+
+        // Decorative images use multiply blend on light — switch to screen on dark
+        // so they don't become black blobs
+        .tc-deco {
+          mix-blend-mode: screen !important;
+          opacity: 0.18 !important;
+        }
+
+        // ── Section header ──────────────────────────────────────────────
+        .tc-header {
+          .tc-eyebrow    { color: var(--brand-orange) !important; }
+          .tc-main-title { color: var(--text-primary) !important; }
+          .tc-subtitle   { color: var(--text-secondary) !important; }
+        }
+
+        // ── Carousel arrow buttons ──────────────────────────────────────
+        .tc-arrow {
+          background: var(--bg-card) !important;
+          border-color: var(--border-orange) !important;
+          color: var(--text-primary) !important;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+
+          svg { color: var(--text-primary) !important; }
+
+          &:hover {
+            background: var(--brand-orange) !important;
+            border-color: var(--brand-orange) !important;
+            color: #fff !important;
+            svg { color: #fff !important; }
+          }
+        }
+
+        // ── Floating avatar ring stays orange gradient — no change needed ─
+        // Avatar white border → match card bg
+        .tc-avatar-ring .tc-avatar {
+          border-color: var(--bg-card) !important;
+        }
+
+        // ── The testimonial card itself ─────────────────────────────────
+        .tc-card {
+          background: var(--bg-card) !important;
+          border: 1px solid rgba(255, 138, 0, 0.14) !important;
+          box-shadow:
+            0 24px 64px rgba(0,0,0,0.55),
+            0 0 0 1px rgba(255,138,0,0.06) !important;
+
+          // Quote icon — keep orange, just lighter
+          .tc-quote-icon {
+            color: rgba(255, 138, 0, 0.20) !important;
+          }
+
+          // Review text
+          .tc-text {
+            color: var(--text-secondary) !important;
+          }
+
+          // Orange gradient divider — no change (brand color stays)
+
+          // Author name
+          .tc-author-name {
+            color: var(--text-primary) !important;
+          }
+
+          // Role badge — stays orange, no change
+
+          // Like row
+          .tc-like-row {
+            border-top-color: var(--border) !important;
+
+            // Like button icon (not yet liked)
+            .tc-like-btn {
+              color: var(--text-muted) !important;
+
+              &.liked { color: #ff383c !important; }
+
+              &:hover:not(:disabled) { color: #ff383c !important; }
+
+              // Static like (mock entries) — stays orange
+              &.tc-like-static { color: var(--brand-orange) !important; }
+            }
+
+            .tc-like-count { color: var(--text-secondary) !important; }
+            .tc-dot-sep    { color: var(--border) !important; }
+            .tc-date       { color: var(--text-muted) !important; }
+          }
+        }
+
+        // ── Dot navigation ─────────────────────────────────────────────
+        .tc-dots .tc-dot {
+          background: rgba(255, 255, 255, 0.15) !important;
+
+          &.active {
+            background: var(--brand-orange) !important;
+            box-shadow: 0 0 12px rgba(255, 138, 0, 0.5) !important;
+          }
+        }
+
+        // ── "View all" link button ──────────────────────────────────────
+        .tc-view-all {
+          border-color: rgba(255, 138, 0, 0.35) !important;
+          color: var(--brand-orange) !important;
+
+          &:hover {
+            background: var(--brand-orange) !important;
+            border-color: var(--brand-orange) !important;
+            color: #fff !important;
+          }
+        }
+
+        // ── CommunityBoards grid cards (discussion-card) ────────────────
+        .discussions-head .left {
+          .title { color: var(--text-primary) !important; }
+          p      { color: var(--text-secondary) !important; }
+        }
+
+        .discussion-card {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          box-shadow: 0 12px 30px rgba(0,0,0,0.35) !important;
+
+          &:hover { border-color: var(--border-orange) !important; }
+
+          &.tips   .icon-tile { background: rgba(57,71,95,0.35) !important; color: #90aac8 !important; }
+          &.review .icon-tile { background: rgba(0,70,66,0.35) !important; color: #4aecd4 !important; }
+
+          .discussion-title { color: var(--text-primary) !important; }
+          .discussion-desc  { color: var(--text-secondary) !important; }
+          .discussion-top .time { color: var(--text-muted) !important; }
+          .discussion-meta span { color: var(--text-muted) !important; }
+        }
+
+        .discussions-empty {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-muted) !important;
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  AGENT DETAIL PAGE  (/agent/detail)
+    // ══════════════════════════════════════════════════════════════════════
+    .agent-detail-page {
+      background: var(--bg-page) !important;
+
+      // Hero info card
+      .agent-info {
+        background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-alt) 100%) !important;
+
+        .agent-name     { color: var(--text-primary) !important; }
+        .agent-role     { color: var(--brand-orange) !important; }
+        .agent-desc-text { color: var(--text-secondary) !important; }
+
+        .agent-like-btn {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border-orange) !important;
+          color: var(--text-primary) !important;
+          svg { color: var(--brand-orange) !important; }
+          &:hover, &.active { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+        }
+
+        .agent-follow-btn.following {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          svg { color: var(--text-primary) !important; }
+          &:hover { background: rgba(255,138,0,0.10) !important; border-color: var(--brand-orange) !important; color: var(--brand-orange) !important; }
+        }
+
+        .agent-stats .stat-box {
+          background: var(--bg-input) !important;
+          border-color: var(--border) !important;
+          .stat-value { color: var(--text-primary) !important; }
+          .stat-label { color: var(--text-muted) !important; }
+          .stat-icon  { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+        }
+
+        .agent-phone .MuiTypography-root { color: var(--text-secondary) !important; }
+      }
+
+      // Agent's tour package list
+      .agent-home-list {
+        background: var(--bg-card) !important;
+        box-shadow: var(--shadow-card) !important;
+
+        .agent-card {
+          .agent-info {
+            background: transparent !important;
+            strong { color: var(--text-primary) !important; }
+            span   { color: var(--text-secondary) !important; }
+          }
+        }
+
+        .pagination span { color: var(--text-muted) !important; }
+        .no-data { color: var(--text-muted) !important; }
+      }
+
+      // Review section
+      .review-box {
+        background: var(--bg-card-alt) !important;
+
+        .main-intro {
+          span { color: var(--text-primary) !important; }
+          p    { color: var(--text-secondary) !important; }
+        }
+
+        .review-wrap {
+          background: var(--bg-card) !important;
+          box-shadow: var(--shadow-card) !important;
+
+          .title-box span { color: var(--text-primary) !important; }
+
+          .review-card {
+            border-bottom-color: var(--border) !important;
+
+            .info .left div {
+              strong { color: var(--text-primary) !important; }
+              span   { color: var(--text-secondary) !important; }
+            }
+
+            p { color: var(--text-secondary) !important; }
+          }
+        }
+
+        .leave-review-config {
+          background: var(--bg-card) !important;
+          box-shadow: var(--shadow-card) !important;
+
+          .main-title   { color: var(--text-primary) !important; }
+          .review-title { color: var(--text-secondary) !important; }
+
+          textarea {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:focus { border-color: var(--brand-orange) !important; background: var(--bg-card) !important; }
+          }
+
+          .submit-review {
+            border-color: var(--border) !important;
+            .title { color: var(--text-primary) !important; }
+            &:disabled { background: var(--bg-card-alt) !important; }
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  TOUR PACKAGE LIST  (/tour-package)
+    // ══════════════════════════════════════════════════════════════════════
+    #tour-package-list-page {
+      background: var(--bg-page) !important;
+
+      .filter-config .filter-main {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: var(--shadow-card) !important;
+
+        .filter-title  { color: var(--text-primary) !important; }
+        .section-label { color: var(--text-primary) !important; }
+
+        .search-input, .filter-select, .range-num, .filter-select-sm {
+          background: var(--bg-input) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          &::placeholder { color: var(--text-muted) !important; }
+          &:focus { border-color: var(--brand-orange) !important; }
+        }
+        .apply-btn { background: var(--brand-orange) !important; color: #fff !important; }
+      }
+
+      .results-bar {
+        border-bottom-color: var(--border) !important;
+        .results-count { color: var(--text-secondary) !important; }
+        .sort-btn {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+        }
+      }
+
+      .card-config {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        .card-title  { color: var(--text-primary) !important; }
+        .card-desc   { color: var(--text-muted) !important; }
+        .price-from  { color: var(--text-muted) !important; }
+        .meta-loc-text, .meta-dur-text, .stat-text { color: var(--text-secondary) !important; }
+        .view-btn {
+          border-color: var(--brand-orange) !important;
+          color: var(--brand-orange) !important;
+          &:hover { background: var(--brand-orange) !important; color: #fff !important; }
+        }
+      }
+
+      .no-data { background: var(--bg-card) !important; border-color: var(--border) !important; color: var(--text-muted) !important; }
+      .total-result p { color: var(--text-muted) !important; }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  TOUR PACKAGE DETAIL  (/tour-package/detail)
+    // ══════════════════════════════════════════════════════════════════════
+    #tour-package-detail-page {
+      background: var(--bg-page) !important;
+      color: var(--text-primary) !important;
+
+      // Breadcrumb
+      .detail-breadcrumb {
+        a, span, p { color: var(--text-secondary) !important; }
+        a { color: #2f9e8f !important; }
+      }
+
+      // Title / header area
+      .tour-package-info-config {
+        .info {
+          border-bottom-color: var(--border) !important;
+
+          .title-main   { color: var(--text-primary) !important; }
+          .date         { color: var(--text-muted) !important; }
+          .opt-label    { color: var(--text-secondary) !important; }
+          .opt-value    { color: var(--text-primary) !important; }
+          .opt-fixed    { color: var(--text-primary) !important; }
+
+          .bottom-box .option p { color: var(--text-secondary) !important; }
+
+          .stepper {
+            background: rgba(255,138,0,0.06) !important;
+            border-color: var(--border) !important;
+            .step { color: var(--brand-orange) !important; }
+          }
+
+          // Share / like buttons
+          .button-box {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-secondary) !important;
+            &:hover { background: rgba(255,138,0,0.10) !important; color: var(--brand-orange) !important; }
+          }
+
+          // Price display (right-box > p)
+          .right-box > p { color: var(--text-primary) !important; }
+        }
+
+        // Image gallery
+        .images {
+          .main-image { background: var(--bg-card-alt) !important; }
+
+          .sub-images {
+            scrollbar-color: var(--brand-orange) var(--bg-input) !important;
+            &::-webkit-scrollbar-track { background: var(--bg-input) !important; }
+
+            .sub-img-box {
+              border-color: var(--bg-card) !important;
+              box-shadow: 0 0 0 1px var(--border) !important;
+            }
+          }
+        }
+      }
+
+      // Description left column
+      .left-config {
+        .prop-desc-config {
+          .top {
+            border-bottom-color: var(--border) !important;
+            .title { color: var(--text-primary) !important; }
+            .desc  { color: var(--text-secondary) !important; }
+          }
+          .bottom {
+            .title { color: var(--text-primary) !important; }
+
+            .service-card {
+              background: var(--bg-card) !important;
+              border-color: var(--border) !important;
+              &:hover { border-color: var(--border-orange) !important; }
+              .service-name { color: var(--text-primary) !important; }
+              .service-desc { color: var(--text-secondary) !important; }
+            }
+          }
+        }
+
+        // Address, reviews-config, leave-review-config share a white card style
+        .address-config,
+        .reviews-config,
+        .leave-review-config {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          box-shadow: var(--shadow-card) !important;
+        }
+
+        .address-config {
+          border-top-color: var(--border) !important;
+          .title { color: var(--text-primary) !important; }
+          > p    { color: var(--text-secondary) !important; }
+        }
+
+        .reviews-config .filter-box .reviews { color: var(--text-primary) !important; }
+
+        // Each review row
+        .review-config {
+          border-bottom-color: var(--border) !important;
+          .name        { color: var(--text-primary) !important; }
+          .date        { color: var(--text-muted) !important; }
+          .description { color: var(--text-secondary) !important; }
+        }
+
+        // Leave a review box
+        .leave-review-config {
+          .main-title   { color: var(--text-primary) !important; }
+          .review-title { color: var(--text-secondary) !important; }
+
+          textarea {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:focus { border-color: var(--brand-orange) !important; background: var(--bg-card) !important; }
+          }
+
+          .submit-review.Mui-disabled { background: var(--bg-card-alt) !important; color: var(--text-muted) !important; box-shadow: none !important; }
+        }
+      }
+
+      // Right sidebar (booking card + agent card)
+      .right-config {
+        .booking-card,
+        .info-box {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          box-shadow: var(--shadow-card) !important;
+        }
+
+        .booking-card {
+          .sidebar-kicker { color: var(--text-muted) !important; }
+          .price          { color: var(--text-primary) !important; }
+          .price-note     { color: var(--text-muted) !important; }
+
+          .outline-action {
+            background: rgba(255,138,0,0.08) !important;
+            border-color: rgba(255,138,0,0.25) !important;
+            color: var(--brand-orange) !important;
+          }
+
+          .booking-stats span,
+          .included-list span {
+            background: var(--bg-card-alt) !important;
+            color: var(--text-secondary) !important;
+          }
+
+          .included-list span.on {
+            background: rgba(17,128,111,0.15) !important;
+            color: #4ade80 !important;
+          }
+        }
+
+        .info-box {
+          .main-title     { color: var(--text-primary) !important; }
+          .name           { color: var(--text-primary) !important; &:hover { color: var(--brand-orange) !important; } }
+          .listings       { color: var(--brand-orange) !important; }
+          .member-image   { border-color: var(--border) !important; }
+        }
+      }
+
+      // Similar packages at the bottom
+      .similar-tour-packages-config {
+        border-top-color: var(--border) !important;
+
+        .main-title { color: var(--text-primary) !important; }
+        .sub-title  { color: var(--text-secondary) !important; }
+
+        .tour-package-big-card-box {
+          border-color: var(--border) !important;
+          .info {
+            background: var(--bg-card) !important;
+            border-top-color: var(--border) !important;
+            .title { color: var(--text-primary) !important; }
+            .desc  { color: var(--text-secondary) !important; }
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  AGENT LIST  (/agent)
+    // ══════════════════════════════════════════════════════════════════════
+    .agent-list-page {
+      background: var(--bg-page) !important;
+
+      .filter {
+        .left input {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          &::placeholder { color: var(--text-muted) !important; }
+        }
+        .right button {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+        }
+      }
+
+      .agent-general-card .info-card {
+        background: rgba(13,26,45,0.90) !important;
+        border-color: rgba(255,138,0,0.18) !important;
+        backdrop-filter: blur(18px) !important;
+        .agent-name     { color: var(--text-primary) !important; }
+        .agent-subtitle { color: var(--text-secondary) !important; }
+        .stat-box {
+          background: var(--bg-card-alt) !important;
+          .stat-lbl { color: var(--text-muted) !important; }
+          .stat-val  { color: var(--text-primary) !important; }
+        }
+        .agent-bio { color: var(--text-secondary) !important; }
+      }
+    }
+
+    // General agent card (used across pages)
+    .agent-general-card .agent-desc .agent-info {
+      strong { color: var(--text-primary) !important; }
+      span   { color: var(--text-secondary) !important; }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  TOUR PACKAGE BIG CARD (shared component)
+    // ══════════════════════════════════════════════════════════════════════
+    .tour-package-big-card-box {
+      .info {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        .title { color: var(--text-primary) !important; }
+        .desc  { color: var(--text-secondary) !important; }
+        .opt-item span { color: var(--text-secondary) !important; }
+        .inclusions .tag {
+          background: rgba(255,138,0,0.08) !important;
+          border-color: var(--border) !important;
+          color: var(--brand-orange) !important;
+        }
+        .view-cnt { color: var(--text-secondary) !important; }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  COMMUNITY  (/community list + detail)
+    // ══════════════════════════════════════════════════════════════════════
+
+    // ── Shared sidebar (used on both list + detail pages) ─────────────────
+    .community-list-page,
+    .community-detail-page {
+      // Decorative floating icons — dim in dark mode
+      .community-page-bg-icons .community-page-bg-icon {
+        opacity: 0.45 !important;
+        filter: brightness(1.4) !important;
+      }
+
+      // Sidebar write button — orange, stays the same
+      .cl-write-btn,
+      .cd-write-btn {
+        box-shadow: 0 8px 24px rgba(255,138,0,0.18) !important;
+      }
+
+      // Sidebar category card
+      .cl-cat-section,
+      .cd-cat-section {
+        background: var(--bg-card) !important;
+        border-color: var(--border-orange) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.20) !important;
+      }
+
+      .cl-cat-label,
+      .cd-cat-label { color: var(--text-muted) !important; }
+
+      .cl-cat-item,
+      .cd-cat-item {
+        color: var(--text-secondary) !important;
+        .cl-cat-icon,
+        .cd-cat-icon { color: var(--text-muted) !important; }
+        &:hover {
+          background: var(--bg-hover) !important;
+          color: var(--brand-orange) !important;
+          .cl-cat-icon, .cd-cat-icon { color: var(--brand-orange) !important; }
+        }
+        &.active {
+          background: rgba(255,138,0,0.12) !important;
+          color: var(--brand-orange) !important;
+          .cl-cat-icon, .cd-cat-icon { color: var(--brand-orange) !important; }
+        }
+      }
+    }
+
+    // ── Community list page ───────────────────────────────────────────────
+    .community-list-page {
+      background: var(--bg-page) !important;
+
+      // Article card
+      .community-article-card {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.25) !important;
+
+        &:hover {
+          box-shadow: 0 12px 32px rgba(0,0,0,0.40) !important;
+          border-color: var(--border-orange) !important;
+        }
+
+        // Like / heart button on image
+        .cac-like-btn {
+          background: rgba(13,26,45,0.80) !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
+          svg { color: var(--text-muted) !important; }
+          .cac-liked { color: var(--brand-orange) !important; }
+          &:hover {
+            background: rgba(13,26,45,0.95) !important;
+            svg { color: var(--brand-orange) !important; }
+          }
+        }
+
+        // Avatar border
+        .cac-avatar { border-color: var(--border-orange) !important; }
+
+        // Body text
+        .cac-title       { color: var(--text-primary) !important; }
+        .cac-author-name {
+          color: var(--text-primary) !important;
+          &:hover { color: var(--brand-orange) !important; }
+        }
+        .cac-time  { color: var(--text-muted) !important; }
+
+        // Stats row
+        .cac-stats { border-top-color: var(--border) !important; }
+        .cac-stat  { color: var(--text-muted) !important; svg { color: var(--text-muted) !important; } }
+      }
+
+      // Empty state
+      .cl-no-data {
+        color: var(--text-muted) !important;
+        img { opacity: 0.25 !important; }
+        p   { color: var(--text-muted) !important; }
+      }
+
+      // Pagination count label
+      .cl-pagination span { color: var(--text-muted) !important; }
+    }
+
+    // ── Community detail page ─────────────────────────────────────────────
+    .community-detail-page {
+      background: var(--bg-page) !important;
+
+      // ── Article card ──────────────────────────────────────────────────
+      .cd-article-card {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.28) !important;
+
+        // Hero image overlay — darken further
+        .cd-hero-overlay {
+          background: linear-gradient(to top, rgba(7,16,30,0.65) 0%, transparent 55%) !important;
+        }
+
+        // Article body
+        .cd-article-title {
+          color: var(--text-primary) !important;
+        }
+
+        .cd-article-divider { background: var(--border) !important; }
+
+        // Author row
+        .cd-author-avatar  { border-color: var(--border-orange) !important; }
+        .cd-author-name    {
+          color: var(--text-primary) !important;
+          &:hover { color: var(--brand-orange) !important; }
+        }
+        .cd-author-date    { color: var(--text-muted) !important; }
+
+        // Stats
+        .cd-stat { color: var(--text-muted) !important; svg { color: var(--text-muted) !important; } }
+
+        // Like section
+        .cd-like-section { border-top-color: var(--border) !important; }
+        .cd-like-btn {
+          border-color: var(--border) !important;
+          color: var(--text-secondary) !important;
+          background: transparent !important;
+          &:hover:not(:disabled) {
+            border-color: var(--brand-orange) !important;
+            color: var(--brand-orange) !important;
+            background: var(--bg-hover) !important;
+          }
+          &.liked {
+            border-color: var(--brand-orange) !important;
+            color: var(--brand-orange) !important;
+            background: rgba(255,138,0,0.10) !important;
+          }
+        }
+
+        // ── Article rich-text content (Toast UI Viewer) ──────────────────
+        .cd-content {
+          .tv-wrapper { background: transparent !important; }
+
+          .toastui-editor-contents {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+
+            // Paragraphs, lists, table cells
+            p, li, td, th, caption {
+              color: var(--text-secondary) !important;
+            }
+
+            // Headings
+            h1, h2, h3, h4, h5, h6 {
+              color: var(--text-primary) !important;
+              border-bottom-color: var(--border) !important;
+            }
+
+            // Links
+            a {
+              color: var(--brand-orange) !important;
+              &:hover { color: #e87a00 !important; text-decoration: underline !important; }
+            }
+
+            // Bold / italic
+            strong { color: var(--text-primary) !important; }
+            em     { color: var(--text-secondary) !important; }
+
+            // Blockquote
+            blockquote {
+              border-left-color: var(--brand-orange) !important;
+              background: rgba(255,138,0,0.06) !important;
+              p { color: var(--text-muted) !important; }
+            }
+
+            // Inline code
+            code {
+              background: rgba(255,138,0,0.10) !important;
+              color: #f4a261 !important;
+              border-radius: 4px !important;
+            }
+
+            // Code block
+            pre {
+              background: var(--bg-card-alt) !important;
+              border: 1px solid var(--border) !important;
+              border-radius: 8px !important;
+              code {
+                background-color: transparent !important;
+                color: #90c4e8 !important;
+              }
+            }
+
+            // Tables
+            table {
+              th {
+                background: var(--bg-input) !important;
+                color: var(--text-primary) !important;
+                border-color: var(--border) !important;
+              }
+              td {
+                color: var(--text-secondary) !important;
+                border-color: var(--border) !important;
+              }
+              tr:nth-child(even) td {
+                background: rgba(255,255,255,0.02) !important;
+              }
+            }
+
+            // Horizontal rule
+            hr { border-color: var(--border) !important; }
+
+            // Images
+            img { border-radius: 8px !important; opacity: 0.92 !important; }
+          }
+        }
+      }
+
+      // ── Comments section ──────────────────────────────────────────────
+      .cd-comments-wrap {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.28) !important;
+
+        .cd-comments-title { color: var(--text-primary) !important; }
+
+        // Leave comment input area
+        .cd-leave-comment {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border) !important;
+
+          .cd-commenter-avatar { border-color: var(--border-orange) !important; }
+
+          .cd-comment-input {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:focus { border-color: var(--brand-orange) !important; box-shadow: 0 0 0 3px rgba(255,138,0,0.10) !important; }
+          }
+
+          .cd-word-count { color: var(--text-muted) !important; }
+        }
+
+        // Comment list container
+        .cd-comment-list {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border) !important;
+        }
+
+        // Individual comment
+        .cd-comment-item {
+          background: var(--bg-card) !important;
+          border-bottom-color: var(--border) !important;
+          &:hover { background: rgba(255,138,0,0.04) !important; }
+
+          // Comment author
+          .cd-comment-avatar { border-color: var(--border-orange) !important; }
+          .cd-comment-name {
+            color: var(--text-primary) !important;
+          }
+          &:hover .cd-comment-name { color: var(--brand-orange) !important; }
+          .cd-comment-date { color: var(--text-muted) !important; }
+
+          // Action buttons (edit / delete)
+          .cd-action-btn {
+            color: var(--text-muted) !important;
+            &.delete:hover { color: var(--brand-red) !important; }
+            &.edit:hover   { color: var(--brand-orange) !important; }
+          }
+
+          // Comment text
+          .cd-comment-content .MuiTypography-root {
+            color: var(--text-secondary) !important;
+          }
+        }
+      }
+
+      // ── Pagination ────────────────────────────────────────────────────
+      .cd-page-btn {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        color: var(--text-primary) !important;
+        &:hover:not(:disabled) {
+          border-color: var(--brand-orange) !important;
+          background: var(--bg-hover) !important;
+          color: var(--brand-orange) !important;
+        }
+      }
+
+      .cd-page-dot {
+        background: var(--border) !important;
+        &:hover  { background: var(--brand-orange) !important; }
+        &.active { background: var(--brand-orange) !important; box-shadow: 0 0 8px rgba(255,138,0,0.40) !important; }
+      }
+
+      .cd-page-label { color: var(--text-muted) !important; }
+
+      // ── Edit modal (Backdrop portal) ──────────────────────────────────
+      .cd-edit-modal {
+        background: var(--bg-card) !important;
+        border: 1px solid var(--border-orange) !important;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.55) !important;
+
+        .cd-edit-modal-title { color: var(--text-primary) !important; }
+
+        .cd-edit-modal-input {
+          background: var(--bg-input) !important;
+          border-color: var(--border) !important;
+          color: var(--text-primary) !important;
+          &::placeholder { color: var(--text-muted) !important; }
+          &:focus { border-color: var(--brand-orange) !important; }
+        }
+
+        .cd-edit-modal-count  { color: var(--text-muted) !important; }
+        .cd-edit-cancel {
+          border-color: var(--border) !important;
+          color: var(--text-secondary) !important;
+          &:hover { background: var(--bg-hover) !important; border-color: var(--border-orange) !important; }
+        }
+        .cd-edit-save { box-shadow: 0 4px 12px rgba(255,138,0,0.22) !important; }
+      }
+    }
+
+    .community-general-card-config {
+      .date-box {
+        background: var(--bg-card) !important;
+        .month, .day { color: var(--text-primary) !important; }
+      }
+      .desc-box {
+        .title { color: var(--text-secondary) !important; }
+        .desc  { color: var(--text-primary) !important; }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  CS / HELP PAGE  (/cs)
+    // ══════════════════════════════════════════════════════════════════════
+    .cs-page {
+      background: var(--bg-page) !important;
+
+      .topic-card {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        &:hover { border-color: var(--border-orange) !important; }
+        .topic-title { color: var(--text-primary) !important; }
+        .topic-desc  { color: var(--text-secondary) !important; }
+      }
+
+      .faq-heading {
+        .faq-title    { color: var(--text-primary) !important; }
+        .faq-subtitle { color: var(--text-secondary) !important; }
+      }
+
+      .faq-categories button {
+        color: var(--text-secondary) !important;
+        &:hover  { background: rgba(255,56,60,0.08) !important; color: #ff383c !important; }
+        &.active { background: #ff383c !important; color: #fff !important; }
+      }
+
+      .faq-accordion-panel {
+        .MuiAccordion-root { background: var(--bg-card) !important; border-color: var(--border) !important; }
+        .faq-question p    { color: var(--text-primary) !important; }
+        .faq-answer        { background: var(--bg-card-alt) !important; border-top-color: var(--border) !important; p { color: var(--text-secondary) !important; } }
+        .faq-empty-state   { background: var(--bg-card) !important; border-color: var(--border) !important; p { color: var(--text-secondary) !important; } }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  MY PAGE  (/mypage)
+    // ══════════════════════════════════════════════════════════════════════
+    #my-page {
+      background: var(--bg-page) !important;
+
+      .my-page .back-frame {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: var(--shadow-card) !important;
+      }
+
+      .left-config {
+        background: var(--bg-card) !important;
+        border-color: var(--border-orange) !important;
+        box-shadow: var(--shadow-card) !important;
+
+        .profile {
+          background: linear-gradient(180deg, rgba(255,138,0,0.07) 0%, var(--bg-card) 100%) !important;
+          border-color: var(--border-orange) !important;
+
+          .profile-img { background: var(--bg-card) !important; }
+        }
+
+        .user-info {
+          .user-name { color: var(--text-primary) !important; }
+          .user-phone { color: var(--text-secondary) !important; .p-number { color: var(--text-secondary) !important; } }
+          .view-list { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+
+          .view-list--admin {
+            background: rgba(255,255,255,0.05) !important;
+            color: var(--text-primary) !important;
+            svg { color: var(--text-primary) !important; }
+          }
+        }
+
+        .sections .section {
+          .title { color: var(--text-muted) !important; }
+
+          .sub-section li {
+            &:hover { background: var(--bg-hover) !important; }
+
+            .flex-box {
+              .menu-icon { background: rgba(255,138,0,0.08) !important; }
+              p, .sub-title { color: var(--text-secondary) !important; }
+            }
+
+            &.focus {
+              background: var(--brand-navy) !important;
+              box-shadow: 0 14px 28px rgba(0,0,0,0.3) !important;
+              p { color: #fff !important; }
+              .menu-icon { background: var(--brand-orange) !important; color: #fff !important; }
+            }
+          }
+
+          .logout-item:hover { background: rgba(239,68,68,0.08) !important; }
+          .logout-item .sub-title { color: #ef4444 !important; }
+        }
+      }
+
+      .main-config {
+        // Tables
+        thead tr { background: var(--bg-card-alt) !important; }
+        th { color: var(--text-primary) !important; border-bottom-color: var(--border) !important; }
+        td { color: var(--text-secondary) !important; border-bottom-color: var(--border) !important; }
+        tbody tr:hover { background: var(--bg-hover) !important; }
+
+        .pagination-config .total-result p { color: var(--text-secondary) !important; }
+
+        // Package cards row
+        .card-config {
+          background: var(--bg-card) !important;
+          box-shadow: var(--shadow-card) !important;
+
+          .top .price-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            p { color: var(--text-primary) !important; }
+          }
+
+          .bottom {
+            .name-address .name p    { color: var(--text-primary) !important; }
+            .name-address .address p { color: var(--text-secondary) !important; }
+            .options .option p       { color: var(--text-secondary) !important; }
+            .divider { background: var(--border) !important; }
+            .type-buttons .type p { color: var(--text-secondary) !important; }
+            .type-buttons .type .disabled-type { color: var(--text-muted) !important; }
+          }
+        }
+
+        // ── Shared: decorative bg icons ──────────────────────────────────
+        .mypage-bg-icons .mypage-bg-icon {
+          opacity: 0.40 !important;
+          filter: brightness(1.5) !important;
+        }
+
+        // ── Shared: page banner / title box (all sub-pages) ──────────────
+        .main-title-box {
+          background: linear-gradient(135deg,
+            rgba(255,138,0,0.07) 0%,
+            var(--bg-card) 54%,
+            rgba(14,165,233,0.05) 100%) !important;
+          border-color: var(--border-orange) !important;
+          box-shadow: 0 18px 45px rgba(0,0,0,0.28) !important;
+
+          .main-title  { color: var(--text-primary)   !important; }
+          .sub-title   { color: var(--text-secondary) !important; }
+          .eyebrow     { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+          .title-kicker { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; p { color: var(--brand-orange) !important; } }
+
+          // Profile status pill (Active)
+          .profile-status {
+            background: rgba(2,122,72,0.12) !important;
+            border-color: rgba(2,122,72,0.30) !important;
+            color: #4ade80 !important;
+            p { color: #4ade80 !important; }
+          }
+
+          // Article summary items (My Articles page)
+          .summary-item {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.22) !important;
+            .summary-value { color: var(--text-primary)   !important; }
+            .summary-label { color: var(--text-muted)     !important; }
+            > svg { background: rgba(255,138,0,0.12) !important; }
+            &.accent > svg { background: rgba(255,56,60,0.12) !important; }
+          }
+
+          // Saved trips summary panel
+          .saved-summary-panel {
+            background: var(--bg-card) !important;
+            border-color: var(--border-orange) !important;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35) !important;
+            .summary-value { color: var(--text-primary)   !important; }
+            .summary-label { color: var(--text-muted)     !important; }
+            .summary-tag {
+              background: var(--bg-input) !important;
+              color: #34d399 !important;
+              p { color: inherit !important; }
+            }
+          }
+
+          // Write article hint pills
+          .hint-pill {
+            background: rgba(255,255,255,0.06) !important;
+            border-color: var(--border) !important;
+            color: var(--text-secondary) !important;
+            svg { color: var(--brand-orange) !important; }
+          }
+        }
+
+        // ── Shared: pagination pill ───────────────────────────────────────
+        .pagination-conf .pagination-box,
+        .pagination-config .pagination-box {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.25) !important;
+          .MuiPaginationItem-root { color: var(--text-secondary) !important; }
+        }
+        .pagination-conf .total,
+        .pagination-config .total-result {
+          background: var(--bg-input) !important;
+          p { color: var(--text-muted) !important; }
+        }
+
+        // ── Shared: no-data empty state ───────────────────────────────────
+        .no-data {
+          background: var(--bg-card) !important;
+          border-color: var(--border-orange) !important;
+          strong { color: var(--text-primary)   !important; }
+          p      { color: var(--text-secondary) !important; }
+          .empty-icon { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+        }
+
+        // ── My Profile page (#my-profile-page) ───────────────────────────
+        #my-profile-page {
+          .top-box,
+          .bottom-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 16px 42px rgba(0,0,0,0.28) !important;
+
+            .title {
+              color: var(--text-primary) !important;
+              svg { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+            }
+          }
+
+          .photo-box {
+            background: linear-gradient(135deg, rgba(255,138,0,0.06) 0%, var(--bg-card) 64%) !important;
+            border-color: var(--border) !important;
+            .image-box {
+              background: var(--bg-card-alt) !important;
+              border-color: var(--border-orange) !important;
+              box-shadow: 0 18px 36px rgba(0,0,0,0.30) !important;
+            }
+            .upload-text { color: var(--text-muted) !important; }
+          }
+
+          input {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:hover  { border-color: var(--border-orange) !important; background: rgba(255,138,0,0.05) !important; }
+            &:focus  { border-color: var(--brand-orange) !important; background: var(--bg-card) !important; box-shadow: 0 0 0 4px rgba(255,138,0,0.10) !important; }
+          }
+
+          .update-button {
+            background: var(--bg-card-alt) !important;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.30) !important;
+            &:hover { background: var(--brand-orange) !important; }
+            &.Mui-disabled, &:disabled {
+              background: var(--bg-input) !important;
+              p, svg { color: var(--text-muted) !important; }
+            }
+          }
+        }
+
+        // ── My Articles page (#my-articles-page) ─────────────────────────
+        #my-articles-page {
+          .community-general-card-config {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.25) !important;
+            &:hover { border-color: var(--border-orange) !important; box-shadow: 0 18px 42px rgba(0,0,0,0.35) !important; }
+
+            .image-box { background: rgba(255,138,0,0.08) !important; }
+
+            .desc-box {
+              .desc      { color: var(--text-primary)   !important; }
+              .title     { color: var(--text-secondary) !important; }
+              .view-cnt  { color: var(--text-secondary) !important; }
+              .MuiIconButton-root {
+                background: var(--bg-input) !important;
+                color: var(--text-secondary) !important;
+                &:hover { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+              }
+            }
+
+            .date-box {
+              background: rgba(13,26,45,0.88) !important;
+              border-color: var(--border-orange) !important;
+              box-shadow: 0 12px 24px rgba(0,0,0,0.35) !important;
+              .month { color: var(--brand-orange) !important; }
+              .day   { color: var(--text-primary) !important; }
+            }
+          }
+        }
+
+        // ── My Favorites + Recently Visited (shared card layout) ──────────
+        #my-favorites-page,
+        #recently-visited-page {
+          .favorites-list-box .card-config {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.25) !important;
+            &:hover { border-color: var(--border-orange) !important; box-shadow: 0 14px 34px rgba(0,0,0,0.38) !important; }
+
+            .fav-btn {
+              background: rgba(13,26,45,0.80) !important;
+              &:hover { background: rgba(13,26,45,0.95) !important; }
+            }
+
+            .card-content {
+              .card-title      { color: var(--text-primary)   !important; }
+              .meta-loc-text,
+              .meta-dur-text   { color: var(--text-secondary) !important; }
+              .stat-text       { color: var(--text-secondary) !important; }
+              .stat-dot        { color: var(--border) !important; }
+              .card-desc       { color: var(--text-muted)     !important; }
+              .price-from      { color: var(--text-muted)     !important; }
+              .view-btn {
+                background: var(--bg-input) !important;
+                border-color: var(--border-orange) !important;
+                color: var(--brand-orange) !important;
+                &:hover { background: rgba(255,138,0,0.12) !important; }
+              }
+            }
+          }
+        }
+
+        // ── Write Article page (#write-article-page) ──────────────────────
+        #write-article-page {
+          // Outer shell wrapper (background: #fff in writeArticle.scss)
+          .editor-shell {
+            background: transparent !important;
+          }
+
+          .editor-field-card,
+          .editor-guide-card,
+          .editor-canvas-card {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.25) !important;
+          }
+
+          .editor-guide-card {
+            background: var(--bg-card-alt) !important;
+            .guide-copy { color: var(--text-secondary) !important; }
+          }
+
+          .field-label-row .MuiTypography-root { color: var(--text-primary) !important; }
+
+          // hint pills in banner
+          .main-title-box .hint-pill {
+            background: rgba(255,255,255,0.06) !important;
+            border-color: var(--border) !important;
+            color: var(--text-secondary) !important;
+          }
+
+          // Category MUI Select
+          .category-control .MuiOutlinedInput-root {
+            background: rgba(255,138,0,0.08) !important;
+            color: var(--text-primary) !important;
+            .MuiOutlinedInput-notchedOutline { border-color: var(--border-orange) !important; }
+            .MuiSelect-icon { color: var(--brand-orange) !important; }
+          }
+
+          // Title MUI Input
+          .article-title-input .MuiOutlinedInput-root {
+            background: var(--bg-input) !important;
+            color: var(--text-primary) !important;
+            .MuiOutlinedInput-notchedOutline { border-color: var(--border) !important; }
+            &:hover .MuiOutlinedInput-notchedOutline,
+            &.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--brand-orange) !important; }
+            input { color: var(--text-primary) !important; }
+          }
+
+          // Canvas toolbar tip
+          .editor-canvas-card .editor-toolbar-note {
+            background: rgba(31,143,98,0.12) !important;
+            color: #4ade80 !important;
+            .MuiTypography-root { color: #4ade80 !important; }
+          }
+
+          // ── Toast UI Editor — comprehensive dark mode ──────────────────
+          .toastui-editor-defaultUI {
+            border-color: var(--border) !important;
+            background: var(--bg-card) !important;
+
+            // ── Toolbar (.toastui-editor-defaultUI-toolbar has the actual bg)
+            .toastui-editor-defaultUI-toolbar {
+              background: var(--bg-card-alt) !important;
+              border-bottom-color: var(--border) !important;
+
+              // Toolbar dividers
+              .toastui-editor-toolbar-divider {
+                background-color: var(--border) !important;
+              }
+
+              // Icon buttons
+              button {
+                background-color: transparent !important;
+                // border same as toolbar bg → invisible by default (matches Toast UI dark theme)
+                border-color: var(--bg-card-alt) !important;
+                color: var(--text-secondary) !important;
+                opacity: 1 !important;
+                &:disabled {
+                  opacity: 0.48 !important;
+                  cursor: not-allowed !important;
+                }
+                &:not(:disabled):hover {
+                  background-color: rgba(255,138,0,0.14) !important;
+                  border-color: rgba(255,138,0,0.28) !important;
+                  color: var(--brand-orange) !important;
+                }
+              }
+
+              // Icons: dark PNG sprite → invert to white so icons are visible on dark bg
+              // brightness(0) collapses all pixels to black; invert(1) flips to white.
+              // Alpha channel is preserved so transparent areas stay transparent.
+              .toastui-editor-toolbar-icons {
+                background-color: transparent !important;
+                color: var(--text-primary) !important;
+                filter: brightness(0) invert(1) contrast(1.08) !important;
+                border-color: var(--bg-card-alt) !important;
+                opacity: 1 !important;
+                &:disabled {
+                  filter: brightness(0) invert(1) contrast(0.86) !important;
+                  opacity: 0.5 !important;
+                }
+                &:not(:disabled):hover {
+                  // Orange tint on hover: sepia+saturate approximates brand-orange
+                  filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg) !important;
+                  background-color: rgba(255,138,0,0.14) !important;
+                  border-color: rgba(255,138,0,0.28) !important;
+                }
+                &.active {
+                  filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg) !important;
+                  background-color: rgba(255,138,0,0.20) !important;
+                  border-color: rgba(255,138,0,0.40) !important;
+                }
+              }
+
+              button.toastui-editor-toolbar-icons {
+                background-repeat: no-repeat !important;
+                background-size: 466px 146px !important;
+              }
+
+              .toastui-editor-toolbar-icons::before,
+              .toastui-editor-toolbar-icons::after,
+              button svg,
+              button i,
+              button span {
+                color: var(--text-primary) !important;
+                fill: currentColor !important;
+                stroke: currentColor !important;
+                opacity: 1 !important;
+              }
+
+              .toastui-editor-dropdown-toolbar {
+                background: var(--bg-card-alt) !important;
+                border-color: var(--border) !important;
+                box-shadow: 0 14px 34px rgba(0,0,0,0.38) !important;
+
+                .toastui-editor-toolbar-icons {
+                  filter: brightness(0) invert(1) contrast(1.08) !important;
+                }
+              }
+
+              // Scroll-sync toggle (visible in Markdown mode)
+              .scroll-sync {
+                color: var(--text-muted) !important;
+                &::before { color: var(--text-muted) !important; }
+                &.active::before { color: var(--brand-orange) !important; }
+                .switch { background-color: var(--border) !important; }
+                input:checked + .switch { background-color: rgba(255,138,0,0.40) !important; }
+                .switch::before { background-color: var(--text-muted) !important; }
+                input:checked + .switch::before { background-color: var(--brand-orange) !important; }
+              }
+            }
+
+            // .toastui-editor-toolbar is a height-only container — keep neutral
+            .toastui-editor-toolbar { background: transparent !important; }
+
+            // ── Main typing area
+            .toastui-editor-main     { background: var(--bg-card) !important; }
+            .toastui-editor-md-container,
+            .toastui-editor-ww-container { background: var(--bg-card) !important; }
+            .toastui-editor             { background: var(--bg-card) !important; }
+
+            .ProseMirror {
+              background: var(--bg-card) !important;
+              color: var(--text-primary) !important;
+              caret-color: var(--brand-orange) !important;
+            }
+
+            // ── Markdown Write/Preview inner tabs
+            .toastui-editor-md-tab-container {
+              background: var(--bg-card-alt) !important;
+              border-bottom-color: var(--border) !important;
+
+              .tab-item {
+                background: var(--bg-input) !important;
+                color: var(--text-muted) !important;
+                border-color: var(--border) !important;
+                &:hover  { color: var(--text-secondary) !important; }
+              }
+              .tab-item.active {
+                background: var(--bg-card) !important;
+                color: var(--brand-orange) !important;
+                border-bottom-color: var(--bg-card) !important;
+              }
+            }
+
+            // ── Split preview panel (Markdown vertical style)
+            .toastui-editor-md-preview {
+              background: var(--bg-card-alt) !important;
+              border-left-color: var(--border) !important;
+              color: var(--text-secondary) !important;
+            }
+
+            // ── Bottom mode switcher (.toastui-editor-mode-switch)
+            // Note: this is the "Markdown | WYSIWYG" selector at the very bottom
+            .toastui-editor-mode-switch {
+              background: var(--bg-card-alt) !important;
+              border-top-color: var(--border) !important;
+
+              .tab-item {
+                background: var(--bg-input) !important;
+                color: var(--text-secondary) !important;
+                border-color: var(--border) !important;
+                &:hover { color: var(--text-primary) !important; background: rgba(255,138,0,0.08) !important; }
+              }
+
+              .tab-item.active {
+                background: var(--bg-card) !important;
+                color: var(--brand-orange) !important;
+                // border-top same as parent bg creates the "raised" active-tab effect
+                border-top-color: var(--bg-card-alt) !important;
+                border-left-color: var(--border) !important;
+                border-right-color: var(--border) !important;
+                border-bottom-color: transparent !important;
+                font-weight: 700 !important;
+              }
+            }
+
+            // ── Popup dialogs (image / link insert)
+            .toastui-editor-popup {
+              background: var(--bg-card) !important;
+              border-color: var(--border) !important;
+              box-shadow: 0 16px 40px rgba(0,0,0,0.40) !important;
+              .toastui-editor-popup-body { background: var(--bg-card) !important; }
+              label { color: var(--text-secondary) !important; }
+              input {
+                background: var(--bg-input) !important;
+                border-color: var(--border) !important;
+                color: var(--text-primary) !important;
+                &::placeholder { color: var(--text-muted) !important; }
+              }
+              .toastui-editor-popup-add-btn {
+                background: var(--brand-orange) !important;
+                border-color: var(--brand-orange) !important;
+                color: #fff !important;
+              }
+            }
+          }
+        }
+
+        // ── Followers / Followings (#member-follows-page) ─────────────────
+        #member-follows-page {
+          .listing-title-box {
+            background: var(--bg-card-alt) !important;
+            border-color: var(--border) !important;
+            .title-text { color: var(--text-muted) !important; }
+          }
+
+          .follows-card-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.22) !important;
+            &:hover { border-color: var(--border-orange) !important; box-shadow: 0 18px 42px rgba(0,0,0,0.32) !important; }
+
+            .info .image-box {
+              background: rgba(255,138,0,0.08) !important;
+              border-color: var(--border-orange) !important;
+            }
+            .info .information-box .name { color: var(--text-primary) !important; }
+
+            .details-box .info-box {
+              background: var(--bg-input) !important;
+              border-color: var(--border) !important;
+              p    { color: var(--text-muted)    !important; }
+              span { color: var(--text-primary)  !important; }
+            }
+
+            .action-box {
+              .following-state {
+                background: rgba(2,122,72,0.12) !important;
+                color: #4ade80 !important;
+              }
+              .unfollow-action-btn.MuiButton-root {
+                background: var(--bg-input) !important;
+                border-color: rgba(217,45,32,0.30) !important;
+                color: #f87171 !important;
+                &:hover { background: rgba(217,45,32,0.10) !important; }
+              }
+            }
+          }
+
+          .no-data { background: var(--bg-card) !important; border-color: var(--border-orange) !important; }
+
+          .pagination-config {
+            .pagination-box {
+              background: var(--bg-card) !important;
+              border-color: var(--border) !important;
+              .MuiPaginationItem-root { color: var(--text-secondary) !important; }
+            }
+            .total-result {
+              background: var(--bg-input) !important;
+              p { color: var(--text-muted) !important; }
+            }
+          }
+        }
+
+        // ── Saved Trips (#my-saved-page) ──────────────────────────────────
+        #my-saved-page {
+          .main-title-box {
+            .main-title { color: var(--text-primary)   !important; }
+            .sub-title  { color: var(--text-secondary) !important; }
+          }
+
+          .my-saved-list-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.22) !important;
+
+            .list-title-box {
+              background: var(--bg-card-alt) !important;
+              p { color: var(--text-muted) !important; }
+            }
+
+            .search-box {
+              border-bottom-color: var(--border) !important;
+              .title { color: var(--text-primary)   !important; }
+              .date  { color: var(--text-secondary) !important; }
+              .action-box .icon-button {
+                &:hover { background: var(--bg-hover) !important; }
+                .buttons { color: var(--text-secondary) !important; }
+              }
+            }
+
+            .pagination-config .total-result p { color: var(--text-muted) !important; }
+          }
+        }
+
+        // ── My Tour Packages (#my-tour-package-page) ──────────────────────
+        #my-tour-package-page {
+          // .main-title-box is covered by the shared block above
+          .main-title-box .summary-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border-orange) !important;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.28) !important;
+            .summary-value { color: var(--text-primary)   !important; }
+            .summary-label { color: var(--text-muted)     !important; }
+          }
+
+          .tour-package-list-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.26) !important;
+
+            .tab-name-box {
+              background: var(--bg-card-alt) !important;
+
+              .tab-name, .active-tab-name {
+                > svg { background: rgba(255,138,0,0.12) !important; }
+                .tab-label  { color: var(--text-primary)   !important; }
+                .tab-helper { color: var(--text-secondary) !important; }
+              }
+
+              .tab-name:hover { background: var(--bg-hover) !important; border-color: var(--border-orange) !important; }
+
+              .active-tab-name {
+                background: var(--brand-navy) !important;
+                border-color: var(--brand-navy) !important;
+                > svg { background: var(--brand-orange) !important; color: #fff !important; }
+                .tab-label, .tab-helper { color: #ffffff !important; }
+              }
+            }
+          }
+
+          .list-box {
+            .listing-title-box {
+              background: var(--bg-card-alt) !important;
+              .title-text { color: var(--text-muted) !important; }
+            }
+
+            .tour-package-card-box {
+              background: var(--bg-card) !important;
+              border-color: var(--border) !important;
+              box-shadow: 0 14px 34px rgba(0,0,0,0.22) !important;
+              &:hover { border-color: var(--border-orange) !important; box-shadow: 0 20px 44px rgba(0,0,0,0.32) !important; }
+
+              .image-box { background: rgba(255,138,0,0.08) !important; }
+
+              .information-box {
+                .name    { color: var(--text-primary)   !important; }
+                .address { color: var(--text-secondary) !important; }
+                .meta-chip {
+                  background: var(--bg-input) !important;
+                  p { color: var(--text-secondary) !important; }
+                }
+                .price {
+                  color: var(--text-secondary) !important;
+                  strong { color: #f87171 !important; }
+                }
+              }
+
+              .date-box .date   { color: var(--text-secondary) !important; }
+              .views-box .views { color: var(--text-secondary) !important; }
+
+              .status-box .coloured-box {
+                background: rgba(2,122,72,0.14) !important;
+                .status { color: #4ade80 !important; }
+              }
+              .closed-status-box .coloured-box {
+                background: rgba(217,45,32,0.12) !important;
+                .status { color: #f87171 !important; }
+              }
+
+              .action-box .icon-button {
+                background: var(--bg-input) !important;
+                .buttons { color: var(--text-secondary) !important; }
+                &:hover { background: rgba(255,138,0,0.12) !important; }
+                &:last-child {
+                  .buttons { color: #f87171 !important; }
+                  &:hover  { background: rgba(217,45,32,0.10) !important; }
+                }
+              }
+            }
+
+            .no-data {
+              background: var(--bg-card) !important;
+              p { color: var(--text-secondary) !important; }
+            }
+
+            .pagination-config {
+              .pagination-box {
+                background: var(--bg-card) !important;
+                border-color: var(--border) !important;
+                .MuiPaginationItem-root { color: var(--text-secondary) !important; }
+              }
+              .total-result p { color: var(--text-muted) !important; }
+            }
+          }
+        }
+
+        // ── Add / Edit Tour Package (#add-tour-package-page) ──────────────
+        #add-tour-package-page {
+          // .main-title-box titles are covered by the shared block above
+          .tabs-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.22) !important;
+            .active    { border-bottom-color: var(--brand-orange) !important; color: var(--text-primary)   !important; }
+            .not-active { color: var(--text-muted) !important; }
+          }
+
+          .config {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.22) !important;
+
+            .title, .tour-package-title, .map-title, .owner-agent-title { color: var(--text-primary) !important; }
+
+            input, textarea, .description-input, .description-text,
+            .listing-input, .year-built-input, .owner-agent-input {
+              background: var(--bg-input) !important;
+              border-color: var(--border) !important;
+              color: var(--text-secondary) !important;
+              &::placeholder { color: var(--text-muted) !important; }
+              &:focus { border-color: var(--brand-orange) !important; outline: none !important; }
+            }
+
+            select, .select-description {
+              background: var(--bg-input) !important;
+              border-color: var(--border) !important;
+              color: var(--text-secondary) !important;
+            }
+
+            .divider { border-left-color: var(--border) !important; }
+            .arrow-down { color: var(--text-muted) !important; }
+
+            .prev-button {
+              border-color: var(--border) !important;
+              .prev-button-text { color: var(--text-primary) !important; }
+            }
+
+            .next-button {
+              background: var(--brand-navy) !important;
+              .next-button-text { color: #ffffff !important; }
+            }
+
+            .amenity-box .amenity-text { color: var(--text-secondary) !important; }
+
+            .upload-box {
+              background: linear-gradient(135deg, rgba(255,138,0,0.06) 0%, var(--bg-card) 55%, rgba(14,165,233,0.04) 100%) !important;
+              border-color: rgba(255,138,0,0.40) !important;
+              .drag-title   { color: var(--text-primary)   !important; }
+              .format-title { color: var(--text-secondary) !important; }
+              .guide-pill {
+                background: var(--bg-card-alt) !important;
+                border-color: var(--border) !important;
+                p { color: var(--text-secondary) !important; }
+              }
+            }
+
+            .gallery-box .image-box {
+              border-color: var(--border) !important;
+              background: rgba(255,138,0,0.06) !important;
+              .absolute-box { background: var(--bg-card-alt) !important; }
+            }
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  JOIN / LOGIN  (/account/join)
+    // ══════════════════════════════════════════════════════════════════════
+    .join-page {
+      background: var(--bg-page) !important;
+
+      .main {
+        box-shadow: var(--shadow-deep) !important;
+
+        .left {
+          background: var(--bg-card) !important;
+          .logo span   { color: var(--text-primary) !important; }
+          .info-title  { color: var(--text-primary) !important; }
+          .info-sub    { color: var(--text-secondary) !important; }
+          .input-box span { color: var(--text-primary) !important; }
+
+          input {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:focus { border-color: var(--brand-orange) !important; background: var(--bg-card) !important; }
+          }
+
+          .type-btn {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-secondary) !important;
+            &.active {
+              border-color: var(--brand-orange) !important;
+              background: rgba(255,138,0,0.10) !important;
+              color: var(--brand-orange) !important;
+            }
+          }
+
+          .ask-info p { color: var(--text-secondary) !important; }
+          .submit-btn.Mui-disabled { background: var(--bg-card-alt) !important; color: var(--text-muted) !important; }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  REVIEW CARD (shared component)
+    // ══════════════════════════════════════════════════════════════════════
+    .review-card {
+      .info .left div {
+        strong { color: var(--text-primary) !important; }
+        span   { color: var(--text-secondary) !important; }
+      }
+      p { color: var(--text-secondary) !important; }
+      .reply-button-box {
+        border-bottom-color: var(--border) !important;
+        .reply-text { color: var(--text-secondary) !important; }
+      }
+    }
+
+    // Like count
+    .comment-like-btn .like-count { color: var(--text-muted) !important; }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  CHAT WIDGET
+    // ══════════════════════════════════════════════════════════════════════
+    .chatting {
+      .chat-frame {
+        background: var(--bg-card) !important;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.55) !important;
+        border: 1px solid var(--border-orange);
+
+        .chat-top { background: #050e1c !important; }
+
+        .chat-content {
+          background: var(--bg-card-alt) !important;
+          .welcome-msg, .msg-left {
+            background: var(--bg-card) !important;
+            color: var(--text-primary) !important;
+          }
+        }
+
+        .chat-bott {
+          background: var(--bg-card) !important;
+          border-top-color: var(--border) !important;
+          .msg-input {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+            &::placeholder { color: var(--text-muted) !important; }
+            &:focus { border-color: var(--brand-orange) !important; }
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  FOOTER
+    // ══════════════════════════════════════════════════════════════════════
+    #footer {
+      background: var(--bg-footer) !important;
+      color: var(--text-secondary) !important;
+
+      .footer-container {
+        .footer-cols .col {
+          h4       { color: var(--text-primary) !important; }
+          p        { color: var(--text-secondary) !important; }
+          ul li a  { color: var(--text-secondary) !important; &:hover { color: var(--brand-orange) !important; } }
+
+          &.newsletter .subscribe {
+            background: var(--bg-input) !important;
+            border-color: var(--border) !important;
+            input  { color: var(--text-primary) !important; &::placeholder { color: var(--text-muted) !important; } }
+            button { color: var(--text-secondary) !important; &:hover { color: var(--brand-orange) !important; } }
+          }
+        }
+
+        .footer-divider { background: var(--border-subtle) !important; }
+        .footer-bottom  { border-top-color: var(--border-subtle) !important; span { color: var(--text-muted) !important; } }
+      }
+    }
+
+    // Swiper bullets
+    .swiper-pagination-bullet        { background: var(--text-muted) !important; }
+    .swiper-pagination-bullet-active { background: var(--brand-orange) !important; }
+
+  } // end #pc-wrap
+
+  // ═══════════════════════════════════════════════════════════════════════
+  //  ADMIN  (#pc-wrap.admin)
+  // ═══════════════════════════════════════════════════════════════════════
+
+  #pc-wrap.admin {
+    background: var(--bg-page) !important;
+
+    .MuiAppBar-root {
+      background: rgba(7,16,30,0.97) !important;
+      border-bottom-color: var(--border-orange) !important;
+    }
+
+    .aside .MuiDrawer-paper {
+      background: linear-gradient(180deg, var(--bg-card) 0%, #060d18 100%) !important;
+      border-right-color: var(--border-orange) !important;
+    }
+
+    .aside .user {
+      background: var(--bg-card-alt) !important;
+      border-color: var(--border-orange) !important;
+      p { color: var(--text-primary) !important; }
+    }
+
+    .aside hr { border-color: var(--border-orange) !important; }
+
+    .menu_wrap .menu {
+      color: var(--text-secondary) !important;
+      .admin-menu-icon { color: var(--text-muted) !important; }
+      &:hover { background: var(--bg-hover) !important; color: var(--brand-orange) !important; .admin-menu-icon { color: var(--brand-orange) !important; } }
+      &.on    { background: var(--brand-navy) !important; color: #fff !important; .admin-menu-icon, .MuiSvgIcon-root { color: var(--brand-orange) !important; } }
+    }
+
+    .menu-list li {
+      color: var(--text-secondary) !important;
+      &.on { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; span { color: var(--brand-orange) !important; } }
+    }
+
+    #bunker {
+      .tit, .title.flex_space h2 { color: var(--text-primary) !important; }
+
+      .content,
+      .table-wrap {
+        background: var(--bg-card) !important;
+        border-color: var(--border) !important;
+        box-shadow: var(--shadow-card) !important;
+      }
+
+      .table-wrap {
+        .tab-menu {
+          background: var(--bg-card-alt) !important;
+          border-bottom-color: var(--border) !important;
+          li {
+            color: var(--text-muted) !important;
+            &:hover { color: var(--brand-orange) !important; background: var(--bg-hover) !important; }
+            &.on    { color: var(--brand-orange) !important; border-bottom-color: var(--brand-orange) !important; }
+          }
+        }
+
+        thead tr { background: rgba(255,138,0,0.04) !important; }
+        thead th { color: var(--text-secondary) !important; border-bottom-color: rgba(255,138,0,0.16) !important; }
+        tbody tr:hover { background: var(--bg-hover) !important; }
+        tbody td { color: var(--text-secondary) !important; border-bottom-color: var(--border) !important; }
+      }
+
+      .btn-cancel {
+        background: var(--bg-card-alt) !important;
+        color: var(--text-secondary) !important;
+        border-color: var(--border) !important;
+      }
+
+      .no-data { color: var(--text-muted) !important; }
+
+      .content-area .comment textarea {
+        background: var(--bg-input) !important;
+        border-color: var(--border) !important;
+        color: var(--text-primary) !important;
+      }
+
+      // Status badge colors — semantic, keep readable
+      .success { color: #4ade80 !important; background: rgba(74,222,128,0.12) !important; }
+      .warning { color: #f97316 !important; background: rgba(249,115,22,0.12) !important; }
+      .error   { color: #f87171 !important; background: rgba(248,113,113,0.14) !important; }
+      .block   { color: #c084fc !important; background: rgba(192,132,252,0.12) !important; }
+      .delete  { background: #374151 !important; color: #e5e7eb !important; }
+      .up      { color: #60a5fa !important; background: rgba(96,165,250,0.14) !important; }
+      .down    { color: #f87171 !important; background: rgba(248,113,113,0.14) !important; }
+    }
+  }
+
+  // Admin modals (MUI portal — outside #pc-wrap)
+  .admin-faq-modal,
+  .admin-notice-modal {
+    .MuiPaper-root { background: var(--bg-card) !important; }
+    .MuiDialogTitle-root { color: var(--text-primary) !important; }
+    .MuiInputBase-input  { color: var(--text-primary) !important; }
+    .btn_cancel {
+      background: var(--bg-card-alt) !important;
+      color: var(--text-secondary) !important;
+      border-color: var(--border) !important;
+    }
+  }
+
+} // end html.dark

@@ -2,6 +2,71 @@
 @import 'variables.scss';
 @import 'reset.scss';
 
+// ── TourX Design Tokens ───────────────────────────────────────────────────────
+// Brand constants — never change between themes
+:root {
+  --brand-orange: #ff8a00;
+  --brand-navy:   #0d1c32;
+  --brand-red:    #ff383c;
+  --brand-green:  #10b981;
+}
+
+// ── Light theme (default) ─────────────────────────────────────────────────────
+:root {
+  color-scheme: light;
+
+  // Backgrounds
+  --bg-page:       #fafaf8;
+  --bg-card:       #ffffff;
+  --bg-card-alt:   #f8fafc;
+  --bg-input:      #f6f3f2;
+  --bg-hover:      rgba(255, 138, 0, 0.05);
+  --bg-navbar:     rgba(255, 255, 255, 0.92);
+  --bg-sidebar:    #ffffff;
+  --bg-footer:     #fdeee4;
+
+  // Text
+  --text-primary:   #0d1c32;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  // Borders
+  --border:         rgba(226, 232, 240, 0.9);
+  --border-subtle:  rgba(15, 23, 42, 0.08);
+  --border-orange:  rgba(255, 138, 0, 0.14);
+
+  // Shadows
+  --shadow-card:    0 18px 46px rgba(15, 23, 42, 0.08);
+  --shadow-navbar:  0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-deep:    0 24px 64px rgba(15, 23, 42, 0.14);
+}
+
+// ── Dark theme ────────────────────────────────────────────────────────────────
+html.dark {
+  color-scheme: dark;
+
+  --bg-page:       #07101e;
+  --bg-card:       #0d1a2d;
+  --bg-card-alt:   #0a1422;
+  --bg-input:      #111e30;
+  --bg-hover:      rgba(255, 138, 0, 0.08);
+  --bg-navbar:     rgba(7, 16, 30, 0.96);
+  --bg-sidebar:    #0d1a2d;
+  --bg-footer:     #060e1a;
+
+  --text-primary:   #e2eaf5;
+  --text-secondary: #7a9abe;
+  --text-muted:     #3d5a7a;
+
+  --border:         rgba(255, 138, 0, 0.10);
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+  --border-orange:  rgba(255, 138, 0, 0.20);
+
+  --shadow-card:    0 18px 46px rgba(0, 0, 0, 0.50);
+  --shadow-navbar:  0 8px 24px rgba(0, 0, 0, 0.40);
+  --shadow-deep:    0 24px 64px rgba(0, 0, 0, 0.60);
+}
+
 a {
 	white-space: nowrap;
 	text-decoration: none;

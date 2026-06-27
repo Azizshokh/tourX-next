@@ -17,6 +17,9 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
+import { useTheme as useNextTheme } from 'next-themes';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -32,6 +35,8 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+	const { theme: nextTheme, setTheme } = useNextTheme();
+	const [mounted, setMounted] = useState(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -62,6 +67,10 @@ const Top = () => {
 	useEffect(() => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
+	}, []);
+
+	useEffect(() => {
+		setMounted(true);
 	}, []);
 
 	/** HANDLERS **/
@@ -238,6 +247,17 @@ const Top = () => {
 
 							<div className={'lan-box'}>
 								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+								<button
+									className={'theme-toggle-btn'}
+									onClick={() => setTheme(nextTheme === 'dark' ? 'light' : 'dark')}
+									aria-label={t('common:chat.toggleChat')}
+								>
+									{mounted ? (
+										nextTheme === 'dark' ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />
+									) : (
+										<DarkModeRoundedIcon />
+									)}
+								</button>
 								<Button
 									disableRipple
 									className="btn-lang"

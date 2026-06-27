@@ -34,6 +34,7 @@
 @import './member/memberTourPackages.scss';
 
 @import './sweetalert.scss';
+@import './dark-mode.scss';
 
 body {
 	-ms-overflow-style: none;
@@ -197,9 +198,35 @@ body::-webkit-scrollbar {
 						margin-left: 28px;
 						display: flex;
 						align-items: center;
+						gap: 8px;
 
 						.notification-icon {
 							color: #333333;
+						}
+
+						.theme-toggle-btn {
+							width: 36px;
+							height: 36px;
+							border-radius: 50%;
+							border: 1.5px solid rgba(15, 23, 42, 0.12);
+							background: transparent;
+							color: #557082;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							cursor: pointer;
+							transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+							svg {
+								font-size: 18px;
+							}
+
+							&:hover {
+								background: rgba(255, 138, 0, 0.08);
+								border-color: rgba(255, 138, 0, 0.4);
+								color: #ff8a00;
+								transform: rotate(15deg);
+							}
 						}
 
 						.btn-lang {
@@ -1416,7 +1443,7 @@ body::-webkit-scrollbar {
 	display: flex;
 	flex-direction: column;
 	background: #ffffff;
-	border-radius: 24px;
+	border-radius: 11px;
 	box-shadow: 0 32px 80px rgba(15, 23, 42, 0.18);
 	font-family: 'Plus Jakarta Sans', $font;
 
@@ -2248,7 +2275,10 @@ body::-webkit-scrollbar {
 		}
 
 		.hero-video-overlay {
-			background: linear-gradient(180deg, rgba(8, 24, 44, 0) 0%, rgba(8, 24, 44, 0) 62%, rgba(251, 249, 248, 0.92) 100%);
+			background:
+				radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.16) 36%, rgba(255, 255, 255, 0) 64%),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.38) 48%, rgba(255, 255, 255, 0.6) 100%),
+				linear-gradient(180deg, rgba(8, 24, 44, 0.08) 0%, rgba(8, 24, 44, 0.02) 58%, rgba(251, 249, 248, 0.94) 100%);
 		}
 
 		.container {

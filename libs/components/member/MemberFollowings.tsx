@@ -8,6 +8,8 @@ import { Following } from '../../types/follow/follow';
 import { REACT_APP_API_URL } from '../../config';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import { userVar } from '../../../apollo/store';
 import { GET_MEMBER_FOLLOWINGS } from '../../../apollo/user/query';
 import { T } from '../../types/common';
@@ -70,14 +72,17 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>{t('mypage:follow.following')}</div>;
+		return (
+			<Stack direction="row" alignItems="center" gap={1}>
+				<PersonAddAltRoundedIcon fontSize="small" />
+				<Typography>{t('mypage:follow.following')}</Typography>
+			</Stack>
+		);
 	} else {
 		return (
 			<div id="member-follows-page">
 				<Stack className="main-title-box">
-					<Stack className="right-box">
-						<Typography className="main-title">{t('mypage:follow.following')}</Typography>
-					</Stack>
+					<Typography className="main-title">{t('mypage:follow.following')}</Typography>
 				</Stack>
 				<Stack className="follows-list-box">
 					<Stack className="listing-title-box">
@@ -103,18 +108,22 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 									</Stack>
 									<Stack className="information-box">
 										<Typography className="name">{follower?.followingData?.memberNick}</Typography>
+										{follower?.followingData?.memberType && (
+											<Typography className="member-type-badge">{follower?.followingData?.memberType}</Typography>
+										)}
 									</Stack>
 								</Stack>
 								<Stack className={'details-box'}>
 									<Box className={'info-box'} component={'div'}>
-										<p>{t('mypage:follow.followers')}</p>
-										<span>({follower?.followingData?.memberFollowers})</span>
+										<PeopleAltRoundedIcon fontSize="small" />
+										<span>{follower?.followingData?.memberFollowers}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
-										<p>{t('mypage:follow.following')}</p>
-										<span>({follower?.followingData?.memberFollowings})</span>
+										<PersonAddAltRoundedIcon fontSize="small" />
+										<span>{follower?.followingData?.memberFollowings}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
+										<p>{t('common:labels.likes')}</p>
 										{follower?.meLiked && follower?.meLiked[0]?.myFavorite ? (
 											<FavoriteIcon
 												color="primary"
@@ -129,14 +138,13 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 												}
 											/>
 										)}
-										<span>({follower?.followingData?.memberLikes})</span>
+										<span>{follower?.followingData?.memberLikes}</span>
 									</Box>
 								</Stack>
 								{user?._id !== follower?.followingData?._id && (
 									<Stack className="action-box">
 										{follower.meFollowed && follower.meFollowed[0]?.myFollowing ? (
 											<>
-												<Typography className="following-state">{t('mypage:follow.following')}</Typography>
 												<Button
 													className="follow-action-btn unfollow-action-btn"
 													variant="outlined"

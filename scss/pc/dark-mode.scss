@@ -1588,7 +1588,10 @@ html.dark {
             &:hover { background: var(--bg-hover) !important; }
 
             .flex-box {
-              .menu-icon { background: rgba(255,138,0,0.09) !important; }
+              .menu-icon {
+                background: transparent !important;
+                &::before { background: currentColor !important; opacity: 0.16 !important; }
+              }
               p, .sub-title { color: var(--text-secondary) !important; }
             }
 
@@ -1596,7 +1599,11 @@ html.dark {
               background: var(--brand-navy) !important;
               box-shadow: 0 14px 28px rgba(0,0,0,0.3) !important;
               p, .sub-title { color: #ffffff !important; }
-              .menu-icon { background: var(--brand-orange) !important; color: #ffffff !important; }
+              .menu-icon {
+                background: var(--brand-orange) !important;
+                color: #ffffff !important;
+                &::before { opacity: 0 !important; }
+              }
             }
           }
 
@@ -2107,14 +2114,36 @@ html.dark {
           .no-data { background: var(--bg-card) !important; border-color: var(--border-orange) !important; }
 
           .pagination-config {
+            background:
+              linear-gradient(135deg, rgba(255,138,0,0.10) 0%, var(--bg-card) 52%, var(--bg-card-alt) 100%) !important;
+            border-color: var(--border-orange) !important;
+            border-top-color: rgba(255,138,0,0.34) !important;
+            box-shadow: var(--shadow-card) !important;
+
             .pagination-box {
               background: var(--bg-card) !important;
               border-color: var(--border) !important;
-              .MuiPaginationItem-root { color: var(--text-secondary) !important; }
+              box-shadow: var(--shadow-card) !important;
+              .MuiPaginationItem-root {
+                color: var(--text-secondary) !important;
+
+                &:hover {
+                  background: rgba(255,138,0,0.12) !important;
+                  color: var(--brand-orange) !important;
+                }
+
+                &.Mui-selected {
+                  background: var(--brand-orange) !important;
+                  color: #ffffff !important;
+                }
+              }
             }
             .total-result {
               background: var(--bg-input) !important;
-              p { color: var(--text-muted) !important; }
+              border: 1px solid var(--border) !important;
+              border-radius: 999px !important;
+              padding: 6px 12px !important;
+              p, span { color: var(--text-muted) !important; }
             }
           }
         }
@@ -2325,6 +2354,244 @@ html.dark {
                   color: #ffffff !important;
                 }
               }
+            }
+          }
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  MEMBER PAGE  (/member)
+    // ══════════════════════════════════════════════════════════════════════
+    #member-page {
+      background: var(--bg-page) !important;
+
+      .member-page .back-frame {
+        background: var(--bg-card) !important;
+        border-color: rgba(255,138,0,0.16) !important;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.20) !important;
+      }
+
+      .left-config {
+        background: linear-gradient(180deg, rgba(255,138,0,0.06) 0%, var(--bg-card) 40%) !important;
+        border-color: var(--border-orange) !important;
+        box-shadow: var(--shadow-card) !important;
+
+        &::-webkit-scrollbar-track { background: var(--bg-card-alt) !important; }
+        &::-webkit-scrollbar-thumb { background: rgba(255,138,0,0.22) !important; }
+
+        .profile {
+          background: linear-gradient(180deg, rgba(255,138,0,0.09) 0%, var(--bg-card) 100%) !important;
+          border-color: var(--border-orange) !important;
+          .profile-img img { box-shadow: 0 0 0 3px var(--brand-orange) !important; }
+        }
+
+        .user-info {
+          .user-name { color: var(--text-primary) !important; }
+          .user-phone {
+            svg { color: var(--brand-orange) !important; }
+            .p-number { color: var(--text-secondary) !important; }
+          }
+          .view-list { background: rgba(255,138,0,0.14) !important; color: var(--brand-orange) !important; }
+        }
+
+        .follow-button-box p { color: var(--text-muted) !important; }
+        .follow-button-box .MuiButton-root.MuiButton-outlined {
+          background: var(--bg-input) !important;
+          border-color: var(--border-orange) !important;
+          color: var(--text-primary) !important;
+          box-shadow: var(--shadow-card) !important;
+
+          &:hover {
+            background: rgba(255,138,0,0.12) !important;
+            border-color: var(--brand-orange) !important;
+            color: var(--brand-orange) !important;
+          }
+        }
+
+        .sections .section {
+          .title { color: var(--text-muted) !important; }
+
+          .sub-section li {
+            &:hover { background: var(--bg-hover) !important; }
+
+            .flex-box {
+              .menu-icon {
+                background: transparent !important;
+                &::before { background: currentColor !important; opacity: 0.16 !important; }
+              }
+              .sub-title { color: var(--text-secondary) !important; }
+              .count-title {
+                background: var(--bg-input) !important;
+                color: var(--text-muted) !important;
+              }
+            }
+
+            &.focus {
+              background: var(--brand-navy) !important;
+              box-shadow: 0 10px 24px rgba(0,0,0,0.3) !important;
+              .sub-title { color: #ffffff !important; }
+              .count-title { background: rgba(255,255,255,0.12) !important; color: #ffffff !important; }
+              .menu-icon {
+                background: var(--brand-orange) !important;
+                color: #ffffff !important;
+                &::before { opacity: 0 !important; }
+              }
+            }
+          }
+        }
+      }
+
+      .main-config {
+        .main-title-box {
+          background: linear-gradient(135deg, rgba(255,138,0,0.07) 0%, var(--bg-card) 54%) !important;
+          border-color: var(--border-orange) !important;
+          .main-title { color: var(--text-primary) !important; }
+        }
+
+        .no-data {
+          background: var(--bg-card) !important;
+          border-color: rgba(255,138,0,0.18) !important;
+          p { color: var(--text-muted) !important; }
+        }
+
+        .pagination-config .total-result p { color: var(--text-muted) !important; }
+
+        // ── MemberTourPackages table rows ──────────────────────────
+        .listing-title-box {
+          background: var(--bg-card-alt) !important;
+          border-color: var(--border) !important;
+          .title-text { color: var(--text-muted) !important; }
+        }
+
+        .tour-package-card-box {
+          background: var(--bg-card) !important;
+          border-color: var(--border) !important;
+          &:hover { background: var(--bg-card-alt) !important; }
+
+          .image-box .image-badge { background: rgba(0,0,0,0.7) !important; }
+
+          .information-box {
+            .name { color: var(--text-primary) !important; }
+            .destination-row .address { color: var(--text-secondary) !important; }
+            .meta-row .meta-chip p { color: var(--text-secondary) !important; }
+            .price { color: var(--text-secondary) !important; strong { color: #FF383C !important; } }
+          }
+
+          .date-box .date { color: var(--text-secondary) !important; }
+
+          .status-box {
+            &.active-status-box .coloured-box { background: rgba(34,197,94,0.12) !important; .status { color: #4ade80 !important; } }
+            &.closed-status-box .coloured-box { background: rgba(255,138,0,0.12) !important; .status { color: #ffb347 !important; } }
+          }
+
+          .views-box {
+            svg { color: var(--text-muted) !important; }
+            .views { color: var(--text-secondary) !important; }
+          }
+        }
+
+
+        // ── Tour packages pagination dark mode ──────────────────
+        .list-box .pagination-config {
+          border-top-color: var(--border) !important;
+        }
+        // ── #member-follows-page section ────────────────────────────
+        #member-follows-page {
+
+          // Header: solid card, orange left border, large title
+          .main-title-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            border-left-color: #ff8a00 !important;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.20) !important;
+            .main-title { color: var(--text-primary) !important; }
+          }
+
+          // List empty state
+          .follows-list-box .no-data {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            p { color: var(--text-muted) !important; }
+          }
+
+          // Profile card
+          .follows-list-box .follows-card-box {
+            background: var(--bg-card) !important;
+            border-color: var(--border) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.28) !important;
+
+            &:hover {
+              border-color: rgba(255,138,0,0.35) !important;
+              box-shadow:
+                0 4px 20px rgba(255,138,0,0.14),
+                0 8px 32px rgba(0,0,0,0.32) !important;
+            }
+
+            // Avatar
+            .info .image-box {
+              border-color: #ff8a00 !important;
+              &::after { border-color: var(--bg-card) !important; }
+            }
+
+            // User name + type badge
+            .info .information-box {
+              .name {
+                color: var(--text-primary) !important;
+                &:hover { color: #ff8a00 !important; }
+              }
+              .member-type-badge {
+                background: rgba(255,138,0,0.12) !important;
+                border-color: rgba(255,138,0,0.28) !important;
+                color: #ffb347 !important;
+              }
+            }
+
+            // Stat boxes — now individual cards
+            .details-box .info-box {
+              background: var(--bg-card-alt) !important;
+              border-color: var(--border) !important;
+
+              &:hover {
+                background: rgba(255,138,0,0.07) !important;
+                border-color: rgba(255,138,0,0.30) !important;
+              }
+
+              p { color: var(--text-muted) !important; }
+              span { color: var(--text-primary) !important; }
+              svg { color: rgba(255,255,255,0.14) !important; }
+              .MuiSvgIcon-colorPrimary { color: #ef4444 !important; }
+            }
+
+            // Action buttons
+            .action-box {
+              .follow-action-btn {
+                &.MuiButton-contained {
+                  background: #ff8a00 !important;
+                  box-shadow: 0 4px 14px rgba(255,138,0,0.35) !important;
+                }
+                &.unfollow-action-btn {
+                  background: rgba(239,68,68,0.08) !important;
+                  border-color: rgba(239,68,68,0.50) !important;
+                  color: #f87171 !important;
+                  &:hover {
+                    background: rgba(239,68,68,0.14) !important;
+                    border-color: #ef4444 !important;
+                    color: #fca5a5 !important;
+                  }
+                }
+              }
+            }
+          }
+
+          // Pagination
+          .pagination-config {
+            border-top-color: var(--border) !important;
+            .total-result p,
+            .total-result span { color: var(--text-muted) !important; }
+            .MuiPaginationItem-root {
+              color: var(--text-secondary) !important;
+              &.Mui-selected { background: #ff8a00 !important; color: #fff !important; }
             }
           }
         }
@@ -2554,6 +2821,30 @@ html.dark {
       background: var(--bg-card-alt) !important;
       color: var(--text-secondary) !important;
       border-color: var(--border) !important;
+    }
+  }
+
+  #pc-wrap #member-page .container .member-page .back-frame .main-config #member-follows-page .pagination-config {
+    background:
+      linear-gradient(135deg, rgba(255,138,0,0.10) 0%, var(--bg-card) 52%, var(--bg-card-alt) 100%) !important;
+    border-color: var(--border-orange) !important;
+    border-top-color: rgba(255,138,0,0.34) !important;
+    box-shadow: var(--shadow-card) !important;
+
+    .pagination-box {
+      background: var(--bg-card) !important;
+      border-color: var(--border) !important;
+      box-shadow: var(--shadow-card) !important;
+    }
+
+    .total-result {
+      background: var(--bg-input) !important;
+      border-color: var(--border) !important;
+
+      p,
+      span {
+        color: var(--text-muted) !important;
+      }
     }
   }
 

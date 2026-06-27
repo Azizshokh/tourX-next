@@ -40,7 +40,7 @@ import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.
 import { Comment } from '../../libs/types/comment/comment';
 import { CommentGroup } from '../../libs/enums/comment.enum';
 import { Messages, REACT_APP_API_URL } from '../../libs/config';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, AGENT_NAMESPACES } from '../../libs/i18n';
 import { T } from '../../libs/types/common';
 import { GET_MEMBER, GET_TOUR_PACKAGES, GET_COMMENTS } from '../../apollo/user/query';
 import {
@@ -55,7 +55,7 @@ const objectIdRegex = /^[a-f\d]{24}$/i;
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, AGENT_NAMESPACES)),
 	},
 });
 

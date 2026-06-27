@@ -106,7 +106,7 @@ const MemberTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 MemberTourPackages.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 5,
+		limit: 4,
 		sort: 'createdAt',
 		search: {
 			memberId: '',

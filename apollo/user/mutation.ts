@@ -1,6 +1,21 @@
 import { gql } from '@apollo/client';
 
 /**************************
+ *      NOTIFICATION      *
+ *************************/
+
+export const MARK_NOTIFICATION_AS_READ = gql`
+	mutation MarkNotificationAsRead($notificationId: String!) {
+		markNotificationAsRead(notificationId: $notificationId) {
+			_id
+			isRead
+			notificationStatus
+			updatedAt
+		}
+	}
+`;
+
+/**************************
  *         MEMBER         *
  *************************/
 

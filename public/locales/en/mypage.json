@@ -71,7 +71,8 @@
     "available": "{{count}} package available",
     "available_plural": "{{count}} packages available",
     "deleteConfirm": "Are you sure to delete this package?",
-    "statusConfirm": "Are you sure change to {{status}} status?"
+    "statusConfirm": "Are you sure change to {{status}} status?",
+    "removePhotoLabel": "Remove package photo {{index}}"
   },
   "articles": {
     "kicker": "TourX community",

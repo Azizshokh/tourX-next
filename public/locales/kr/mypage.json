@@ -71,7 +71,8 @@
     "available": "{{count}}개 패키지 이용 가능",
     "available_plural": "{{count}}개 패키지 이용 가능",
     "deleteConfirm": "이 패키지를 삭제하시겠습니까?",
-    "statusConfirm": "{{status}} 상태로 변경하시겠습니까?"
+    "statusConfirm": "{{status}} 상태로 변경하시겠습니까?",
+    "removePhotoLabel": "{{index}}번 패키지 사진 제거"
   },
   "articles": {
     "kicker": "TourX 커뮤니티",

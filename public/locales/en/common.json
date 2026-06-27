@@ -13,6 +13,22 @@
     "korean": "Korean",
     "russian": "Russian"
   },
+  "notifications": {
+    "open": "Open notifications",
+    "title": "Notifications",
+    "subtitle": "Latest package updates from agents you follow",
+    "unreadCount": "{{count}} unread",
+    "loading": "Loading notifications...",
+    "emptyTitle": "No notifications yet",
+    "emptyBody": "Follow travel agents to hear when they publish new tour packages.",
+    "error": "Notifications could not be loaded.",
+    "retry": "Try again",
+    "viewPackage": "View Package",
+    "opening": "Opening...",
+    "senderFallback": "TourX agent",
+    "packageFallback": "New tour package",
+    "defaultMessage": "{{agent}} published a new tour package."
+  },
   "actions": {
     "search": "Search",
     "reset": "Reset",

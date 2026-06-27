@@ -71,7 +71,8 @@
     "available": "Доступен {{count}} пакет",
     "available_plural": "Доступно {{count}} пакетов",
     "deleteConfirm": "Удалить этот пакет?",
-    "statusConfirm": "Изменить статус на {{status}}?"
+    "statusConfirm": "Изменить статус на {{status}}?",
+    "removePhotoLabel": "Удалить фото пакета {{index}}"
   },
   "articles": {
     "kicker": "Сообщество TourX",

@@ -220,7 +220,7 @@ html.dark {
         span { color: var(--text-primary); }
       }
 
-      .lan-box .notification-icon { color: var(--text-secondary); }
+      .lan-box .notification-trigger { color: var(--text-secondary); }
     }
 
     .theme-toggle-btn {
@@ -1530,31 +1530,54 @@ html.dark {
 
       .my-page .back-frame {
         background: var(--bg-card) !important;
-        border-color: var(--border) !important;
-        box-shadow: var(--shadow-card) !important;
+        border-color: rgba(255,138,0,0.16) !important;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.20) !important;
       }
 
       .left-config {
-        background: var(--bg-card) !important;
+        background:
+          linear-gradient(90deg, #ff8a00 0%, #ffb347 100%) top left / 100% 4px no-repeat,
+          linear-gradient(180deg, rgba(255,138,0,0.07) 0%, var(--bg-card) 40%) !important;
         border-color: var(--border-orange) !important;
         box-shadow: var(--shadow-card) !important;
 
+        // Scrollbar in dark mode
+        &::-webkit-scrollbar-track { background: var(--bg-card-alt) !important; }
+        &::-webkit-scrollbar-thumb { background: rgba(255,138,0,0.22) !important; }
+        &::-webkit-scrollbar-thumb:hover { background: rgba(255,138,0,0.40) !important; }
+
         .profile {
-          background: linear-gradient(180deg, rgba(255,138,0,0.07) 0%, var(--bg-card) 100%) !important;
+          background: linear-gradient(180deg, rgba(255,138,0,0.09) 0%, var(--bg-card) 100%) !important;
           border-color: var(--border-orange) !important;
 
-          .profile-img { background: var(--bg-card) !important; }
+          .profile-img {
+            background: var(--bg-card) !important;
+            img { border-color: var(--brand-orange) !important; }
+          }
         }
 
         .user-info {
           .user-name { color: var(--text-primary) !important; }
-          .user-phone { color: var(--text-secondary) !important; .p-number { color: var(--text-secondary) !important; } }
-          .view-list { background: rgba(255,138,0,0.12) !important; color: var(--brand-orange) !important; }
+          .user-phone {
+            color: var(--text-secondary) !important;
+            svg { color: var(--brand-orange) !important; }
+            .p-number { color: var(--text-secondary) !important; }
+          }
+          .view-list { background: rgba(255,138,0,0.14) !important; color: var(--brand-orange) !important; }
 
           .view-list--admin {
-            background: rgba(255,255,255,0.05) !important;
+            background: rgba(255,255,255,0.06) !important;
             color: var(--text-primary) !important;
             svg { color: var(--text-primary) !important; }
+          }
+
+          .admin-view-wrap {
+            .admin-go-btn {
+              background: linear-gradient(135deg, #0d1c32 0%, #1a2f4a 100%) !important;
+              color: #ffffff !important;
+              box-shadow: 0 10px 24px rgba(0,0,0,0.40) !important;
+              .arrow { color: rgba(255,255,255,0.45) !important; }
+            }
           }
         }
 
@@ -1565,19 +1588,19 @@ html.dark {
             &:hover { background: var(--bg-hover) !important; }
 
             .flex-box {
-              .menu-icon { background: rgba(255,138,0,0.08) !important; }
+              .menu-icon { background: rgba(255,138,0,0.09) !important; }
               p, .sub-title { color: var(--text-secondary) !important; }
             }
 
             &.focus {
               background: var(--brand-navy) !important;
               box-shadow: 0 14px 28px rgba(0,0,0,0.3) !important;
-              p { color: #fff !important; }
-              .menu-icon { background: var(--brand-orange) !important; color: #fff !important; }
+              p, .sub-title { color: #ffffff !important; }
+              .menu-icon { background: var(--brand-orange) !important; color: #ffffff !important; }
             }
           }
 
-          .logout-item:hover { background: rgba(239,68,68,0.08) !important; }
+          .logout-item:hover { background: rgba(239,68,68,0.10) !important; }
           .logout-item .sub-title { color: #ef4444 !important; }
         }
       }
@@ -1591,24 +1614,21 @@ html.dark {
 
         .pagination-config .total-result p { color: var(--text-secondary) !important; }
 
-        // Package cards row
+        // Package cards (horizontal card layout)
         .card-config {
           background: var(--bg-card) !important;
+          border-color: var(--border) !important;
           box-shadow: var(--shadow-card) !important;
 
-          .top .price-box {
-            background: var(--bg-card) !important;
-            border-color: var(--border) !important;
-            p { color: var(--text-primary) !important; }
-          }
-
-          .bottom {
-            .name-address .name p    { color: var(--text-primary) !important; }
-            .name-address .address p { color: var(--text-secondary) !important; }
-            .options .option p       { color: var(--text-secondary) !important; }
-            .divider { background: var(--border) !important; }
-            .type-buttons .type p { color: var(--text-secondary) !important; }
-            .type-buttons .type .disabled-type { color: var(--text-muted) !important; }
+          .card-title    { color: var(--text-primary)   !important; }
+          .card-desc     { color: var(--text-muted)     !important; }
+          .price-from    { color: var(--text-muted)     !important; }
+          .price-value   { color: #FF383C !important; }
+          .meta-loc-text, .meta-dur-text, .stat-text { color: var(--text-secondary) !important; }
+          .view-btn {
+            border-color: var(--brand-orange) !important;
+            color: var(--brand-orange) !important;
+            &:hover { background: var(--brand-orange) !important; color: #fff !important; }
           }
         }
 
@@ -2296,6 +2316,15 @@ html.dark {
               border-color: var(--border) !important;
               background: rgba(255,138,0,0.06) !important;
               .absolute-box { background: var(--bg-card-alt) !important; }
+              .remove-image-button {
+                background: rgba(7,16,30,0.82) !important;
+                border-color: var(--border-orange) !important;
+                color: var(--text-primary) !important;
+                &:hover {
+                  background: var(--brand-red) !important;
+                  color: #ffffff !important;
+                }
+              }
             }
           }
         }

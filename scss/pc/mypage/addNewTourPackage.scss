@@ -379,6 +379,33 @@
 									transform: scale(1.04);
 								}
 							}
+							.remove-image-button {
+								position: absolute;
+								top: 9px;
+								right: 9px;
+								width: 30px;
+								height: 30px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								border: 1px solid rgba(255, 255, 255, 0.72);
+								border-radius: 50%;
+								background: rgba(13, 28, 50, 0.72);
+								color: #ffffff;
+								backdrop-filter: blur(8px);
+								cursor: pointer;
+								transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+								z-index: 2;
+								svg {
+									width: 18px;
+									height: 18px;
+								}
+								&:hover {
+									transform: scale(1.06);
+									border-color: rgba(255, 255, 255, 0.92);
+									background: #ff383c;
+								}
+							}
 							&.empty-image-box {
 								cursor: pointer;
 								border-style: dashed;

@@ -7,6 +7,201 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    .notification-root {
+      position: relative;
+
+      .notification-trigger {
+        position: relative;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -6px;
+        right: -7px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 999px;
+        background: var(--brand-red);
+        color: var(--bg-card);
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 18px;
+      }
+
+      .notification-panel {
+        position: fixed;
+        top: 82px;
+        left: 12px;
+        right: 12px;
+        max-height: calc(100vh - 104px);
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg-card);
+        box-shadow: var(--shadow-deep);
+        z-index: 50;
+        overflow: hidden;
+      }
+
+      .notification-panel-head {
+        padding-bottom: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid var(--border);
+
+        strong {
+          display: block;
+          color: var(--text-primary);
+          font-size: 15px;
+          font-weight: 800;
+        }
+
+        span {
+          margin-top: 3px;
+          display: block;
+          color: var(--text-secondary);
+          font-size: 12px;
+          line-height: 18px;
+        }
+
+        em {
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: var(--bg-hover);
+          color: var(--brand-orange);
+          font-size: 11px;
+          font-style: normal;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+      }
+
+      .notification-list {
+        max-height: calc(100vh - 206px);
+        padding-top: 8px;
+        gap: 8px;
+        overflow-y: auto;
+      }
+
+      .notification-item {
+        position: relative;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 8px minmax(0, 1fr);
+        gap: 10px;
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        background: var(--bg-card-alt);
+
+        &.unread {
+          border-color: var(--border-orange);
+          background: var(--bg-hover);
+        }
+      }
+
+      .notification-dot {
+        width: 8px;
+        height: 8px;
+        margin-top: 6px;
+        border-radius: 999px;
+        background: var(--text-muted);
+      }
+
+      .notification-item.unread .notification-dot {
+        background: var(--brand-orange);
+      }
+
+      .notification-meta {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        strong {
+          overflow: hidden;
+          color: var(--text-primary);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        span {
+          color: var(--text-muted);
+          font-size: 11px;
+          white-space: nowrap;
+        }
+      }
+
+      h4 {
+        margin: 4px 0 0;
+        overflow: hidden;
+        color: var(--text-primary);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      p {
+        margin: 4px 0 10px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      .view-package-btn.MuiButton-root,
+      .notification-retry.MuiButton-root {
+        min-width: 0;
+        width: fit-content;
+        height: 32px;
+        padding: 0 12px;
+        border-radius: 10px;
+        background: var(--brand-orange);
+        color: var(--bg-card);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .notification-state {
+        min-height: 190px;
+        padding: 24px 16px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+
+        svg {
+          color: var(--brand-orange);
+          font-size: 32px;
+        }
+
+        strong {
+          color: var(--text-primary);
+          font-size: 15px;
+          font-weight: 800;
+        }
+
+        span {
+          max-width: 260px;
+          color: var(--text-secondary);
+          font-size: 13px;
+          line-height: 20px;
+        }
+      }
+    }
   }
 
   .info-box {

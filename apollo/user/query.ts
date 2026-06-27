@@ -1,5 +1,64 @@
 import { gql } from '@apollo/client';
 
+const NOTIFICATION_FIELDS = gql`
+	fragment NotificationFields on Notification {
+		_id
+		notificationType
+		notificationTitle
+		notificationDesc
+		notificationGroup
+		receiverMemberId
+		senderMemberId
+		packageId
+		isRead
+		notificationStatus
+		createdAt
+		updatedAt
+		senderData {
+			_id
+			memberNick
+			memberFullName
+			memberImage
+			memberType
+		}
+		packageData {
+			_id
+			packageTitle
+			packageCountry
+			packageCity
+			packageImages
+			memberId
+		}
+	}
+`;
+
+/**************************
+ *      NOTIFICATION      *
+ *************************/
+
+export const GET_MY_UNREAD_NOTIFICATION_COUNT = gql`
+	query GetMyUnreadNotificationCount {
+		getMyUnreadNotificationCount {
+			total
+		}
+	}
+`;
+
+export const GET_MY_NOTIFICATIONS = gql`
+	${NOTIFICATION_FIELDS}
+
+	query GetMyNotifications($input: NotificationsInquiry!) {
+		getMyNotifications(input: $input) {
+			list {
+				...NotificationFields
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
+
 /**************************
  *         MEMBER         *
  *************************/

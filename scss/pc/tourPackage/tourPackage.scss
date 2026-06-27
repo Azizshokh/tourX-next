@@ -520,9 +520,9 @@
 							border-radius: 14px;
 							border: 1px solid #eef0f3;
 							overflow: hidden;
-							box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06);
+							box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
 							transition: box-shadow 0.22s ease, transform 0.22s ease;
-							min-height: 148px;
+							min-height: 180px;
 
 							&:hover {
 								box-shadow: 0 6px 24px rgba(15, 23, 42, 0.11);
@@ -532,7 +532,7 @@
 							/* Left: image */
 							.card-img-wrap {
 								position: relative;
-								width: 192px;
+								width: 220px;
 								flex-shrink: 0;
 								overflow: hidden;
 

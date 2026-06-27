@@ -13,6 +13,22 @@
     "korean": "한국어",
     "russian": "러시아어"
   },
+  "notifications": {
+    "open": "알림 열기",
+    "title": "알림",
+    "subtitle": "팔로우한 에이전트의 최신 패키지 소식",
+    "unreadCount": "읽지 않음 {{count}}개",
+    "loading": "알림을 불러오는 중...",
+    "emptyTitle": "아직 알림이 없습니다",
+    "emptyBody": "여행 에이전트를 팔로우하면 새 투어 패키지 소식을 받을 수 있습니다.",
+    "error": "알림을 불러오지 못했습니다.",
+    "retry": "다시 시도",
+    "viewPackage": "패키지 보기",
+    "opening": "여는 중...",
+    "senderFallback": "TourX 에이전트",
+    "packageFallback": "새 투어 패키지",
+    "defaultMessage": "{{agent}}님이 새 투어 패키지를 등록했습니다."
+  },
   "actions": {
     "search": "검색",
     "reset": "초기화",

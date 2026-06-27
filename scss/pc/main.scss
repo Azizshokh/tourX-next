@@ -200,8 +200,246 @@ body::-webkit-scrollbar {
 						align-items: center;
 						gap: 8px;
 
-						.notification-icon {
-							color: #333333;
+						.notification-root {
+							position: relative;
+							display: flex;
+							align-items: center;
+
+							.notification-trigger {
+								position: relative;
+								width: 36px;
+								height: 36px;
+								border-radius: 50%;
+								border: 1.5px solid var(--border-subtle);
+								background: transparent;
+								color: var(--text-secondary);
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								cursor: pointer;
+								transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+								svg {
+									font-size: 20px;
+								}
+
+								&:hover,
+								&.active {
+									background: var(--bg-hover);
+									border-color: var(--border-orange);
+									color: var(--brand-orange);
+									transform: translateY(-1px);
+								}
+							}
+
+							.notification-badge {
+								position: absolute;
+								top: -6px;
+								right: -7px;
+								min-width: 18px;
+								height: 18px;
+								padding: 0 5px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								border-radius: 999px;
+								background: var(--brand-red);
+								color: var(--bg-card);
+								font-family: $font;
+								font-size: 10px;
+								font-weight: 800;
+								line-height: 18px;
+								box-shadow: var(--shadow-card);
+							}
+
+							.notification-panel {
+								position: absolute;
+								top: 48px;
+								right: -92px;
+								width: 390px;
+								max-height: 560px;
+								padding: 14px;
+								border: 1px solid var(--border);
+								border-radius: 18px;
+								background: var(--bg-card);
+								box-shadow: var(--shadow-deep);
+								z-index: 30;
+								overflow: hidden;
+							}
+
+							.notification-panel-head {
+								padding: 4px 4px 12px;
+								flex-direction: row;
+								align-items: flex-start;
+								justify-content: space-between;
+								gap: 14px;
+								border-bottom: 1px solid var(--border);
+
+								strong {
+									display: block;
+									color: var(--text-primary);
+									font-family: $font;
+									font-size: 16px;
+									font-weight: 800;
+								}
+
+								span {
+									margin-top: 3px;
+									display: block;
+									color: var(--text-secondary);
+									font-family: $font;
+									font-size: 12px;
+									line-height: 18px;
+								}
+
+								em {
+									padding: 5px 9px;
+									border-radius: 999px;
+									background: var(--bg-hover);
+									color: var(--brand-orange);
+									font-family: $font;
+									font-size: 11px;
+									font-style: normal;
+									font-weight: 800;
+									white-space: nowrap;
+								}
+							}
+
+							.notification-list {
+								max-height: 438px;
+								padding-top: 8px;
+								gap: 8px;
+								overflow-y: auto;
+							}
+
+							.notification-item {
+								position: relative;
+								padding: 13px 12px 13px 18px;
+								display: grid;
+								grid-template-columns: 8px minmax(0, 1fr);
+								gap: 10px;
+								border: 1px solid var(--border-subtle);
+								border-radius: 14px;
+								background: var(--bg-card-alt);
+								transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+
+								&.unread {
+									border-color: var(--border-orange);
+									background: var(--bg-hover);
+								}
+
+								&:hover {
+									transform: translateY(-1px);
+									border-color: var(--border-orange);
+								}
+							}
+
+							.notification-dot {
+								width: 8px;
+								height: 8px;
+								margin-top: 6px;
+								border-radius: 999px;
+								background: var(--text-muted);
+							}
+
+							.notification-item.unread .notification-dot {
+								background: var(--brand-orange);
+							}
+
+							.notification-copy {
+								min-width: 0;
+							}
+
+							.notification-meta {
+								flex-direction: row;
+								align-items: center;
+								justify-content: space-between;
+								gap: 10px;
+
+								strong {
+									overflow: hidden;
+									color: var(--text-primary);
+									text-overflow: ellipsis;
+									white-space: nowrap;
+									font-family: $font;
+									font-size: 13px;
+									font-weight: 800;
+								}
+
+								span {
+									color: var(--text-muted);
+									font-family: $font;
+									font-size: 11px;
+									white-space: nowrap;
+								}
+							}
+
+							h4 {
+								margin: 4px 0 0;
+								overflow: hidden;
+								color: var(--text-primary);
+								text-overflow: ellipsis;
+								white-space: nowrap;
+								font-family: $font;
+								font-size: 14px;
+								font-weight: 800;
+								line-height: 20px;
+							}
+
+							p {
+								margin: 4px 0 10px;
+								color: var(--text-secondary);
+								font-family: $font;
+								font-size: 12px;
+								line-height: 18px;
+							}
+
+							.view-package-btn.MuiButton-root,
+							.notification-retry.MuiButton-root {
+								min-width: 0;
+								width: fit-content;
+								height: 32px;
+								padding: 0 12px;
+								border-radius: 10px;
+								background: var(--brand-orange);
+								color: var(--bg-card);
+								font-family: $font;
+								font-size: 12px;
+								font-weight: 800;
+
+								&:disabled {
+									opacity: 0.58;
+								}
+							}
+
+							.notification-state {
+								min-height: 210px;
+								padding: 26px 18px;
+								align-items: center;
+								justify-content: center;
+								text-align: center;
+								gap: 10px;
+
+								svg {
+									color: var(--brand-orange);
+									font-size: 34px;
+								}
+
+								strong {
+									color: var(--text-primary);
+									font-family: $font;
+									font-size: 15px;
+									font-weight: 800;
+								}
+
+								span {
+									max-width: 260px;
+									color: var(--text-secondary);
+									font-family: $font;
+									font-size: 13px;
+									line-height: 20px;
+								}
+							}
 						}
 
 						.theme-toggle-btn {

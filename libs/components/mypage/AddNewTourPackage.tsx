@@ -5,6 +5,7 @@ import CollectionsRoundedIcon from '@mui/icons-material/CollectionsRounded';
 import ImageSearchRoundedIcon from '@mui/icons-material/ImageSearchRounded';
 import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded';
 import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import axios from 'axios';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -156,6 +157,13 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 			if (inputRef.current) inputRef.current.value = '';
 		}
 	}
+
+	const removePackageImageHandler = (index: number) => {
+		setInsertPackageData((prev) => ({
+			...prev,
+			packageImages: (prev.packageImages ?? []).filter((_image, imageIndex) => imageIndex !== index),
+		}));
+	};
 
 	const validatePackageForm = async () => {
 		const normalizedInput = getNormalizedPackageInput();
@@ -527,7 +535,20 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 									onClick={!image ? () => inputRef.current?.click() : undefined}
 								>
 									{image ? (
-										<img src={`${REACT_APP_API_URL}/${image}`} alt={`Tour package photo ${index + 1}`} />
+										<>
+											<img src={`${REACT_APP_API_URL}/${image}`} alt={`Tour package photo ${index + 1}`} />
+											<button
+												type="button"
+												className="remove-image-button"
+												aria-label={t('mypage:packages.removePhotoLabel', { index: index + 1 })}
+												onClick={(event) => {
+													event.stopPropagation();
+													removePackageImageHandler(index);
+												}}
+											>
+												<CloseRoundedIcon />
+											</button>
+										</>
 									) : (
 										<Stack className="empty-image-content">
 											<ImageSearchRoundedIcon />

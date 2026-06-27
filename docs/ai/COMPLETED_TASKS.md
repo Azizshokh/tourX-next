@@ -209,3 +209,19 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `libs/components/admin/*`, `pages/_admin/community/index.tsx`, `pages/_admin/comments/index.tsx`, `pages/_admin/cs/faq.tsx`, `pages/_admin/cs/notice.tsx`, `libs/i18n.ts`, `public/locales/{en,kr,ru}/admin.json`.
 - Validation: locale key consistency passed; `yarn.cmd tsc --noEmit` passed.
 - Remaining issue: the legacy admin inquiry placeholder page still contains mock/static placeholder data and should be replaced with real inquiry API logic before deeper translation work.
+
+## 2026-06-28 - Navbar package notification dropdown
+- Added an authenticated notification dropdown to the shared TourX navbar with unread badge count, lazy-loaded notification list, loading/empty/error states, unread indicators, and package detail navigation.
+- Integrated the live backend GraphQL notification API: `getMyUnreadNotificationCount`, `getMyNotifications`, and `markNotificationAsRead`.
+- Added frontend notification types, Apollo query/mutation documents, localized notification UI copy, and responsive PC/mobile styling using existing TourX theme variables and dark-mode tokens.
+- Clicking `View Package` now marks the notification as read, refetches the unread badge count, refreshes the opened notification list, and redirects to `/tour-package/detail?id={packageId}`.
+- Files: `libs/components/notifications/NotificationDropdown.tsx`, `libs/components/Top.tsx`, `apollo/user/query.ts`, `apollo/user/mutation.ts`, `libs/types/notification/*`, `libs/enums/notification.enum.ts`, `scss/pc/main.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/common.json`.
+- Validation: backend schema introspection confirmed notification operations and fields; common locale JSON parse passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compiles passed; `yarn.cmd build` passed with the existing Browserslist update warning.
+- Remaining issue: manual browser verification with real follower/package creation data is still recommended to confirm badge decrease and notification privacy against authenticated users.
+
+## 2026-06-28 - Agent package edit image removal
+- Added old-image removal support to the agent Add/Edit Tour Package form by removing selected image paths from the `packageImages` array before `updateTourPackage` submits.
+- Added an accessible remove button on filled package image slots with light/dark mode styling and localized aria labels.
+- Preserved existing upload limits, create/update GraphQL payload shape, and validation requiring at least one package image.
+- Files: `libs/components/mypage/AddNewTourPackage.tsx`, `scss/pc/mypage/addNewTourPackage.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/mypage.json`.
+- Validation: `yarn.cmd tsc --noEmit` passed; PC Sass compile passed; MyPage locale key consistency passed.

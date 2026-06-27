@@ -21,8 +21,17 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_ALL_MEMBERS_BY_ADMIN } from '../../../apollo/admin/query';
 import { UPDATE_MEMBER_BY_ADMIN } from '../../../apollo/admin/mutation';
 import { T } from '../../../libs/types/common';
+import { getI18nProps, ADMIN_NAMESPACES } from '../../../libs/i18n';
+import { useTranslation } from 'next-i18next';
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});
 
 const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
+	const { t } = useTranslation(['common', 'admin']);
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
 	const [membersInquiry, setMembersInquiry] = useState<MembersInquiry>(initialInquiry);
 	const [members, setMembers] = useState<Member[]>([]);
@@ -171,7 +180,7 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 					<GroupsRoundedIcon />
 				</span>
 				<Typography variant={'h2'} className={'tit'}>
-					User List
+					{t('admin:pages.users')}
 				</Typography>
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
@@ -184,28 +193,28 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 									value="ALL"
 									className={value === 'ALL' ? 'li on' : 'li'}
 								>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, 'ACTIVE')}
 									value="ACTIVE"
 									className={value === 'ACTIVE' ? 'li on' : 'li'}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, 'BLOCK')}
 									value="BLOCK"
 									className={value === 'BLOCK' ? 'li on' : 'li'}
 								>
-									Blocked
+									{t('admin:labels.blocked')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, 'DELETE')}
 									value="DELETE"
 									className={value === 'DELETE' ? 'li on' : 'li'}
 								>
-									Deleted
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
@@ -215,7 +224,7 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 									onChange={(e: any) => textHandler(e.target.value)}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search user name"
+									placeholder={t('admin:search.users')}
 									onKeyDown={(event) => {
 										if (event.key == 'Enter') searchTextHandler();
 									}}
@@ -245,16 +254,16 @@ const AdminUsers: NextPage = ({ initialInquiry, ...props }: any) => {
 								/>
 								<Select sx={{ width: '160px', ml: '20px' }} value={searchType}>
 									<MenuItem value={'ALL'} onClick={() => searchTypeHandler('ALL')}>
-										All
+										{t('admin:tabs.all')}
 									</MenuItem>
 									<MenuItem value={'USER'} onClick={() => searchTypeHandler('USER')}>
-										User
+										{t('admin:labels.user')}
 									</MenuItem>
 									<MenuItem value={'AGENT'} onClick={() => searchTypeHandler('AGENT')}>
-										Agent
+										{t('admin:labels.agent')}
 									</MenuItem>
 									<MenuItem value={'ADMIN'} onClick={() => searchTypeHandler('ADMIN')}>
-										Admin
+										{t('admin:role')}
 									</MenuItem>
 								</Select>
 							</Stack>

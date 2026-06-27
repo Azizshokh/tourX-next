@@ -6,7 +6,8 @@ import { Box, Button, Checkbox, FormControlLabel, FormGroup, Stack, Typography }
 import { useRouter } from 'next/router';
 import { logIn, signUp } from '../../libs/auth';
 import { sweetMixinErrorAlert } from '../../libs/sweetAlert';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, AUTH_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
@@ -28,13 +29,14 @@ import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, AUTH_NAMESPACES)),
 	},
 });
 
 const Join: NextPage = () => {
 	const router = useRouter();
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'auth']);
 	const [input, setInput] = useState({ nick: '', password: '', phone: '', type: 'USER' });
 	const [loginView, setLoginView] = useState<boolean>(true);
 
@@ -68,7 +70,7 @@ const Join: NextPage = () => {
 	}, [input]);
 
 	if (device === 'mobile') {
-		return <div>LOGIN MOBILE</div>;
+		return <div>{t('common:mobile.login')}</div>;
 	} else {
 		return (
 			<Stack className={'join-page'}>
@@ -84,21 +86,21 @@ const Join: NextPage = () => {
 
 							<Box className={'info'}>
 								<Typography className={'info-title'}>
-									{loginView ? 'Welcome Back!' : 'Create Account'}
+									{loginView ? t('auth:welcomeBack') : t('auth:createAccount')}
 								</Typography>
 								<Typography className={'info-sub'}>
-									{loginView ? 'Sign in to continue your journey' : 'Join TourX and explore the world'}
+									{loginView ? t('auth:signInJourney') : t('auth:joinTourX')}
 								</Typography>
 							</Box>
 
 							<Box className={'input-wrap'}>
 								<div className={'input-box'}>
-									<span>Nickname</span>
+									<span>{t('auth:nickname')}</span>
 									<div className={'input-inner'}>
 										<AccountCircleRoundedIcon className={'input-icon'} />
 										<input
 											type="text"
-											placeholder={'Enter your nickname'}
+											placeholder={t('auth:enterNickname')}
 											onChange={(e) => handleInput('nick', e.target.value)}
 											onKeyDown={(event) => {
 												if (event.key === 'Enter' && loginView) doLogin();
@@ -109,12 +111,12 @@ const Join: NextPage = () => {
 								</div>
 
 								<div className={'input-box'}>
-									<span>Password</span>
+									<span>{t('auth:password')}</span>
 									<div className={'input-inner'}>
 										<LockRoundedIcon className={'input-icon'} />
 										<input
 											type="password"
-											placeholder={'Enter your password'}
+											placeholder={t('auth:enterPassword')}
 											onChange={(e) => handleInput('password', e.target.value)}
 											onKeyDown={(event) => {
 												if (event.key === 'Enter' && loginView) doLogin();
@@ -126,12 +128,12 @@ const Join: NextPage = () => {
 
 								{!loginView && (
 									<div className={'input-box'}>
-										<span>Phone</span>
+										<span>{t('auth:phone')}</span>
 										<div className={'input-inner'}>
 											<LocalPhoneRoundedIcon className={'input-icon'} />
 											<input
 												type="text"
-												placeholder={'Enter phone number'}
+												placeholder={t('auth:enterPhone')}
 												onChange={(e) => handleInput('phone', e.target.value)}
 												onKeyDown={(event) => {
 													if (event.key === 'Enter') doSignUp();
@@ -145,21 +147,21 @@ const Join: NextPage = () => {
 							<Box className={'register'}>
 								{!loginView && (
 									<div className={'type-option'}>
-										<span className={'type-label'}>Register as:</span>
+										<span className={'type-label'}>{t('auth:registerAs')}</span>
 										<div className={'type-btns'}>
 											<button
 												className={`type-btn${input.type === 'USER' ? ' active' : ''}`}
 												onClick={() => handleInput('type', 'USER')}
 											>
 												<PersonRoundedIcon />
-												User
+												{t('auth:user')}
 											</button>
 											<button
 												className={`type-btn${input.type === 'AGENT' ? ' active' : ''}`}
 												onClick={() => handleInput('type', 'AGENT')}
 											>
 												<SupportAgentRoundedIcon />
-												Agent
+												{t('auth:agent')}
 											</button>
 										</div>
 									</div>
@@ -168,9 +170,9 @@ const Join: NextPage = () => {
 								{loginView && (
 									<div className={'remember-info'}>
 										<FormGroup>
-											<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember me" />
+											<FormControlLabel control={<Checkbox defaultChecked size="small" />} label={t('auth:rememberMe')} />
 										</FormGroup>
-										<a>Lost your password?</a>
+										<a>{t('auth:lostPassword')}</a>
 									</div>
 								)}
 
@@ -184,20 +186,20 @@ const Join: NextPage = () => {
 									}
 									onClick={loginView ? doLogin : doSignUp}
 								>
-									{loginView ? 'Sign In' : 'Create Account'}
+									{loginView ? t('auth:signIn') : t('auth:createAccountButton')}
 								</Button>
 							</Box>
 
 							<Box className={'ask-info'}>
 								{loginView ? (
 									<p>
-										Don&apos;t have an account?
-										<b onClick={() => viewChangeHandler(false)}>Sign Up</b>
+										{t('auth:noAccount')}
+										<b onClick={() => viewChangeHandler(false)}>{t('auth:signUp')}</b>
 									</p>
 								) : (
 									<p>
-										Already have an account?
-										<b onClick={() => viewChangeHandler(true)}>Sign In</b>
+										{t('auth:hasAccount')}
+										<b onClick={() => viewChangeHandler(true)}>{t('auth:signIn')}</b>
 									</p>
 								)}
 							</Box>
@@ -220,8 +222,8 @@ const Join: NextPage = () => {
 								<span className={'join-bg-icon hike'}><HikingRoundedIcon /></span>
 							</Box>
 							<Box className={'right-content'}>
-								<Typography className={'right-tagline'}>Explore the World</Typography>
-								<Typography className={'right-sub'}>Thousands of tour packages. One platform.</Typography>
+								<Typography className={'right-tagline'}>{t('auth:exploreWorld')}</Typography>
+								<Typography className={'right-sub'}>{t('auth:platformTagline')}</Typography>
 							</Box>
 						</Stack>
 

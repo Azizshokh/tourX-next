@@ -32,18 +32,20 @@ import WriteArticle from '../../libs/components/mypage/WriteArticle';
 import MemberFollowers from '../../libs/components/member/MemberFollowers';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import MemberFollowings from '../../libs/components/member/MemberFollowings';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, MYPAGE_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import { SUBSCRIBE, UNSUBSCRIBE, LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { Messages } from '../../libs/config';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, MYPAGE_NAMESPACES)),
 	},
 });
 
 const MyPage: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 	const category: any = router.query?.category ?? 'myProfile';
@@ -65,14 +67,14 @@ const MyPage: NextPage = () => {
 		try {
 			if (!id) throw new Error(Messages.error1);
 			if (!user._id) throw new Error(Messages.error2);
-			if (user._id === id) throw new Error('You cannot follow yourself.');
+			if (user._id === id) throw new Error(t('mypage:follow.cannotFollowSelf'));
 
 			await subscribe({
 				variables: {
 					input: id,
 				},
 			});
-			await sweetTopSmallSuccessAlert('Subscribed!', 800);
+			await sweetTopSmallSuccessAlert(t('mypage:follow.subscribed'), 800);
 			if (refetch && query) await refetch({ input: query });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
@@ -83,14 +85,14 @@ const MyPage: NextPage = () => {
 		try {
 			if (!id) throw new Error(Messages.error1);
 			if (!user._id) throw new Error(Messages.error2);
-			if (user._id === id) throw new Error('You cannot unfollow yourself.');
+			if (user._id === id) throw new Error(t('mypage:follow.cannotUnfollowSelf'));
 
 			await unsubscribe({
 				variables: {
 					input: id,
 				},
 			});
-			await sweetTopSmallSuccessAlert('Unsubscribed!', 800);
+			await sweetTopSmallSuccessAlert(t('mypage:follow.unsubscribed'), 800);
 			if (refetch && query) await refetch({ input: query });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
@@ -124,7 +126,7 @@ const MyPage: NextPage = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>MY PAGE</div>;
+		return <div>{t('common:mobile.mypage')}</div>;
 	} else {
 		return (
 			<div id="my-page" style={{ position: 'relative' }}>

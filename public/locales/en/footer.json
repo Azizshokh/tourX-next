@@ -1,0 +1,31 @@
+{
+  "expert": "Speak to our expert at",
+  "follow": "Follow Us",
+  "contact": "Contact",
+  "address": "328 Queensberry Street, North Melbourne VIC3051, Australia.",
+  "company": "Company",
+  "support": "Support",
+  "newsletter": "Newsletter",
+  "newsletterDesc": "Subscribe to the free newsletter and stay up to date",
+  "emailPlaceholder": "Your email address",
+  "send": "Send",
+  "mobileApps": "Mobile Apps",
+  "rights": "All rights reserved.",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "sitemap": "Sitemap",
+  "links": {
+    "about": "About Us",
+    "reviews": "TourX Reviews",
+    "contact": "Contact Us",
+    "guides": "Travel Guides",
+    "dataPolicy": "Data Policy",
+    "cookiePolicy": "Cookie Policy",
+    "legal": "Legal",
+    "sitemap": "Sitemap",
+    "getInTouch": "Get in Touch",
+    "helpCenter": "Help center",
+    "liveChat": "Live chat",
+    "howItWorks": "How it works"
+  }
+}

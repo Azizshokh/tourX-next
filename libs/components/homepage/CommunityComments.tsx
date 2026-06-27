@@ -22,6 +22,7 @@ import { TOGGLE_COMMENT_LIKE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { REACT_APP_API_URL } from '../../config';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { useTranslation } from 'next-i18next';
 
 const RANK_COLORS = ['#ff8a00', '#0077b6', '#28b485', '#8b5cf6', '#ec4899'];
 
@@ -100,6 +101,7 @@ const MOCK_COMMENTS: Comment[] = [
 
 const CommunityComments = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'home']);
 	const user = useReactiveVar(userVar);
 	const swiperRef = useRef<any>(null);
 	const [realComments, setRealComments] = useState<Comment[]>([]);
@@ -115,8 +117,12 @@ const CommunityComments = () => {
 		},
 	});
 
+	const localizedMockComments = MOCK_COMMENTS.map((comment, index) => ({
+		...comment,
+		commentContent: t(`home:testimonials.mock${index + 1}`),
+	}));
 	const isMock = realComments.length === 0;
-	const comments = isMock ? MOCK_COMMENTS : realComments;
+	const comments = isMock ? localizedMockComments : realComments;
 
 	const [toggleCommentLike] = useMutation(TOGGLE_COMMENT_LIKE);
 
@@ -151,7 +157,7 @@ const CommunityComments = () => {
 					prev.map((c) => (c._id === comment._id ? { ...c, isLiked: res.isLiked, likesCount: res.likesCount } : c)),
 				);
 			}
-			if (!wasLiked) await sweetTopSmallSuccessAlert('Liked!', 600);
+			if (!wasLiked) await sweetTopSmallSuccessAlert(t('home:labels.liked'), 600);
 		} catch (err: any) {
 			setRealComments((prev) =>
 				prev.map((c) =>
@@ -202,16 +208,16 @@ const CommunityComments = () => {
 			<Stack className={'container'}>
 				{/* Section Header */}
 				<Box component={'div'} className={'tc-header'}>
-					<span className={'tc-eyebrow'}>TRAVEL COMMUNITY</span>
-					<Typography className={'tc-main-title'}>See What Travelers Say About TourX</Typography>
-					<Typography className={'tc-subtitle'}>Discover real experiences shared by global explorers</Typography>
+					<span className={'tc-eyebrow'}>{t('home:sections.testimonialsEyebrow')}</span>
+					<Typography className={'tc-main-title'}>{t('home:sections.testimonials')}</Typography>
+					<Typography className={'tc-subtitle'}>{t('home:sections.testimonialsDesc')}</Typography>
 				</Box>
 
 				{/* Carousel */}
 				<Box component={'div'} className={'tc-carousel-wrap'}>
 					<button
 						className={'tc-arrow'}
-						aria-label={'Previous comment'}
+						aria-label={t('home:labels.previousComment')}
 						onClick={() => swiperRef.current?.slidePrev()}
 					>
 						<ChevronLeftRoundedIcon />
@@ -260,9 +266,9 @@ const CommunityComments = () => {
 											<Box component={'div'} className={'tc-divider'} />
 
 											<Typography className={'tc-author-name'}>
-												{comment.memberData?.memberNick ?? 'TourX Explorer'}
+												{comment.memberData?.memberNick ?? t('common:labels.explorer')}
 											</Typography>
-											<Typography className={'tc-author-role'}>Global Explorer</Typography>
+											<Typography className={'tc-author-role'}>{t('home:labels.globalExplorer')}</Typography>
 
 											<Box component={'div'} className={'tc-like-row'}>
 												{!isMockEntry && (
@@ -289,7 +295,7 @@ const CommunityComments = () => {
 
 					<button
 						className={'tc-arrow'}
-						aria-label={'Next comment'}
+						aria-label={t('home:labels.nextComment')}
 						onClick={() => swiperRef.current?.slideNext()}
 					>
 						<ChevronRightRoundedIcon />
@@ -302,7 +308,7 @@ const CommunityComments = () => {
 						<button
 							key={i}
 							className={`tc-dot ${i === activeIndex ? 'active' : ''}`}
-							aria-label={`Go to comment ${i + 1}`}
+							aria-label={t('home:labels.goToComment', { count: i + 1 })}
 							onClick={() => swiperRef.current?.slideTo(i)}
 						/>
 					))}

@@ -21,7 +21,7 @@ import { REACT_APP_API_URL } from '../config';
 const Top = () => {
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
-	const { t, i18n } = useTranslation('common');
+	const { t } = useTranslation(['common', 'auth']);
 	const router = useRouter();
 	const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
 	const [lang, setLang] = useState<string | null>('en');
@@ -35,13 +35,19 @@ const Top = () => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (localStorage.getItem('locale') === null) {
-			localStorage.setItem('locale', 'en');
-			setLang('en');
-		} else {
-			setLang(localStorage.getItem('locale'));
+		const supportedLocales = ['en', 'kr', 'ru'];
+		const storedLocale = localStorage.getItem('locale');
+		const nextLocale = supportedLocales.includes(router.locale ?? '') ? router.locale : storedLocale;
+
+		if (nextLocale && supportedLocales.includes(nextLocale)) {
+			localStorage.setItem('locale', nextLocale);
+			setLang(nextLocale);
+			return;
 		}
-	}, [router]);
+
+		localStorage.setItem('locale', 'en');
+		setLang('en');
+	}, [router.locale]);
 
 	useEffect(() => {
 		switch (router.pathname) {
@@ -69,10 +75,11 @@ const Top = () => {
 
 	const langChoice = useCallback(
 		async (e: any) => {
-			setLang(e.target.id);
-			localStorage.setItem('locale', e.target.id);
+			const nextLocale = e.currentTarget.id;
+			setLang(nextLocale);
+			localStorage.setItem('locale', nextLocale);
 			setAnchorEl2(null);
-			await router.push(router.asPath, router.asPath, { locale: e.target.id });
+			await router.push(router.asPath, router.asPath, { locale: nextLocale });
 		},
 		[router],
 	);
@@ -143,19 +150,19 @@ const Top = () => {
 		return (
 			<Stack className={'top'}>
 				<Link href={'/'}>
-					<div>{t('Home')}</div>
+					<div>{t('nav.home')}</div>
 				</Link>
 				<Link href={'/tour-package'}>
-					<div>{t('Packages')}</div>
+					<div>{t('nav.packages')}</div>
 				</Link>
 				<Link href={'/agent'}>
-					<div> {t('Agents')} </div>
+					<div> {t('nav.agents')} </div>
 				</Link>
 				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('Community')} </div>
+					<div> {t('nav.community')} </div>
 				</Link>
 				<Link href={'/cs'}>
-					<div> {t('Help')} </div>
+					<div> {t('nav.help')} </div>
 				</Link>
 			</Stack>
 		);
@@ -171,24 +178,24 @@ const Top = () => {
 						</Box>
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div className={router.pathname === '/' ? 'active' : ''}>{t('Home')}</div>
+								<div className={router.pathname === '/' ? 'active' : ''}>{t('nav.home')}</div>
 							</Link>
 							<Link href={'/tour-package'}>
-								<div className={router.pathname.startsWith('/tour-package') ? 'active' : ''}>{t('Packages')}</div>
+								<div className={router.pathname.startsWith('/tour-package') ? 'active' : ''}>{t('nav.packages')}</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> {t('Agents')} </div>
+								<div className={router.pathname.startsWith('/agent') ? 'active' : ''}> {t('nav.agents')} </div>
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
-								<div className={router.pathname.startsWith('/community') ? 'active' : ''}> {t('Community')} </div>
+								<div className={router.pathname.startsWith('/community') ? 'active' : ''}> {t('nav.community')} </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>
-									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> {t('My Page')} </div>
+									<div className={router.pathname.startsWith('/mypage') ? 'active' : ''}> {t('nav.myPage')} </div>
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('Help')} </div>
+								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('nav.help')} </div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>
@@ -214,7 +221,7 @@ const Top = () => {
 									>
 										<MenuItem onClick={() => logOut()}>
 											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
+											{t('actions.logout')}
 										</MenuItem>
 									</Menu>
 								</>
@@ -255,17 +262,17 @@ const Top = () => {
 											id="en"
 											alt={'usaFlag'}
 										/>
-										{t('English')}
+										{t('language.english')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="kr">
 										<img
 											className="img-flag"
 											src={'/img/flag/langkr.png'}
 											onClick={langChoice}
-											id="uz"
+											id="kr"
 											alt={'koreanFlag'}
 										/>
-										{t('Korean')}
+										{t('language.korean')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="ru">
 										<img
@@ -275,7 +282,7 @@ const Top = () => {
 											id="ru"
 											alt={'russiaFlag'}
 										/>
-										{t('Russian')}
+										{t('language.russian')}
 									</MenuItem>
 								</StyledMenu>
 							</div>

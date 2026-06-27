@@ -17,9 +17,11 @@ import { useRouter } from 'next/router';
 import { GET_AGENT_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { UPDATE_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetConfirmAlert, sweetErrorHandling } from '../../sweetAlert';
+import { useTranslation } from 'next-i18next';
 
 const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const [searchFilter, setSearchFilter] = useState<AgentTourPackagesInquiry>(initialInput);
 	const [agentTourPackages, setAgentTourPackages] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
@@ -55,7 +57,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 
 	const deleteTourPackageHandler = async (id: string) => {
 		try {
-			if (await sweetConfirmAlert('Are you sure to delete this package?')) {
+			if (await sweetConfirmAlert(t('mypage:packages.deleteConfirm'))) {
 				await updateTourPackage({
 					variables: {
 						input: {
@@ -73,7 +75,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 
 	const updateTourPackageHandler = async (status: string, id: string) => {
 		try {
-			if (await sweetConfirmAlert(`Are you sure change to ${status} status?`)) {
+			if (await sweetConfirmAlert(t('mypage:packages.statusConfirm', { status }))) {
 				await updateTourPackage({
 					variables: {
 						input: {
@@ -93,7 +95,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>MY TOUR PACKAGES MOBILE</div>;
+		return <div>{t('mypage:packages.title')}</div>;
 	} else {
 		return (
 			<div id="my-tour-package-page">
@@ -101,17 +103,17 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 					<Stack className="right-box">
 						<Stack className="title-kicker">
 							<Inventory2RoundedIcon />
-							<Typography>Travel agent inventory</Typography>
+							<Typography>{t('mypage:packages.kicker')}</Typography>
 						</Stack>
-						<Typography className="main-title">My Packages</Typography>
-						<Typography className="sub-title">Manage live experiences, close unavailable trips, and keep your TourX catalog polished.</Typography>
+						<Typography className="main-title">{t('mypage:packages.title')}</Typography>
+						<Typography className="sub-title">{t('mypage:packages.subtitle')}</Typography>
 					</Stack>
 					<Stack className="summary-box">
 						<PublicRoundedIcon />
 						<Stack>
 							<Typography className="summary-value">{total}</Typography>
 							<Typography className="summary-label">
-								{searchFilter.search.packageStatus === PackageStatus.ACTIVE ? 'active packages' : 'closed packages'}
+								{searchFilter.search.packageStatus === PackageStatus.ACTIVE ? t('mypage:packages.active') : t('mypage:packages.closed')}
 							</Typography>
 						</Stack>
 					</Stack>
@@ -124,8 +126,8 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 						>
 							<CheckCircleRoundedIcon />
 							<Stack>
-								<Typography className="tab-label">Active</Typography>
-								<Typography className="tab-helper">Visible to travelers</Typography>
+								<Typography className="tab-label">{t('common:status.active')}</Typography>
+								<Typography className="tab-helper">{t('mypage:packages.visible')}</Typography>
 							</Stack>
 						</Stack>
 						<Stack
@@ -134,26 +136,26 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 						>
 							<ArchiveRoundedIcon />
 							<Stack>
-								<Typography className="tab-label">Closed</Typography>
-								<Typography className="tab-helper">Paused or unavailable</Typography>
+								<Typography className="tab-label">{t('common:status.closed')}</Typography>
+								<Typography className="tab-helper">{t('mypage:packages.paused')}</Typography>
 							</Stack>
 						</Stack>
 					</Stack>
 					<Stack className="list-box">
 						<Stack className="listing-title-box">
-							<Typography className="title-text">Listing title</Typography>
-							<Typography className="title-text">Date Published</Typography>
-							<Typography className="title-text">Status</Typography>
-							<Typography className="title-text">View</Typography>
+							<Typography className="title-text">{t('mypage:packages.listingTitle')}</Typography>
+							<Typography className="title-text">{t('mypage:packages.datePublished')}</Typography>
+							<Typography className="title-text">{t('common:labels.status')}</Typography>
+							<Typography className="title-text">{t('common:labels.view')}</Typography>
 							{searchFilter.search.packageStatus === PackageStatus.ACTIVE && (
-								<Typography className="title-text">Action</Typography>
+								<Typography className="title-text">{t('common:labels.actions')}</Typography>
 							)}
 						</Stack>
 
 						{agentTourPackages?.length === 0 ? (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
-								<p>No package found!</p>
+								<p>{t('mypage:packages.empty')}</p>
 							</div>
 						) : (
 							agentTourPackages.map((tourPackage: TourPackage) => {
@@ -179,7 +181,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 									/>
 								</Stack>
 								<Stack className="total-result">
-									<Typography>{total} package available</Typography>
+									<Typography>{t('mypage:packages.available', { count: total })}</Typography>
 								</Stack>
 							</Stack>
 						)}

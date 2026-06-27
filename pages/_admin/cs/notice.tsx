@@ -45,6 +45,8 @@ import {
 } from '../../../apollo/admin/mutation';
 import { GET_ALL_NOTICE_CATEGORIES_BY_ADMIN, GET_ALL_NOTICES_BY_ADMIN } from '../../../apollo/admin/query';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
+import { useTranslation } from 'next-i18next';
+import { ADMIN_NAMESPACES, getI18nProps } from '../../../libs/i18n';
 
 const defaultNoticeCategories: CreateNoticeCategoryInput[] = [
 	{ noticeCategoryTitle: 'Booking Help', noticeCategoryKey: 'booking-help', noticeCategoryOrder: 1 },
@@ -69,6 +71,7 @@ const getMissingNoticeCategories = (categories: NoticeCategory[]) => {
 };
 
 const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: any) => {
+	const { t } = useTranslation(['common', 'admin']);
 	const [noticeInquiry, setNoticeInquiry] = useState<NoticeInquiry>(initialInquiry);
 	const [notices, setNotices] = useState<Notice[]>([]);
 	const [noticeTotal, setNoticeTotal] = useState<number>(0);
@@ -152,15 +155,15 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 
 	const validateCreateForm = async () => {
 		if (!createForm.noticeCategoryId) {
-			await sweetMixinErrorAlert('Please select a notice category.');
+			await sweetMixinErrorAlert(t('admin:notices.categoryRequired'));
 			return false;
 		}
 		if (!createForm.noticeTitle.trim()) {
-			await sweetMixinErrorAlert('Please enter a notice title.');
+			await sweetMixinErrorAlert(t('admin:notices.titleRequired'));
 			return false;
 		}
 		if (!createForm.noticeContent.trim()) {
-			await sweetMixinErrorAlert('Please enter notice content.');
+			await sweetMixinErrorAlert(t('admin:notices.contentRequired'));
 			return false;
 		}
 		return true;
@@ -244,7 +247,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 				...prev,
 				noticeCategoryId: firstTourXCategory?._id ?? getValidCategoryId(categories, prev.noticeCategoryId),
 			}));
-			await sweetTopSmallSuccessAlert('TourX notice categories synced!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:notices.categoriesSynced'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		} finally {
@@ -266,7 +269,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 			await createNoticeByAdmin({ variables: { input } });
 			await getAllNoticeCategoriesByAdminRefetch({ input: categoryInquiry });
 			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
-			await sweetTopSmallSuccessAlert('Notice created!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.noticeCreated'), 900);
 			setOpenCreateModal(false);
 			setCreateForm(initialNoticeForm);
 		} catch (err: any) {
@@ -280,7 +283,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		try {
 			await updateNoticeByAdmin({ variables: { input } });
 			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
-			await sweetTopSmallSuccessAlert('Notice status updated!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.noticeStatus'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -290,7 +293,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		try {
 			await deleteNoticeByAdmin({ variables: { input: noticeId } });
 			await getAllNoticesByAdminRefetch({ input: noticeInquiry });
-			await sweetTopSmallSuccessAlert('Notice deleted!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.noticeDeleted'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -305,7 +308,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 					<span className={'title-icon'}>
 						<CampaignRoundedIcon />
 					</span>
-					<Typography variant={'h2'}>Notice</Typography>
+					<Typography variant={'h2'}>{t('admin:pages.notice')}</Typography>
 				</Box>
 				<Button
 					className="btn_add"
@@ -314,7 +317,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 					onClick={openCreateModalHandler}
 				>
 					<AddRoundedIcon sx={{ mr: '8px' }} />
-					Add Notice
+					{t('admin:actions.addNotice')}
 				</Button>
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
@@ -323,28 +326,28 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						<Box component={'div'}>
 							<List className={'tab-menu'}>
 								<ListItem value="ALL" className={value === 'ALL' ? 'li on' : 'li'} onClick={() => tabChangeHandler('ALL')}>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									value={NoticeStatus.ACTIVE}
 									className={value === NoticeStatus.ACTIVE ? 'li on' : 'li'}
 									onClick={() => tabChangeHandler(NoticeStatus.ACTIVE)}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									value={NoticeStatus.HOLD}
 									className={value === NoticeStatus.HOLD ? 'li on' : 'li'}
 									onClick={() => tabChangeHandler(NoticeStatus.HOLD)}
 								>
-									Hold
+									{t('admin:tabs.hold')}
 								</ListItem>
 								<ListItem
 									value={NoticeStatus.DELETE}
 									className={value === NoticeStatus.DELETE ? 'li on' : 'li'}
 									onClick={() => tabChangeHandler(NoticeStatus.DELETE)}
 								>
-									Delete
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
@@ -357,7 +360,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									}}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search notice title or content"
+									placeholder={t('admin:search.notice')}
 									endAdornment={
 										<>
 											{searchInput && (
@@ -375,7 +378,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									onChange={(e: any) => categoryFilterHandler(String(e.target.value))}
 								>
 									<MenuItem value={'ALL'}>
-										All Categories
+										{t('admin:labels.allCategories')}
 									</MenuItem>
 									{noticeCategories.map((category: NoticeCategory) => (
 										<MenuItem value={category._id} key={category._id}>
@@ -415,14 +418,14 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 				fullWidth
 				scroll={'body'}
 			>
-				<DialogTitle>Add Notice</DialogTitle>
+				<DialogTitle>{t('admin:actions.addNotice')}</DialogTitle>
 				<DialogContent>
 					<Stack className={'notice-modal-form'}>
 						<FormControl fullWidth disabled={noticeCategoriesLoading || noticeCategories.length === 0}>
-							<InputLabel id="notice-category-label">Category</InputLabel>
+							<InputLabel id="notice-category-label">{t('admin:labels.noticeCategory')}</InputLabel>
 							<Select
 								labelId="notice-category-label"
-								label="Category"
+								label={t('admin:labels.noticeCategory')}
 								value={selectedModalCategoryId}
 								onChange={(e: any) =>
 									setCreateForm((p) => ({ ...p, noticeCategoryId: String(e.target.value) }))
@@ -440,8 +443,8 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 							<Stack className={'notice-empty-category-box'}>
 								<Typography className={'empty-helper'}>
 									{noticeCategories.length === 0
-										? 'No active notice categories available.'
-										: `${missingNoticeCategories.length} TourX notice categories missing.`}
+										? t('admin:notices.noActiveCategories')
+										: t('admin:notices.missingCategories', { count: missingNoticeCategories.length })}
 								</Typography>
 								<Button
 									className={'btn_seed_notice_categories'}
@@ -451,13 +454,13 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									disabled={isCreatingCategories}
 								>
 									<AutoFixHighRoundedIcon />
-									{isCreatingCategories ? 'Syncing...' : 'Sync TourX Categories'}
+									{isCreatingCategories ? t('admin:actions.syncing') : t('admin:actions.syncCategories')}
 								</Button>
 							</Stack>
 						)}
 
 						<TextField
-							label="Title"
+							label={t('admin:table.title')}
 							value={createForm.noticeTitle}
 							onChange={(e: any) => setCreateForm((p) => ({ ...p, noticeTitle: e.target.value }))}
 							inputProps={{ maxLength: 200 }}
@@ -465,7 +468,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						/>
 						<TextField
 							className={'notice-content-field'}
-							label="Content"
+							label={t('admin:table.content')}
 							value={createForm.noticeContent}
 							onChange={(e: any) => setCreateForm((p) => ({ ...p, noticeContent: e.target.value }))}
 							inputProps={{ maxLength: 5000 }}
@@ -481,7 +484,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						onClick={closeCreateModalHandler}
 						disabled={isSubmitting || isCreatingCategories}
 					>
-						Cancel
+						{t('admin:actions.cancel')}
 					</Button>
 					<Button
 						className={'btn_submit'}
@@ -489,7 +492,7 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						onClick={createNoticeHandler}
 						disabled={isCreateDisabled()}
 					>
-						{isSubmitting ? 'Saving...' : 'Create Notice'}
+						{isSubmitting ? t('admin:actions.saving') : t('admin:actions.createNotice')}
 					</Button>
 				</DialogActions>
 			</Dialog>
@@ -517,3 +520,9 @@ AdminNotice.defaultProps = {
 };
 
 export default withAdminLayout(AdminNotice);
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});

@@ -11,6 +11,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { userVar } from '../../../apollo/store';
 import { GET_MEMBER_FOLLOWINGS } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { useTranslation } from 'next-i18next';
 
 const isValidObjectId = (id?: string) => Boolean(id && id.length === 24 && id !== 'undefined' && id !== 'null');
 
@@ -25,6 +26,7 @@ interface MemberFollowingsProps {
 const MemberFollowings = (props: MemberFollowingsProps) => {
 	const { initialInput, subscribeHandler, unsubscribeHandler, likeMemberHandler, redirectToMemberPageHandler } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
 	const [followInquiry, setFollowInquiry] = useState<FollowInquiry>(initialInput);
@@ -68,25 +70,25 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>FOLLOW LIST MOBILE</div>;
+		return <div>{t('mypage:follow.following')}</div>;
 	} else {
 		return (
 			<div id="member-follows-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">Following</Typography>
+						<Typography className="main-title">{t('mypage:follow.following')}</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="follows-list-box">
 					<Stack className="listing-title-box">
-						<Typography className="title-text">Name</Typography>
-						<Typography className="title-text">Details</Typography>
-						<Typography className="title-text">Subscription</Typography>
+						<Typography className="title-text">{t('common:labels.name')}</Typography>
+						<Typography className="title-text">{t('common:labels.details')}</Typography>
+						<Typography className="title-text">{t('common:labels.subscription')}</Typography>
 					</Stack>
 					{memberFollowings?.length === 0 && (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Following yet!</p>
+							<p>{t('mypage:follow.emptyFollowing')}</p>
 						</div>
 					)}
 					{memberFollowings.map((follower: Following) => {
@@ -105,11 +107,11 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 								</Stack>
 								<Stack className={'details-box'}>
 									<Box className={'info-box'} component={'div'}>
-										<p>Followers</p>
+										<p>{t('mypage:follow.followers')}</p>
 										<span>({follower?.followingData?.memberFollowers})</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
-										<p>Following</p>
+										<p>{t('mypage:follow.following')}</p>
 										<span>({follower?.followingData?.memberFollowings})</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
@@ -134,7 +136,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 									<Stack className="action-box">
 										{follower.meFollowed && follower.meFollowed[0]?.myFollowing ? (
 											<>
-												<Typography className="following-state">Following</Typography>
+												<Typography className="following-state">{t('mypage:follow.following')}</Typography>
 												<Button
 													className="follow-action-btn unfollow-action-btn"
 													variant="outlined"
@@ -142,7 +144,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 														unsubscribeHandler(follower?.followingData?._id, getMemberFollowingsRefetch, followInquiry)
 													}
 												>
-													Unfollow
+													{t('mypage:follow.unfollow')}
 												</Button>
 											</>
 										) : (
@@ -153,7 +155,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 													subscribeHandler(follower?.followingData?._id, getMemberFollowingsRefetch, followInquiry)
 												}
 											>
-												Follow
+												{t('mypage:follow.follow')}
 											</Button>
 										)}
 									</Stack>
@@ -174,7 +176,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 							/>
 						</Stack>
 						<Stack className="total-result">
-							<Typography>{total} following</Typography>
+							<Typography>{t('mypage:follow.totalFollowing', { count: total })}</Typography>
 						</Stack>
 					</Stack>
 				)}

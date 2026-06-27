@@ -16,6 +16,7 @@ import { sweetErrorHandling, sweetMixinErrorAlert, sweetMixinSuccessAlert } from
 import { userVar } from '../../../apollo/store';
 import { GET_TOUR_PACKAGE } from '../../../apollo/user/query';
 import { CREATE_TOUR_PACKAGE, UPDATE_TOUR_PACKAGE } from '../../../apollo/user/mutation';
+import { useTranslation } from 'next-i18next';
 
 const MAX_PACKAGE_IMAGES = 5;
 
@@ -28,6 +29,7 @@ interface NumericInputDraft {
 const AddTourPackage = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'mypage']);
 	const inputRef = useRef<any>(null);
 	const [insertPackageData, setInsertPackageData] = useState<TourPackageInput>(initialValues);
 	const [numericInputDraft, setNumericInputDraft] = useState<NumericInputDraft>({
@@ -268,14 +270,14 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 	if (user?.memberType !== 'AGENT') router.back();
 
 	if (device === 'mobile') {
-		return <div>ADD NEW PACKAGE MOBILE PAGE</div>;
+		return <div>{t('mypage:packages.addTitle')}</div>;
 	}
 
 	return (
 		<div id="add-tour-package-page">
-			<Stack className="main-title-box">
-				<Typography className="main-title">{packageId ? 'Edit Tour Package' : 'Add Tour Package'}</Typography>
-				<Typography className="sub-title">Manage your travel package listing.</Typography>
+				<Stack className="main-title-box">
+					<Typography className="main-title">{packageId ? t('mypage:packages.editTitle') : t('mypage:packages.addTitle')}</Typography>
+					<Typography className="sub-title">{t('mypage:packages.formSubtitle')}</Typography>
 			</Stack>
 
 			<Stack className="config">
@@ -547,7 +549,7 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 						disabled={isSubmitting}
 						onClick={packageId ? updatePackageHandler : insertPackageHandler}
 					>
-						<Typography className="next-button-text">{isSubmitting ? 'Saving...' : 'Save'}</Typography>
+						<Typography className="next-button-text">{isSubmitting ? t('mypage:packages.saving') : t('common:actions.save')}</Typography>
 					</Button>
 				</Stack>
 			</Stack>

@@ -1,0 +1,31 @@
+{
+  "expert": "전문가에게 문의",
+  "follow": "팔로우",
+  "contact": "연락처",
+  "address": "328 Queensberry Street, North Melbourne VIC3051, Australia.",
+  "company": "회사",
+  "support": "지원",
+  "newsletter": "뉴스레터",
+  "newsletterDesc": "무료 뉴스레터를 구독하고 최신 정보를 받아보세요",
+  "emailPlaceholder": "이메일 주소",
+  "send": "전송",
+  "mobileApps": "모바일 앱",
+  "rights": "모든 권리 보유.",
+  "privacy": "개인정보",
+  "terms": "약관",
+  "sitemap": "사이트맵",
+  "links": {
+    "about": "회사 소개",
+    "reviews": "TourX 리뷰",
+    "contact": "문의하기",
+    "guides": "여행 가이드",
+    "dataPolicy": "데이터 정책",
+    "cookiePolicy": "쿠키 정책",
+    "legal": "법적 고지",
+    "sitemap": "사이트맵",
+    "getInTouch": "연락하기",
+    "helpCenter": "도움말 센터",
+    "liveChat": "실시간 채팅",
+    "howItWorks": "이용 방법"
+  }
+}

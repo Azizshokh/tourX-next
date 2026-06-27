@@ -22,7 +22,8 @@ import LightbulbRoundedIcon from '@mui/icons-material/LightbulbRounded';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, COMMUNITY_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_BOARD_ARTICLE, GET_COMMENTS } from '../../apollo/user/query';
@@ -50,27 +51,21 @@ const ToastViewerComponent = dynamic(() => import('../../libs/components/communi
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, COMMUNITY_NAMESPACES)),
 	},
 });
 
-const CATEGORY_LABEL: Record<string, string> = {
-	FREE: 'Travel Stories',
-	RECOMMEND: 'Tips & Guides',
-	NEWS: 'News',
-	HUMOR: 'Humor',
-};
-
 const CATEGORY_NAV = [
-	{ value: 'FREE', label: 'Travel Stories', Icon: ArticleRoundedIcon },
-	{ value: 'RECOMMEND', label: 'Tips & Guides', Icon: LightbulbRoundedIcon },
-	{ value: 'NEWS', label: 'News', Icon: NewspaperRoundedIcon },
-	{ value: 'HUMOR', label: 'Humor', Icon: TagFacesRoundedIcon },
+	{ value: 'FREE', labelKey: 'community:category.FREE', Icon: ArticleRoundedIcon },
+	{ value: 'RECOMMEND', labelKey: 'community:category.RECOMMEND', Icon: LightbulbRoundedIcon },
+	{ value: 'NEWS', labelKey: 'community:category.NEWS', Icon: NewspaperRoundedIcon },
+	{ value: 'HUMOR', labelKey: 'community:category.HUMOR', Icon: TagFacesRoundedIcon },
 ];
 
 const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'community']);
 	const { query } = router;
 
 	const articleId = query?.id as string;
@@ -169,7 +164,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 			await boardArticleRefetch({ input: articleId });
 			setComment('');
 			commentMedia.clearMedia();
-			await sweetMixinSuccessAlert('Successfully commented');
+			await sweetMixinSuccessAlert(t('community:comments.created'));
 		} catch (error: any) {
 			commentMedia.setError(error.message);
 			await sweetMixinErrorAlert(error.message);
@@ -189,13 +184,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 			if (!updateData?.commentContent && !updateData?.commentStatus)
 				throw new Error('Provide data to update your comment!');
 			if (commentStatus) {
-				if (await sweetConfirmAlert('Do you want to delete the comment?')) {
+				if (await sweetConfirmAlert(t('community:comments.deleteConfirm'))) {
 					await updateComment({ variables: { input: updateData } });
-					await sweetMixinSuccessAlert('Successfully deleted!');
+					await sweetMixinSuccessAlert(t('community:comments.deleted'));
 				} else return;
 			} else {
 				await updateComment({ variables: { input: updateData } });
-				await sweetMixinSuccessAlert('Successfully updated!');
+				await sweetMixinSuccessAlert(t('community:comments.updated'));
 			}
 			await getCommentsRefetch({ input: searchFilter });
 		} catch (error: any) {
@@ -243,7 +238,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 		: '/img/community/articleImg.png';
 
 	if (device === 'mobile') {
-		return <div>COMMUNITY DETAIL PAGE MOBILE</div>;
+		return <div>{t('common:mobile.community')}</div>;
 	}
 
 	return (
@@ -260,20 +255,20 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 								router.push({ pathname: '/mypage', query: { category: 'writeArticle' } })
 							}
 						>
-							Create Travel Post
+							{t('community:createPost')}
 						</Button>
 
 						<Box className={'cd-cat-section'}>
-							<span className={'cd-cat-label'}>Categories</span>
+							<span className={'cd-cat-label'}>{t('community:categories')}</span>
 							<Stack className={'cd-cat-nav'}>
-								{CATEGORY_NAV.map(({ value, label, Icon }) => (
+								{CATEGORY_NAV.map(({ value, labelKey, Icon }) => (
 									<button
 										key={value}
 										className={`cd-cat-item ${articleCategory === value ? 'active' : ''}`}
 										onClick={() => tabChangeHandler(value)}
 									>
 										<Icon className={'cd-cat-icon'} />
-										{label}
+										{t(labelKey)}
 									</button>
 								))}
 							</Stack>
@@ -291,7 +286,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 								<img src={articleHeroImage} alt={boardArticle?.articleTitle} className={'cd-hero-img'} />
 								<Box className={'cd-hero-overlay'} />
 								<span className={'cd-hero-badge'}>
-									{CATEGORY_LABEL[articleCategory] ?? articleCategory}
+									{articleCategory ? t(`community:category.${articleCategory}`) : ''}
 								</span>
 							</Box>
 
@@ -368,7 +363,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 
 						{/* Comments section */}
 						<Box className={'cd-comments-wrap'}>
-							<Typography className={'cd-comments-title'}>Comments ({total})</Typography>
+							<Typography className={'cd-comments-title'}>{t('community:comments.title')} ({total})</Typography>
 
 							{/* Input */}
 							<Stack className={'cd-leave-comment'}>
@@ -376,7 +371,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 									<img src={userAvatar} alt={''} className={'cd-commenter-avatar'} />
 									<input
 										type={'text'}
-										placeholder={'Share your thoughts...'}
+										placeholder={t('community:comments.placeholder')}
 										value={comment}
 										className={'cd-comment-input'}
 										onChange={(e) => {
@@ -386,7 +381,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 										}}
 									/>
 									<Button className={'cd-comment-submit'} onClick={createCommentHandler}>
-										Post
+										{t('community:comments.post')}
 									</Button>
 								</Stack>
 								<Stack className={'cd-input-footer'}>
@@ -446,7 +441,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 
 												<Backdrop sx={{ zIndex: 1300 }} open={openBackdrop}>
 													<Box className={'cd-edit-modal'}>
-														<Typography className={'cd-edit-modal-title'}>Edit Comment</Typography>
+														<Typography className={'cd-edit-modal-title'}>{t('community:comments.editTitle')}</Typography>
 														<input
 															autoFocus
 															value={updatedComment}
@@ -463,13 +458,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 																	className={'cd-edit-cancel'}
 																	onClick={cancelButtonHandler}
 																>
-																	Cancel
+																	{t('community:comments.cancel')}
 																</Button>
 																<Button
 																	className={'cd-edit-save'}
 																	onClick={() => updateButtonHandler(updatedCommentId)}
 																>
-																	Save
+																	{t('common:actions.save')}
 																</Button>
 															</Stack>
 														</Stack>

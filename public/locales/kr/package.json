@@ -1,0 +1,71 @@
+{
+  "list": {
+    "results": "{{count}}개 결과",
+    "results_plural": "{{count}}개 결과",
+    "sortBy": "정렬: {{sort}}",
+    "total": "총 {{count}}개 패키지 이용 가능",
+    "total_plural": "총 {{count}}개 패키지 이용 가능"
+  },
+  "filter": {
+    "title": "필터",
+    "keywords": "키워드",
+    "searchDestinations": "목적지 검색...",
+    "experienceType": "경험 유형",
+    "inclusions": "포함 사항",
+    "priceRange": "가격 범위",
+    "durationDays": "기간(일)",
+    "min": "최소",
+    "max": "최대"
+  },
+  "card": {
+    "featured": "추천",
+    "bestPrice": "최저가 보장",
+    "freeCancellation": "무료 취소",
+    "from": "부터",
+    "top": "상위",
+    "viewDetails": "상세 보기",
+    "durationNights": "{{days}}일 {{nights}}박",
+    "durationDays": "{{count}}일",
+    "durationDays_plural": "{{count}}일",
+    "upToPeople": "최대 {{count}}명",
+    "peopleRange": "{{min}}-{{max}}명",
+    "flightInc": "항공 포함",
+    "hotelInc": "호텔 포함",
+    "guideInc": "가이드 포함",
+    "boutique": "부티크",
+    "featuredDestination": "추천 여행지"
+  },
+  "detail": {
+    "allTours": "전체 투어",
+    "adventure": "모험",
+    "daysAgo": "{{count}}일 전",
+    "storyline": "경험 스토리",
+    "noDescription": "설명이 없습니다!",
+    "servicesIncluded": "포함 서비스",
+    "roundTrip": "왕복 포함",
+    "fiveStar": "5성급 숙박",
+    "localExpert": "현지 전문가 가이드",
+    "leaveReview": "리뷰 남기기",
+    "submitReview": "리뷰 제출",
+    "tripSummary": "여행 요약",
+    "bookNow": "이 패키지 예약",
+    "wishlist": "위시리스트에 추가",
+    "hostedBy": "호스트",
+    "viewPackages": "패키지 보기",
+    "related": "관련 패키지",
+    "relatedDesc": "이 목적지의 다른 패키지",
+    "traveler": "여행자",
+    "travelers": "여행자",
+    "people": "명"
+  },
+  "type": {
+    "ADVENTURE": "모험",
+    "CULTURAL": "문화",
+    "RELIGIOUS": "종교",
+    "BUSINESS": "비즈니스",
+    "FAMILY": "가족",
+    "HONEYMOON": "허니문",
+    "CRUISE": "크루즈",
+    "OTHER": "기타"
+  }
+}

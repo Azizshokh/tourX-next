@@ -18,6 +18,7 @@ import { TourPackage } from '../../../types/tour-package/tour-package';
 import { REACT_APP_API_URL } from '../../../config';
 import Typography from '@mui/material/Typography';
 import { PackageStatus } from '../../../enums/package.enum';
+import { useTranslation } from 'next-i18next';
 
 interface Data {
 	id: string;
@@ -34,18 +35,18 @@ type Order = 'asc' | 'desc';
 interface HeadCell {
 	disablePadding: boolean;
 	id: keyof Data;
-	label: string;
+	labelKey: string;
 	numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
-	{ id: 'id', numeric: true, disablePadding: false, label: 'PKG ID' },
-	{ id: 'title', numeric: true, disablePadding: false, label: 'TITLE' },
-	{ id: 'price', numeric: false, disablePadding: false, label: 'PRICE' },
-	{ id: 'agent', numeric: false, disablePadding: false, label: 'AGENT' },
-	{ id: 'location', numeric: false, disablePadding: false, label: 'DESTINATION' },
-	{ id: 'type', numeric: false, disablePadding: false, label: 'TYPE' },
-	{ id: 'status', numeric: false, disablePadding: false, label: 'STATUS' },
+	{ id: 'id', numeric: true, disablePadding: false, labelKey: 'admin:table.packageId' },
+	{ id: 'title', numeric: true, disablePadding: false, labelKey: 'admin:table.title' },
+	{ id: 'price', numeric: false, disablePadding: false, labelKey: 'admin:table.price' },
+	{ id: 'agent', numeric: false, disablePadding: false, labelKey: 'admin:table.agent' },
+	{ id: 'location', numeric: false, disablePadding: false, labelKey: 'admin:table.destination' },
+	{ id: 'type', numeric: false, disablePadding: false, labelKey: 'admin:table.type' },
+	{ id: 'status', numeric: false, disablePadding: false, labelKey: 'admin:table.status' },
 ];
 
 interface EnhancedTableProps {
@@ -58,6 +59,8 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
+	const { t } = useTranslation(['admin']);
+
 	return (
 		<TableHead>
 			<TableRow>
@@ -67,7 +70,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 						align={headCell.numeric ? 'left' : 'center'}
 						padding={headCell.disablePadding ? 'none' : 'normal'}
 					>
-						{headCell.label}
+						{t(headCell.labelKey)}
 					</TableCell>
 				))}
 			</TableRow>
@@ -90,12 +93,6 @@ const statusBadgeClass: Record<PackageStatus, string> = {
 	[PackageStatus.DELETE]: 'badge error',
 };
 
-const statusLabel: Record<PackageStatus, string> = {
-	[PackageStatus.ACTIVE]: 'ACTIVE',
-	[PackageStatus.CLOSED]: 'CLOSED',
-	[PackageStatus.DELETE]: 'DELETED',
-};
-
 export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 	const {
 		packages,
@@ -105,6 +102,16 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 		updateTourPackageHandler,
 		updatingPackageId,
 	} = props;
+	const { t } = useTranslation(['common', 'admin', 'package']);
+
+	const statusLabel = (status: PackageStatus) =>
+		({
+			[PackageStatus.ACTIVE]: t('common:status.active'),
+			[PackageStatus.CLOSED]: t('common:status.closed'),
+			[PackageStatus.DELETE]: t('common:status.deleted'),
+		}[status] || status);
+
+	const packageTypeLabel = (type: string) => t(`package:type.${type}`, { defaultValue: type });
 
 	return (
 		<Stack>
@@ -116,7 +123,7 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 						{packages.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
-									<span className={'no-data'}>data not found!</span>
+									<span className={'no-data'}>{t('common:empty.noData')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -158,14 +165,14 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 										<TableCell align="center">
 											{tourPackage.packageCountry}, {tourPackage.packageCity}
 										</TableCell>
-										<TableCell align="center">{tourPackage.packageType}</TableCell>
+										<TableCell align="center">{packageTypeLabel(tourPackage.packageType)}</TableCell>
 										<TableCell align="center">
 											<Button
 												onClick={(e) => menuIconClickHandler(e, index)}
 												className={statusBadgeClass[tourPackage.packageStatus]}
 												disabled={updatingPackageId === tourPackage._id}
 											>
-												{statusLabel[tourPackage.packageStatus]}
+												{statusLabel(tourPackage.packageStatus)}
 											</Button>
 
 											<Menu
@@ -188,7 +195,7 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 															}
 														>
 															<Typography variant={'subtitle1'} component={'span'}>
-																{statusLabel[status]}
+																{statusLabel(status)}
 															</Typography>
 														</MenuItem>
 													))}

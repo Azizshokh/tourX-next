@@ -18,6 +18,7 @@ import { Stack } from '@mui/material';
 import { Member } from '../../../types/member/member';
 import { REACT_APP_API_URL } from '../../../config';
 import { MemberStatus, MemberType } from '../../../enums/member.enum';
+import { useTranslation } from 'next-i18next';
 
 interface Data {
 	id: string;
@@ -45,7 +46,7 @@ type Order = 'asc' | 'desc';
 interface HeadCell {
 	disablePadding: boolean;
 	id: keyof Data;
-	label: string;
+	labelKey: string;
 	numeric: boolean;
 }
 
@@ -54,49 +55,49 @@ const headCells: readonly HeadCell[] = [
 		id: 'id',
 		numeric: true,
 		disablePadding: false,
-		label: 'MB ID',
+		labelKey: 'admin:table.memberId',
 	},
 	{
 		id: 'nickname',
 		numeric: true,
 		disablePadding: false,
-		label: 'NICK NAME',
+		labelKey: 'admin:table.nickname',
 	},
 	{
 		id: 'fullname',
 		numeric: false,
 		disablePadding: false,
-		label: 'FULL NAME',
+		labelKey: 'admin:table.fullName',
 	},
 	{
 		id: 'phone',
 		numeric: true,
 		disablePadding: false,
-		label: 'PHONE NUM',
+		labelKey: 'admin:table.phone',
 	},
 	{
 		id: 'type',
 		numeric: false,
 		disablePadding: false,
-		label: 'MEMBER TYPE',
+		labelKey: 'admin:table.memberType',
 	},
 	{
 		id: 'warning',
 		numeric: false,
 		disablePadding: false,
-		label: 'WARNING',
+		labelKey: 'admin:table.warnings',
 	},
 	{
 		id: 'block',
 		numeric: false,
 		disablePadding: false,
-		label: 'BLOCK CRIMES',
+		labelKey: 'admin:table.blocks',
 	},
 	{
 		id: 'state',
 		numeric: false,
 		disablePadding: false,
-		label: 'STATE',
+		labelKey: 'admin:table.state',
 	},
 ];
 
@@ -111,6 +112,7 @@ interface EnhancedTableProps {
 
 function EnhancedTableHead(props: EnhancedTableProps) {
 	const { onSelectAllClick } = props;
+	const { t } = useTranslation(['admin']);
 
 	return (
 		<TableHead>
@@ -121,7 +123,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 						align={headCell.numeric ? 'left' : 'center'}
 						padding={headCell.disablePadding ? 'none' : 'normal'}
 					>
-						{headCell.label}
+						{t(headCell.labelKey)}
 					</TableCell>
 				))}
 			</TableRow>
@@ -139,6 +141,21 @@ interface MemberPanelListType {
 
 export const MemberPanelList = (props: MemberPanelListType) => {
 	const { members, anchorEl, menuIconClickHandler, menuIconCloseHandler, updateMemberHandler } = props;
+	const { t } = useTranslation(['common', 'admin']);
+
+	const memberTypeLabel = (type: string) =>
+		({
+			[MemberType.USER]: t('admin:labels.user'),
+			[MemberType.AGENT]: t('admin:labels.agent'),
+			[MemberType.ADMIN]: t('admin:labels.admin'),
+		}[type] || type);
+
+	const memberStatusLabel = (status: string) =>
+		({
+			[MemberStatus.ACTIVE]: t('common:status.active'),
+			[MemberStatus.BLOCK]: t('admin:tabs.block'),
+			[MemberStatus.DELETE]: t('common:status.deleted'),
+		}[status] || status);
 
 	return (
 		<Stack>
@@ -150,7 +167,7 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 						{members.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
-									<span className={'no-data'}>data not found!</span>
+									<span className={'no-data'}>{t('common:empty.noData')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -182,7 +199,7 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 
 										<TableCell align="center">
 											<Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}>
-												{member.memberType}
+												{memberTypeLabel(member.memberType)}
 											</Button>
 
 											<Menu
@@ -204,7 +221,7 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 															key={type}
 														>
 															<Typography variant={'subtitle1'} component={'span'}>
-																{type}
+																{memberTypeLabel(type)}
 															</Typography>
 														</MenuItem>
 													))}
@@ -215,7 +232,7 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 										<TableCell align="center">{member.memberBlocks}</TableCell>
 										<TableCell align="center">
 											<Button onClick={(e: any) => menuIconClickHandler(e, member._id)} className={'badge success'}>
-												{member.memberStatus}
+												{memberStatusLabel(member.memberStatus)}
 											</Button>
 
 											<Menu
@@ -237,7 +254,7 @@ export const MemberPanelList = (props: MemberPanelListType) => {
 															key={status}
 														>
 															<Typography variant={'subtitle1'} component={'span'}>
-																{status}
+																{memberStatusLabel(status)}
 															</Typography>
 														</MenuItem>
 													))}

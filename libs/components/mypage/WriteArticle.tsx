@@ -6,13 +6,15 @@ import dynamic from 'next/dynamic';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
+import { useTranslation } from 'next-i18next';
 const TuiEditor = dynamic(() => import('../community/Teditor'), { ssr: false });
 
 const WriteArticle: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'community', 'mypage']);
 
 	if (device === 'mobile') {
-		return <>ARTICLE PAGE MOBILE</>;
+		return <>{t('mypage:menu.writeArticle')}</>;
 	} else
 		return (
 			<div id="write-article-page">
@@ -21,20 +23,20 @@ const WriteArticle: NextPage = () => {
 						<EditNoteRoundedIcon />
 					</Box>
 					<Stack className="right-box">
-						<Typography className="eyebrow">TourX Community</Typography>
-						<Typography className="main-title">Write a Travel Story</Typography>
+						<Typography className="eyebrow">{t('community:editor.community')}</Typography>
+						<Typography className="main-title">{t('mypage:articles.writeTitle')}</Typography>
 						<Typography className="sub-title">
-							Share a destination tip, travel guide, review, or local moment with other TourX explorers.
+							{t('mypage:articles.writeSubtitle')}
 						</Typography>
 					</Stack>
 					<Stack className="writing-hints">
 						<Box className="hint-pill">
 							<TravelExploreRoundedIcon />
-							<span>Destination insight</span>
+							<span>{t('community:editor.destinationInsight')}</span>
 						</Box>
 						<Box className="hint-pill">
 							<PhotoCameraRoundedIcon />
-							<span>Photos supported</span>
+							<span>{t('community:editor.photosSupported')}</span>
 						</Box>
 					</Stack>
 				</Stack>

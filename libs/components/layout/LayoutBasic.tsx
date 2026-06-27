@@ -17,7 +17,7 @@ import 'swiper/css/navigation';
 const withLayoutBasic = (Component: any) => {
 	return (props: any) => {
 		const router = useRouter();
-		const { t, i18n } = useTranslation('common');
+		const { t } = useTranslation(['common']);
 		const device = useDeviceDetect();
 		const [authHeader, setAuthHeader] = useState<boolean>(false);
 		const user = useReactiveVar(userVar);
@@ -28,40 +28,40 @@ const withLayoutBasic = (Component: any) => {
 
 			switch (router.pathname) {
 				case '/tour-package':
-					title = 'Package Search';
-					desc = 'Find your next trip';
+					title = 'layout.packageSearch';
+					desc = 'layout.findTrip';
 					break;
 				case '/agent':
-					title = 'Agents';
-					desc = 'Home / Travel Experts';
+					title = 'layout.agents';
+					desc = 'layout.travelExperts';
 					break;
 				case '/agent/detail':
-					title = 'Agent Page';
-					desc = 'Home / Travel Expert';
+					title = 'layout.agentPage';
+					desc = 'layout.travelExpert';
 					break;
 				case '/mypage':
-					title = 'my page';
-					desc = 'Home / My Travel';
+					title = 'layout.myPage';
+					desc = 'layout.myTravel';
 					break;
 				case '/community':
-					title = 'Community';
+					title = 'layout.community';
 					desc = 'Home / Community';
 					break;
 				case '/community/detail':
-					title = 'Community Detail';
+					title = 'layout.communityDetail';
 					desc = 'Home / Community';
 					break;
 				case '/cs':
-					title = 'CS';
+					title = 'layout.help';
 					desc = 'We are glad to see you again!';
 					break;
 				case '/account/join':
-					title = 'Login/Signup';
-					desc = 'Authentication Process';
+					title = 'layout.loginSignup';
+					desc = 'layout.authProcess';
 					setAuthHeader(true);
 					break;
 				case '/member':
-					title = 'Member Page';
+					title = 'layout.memberPage';
 					desc = 'Home / Member';
 					break;
 				default:

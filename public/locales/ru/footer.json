@@ -1,0 +1,31 @@
+{
+  "expert": "Свяжитесь с экспертом по номеру",
+  "follow": "Мы в соцсетях",
+  "contact": "Контакты",
+  "address": "328 Queensberry Street, North Melbourne VIC3051, Australia.",
+  "company": "Компания",
+  "support": "Поддержка",
+  "newsletter": "Рассылка",
+  "newsletterDesc": "Подпишитесь на бесплатную рассылку и будьте в курсе",
+  "emailPlaceholder": "Ваш email",
+  "send": "Отправить",
+  "mobileApps": "Мобильные приложения",
+  "rights": "Все права защищены.",
+  "privacy": "Конфиденциальность",
+  "terms": "Условия",
+  "sitemap": "Карта сайта",
+  "links": {
+    "about": "О нас",
+    "reviews": "Отзывы TourX",
+    "contact": "Связаться",
+    "guides": "Гиды путешествий",
+    "dataPolicy": "Политика данных",
+    "cookiePolicy": "Политика cookie",
+    "legal": "Правовая информация",
+    "sitemap": "Карта сайта",
+    "getInTouch": "Написать нам",
+    "helpCenter": "Центр помощи",
+    "liveChat": "Онлайн-чат",
+    "howItWorks": "Как это работает"
+  }
+}

@@ -14,9 +14,11 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import { useTranslation } from 'next-i18next';
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const [myFavorites, setMyFavorites] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
@@ -68,7 +70,7 @@ const MyFavorites: NextPage = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>SAVED TRIPS MOBILE</div>;
+		return <div>{t('mypage:menu.savedTrips')}</div>;
 	} else {
 		return (
 			<div id="my-favorites-page">
@@ -76,11 +78,11 @@ const MyFavorites: NextPage = () => {
 					<Stack className="right-box">
 						<Stack className="title-kicker">
 							<FavoriteRoundedIcon />
-							<Typography>TourX wishlist</Typography>
+							<Typography>{t('mypage:saved.kicker')}</Typography>
 						</Stack>
-						<Typography className="main-title">Saved Trips</Typography>
+						<Typography className="main-title">{t('mypage:saved.title')}</Typography>
 						<Typography className="sub-title">
-							Keep your favorite travel packages close, compare the details, and return when you are ready to book.
+							{t('mypage:saved.subtitle')}
 						</Typography>
 					</Stack>
 					<Stack className="saved-summary-panel">
@@ -89,16 +91,16 @@ const MyFavorites: NextPage = () => {
 						</Box>
 						<Stack className="summary-copy">
 							<Typography className="summary-value">{total}</Typography>
-							<Typography className="summary-label">saved package{total === 1 ? '' : 's'}</Typography>
+							<Typography className="summary-label">{t('mypage:saved.summary', { count: total })}</Typography>
 						</Stack>
 						<Stack className="summary-tags">
 							<Stack className="summary-tag">
 								<LuggageRoundedIcon />
-								<Typography>Curated tours</Typography>
+								<Typography>{t('mypage:saved.curatedTours')}</Typography>
 							</Stack>
 							<Stack className="summary-tag">
 								<PublicRoundedIcon />
-								<Typography>Global escapes</Typography>
+								<Typography>{t('mypage:saved.globalEscapes')}</Typography>
 							</Stack>
 						</Stack>
 					</Stack>
@@ -118,8 +120,8 @@ const MyFavorites: NextPage = () => {
 					) : (
 						<div className={'no-data'}>
 							<FavoriteRoundedIcon className="empty-icon" />
-							<strong>No saved trips yet!</strong>
-							<p>Explore TourX packages and tap the heart to build your shortlist.</p>
+							<strong>{t('mypage:saved.emptyTitle')}</strong>
+							<p>{t('mypage:saved.emptyBody')}</p>
 						</div>
 					)}
 				</Stack>
@@ -136,7 +138,7 @@ const MyFavorites: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} saved trip{total > 1 ? 's' : ''}
+								{t('mypage:saved.total', { count: total })}
 							</Typography>
 						</Stack>
 					</Stack>

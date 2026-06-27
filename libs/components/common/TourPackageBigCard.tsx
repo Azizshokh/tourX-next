@@ -13,6 +13,7 @@ import { formatterStr } from '../../utils';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 interface TourPackageBigCardProps {
 	tourPackage?: TourPackage;
@@ -26,6 +27,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'package']);
 
 	const goTourPackageDetailPage = (packageId?: string) => {
 		if (!packageId) return;
@@ -36,7 +38,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>TOUR PACKAGE BIG CARD</div>;
+		return <div>{t('common:mobile.packages')}</div>;
 	} else {
 		return (
 			<Stack className="tour-package-big-card-box" onClick={() => goTourPackageDetailPage(tourPackage?._id)}>
@@ -49,7 +51,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 					{tourPackage && tourPackage?.packageRank >= topPackageRank && (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
+							<span>{t('package:card.top')}</span>
 						</div>
 					)}
 					{tourPackage?.packageType && (
@@ -67,18 +69,18 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 					<div className={'options'}>
 						<div className={'opt-item'}>
 							<AccessTimeRoundedIcon className={'opt-icon'} />
-							<span>{tourPackage?.durationDays} {tourPackage?.durationDays === 1 ? 'day' : 'days'}</span>
+							<span>{t('package:card.durationDays', { count: tourPackage?.durationDays ?? 0 })}</span>
 						</div>
 						<div className={'opt-item'}>
 							<PeopleOutlinedIcon className={'opt-icon'} />
-							<span>{tourPackage?.minPeople}–{tourPackage?.maxPeople} pax</span>
+							<span>{t('package:card.peopleRange', { min: tourPackage?.minPeople, max: tourPackage?.maxPeople })}</span>
 						</div>
 					</div>
 					{(tourPackage?.flightIncluded || tourPackage?.hotelIncluded || tourPackage?.guideIncluded) && (
 						<div className={'inclusions'}>
-							{tourPackage?.flightIncluded && <span className={'tag'}>Flight</span>}
-							{tourPackage?.hotelIncluded && <span className={'tag'}>Hotel</span>}
-							{tourPackage?.guideIncluded && <span className={'tag'}>Guide</span>}
+							{tourPackage?.flightIncluded && <span className={'tag'}>{t('common:labels.flight')}</span>}
+							{tourPackage?.hotelIncluded && <span className={'tag'}>{t('common:labels.hotel')}</span>}
+							{tourPackage?.guideIncluded && <span className={'tag'}>{t('common:labels.guide')}</span>}
 						</div>
 					)}
 					<div className={'bott'}>

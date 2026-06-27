@@ -19,8 +19,11 @@ import { useMutation, useQuery } from '@apollo/client';
 import { REMOVE_BOARD_ARTICLE_BY_ADMIN, UPDATE_BOARD_ARTICLE_BY_ADMIN } from '../../../apollo/admin/mutation';
 import { GET_ALL_BOARD_ARTICLES_BY_ADMIN } from '../../../apollo/admin/query';
 import { T } from '../../../libs/types/common';
+import { useTranslation } from 'next-i18next';
+import { ADMIN_NAMESPACES, getI18nProps } from '../../../libs/i18n';
 
 const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
+	const { t } = useTranslation(['common', 'admin', 'community']);
 	const [anchorEl, setAnchorEl] = useState<any>([]);
 	const [communityInquiry, setCommunityInquiry] = useState<AllBoardArticlesInquiry>(initialInquiry);
 	const [articles, setArticles] = useState<BoardArticle[]>([]);
@@ -140,7 +143,7 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 
 	const removeArticleHandler = async (id: string) => {
 		try {
-			if (await sweetConfirmAlert('Are you sure to remove?')) {
+			if (await sweetConfirmAlert(t('admin:confirm.remove'))) {
 				await removeBoardArticleByAdmin({
 					variables: {
 						input: id,
@@ -164,7 +167,7 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 					<ArticleRoundedIcon />
 				</span>
 				<Typography variant={'h2'} className={'tit'}>
-					Article List
+					{t('admin:pages.community')}
 				</Typography>
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
@@ -177,32 +180,32 @@ const AdminCommunity: NextPage = ({ initialInquiry, ...props }: any) => {
 									value="ALL"
 									className={value === 'ALL' ? 'li on' : 'li'}
 								>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, 'ACTIVE')}
 									value="ACTIVE"
 									className={value === 'ACTIVE' ? 'li on' : 'li'}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, 'DELETE')}
 									value="DELETE"
 									className={value === 'DELETE' ? 'li on' : 'li'}
 								>
-									Delete
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
 							<Stack className={'search-area'} sx={{ m: '24px' }}>
 								<Select sx={{ width: '160px', mr: '20px' }} value={searchType}>
 									<MenuItem value={'ALL'} onClick={() => searchTypeHandler('ALL')}>
-										ALL
+										{t('admin:labels.allCategories')}
 									</MenuItem>
 									{Object.values(BoardArticleCategory).map((category: string) => (
 										<MenuItem value={category} onClick={() => searchTypeHandler(category)} key={category}>
-											{category}
+											{t(`community:category.${category}`, { defaultValue: category })}
 										</MenuItem>
 									))}
 								</Select>
@@ -245,3 +248,9 @@ AdminCommunity.defaultProps = {
 };
 
 export default withAdminLayout(AdminCommunity);
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});

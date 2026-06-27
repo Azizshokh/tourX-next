@@ -1,0 +1,71 @@
+{
+  "list": {
+    "results": "{{count}} результат",
+    "results_plural": "{{count}} результатов",
+    "sortBy": "Сортировка: {{sort}}",
+    "total": "Всего доступен {{count}} пакет",
+    "total_plural": "Всего доступно {{count}} пакетов"
+  },
+  "filter": {
+    "title": "Фильтры",
+    "keywords": "Ключевые слова",
+    "searchDestinations": "Поиск направлений...",
+    "experienceType": "Тип впечатления",
+    "inclusions": "Включено",
+    "priceRange": "Диапазон цен",
+    "durationDays": "Длительность (дни)",
+    "min": "Мин",
+    "max": "Макс"
+  },
+  "card": {
+    "featured": "Рекомендуемое",
+    "bestPrice": "Гарантия лучшей цены",
+    "freeCancellation": "Бесплатная отмена",
+    "from": "От",
+    "top": "Топ",
+    "viewDetails": "Подробнее",
+    "durationNights": "{{days}} дн. {{nights}} ноч.",
+    "durationDays": "{{count}} день",
+    "durationDays_plural": "{{count}} дней",
+    "upToPeople": "До {{count}} чел.",
+    "peopleRange": "{{min}}-{{max}} чел.",
+    "flightInc": "Перелет включен",
+    "hotelInc": "Отель включен",
+    "guideInc": "Гид включен",
+    "boutique": "Бутик",
+    "featuredDestination": "Популярное направление"
+  },
+  "detail": {
+    "allTours": "Все туры",
+    "adventure": "Приключение",
+    "daysAgo": "{{count}} дней назад",
+    "storyline": "История впечатления",
+    "noDescription": "Описание отсутствует!",
+    "servicesIncluded": "Включенные услуги",
+    "roundTrip": "Перелет туда и обратно включен",
+    "fiveStar": "Размещение 5 звезд",
+    "localExpert": "Местный эксперт-гид",
+    "leaveReview": "Оставить отзыв",
+    "submitReview": "Отправить отзыв",
+    "tripSummary": "Итоги поездки",
+    "bookNow": "Забронировать пакет",
+    "wishlist": "Добавить в избранное",
+    "hostedBy": "Организатор",
+    "viewPackages": "Смотреть пакеты",
+    "related": "Похожие пакеты",
+    "relatedDesc": "Другие пакеты в этом направлении",
+    "traveler": "путешественник",
+    "travelers": "путешественников",
+    "people": "чел."
+  },
+  "type": {
+    "ADVENTURE": "Приключения",
+    "CULTURAL": "Культура",
+    "RELIGIOUS": "Религиозный",
+    "BUSINESS": "Бизнес",
+    "FAMILY": "Семейный",
+    "HONEYMOON": "Медовый месяц",
+    "CRUISE": "Круиз",
+    "OTHER": "Другое"
+  }
+}

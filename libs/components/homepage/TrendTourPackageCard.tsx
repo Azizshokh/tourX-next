@@ -5,6 +5,7 @@ import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 interface TrendTourPackageCardProps {
 	tourPackage: TourPackage;
@@ -15,14 +16,15 @@ interface TrendTourPackageCardProps {
 const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
 	const { tourPackage, variant = 'compact' } = props;
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'home', 'package']);
 	const imageUrl = tourPackage?.packageImages?.[0]
 		? `${REACT_APP_API_URL}/${tourPackage.packageImages[0]}`
 		: '/img/banner/TourX%20background.png';
 	const isFeatured = variant === 'featured';
-	const priceLabel = `From $${Number(tourPackage?.packagePrice || 0).toLocaleString()}`;
-	const ratingLabel = `${Math.min(5, 4.6 + ((tourPackage?.packageRank || 0) % 4) / 10).toFixed(1)} Rating`;
+	const priceLabel = `${t('package:card.from')} $${Number(tourPackage?.packagePrice || 0).toLocaleString()}`;
+	const ratingLabel = `${Math.min(5, 4.6 + ((tourPackage?.packageRank || 0) % 4) / 10).toFixed(1)} ${t('home:labels.rating')}`;
 	const toursCount = Math.max(tourPackage?.packageViews || 0, 24);
-	const toursLabel = isFeatured ? `${toursCount}+ Tours Available` : `${toursCount}+ Tours`;
+	const toursLabel = isFeatured ? `${toursCount}+ ${t('common:labels.toursAvailable')}` : `${toursCount}+ ${t('common:labels.tours')}`;
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (tourPackageId: string) => {
@@ -43,7 +45,7 @@ const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
 		>
 			<span className={'trend-card-media'} style={{ backgroundImage: `url(${imageUrl})` }} />
 			<span className={'trend-card-overlay'} />
-			<span className={'trend-card-chip'}>{tourPackage.packageTitle || 'Signature Escape'}</span>
+			<span className={'trend-card-chip'}>{tourPackage.packageTitle || t('home:labels.trendingNow')}</span>
 			<Box component={'div'} className={'trend-card-content'}>
 				<div className={'trend-card-topline'}>
 					<span>{tourPackage.packageType}</span>
@@ -70,7 +72,7 @@ const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
 					)}
 				</div>
 				<p>
-					{tourPackage.packageDesc || tourPackage.packageAddress || 'Curated travel experience with trusted TourX experts.'}
+					{tourPackage.packageDesc || tourPackage.packageAddress || t('home:sections.trendingDesc')}
 				</p>
 				<div className={'trend-card-actions'}>
 					<button
@@ -80,7 +82,7 @@ const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
 							pushDetailHandler(tourPackage._id);
 						}}
 					>
-						{isFeatured ? 'Explore Now' : 'Explore'}
+						{isFeatured ? t('home:labels.exploreNow') : t('common:labels.explore')}
 					</button>
 				</div>
 			</Box>

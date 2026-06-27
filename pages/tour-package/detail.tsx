@@ -10,7 +10,7 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import moment from 'moment';
 import Link from 'next/link';
@@ -36,18 +36,20 @@ import { T } from '../../libs/types/common';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
+import { getI18nProps, PACKAGE_NAMESPACES } from '../../libs/i18n';
 
 const objectIdRegex = /^[0-9a-fA-F]{24}$/;
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, PACKAGE_NAMESPACES)),
 	},
 });
 
 const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'package', 'errors']);
 	const user = useReactiveVar(userVar);
 	const commentMedia = useCommentMedia();
 	const queryId = router.query.id;
@@ -170,7 +172,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const createCommentHandler = async () => {
 		try {
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-			if (!objectIdRegex.test(insertCommentData.commentRefId)) throw new Error('Invalid package id');
+			if (!objectIdRegex.test(insertCommentData.commentRefId)) throw new Error(t('errors:invalidPackageId'));
 			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
 
 			const commentImages = await uploadCommentImages(commentMedia.images);
@@ -216,7 +218,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>TOUR PACKAGE DETAIL PAGE</div>;
+		return <div>{t('mobile.packageDetail')}</div>;
 	}
 
 	return (
@@ -224,9 +226,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 			<div className={'container'}>
 				<Stack className={'tour-package-detail-config'}>
 					<Stack className={'detail-breadcrumb'}>
-						<Link href={'/tour-package'}>All tours</Link>
+						<Link href={'/tour-package'}>{t('package:detail.allTours')}</Link>
 						<span>/</span>
-						<Typography>{tourPackage?.packageCity || 'Adventure'}</Typography>
+						<Typography>{tourPackage?.packageCity || t('package:detail.adventure')}</Typography>
 					</Stack>
 					<Stack className={'detail-main-grid'}>
 						<Stack className={'detail-main-left'}>
@@ -238,12 +240,14 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 												{tourPackage?.packageCity}, {tourPackage?.packageCountry}
 											</Typography>
 											<Stack className={'divider'}></Stack>
-											<Typography className={'date'}>{moment().diff(tourPackage?.createdAt, 'days')} days ago</Typography>
+											<Typography className={'date'}>
+												{t('package:detail.daysAgo', { count: moment().diff(tourPackage?.createdAt, 'days') })}
+											</Typography>
 										</Stack>
 										<Typography className={'title-main'}>{tourPackage?.packageTitle}</Typography>
 										<Stack className={'bottom-box'}>
 											<Stack className="option selector">
-												<Typography className="opt-label">Days</Typography>
+												<Typography className="opt-label">{t('labels.days')}</Typography>
 												{minDays < maxDays ? (
 													<Stack className="stepper">
 														<IconButton
@@ -269,7 +273,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 												)}
 											</Stack>
 											<Stack className="option selector">
-												<Typography className="opt-label">Travelers</Typography>
+												<Typography className="opt-label">{t('labels.travelers')}</Typography>
 												{minTravelers < maxTravelers ? (
 													<Stack className="stepper">
 														<IconButton
@@ -340,12 +344,12 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								<Stack className={'left-config'}>
 							<Stack className={'prop-desc-config'}>
 								<Stack className={'top'}>
-									<Typography className={'title'}>Experience Storyline</Typography>
-									<Typography className={'desc'}>{tourPackage?.packageDesc ?? 'No Description!'}</Typography>
+									<Typography className={'title'}>{t('package:detail.storyline')}</Typography>
+									<Typography className={'desc'}>{tourPackage?.packageDesc ?? t('package:detail.noDescription')}</Typography>
 								</Stack>
 								{(tourPackage?.flightIncluded || tourPackage?.hotelIncluded || tourPackage?.guideIncluded) && (
 									<Stack className={'bottom'}>
-										<Typography className={'title'}>Services Included</Typography>
+										<Typography className={'title'}>{t('package:detail.servicesIncluded')}</Typography>
 										<Stack className={'info-box'}>
 											{tourPackage?.flightIncluded && (
 												<Stack className={'service-card'}>
@@ -353,8 +357,8 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 														<FlightTakeoffIcon className={'service-icon'} />
 													</Stack>
 													<Stack className={'service-text'}>
-														<Typography className={'service-name'}>Flights</Typography>
-														<Typography className={'service-desc'}>Round Trip Included</Typography>
+														<Typography className={'service-name'}>{t('labels.flight')}</Typography>
+														<Typography className={'service-desc'}>{t('package:detail.roundTrip')}</Typography>
 													</Stack>
 												</Stack>
 											)}
@@ -364,8 +368,8 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 														<ApartmentIcon className={'service-icon'} />
 													</Stack>
 													<Stack className={'service-text'}>
-														<Typography className={'service-name'}>Hotel</Typography>
-														<Typography className={'service-desc'}>5-Star Accommodation</Typography>
+														<Typography className={'service-name'}>{t('labels.hotel')}</Typography>
+														<Typography className={'service-desc'}>{t('package:detail.fiveStar')}</Typography>
 													</Stack>
 												</Stack>
 											)}
@@ -375,8 +379,8 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 														<SupportAgentIcon className={'service-icon'} />
 													</Stack>
 													<Stack className={'service-text'}>
-														<Typography className={'service-name'}>Guide</Typography>
-														<Typography className={'service-desc'}>Local Expert Guide</Typography>
+														<Typography className={'service-name'}>{t('labels.guide')}</Typography>
+														<Typography className={'service-desc'}>{t('package:detail.localExpert')}</Typography>
 													</Stack>
 												</Stack>
 											)}
@@ -385,13 +389,13 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								)}
 							</Stack>
 							<Stack className={'address-config'}>
-								<Typography className={'title'}>Address</Typography>
+								<Typography className={'title'}>{t('labels.address')}</Typography>
 								<Typography>{tourPackage?.packageAddress}</Typography>
 							</Stack>
 							{commentTotal !== 0 && (
 								<Stack className={'reviews-config'}>
 									<Stack className={'filter-box'}>
-										<Typography className={'reviews'}>{commentTotal} reviews</Typography>
+										<Typography className={'reviews'}>{commentTotal} {t('labels.reviews')}</Typography>
 									</Stack>
 									<Stack className={'review-list'}>
 										{packageComments?.map((comment: Comment) => (
@@ -410,8 +414,8 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Stack>
 							)}
 							<Stack className={'leave-review-config'}>
-								<Typography className={'main-title'}>Leave A Review</Typography>
-								<Typography className={'review-title'}>Review</Typography>
+								<Typography className={'main-title'}>{t('package:detail.leaveReview')}</Typography>
+								<Typography className={'review-title'}>{t('labels.review')}</Typography>
 								<textarea
 									onChange={({ target: { value } }: any) => {
 										setInsertCommentData({ ...insertCommentData, commentContent: value });
@@ -425,7 +429,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 										disabled={insertCommentData.commentContent === '' || user?._id === ''}
 										onClick={createCommentHandler}
 									>
-										<Typography className={'title'}>Submit Review</Typography>
+										<Typography className={'title'}>{t('package:detail.submitReview')}</Typography>
 									</Button>
 								</Box>
 							</Stack>
@@ -434,30 +438,31 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 						</Stack>
 						<Stack className={'right-config'}>
 							<Stack className={'booking-card'}>
-								<Typography className={'sidebar-kicker'}>Trip summary</Typography>
+								<Typography className={'sidebar-kicker'}>{t('package:detail.tripSummary')}</Typography>
 								<Typography className={'price'}>
 									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(totalPrice)}
 								</Typography>
 								<Typography className={'price-note'}>
-									{selectedDays} days · {selectedTravelers} {selectedTravelers === 1 ? 'traveler' : 'travelers'}
+									{t('package:card.durationDays', { count: selectedDays })} · {selectedTravelers}{' '}
+									{selectedTravelers === 1 ? t('package:detail.traveler') : t('package:detail.travelers')}
 								</Typography>
-								<Button className={'book-now'}>Book this package</Button>
-								<Button className={'outline-action'}>Add to wishlist</Button>
+								<Button className={'book-now'}>{t('package:detail.bookNow')}</Button>
+								<Button className={'outline-action'}>{t('package:detail.wishlist')}</Button>
 								<Stack className={'booking-stats'}>
-									<span>{tourPackage?.durationDays} days</span>
+										<span>{tourPackage?.durationDays} {t('labels.days')}</span>
 									<span>
-										{tourPackage?.minPeople}-{tourPackage?.maxPeople} people
+											{tourPackage?.minPeople}-{tourPackage?.maxPeople} {t('package:detail.people')}
 									</span>
 									<span>{tourPackage?.packageType}</span>
 								</Stack>
 								<Stack className={'included-list'}>
-									<span className={tourPackage?.flightIncluded ? 'on' : ''}>Flight</span>
-									<span className={tourPackage?.hotelIncluded ? 'on' : ''}>Hotel</span>
-									<span className={tourPackage?.guideIncluded ? 'on' : ''}>Local guide</span>
+									<span className={tourPackage?.flightIncluded ? 'on' : ''}>{t('labels.flight')}</span>
+									<span className={tourPackage?.hotelIncluded ? 'on' : ''}>{t('labels.hotel')}</span>
+									<span className={tourPackage?.guideIncluded ? 'on' : ''}>{t('labels.localGuide')}</span>
 								</Stack>
 							</Stack>
 							<Stack className={'info-box'}>
-								<Typography className={'main-title'}>Hosted by</Typography>
+								<Typography className={'main-title'}>{t('package:detail.hostedBy')}</Typography>
 								<Stack className={'image-info'}>
 									<img
 										className={'member-image'}
@@ -471,7 +476,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 										<Link href={`/member?memberId=${tourPackage?.memberData?._id}`}>
 											<Typography className={'name'}>{tourPackage?.memberData?.memberNick}</Typography>
 										</Link>
-										<Typography className={'listings'}>View Packages</Typography>
+										<Typography className={'listings'}>{t('package:detail.viewPackages')}</Typography>
 									</Stack>
 								</Stack>
 							</Stack>
@@ -481,8 +486,8 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 						<Stack className={'similar-tour-packages-config'}>
 							<Stack className={'title-pagination-box'}>
 								<Stack className={'title-box'}>
-									<Typography className={'main-title'}>Related Packages</Typography>
-									<Typography className={'sub-title'}>More packages in this destination</Typography>
+									<Typography className={'main-title'}>{t('package:detail.related')}</Typography>
+									<Typography className={'sub-title'}>{t('package:detail.relatedDesc')}</Typography>
 								</Stack>
 							</Stack>
 							<Stack className={'cards-box'}>

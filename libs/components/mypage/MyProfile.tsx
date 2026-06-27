@@ -16,9 +16,11 @@ import { userVar } from '../../../apollo/store';
 import { MemberUpdate } from '../../types/member/member.update';
 import { UPDATE_MEMBER } from '../../../apollo/user/mutation';
 import { sweetErrorHandling, sweetMixinSuccessAlert } from '../../sweetAlert';
+import { useTranslation } from 'next-i18next';
 
 const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
 	const [updateData, setUpdateData] = useState<MemberUpdate>(initialValues);
@@ -96,7 +98,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 			const jwtToken = result.data.updateMember?.accessToken;
 			await updateStorage({ jwtToken });
 			updateUserInfo(result.data?.updateMember?.accessToken);
-			await sweetMixinSuccessAlert('Information updated successfully!');
+			await sweetMixinSuccessAlert(t('mypage:profile.updated'));
 		} catch (err) {
 			sweetErrorHandling(err).then();
 		}
@@ -116,7 +118,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 	console.log('+updateData', updateData);
 
 	if (device === 'mobile') {
-		return <>MY PROFILE PAGE MOBILE</>;
+		return <>{t('common:mobile.mypage')}</>;
 	} else
 		return (
 			<div id="my-profile-page">
@@ -125,20 +127,20 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 						<AccountCircleRoundedIcon />
 					</Stack>
 					<Stack className="right-box">
-						<Typography className="eyebrow">TourX account</Typography>
-						<Typography className="main-title">My Profile</Typography>
-						<Typography className="sub-title">Keep your travel profile accurate for bookings, stories, and agent connections.</Typography>
+						<Typography className="eyebrow">{t('mypage:profile.account')}</Typography>
+						<Typography className="main-title">{t('mypage:profile.title')}</Typography>
+						<Typography className="sub-title">{t('mypage:profile.subtitle')}</Typography>
 					</Stack>
 					<Stack className="profile-status">
 						<CheckCircleRoundedIcon />
-						<Typography>Active profile</Typography>
+						<Typography>{t('mypage:profile.active')}</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="top-box">
 					<Stack className="photo-box">
 						<Typography className="title">
 							<PhotoCameraRoundedIcon />
-							Profile Photo
+							{t('mypage:profile.photo')}
 						</Typography>
 						<Stack className="image-big-box">
 							<Stack className="image-box">
@@ -160,9 +162,9 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 									accept="image/jpg, image/jpeg, image/png"
 								/>
 								<label htmlFor="hidden-input" className="labeler">
-									<Typography>Upload Profile Image</Typography>
+									<Typography>{t('mypage:profile.uploadImage')}</Typography>
 								</label>
-								<Typography className="upload-text">A photo must be in JPG, JPEG or PNG format!</Typography>
+								<Typography className="upload-text">{t('mypage:profile.uploadHint')}</Typography>
 							</Stack>
 						</Stack>
 					</Stack>
@@ -170,11 +172,11 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 						<Stack className="input-box">
 							<Typography className="title">
 								<BadgeRoundedIcon />
-								Username
+								{t('mypage:profile.username')}
 							</Typography>
 							<input
 								type="text"
-								placeholder="Your username"
+								placeholder={t('mypage:profile.usernamePlaceholder')}
 								value={updateData.memberNick}
 								onChange={({ target: { value } }) => setUpdateData({ ...updateData, memberNick: value })}
 							/>
@@ -182,11 +184,11 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 						<Stack className="input-box">
 							<Typography className="title">
 								<PhoneIphoneRoundedIcon />
-								Phone
+								{t('mypage:profile.phone')}
 							</Typography>
 							<input
 								type="text"
-								placeholder="Your Phone"
+								placeholder={t('mypage:profile.phonePlaceholder')}
 								value={updateData.memberPhone}
 								onChange={({ target: { value } }) => setUpdateData({ ...updateData, memberPhone: value })}
 							/>
@@ -195,18 +197,18 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 					<Stack className="address-box">
 						<Typography className="title">
 							<LocationOnRoundedIcon />
-							Address
+							{t('mypage:profile.address')}
 						</Typography>
 						<input
 							type="text"
-							placeholder="Your address"
+							placeholder={t('mypage:profile.addressPlaceholder')}
 							value={updateData.memberAddress}
 							onChange={({ target: { value } }) => setUpdateData({ ...updateData, memberAddress: value })}
 						/>
 					</Stack>
 					<Stack className="about-me-box">
 						<Button className="update-button" onClick={updateTourPackageHandler} disabled={doDisabledCheck()}>
-							<Typography>Update Profile</Typography>
+							<Typography>{t('mypage:profile.update')}</Typography>
 							<CheckCircleRoundedIcon />
 						</Button>
 					</Stack>

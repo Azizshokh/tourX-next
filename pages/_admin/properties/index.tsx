@@ -22,8 +22,17 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_ALL_TOUR_PACKAGES_BY_ADMIN } from '../../../apollo/admin/query';
 import { UPDATE_PACKAGE_STATUS } from '../../../apollo/admin/mutation';
 import { T } from '../../../libs/types/common';
+import { getI18nProps, ADMIN_NAMESPACES } from '../../../libs/i18n';
+import { useTranslation } from 'next-i18next';
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});
 
 const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
+	const { t } = useTranslation(['common', 'admin']);
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
 	const [tourPackagesInquiry, setTourPackagesInquiry] = useState<AllTourPackagesInquiry>(initialInquiry);
 	const [packages, setPackages] = useState<TourPackage[]>([]);
@@ -150,10 +159,13 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 
 		if (!currentPackage || !nextStatus || currentPackage.packageStatus === nextStatus || updatingPackageId) return;
 
+		const displayStatus = (status: PackageStatus) =>
+			status === PackageStatus.DELETE ? t('common:status.deleted') : t(`common:status.${status.toLowerCase()}`);
 		const confirmed = await sweetConfirmAlert(
-			`Change package status from ${currentPackage.packageStatus === PackageStatus.DELETE ? 'DELETED' : currentPackage.packageStatus} to ${
-				nextStatus === PackageStatus.DELETE ? 'DELETED' : nextStatus
-			}?`,
+			t('admin:confirm.changePackageStatus', {
+				from: displayStatus(currentPackage.packageStatus as PackageStatus),
+				to: displayStatus(nextStatus),
+			}),
 		);
 		if (!confirmed) return;
 
@@ -212,7 +224,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 					<LuggageRoundedIcon />
 				</span>
 				<Typography variant={'h2'} className={'tit'}>
-					Package List
+					{t('admin:pages.packages')}
 				</Typography>
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
@@ -225,28 +237,28 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 									value="ALL"
 									className={value === 'ALL' ? 'li on' : 'li'}
 								>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, PackageStatus.ACTIVE)}
 									value={PackageStatus.ACTIVE}
 									className={value === PackageStatus.ACTIVE ? 'li on' : 'li'}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, PackageStatus.CLOSED)}
 									value={PackageStatus.CLOSED}
 									className={value === PackageStatus.CLOSED ? 'li on' : 'li'}
 								>
-									Closed
+									{t('admin:tabs.closed')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, PackageStatus.DELETE)}
 									value={PackageStatus.DELETE}
 									className={value === PackageStatus.DELETE ? 'li on' : 'li'}
 								>
-									Deleted
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
@@ -256,7 +268,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 									onChange={(e: any) => textHandler(e.target.value)}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search package title, city, or address"
+									placeholder={t('admin:search.packages')}
 									onKeyDown={(event) => {
 										if (event.key == 'Enter') searchTextHandler();
 									}}
@@ -273,7 +285,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 								/>
 								<Select sx={{ width: '180px', ml: '20px' }} value={searchCountry}>
 									<MenuItem value={'ALL'} onClick={() => searchCountryHandler('ALL')}>
-										ALL COUNTRIES
+										{t('admin:labels.allCountries')}
 									</MenuItem>
 									{packageCountries.map((country) => (
 										<MenuItem value={country} onClick={() => searchCountryHandler(country)} key={country}>

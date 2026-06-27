@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import { Faq, FaqCategory } from '../../../types/faq/faq';
 import { FaqStatus } from '../../../enums/faq.enum';
 import { UpdateFaqInput } from '../../../types/faq/faq.input';
+import { useTranslation } from 'next-i18next';
 
 interface Data {
 	category: string;
@@ -17,7 +18,7 @@ interface Data {
 interface HeadCell {
 	disablePadding: boolean;
 	id: keyof Data;
-	label: string;
+	labelKey: string;
 	numeric: boolean;
 }
 
@@ -26,41 +27,43 @@ const headCells: readonly HeadCell[] = [
 		id: 'category',
 		numeric: true,
 		disablePadding: false,
-		label: 'CATEGORY',
+		labelKey: 'admin:table.category',
 	},
 	{
 		id: 'question',
 		numeric: true,
 		disablePadding: false,
-		label: 'QUESTION',
+		labelKey: 'admin:table.question',
 	},
 	{
 		id: 'answer',
 		numeric: true,
 		disablePadding: false,
-		label: 'ANSWER',
+		labelKey: 'admin:table.answer',
 	},
 	{
 		id: 'order',
 		numeric: false,
 		disablePadding: false,
-		label: 'ORDER',
+		labelKey: 'admin:table.order',
 	},
 	{
 		id: 'register',
 		numeric: true,
 		disablePadding: false,
-		label: 'REGISTER DATE',
+		labelKey: 'admin:table.registerDate',
 	},
 	{
 		id: 'status',
 		numeric: false,
 		disablePadding: false,
-		label: 'STATUS',
+		labelKey: 'admin:table.status',
 	},
 ];
 
 function EnhancedTableHead() {
+	const { t } = useTranslation(['admin']);
+
 	return (
 		<TableHead>
 			<TableRow>
@@ -70,7 +73,7 @@ function EnhancedTableHead() {
 						align={headCell.numeric ? 'left' : 'center'}
 						padding={headCell.disablePadding ? 'none' : 'normal'}
 					>
-						{headCell.label}
+						{t(headCell.labelKey)}
 					</TableCell>
 				))}
 			</TableRow>
@@ -88,11 +91,19 @@ interface FaqArticlesPanelListType {
 
 export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 	const { faqs, categories, loading, updateFaqStatusHandler, deleteFaqHandler } = props;
+	const { t } = useTranslation(['common', 'admin']);
 	const [anchorEl, setAnchorEl] = useState<Array<HTMLElement | null>>([]);
 
 	const getCategoryTitle = (categoryId: string) => {
-		return categories.find((category) => category._id === categoryId)?.faqCategoryTitle ?? 'Uncategorized';
+		return categories.find((category) => category._id === categoryId)?.faqCategoryTitle ?? t('admin:labels.uncategorized');
 	};
+
+	const getStatusLabel = (status: FaqStatus) =>
+		({
+			[FaqStatus.ACTIVE]: t('common:status.active'),
+			[FaqStatus.HOLD]: t('common:status.hold'),
+			[FaqStatus.DELETE]: t('common:status.deleted'),
+		}[status] || status);
 
 	const getStatusBadgeClass = (status: FaqStatus) => {
 		if (status === FaqStatus.ACTIVE) return 'badge success';
@@ -131,7 +142,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 						{!loading && faqs.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={6}>
-									<span className={'no-data'}>No FAQs found!</span>
+									<span className={'no-data'}>{t('common:empty.noFaqs')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -139,7 +150,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 						{loading && faqs.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={6}>
-									<span className={'no-data'}>Loading FAQs...</span>
+									<span className={'no-data'}>{t('admin:messages.loadingFaqs')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -163,7 +174,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 										onClick={(event: React.MouseEvent<HTMLButtonElement>) => openStatusMenu(event, index)}
 										disabled={faq.faqStatus === FaqStatus.DELETE}
 									>
-										{faq.faqStatus}
+										{getStatusLabel(faq.faqStatus)}
 									</Button>
 									<Menu
 										anchorEl={anchorEl[index]}
@@ -171,12 +182,18 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 										onClose={() => closeStatusMenu(index)}
 									>
 										{faq.faqStatus !== FaqStatus.ACTIVE && (
-											<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.ACTIVE, index)}>Move to Active</MenuItem>
+											<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.ACTIVE, index)}>
+												{t('admin:actions.moveToActive')}
+											</MenuItem>
 										)}
 										{faq.faqStatus !== FaqStatus.HOLD && (
-											<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.HOLD, index)}>Move to Hold</MenuItem>
+											<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.HOLD, index)}>
+												{t('admin:actions.moveToHold')}
+											</MenuItem>
 										)}
-										<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.DELETE, index)}>Delete</MenuItem>
+										<MenuItem onClick={() => statusChangeHandler(faq, FaqStatus.DELETE, index)}>
+											{t('admin:actions.delete')}
+										</MenuItem>
 									</Menu>
 								</TableCell>
 							</TableRow>

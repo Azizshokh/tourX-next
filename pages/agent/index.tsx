@@ -22,7 +22,8 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import AgentCard from '../../libs/components/common/AgentCard';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, AGENT_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import { Member } from '../../libs/types/member/member';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_AGENTS } from '../../apollo/user/query';
@@ -33,15 +34,16 @@ import { T } from '../../libs/types/common';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, AGENT_NAMESPACES)),
 	},
 });
 
 const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'agent']);
 	const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-	const [filterSortName, setFilterSortName] = useState('Recent');
+	const [filterSortName, setFilterSortName] = useState('sort.recent');
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [searchFilter, setSearchFilter] = useState<any>(
@@ -98,19 +100,19 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 		switch (e.currentTarget.id) {
 			case 'recent':
 				setSearchFilter({ ...searchFilter, sort: 'createdAt', direction: 'DESC' });
-				setFilterSortName('Recent');
+				setFilterSortName('sort.recent');
 				break;
 			case 'old':
 				setSearchFilter({ ...searchFilter, sort: 'createdAt', direction: 'ASC' });
-				setFilterSortName('Oldest order');
+				setFilterSortName('sort.oldest');
 				break;
 			case 'likes':
 				setSearchFilter({ ...searchFilter, sort: 'memberLikes', direction: 'DESC' });
-				setFilterSortName('Likes');
+				setFilterSortName('sort.likes');
 				break;
 			case 'views':
 				setSearchFilter({ ...searchFilter, sort: 'memberViews', direction: 'DESC' });
-				setFilterSortName('Views');
+				setFilterSortName('sort.views');
 				break;
 		}
 		setSortingOpen(false);
@@ -145,7 +147,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>AGENTS PAGE MOBILE</h1>;
+		return <h1>{t('common:mobile.agents')}</h1>;
 	} else {
 		return (
 			<Stack className={'agent-list-page'}>
@@ -201,7 +203,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 						<Box component={'div'} className={'left'}>
 							<input
 								type="text"
-								placeholder={'Search for an agent'}
+								placeholder={t('agent:searchPlaceholder')}
 								value={searchText}
 								onChange={(e: any) => setSearchText(e.target.value)}
 								onKeyDown={(event: any) => {
@@ -215,23 +217,23 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							/>
 						</Box>
 						<Box component={'div'} className={'right'}>
-							<span>Sort by</span>
+							<span>{t('agent:sortBy')}</span>
 							<div>
 								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
-									{filterSortName}
+									{t(filterSortName)}
 								</Button>
 								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
 									<MenuItem onClick={sortingHandler} id={'recent'} disableRipple>
-										Recent
+										{t('sort.recent')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id={'old'} disableRipple>
-										Oldest
+										{t('sort.oldest')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id={'likes'} disableRipple>
-										Likes
+										{t('sort.likes')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id={'views'} disableRipple>
-										Views
+										{t('sort.views')}
 									</MenuItem>
 								</Menu>
 							</div>
@@ -241,7 +243,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 						{agents?.length === 0 ? (
 							<div className={'no-data'}>
 								<img src="/img/icons/icoAlert.svg" alt="" />
-								<p>No Agents found!</p>
+								<p>{t('common:empty.noAgents')}</p>
 							</div>
 						) : (
 							agents.map((agent: Member) => {
@@ -266,7 +268,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 
 						{agents.length !== 0 && (
 							<span>
-								Total {total} agent{total > 1 ? 's' : ''} available
+								{t('agent:total', { count: total })}
 							</span>
 						)}
 					</Stack>

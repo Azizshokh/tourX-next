@@ -4,6 +4,7 @@ import { Stack } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Member } from '../../types/member/member';
 import { REACT_APP_API_URL } from '../../config';
+import { useTranslation } from 'next-i18next';
 
 interface TopAgentProps {
 	agent: Member;
@@ -12,6 +13,7 @@ const TopAgentCard = (props: TopAgentProps) => {
 	const { agent } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['agent']);
 	const agentImage = agent?.memberImage
 		? `${REACT_APP_API_URL}/${agent?.memberImage}`
 		: '/img/profile/defaultUser.svg';
@@ -35,7 +37,7 @@ const TopAgentCard = (props: TopAgentProps) => {
 				<img src={agentImage} alt="" />
 
 				<strong>{agent?.memberNick}</strong>
-				<span>{agent?.memberType}</span>
+				<span>{t('agent:role')}</span>
 			</Stack>
 		);
 	} else {
@@ -45,23 +47,23 @@ const TopAgentCard = (props: TopAgentProps) => {
 					<img src={agentImage} alt="" />
 				</div>
 				<strong onClick={pushAgentHandler}>{agent?.memberNick}</strong>
-				<span className={'role'}>{agent?.memberType}</span>
+				<span className={'role'}>{t('agent:role')}</span>
 				<div className={'agent-stats'}>
 					<div>
 						<b>{agent?.memberTours || 0}</b>
-						<em>Tours</em>
+						<em>{t('agent:card.tours')}</em>
 					</div>
 					<div>
 						<b>{ratingLabel}</b>
-						<em>Rating</em>
+						<em>{t('agent:card.rating')}</em>
 					</div>
 					<div>
 						<b>{likesLabel}</b>
-						<em>Likes</em>
+						<em>{t('agent:card.likes')}</em>
 					</div>
 				</div>
 				<button type="button" className={'view-profile'} onClick={pushAgentHandler}>
-					View Profile
+					{t('agent:card.viewProfile')}
 				</button>
 			</Stack>
 		);

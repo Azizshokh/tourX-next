@@ -9,7 +9,7 @@ import TopTourPackages from '../libs/components/homepage/TopTourPackages';
 import { Box, Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
 import TravelInspiration from '../libs/components/homepage/TravelInspiration';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, HOME_NAMESPACES } from '../libs/i18n';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import FlightLandRoundedIcon from '@mui/icons-material/FlightLandRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
@@ -28,7 +28,7 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, HOME_NAMESPACES)),
 	},
 });
 

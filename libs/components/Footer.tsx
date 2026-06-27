@@ -6,39 +6,41 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
 import moment from 'moment';
+import { useTranslation } from 'next-i18next';
 
 const Footer = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['footer']);
 
 	const companyLinks = [
-		{ label: 'About Us', href: '/about' },
-		{ label: 'TourX Reviews', href: '/community?articleCategory=RECOMMEND' },
-		{ label: 'Contact Us', href: '/cs' },
-		{ label: 'Travel Guides', href: '/community?articleCategory=NEWS' },
-		{ label: 'Data Policy', href: '/cs' },
-		{ label: 'Cookie Policy', href: '/cs' },
-		{ label: 'Legal', href: '/cs' },
-		{ label: 'Sitemap', href: '/' },
+		{ label: t('footer:links.about'), href: '/about' },
+		{ label: t('footer:links.reviews'), href: '/community?articleCategory=RECOMMEND' },
+		{ label: t('footer:links.contact'), href: '/cs' },
+		{ label: t('footer:links.guides'), href: '/community?articleCategory=NEWS' },
+		{ label: t('footer:links.dataPolicy'), href: '/cs' },
+		{ label: t('footer:links.cookiePolicy'), href: '/cs' },
+		{ label: t('footer:links.legal'), href: '/cs' },
+		{ label: t('footer:links.sitemap'), href: '/' },
 	];
 
 	const supportLinks = [
-		{ label: 'Get in Touch', href: '/cs' },
-		{ label: 'Help center', href: '/cs' },
-		{ label: 'Live chat', href: '/cs' },
-		{ label: 'How it works', href: '/about' },
+		{ label: t('footer:links.getInTouch'), href: '/cs' },
+		{ label: t('footer:links.helpCenter'), href: '/cs' },
+		{ label: t('footer:links.liveChat'), href: '/cs' },
+		{ label: t('footer:links.howItWorks'), href: '/about' },
 	];
 
 	const renderFooterBody = (showBottomRight: boolean) => (
 		<>
 			<Stack className={'footer-top'}>
 				<Box component={'div'} className={'expert'}>
-					<span>Speak to our expert at</span>
+					<span>{t('footer:expert')}</span>
 					<a className={'phone'} href={'tel:+18004536744'}>
 						1-800-453-6744
 					</a>
 				</Box>
 				<Box component={'div'} className={'follow'}>
-					<span>Follow Us</span>
+					<span>{t('footer:follow')}</span>
 					<div className={'socials'}>
 						<FacebookOutlinedIcon />
 						<InstagramIcon />
@@ -52,14 +54,14 @@ const Footer = () => {
 
 			<Stack className={'footer-cols'}>
 				<Box component={'div'} className={'col contact'}>
-					<h4>Contact</h4>
-					<p>328 Queensberry Street, North Melbourne VIC3051, Australia.</p>
+					<h4>{t('footer:contact')}</h4>
+					<p>{t('footer:address')}</p>
 					<a href={'mailto:hi@tourx.com'} className={'mail'}>
 						hi@tourx.com
 					</a>
 				</Box>
 				<Box component={'div'} className={'col'}>
-					<h4>Company</h4>
+					<h4>{t('footer:company')}</h4>
 					<ul>
 						{companyLinks.map((l) => (
 							<li key={l.label}>
@@ -69,7 +71,7 @@ const Footer = () => {
 					</ul>
 				</Box>
 				<Box component={'div'} className={'col'}>
-					<h4>Support</h4>
+					<h4>{t('footer:support')}</h4>
 					<ul>
 						{supportLinks.map((l) => (
 							<li key={l.label}>
@@ -79,13 +81,13 @@ const Footer = () => {
 					</ul>
 				</Box>
 				<Box component={'div'} className={'col newsletter'}>
-					<h4>Newsletter</h4>
-					<p>Subscribe to the free newsletter and stay up to date</p>
+					<h4>{t('footer:newsletter')}</h4>
+					<p>{t('footer:newsletterDesc')}</p>
 					<form className={'subscribe'} onSubmit={(e) => e.preventDefault()}>
-						<input type={'email'} placeholder={'Your email address'} />
-						<button type={'submit'}>Send</button>
+						<input type={'email'} placeholder={t('footer:emailPlaceholder')} />
+						<button type={'submit'}>{t('footer:send')}</button>
 					</form>
-					<h4 className={'apps-title'}>Mobile Apps</h4>
+					<h4 className={'apps-title'}>{t('footer:mobileApps')}</h4>
 					<ul className={'apps'}>
 						<li>
 							<Link href={'/'}>iOS App</Link>
@@ -98,8 +100,12 @@ const Footer = () => {
 			</Stack>
 
 			<Stack className={'footer-bottom'}>
-				<span>© TourX - All rights reserved. {moment().year()}</span>
-				{showBottomRight && <span>Privacy · Terms · Sitemap</span>}
+				<span>© TourX - {t('footer:rights')} {moment().year()}</span>
+				{showBottomRight && (
+					<span>
+						{t('footer:privacy')} · {t('footer:terms')} · {t('footer:sitemap')}
+					</span>
+				)}
 			</Stack>
 		</>
 	);

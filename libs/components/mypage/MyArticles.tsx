@@ -13,9 +13,11 @@ import { BoardArticle } from '../../types/board-article/board-article';
 import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { useTranslation } from 'next-i18next';
 
 const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const user = useReactiveVar(userVar);
 	const [searchCommunity, setSearchCommunity] = useState({
 		...initialInput,
@@ -53,7 +55,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		try {
 			e.stopPropagation();
 			if (!id) return;
-			if (!user._id) throw new Error('You need to be logged in to like an article.');
+			if (!user._id) throw new Error(t('mypage:articles.loginToLike'));
 
 			await boardArticlesRefetch({ input: searchCommunity });
 
@@ -65,7 +67,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	if (device === 'mobile') {
-		return <>ARTICLE PAGE MOBILE</>;
+		return <>{t('mypage:menu.myArticles')}</>;
 	} else
 		return (
 			<div id="my-articles-page">
@@ -74,16 +76,16 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 						<ArticleRoundedIcon />
 					</Stack>
 					<Stack className="right-box">
-						<Typography className="eyebrow">TourX community</Typography>
-						<Typography className="main-title">My Articles</Typography>
-						<Typography className="sub-title">Manage your travel stories, guides, and destination notes.</Typography>
+						<Typography className="eyebrow">{t('mypage:articles.kicker')}</Typography>
+						<Typography className="main-title">{t('mypage:articles.title')}</Typography>
+						<Typography className="sub-title">{t('mypage:articles.subtitle')}</Typography>
 					</Stack>
 					<Stack className="article-summary">
 						<Stack className="summary-item">
 							<AutoStoriesRoundedIcon />
 							<Stack>
 								<Typography className="summary-value">{totalCount ?? 0}</Typography>
-								<Typography className="summary-label">Published</Typography>
+								<Typography className="summary-label">{t('mypage:articles.published')}</Typography>
 							</Stack>
 						</Stack>
 						<Stack className="summary-item accent">
@@ -92,7 +94,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 								<Typography className="summary-value">
 									{boardArticles?.reduce((sum: number, article: BoardArticle) => sum + (article?.articleLikes ?? 0), 0)}
 								</Typography>
-								<Typography className="summary-label">Likes</Typography>
+								<Typography className="summary-label">{t('common:labels.likes')}</Typography>
 							</Stack>
 						</Stack>
 					</Stack>
@@ -112,7 +114,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Articles found!</p>
+							<p>{t('mypage:articles.empty')}</p>
 						</div>
 					)}
 				</Stack>
@@ -129,7 +131,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 							/>
 						</Stack>
 						<Stack className="total">
-							<Typography>Total {totalCount ?? 0} article(s) available</Typography>
+							<Typography>{t('mypage:articles.total', { count: totalCount ?? 0 })}</Typography>
 						</Stack>
 					</Stack>
 				)}

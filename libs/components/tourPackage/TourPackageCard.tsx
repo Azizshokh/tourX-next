@@ -15,6 +15,7 @@ import { REACT_APP_API_URL, topPackageRank } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
+import { useTranslation } from 'next-i18next';
 
 interface TourPackageCardType {
 	tourPackage: TourPackage;
@@ -27,6 +28,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 	const { tourPackage, likeTourPackageHandler, myFavorites, recentlyVisited } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
+	const { t } = useTranslation(['common', 'package']);
 	const imagePath: string = tourPackage?.packageImages[0]
 		? `${REACT_APP_API_URL}/${tourPackage?.packageImages[0]}`
 		: '/img/banner/header1.svg';
@@ -36,7 +38,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 	const nights = Math.max(0, (tourPackage.durationDays ?? 1) - 1);
 
 	if (device === 'mobile') {
-		return <div>TOUR PACKAGE CARD</div>;
+		return <div>{t('common:mobile.packages')}</div>;
 	} else {
 		return (
 			<Stack direction="row" className="card-config">
@@ -45,7 +47,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 					<Link href={{ pathname: '/tour-package/detail', query: { id: tourPackage?._id } }}>
 						<img src={imagePath} alt={tourPackage.packageTitle} className="card-img" />
 					</Link>
-					{isFeatured && <div className="card-badge badge-featured">FEATURED</div>}
+					{isFeatured && <div className="card-badge badge-featured">{t('package:card.featured')}</div>}
 					{!recentlyVisited && (
 						<IconButton
 							className="fav-btn"
@@ -76,7 +78,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 						<Stack direction="row" className="meta-duration">
 							<AccessTimeRoundedIcon className="meta-dur-icon" />
 							<Typography className="meta-dur-text">
-								{tourPackage.durationDays} days {nights} nights
+								{t('package:card.durationNights', { days: tourPackage.durationDays, nights })}
 							</Typography>
 						</Stack>
 					</Stack>
@@ -89,7 +91,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 					{/* Stats */}
 					<Stack direction="row" className="card-stats">
 						<PeopleOutlinedIcon className="stat-icon" />
-						<Typography className="stat-text">Up to {tourPackage.maxPeople} people</Typography>
+						<Typography className="stat-text">{t('package:card.upToPeople', { count: tourPackage.maxPeople })}</Typography>
 						{tourPackage.packageLikes > 0 && (
 							<>
 								<span className="stat-dot">·</span>
@@ -108,26 +110,26 @@ const TourPackageCard = (props: TourPackageCardType) => {
 					<Stack direction="row" className="card-tags">
 						<Stack direction="row" className="tag-item">
 							<VerifiedIcon className="tag-icon" />
-							<Typography className="tag-text">Best Price Guarantee</Typography>
+							<Typography className="tag-text">{t('package:card.bestPrice')}</Typography>
 						</Stack>
 						<span className="tag-sep">·</span>
 						<Stack direction="row" className="tag-item">
 							<EventAvailableIcon className="tag-icon" />
-							<Typography className="tag-text">Free Cancellation</Typography>
+							<Typography className="tag-text">{t('package:card.freeCancellation')}</Typography>
 						</Stack>
 					</Stack>
 
 					{/* Price + CTA */}
 					<Stack direction="row" className="card-price-row">
 						<Stack direction="row" className="price-block">
-							<Typography className="price-from">From</Typography>
+							<Typography className="price-from">{t('package:card.from')}</Typography>
 							<Typography className="price-value">
 								{tourPackage.packageCurrency ?? 'USD'} {formatterStr(tourPackage.packagePrice)}
 							</Typography>
 						</Stack>
 						<Link href={{ pathname: '/tour-package/detail', query: { id: tourPackage?._id } }}>
 							<Button className="view-btn" variant="outlined" disableElevation>
-								View Details
+								{t('package:card.viewDetails')}
 							</Button>
 						</Link>
 					</Stack>

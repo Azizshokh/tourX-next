@@ -9,6 +9,7 @@ import { userVar } from '../../../apollo/store';
 import { useReactiveVar } from '@apollo/client';
 import { getJwtToken, updateUserInfo } from '../../auth';
 import Chat from '../Chat';
+import { useTranslation } from 'next-i18next';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -17,6 +18,7 @@ const withLayoutMain = (Component: any) => {
 	return (props: any) => {
 		const device = useDeviceDetect();
 		const user = useReactiveVar(userVar);
+		const { t } = useTranslation(['home']);
 
 		/** LIFECYCLES **/
 		useEffect(() => {
@@ -64,15 +66,15 @@ const withLayoutMain = (Component: any) => {
 							<span className={'hero-video-overlay'} />
 							<Stack className={'container'}>
 								<Stack className={'hero-content'}>
-									<span className={'hero-kicker'}>Premium travel marketplace</span>
+									<span className={'hero-kicker'}>{t('home:hero.kicker')}</span>
 									<h1>
-										Discover Your Next <span>Global Adventure</span>
+										{t('home:hero.titlePrefix')} <span>{t('home:hero.titleAccent')}</span>
 									</h1>
-									<p>Explore curated travel packages from trusted TourX agents, built for memorable escapes.</p>
+									<p>{t('home:hero.description')}</p>
 									<Stack className={'hero-trust-row'}>
-										<strong>2M+ travelers</strong>
-										<strong>4.9 average rating</strong>
-										<strong>120+ destinations</strong>
+										<strong>{t('home:hero.travelers')}</strong>
+										<strong>{t('home:hero.rating')}</strong>
+										<strong>{t('home:hero.destinations')}</strong>
 									</Stack>
 								</Stack>
 								<HeaderFilter />

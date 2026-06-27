@@ -18,7 +18,7 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from '@apollo/client';
 import TourPackageCard from '../../libs/components/tourPackage/TourPackageCard';
 import Filter from '../../libs/components/tourPackage/Filter';
@@ -31,6 +31,7 @@ import { GET_TOUR_PACKAGES } from '../../apollo/user/query';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 import { T } from '../../libs/types/common';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { getI18nProps, PACKAGE_NAMESPACES } from '../../libs/i18n';
 
 const PACKAGE_LIST_LIMIT = 3;
 
@@ -53,13 +54,14 @@ const parsePackageListInput = (input: string | string[] | undefined, fallback: T
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, PACKAGE_NAMESPACES)),
 	},
 });
 
 const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'package']);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(
 		parsePackageListInput(router?.query?.input, initialInput),
 	);
@@ -68,7 +70,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
-	const [filterSortName, setFilterSortName] = useState('New');
+	const [filterSortName, setFilterSortName] = useState('sort.new');
 
 	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
 
@@ -127,32 +129,32 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 			case 'featured':
 				nextFilter.sort = 'packageLikes';
 				nextFilter.direction = Direction.DESC;
-				setFilterSortName('Featured');
+				setFilterSortName('sort.featured');
 				break;
 			case 'new':
 				nextFilter.sort = 'createdAt';
 				nextFilter.direction = Direction.DESC;
-				setFilterSortName('New');
+				setFilterSortName('sort.new');
 				break;
 			case 'popular':
 				nextFilter.sort = 'packageLikes';
 				nextFilter.direction = Direction.DESC;
-				setFilterSortName('Popular');
+				setFilterSortName('sort.popular');
 				break;
 			case 'duration':
 				nextFilter.sort = 'durationDays';
 				nextFilter.direction = Direction.ASC;
-				setFilterSortName('Shortest Duration');
+				setFilterSortName('sort.shortestDuration');
 				break;
 			case 'lowest':
 				nextFilter.sort = 'packagePrice';
 				nextFilter.direction = Direction.ASC;
-				setFilterSortName('Lowest Price');
+				setFilterSortName('sort.lowestPrice');
 				break;
 			case 'highest':
 				nextFilter.sort = 'packagePrice';
 				nextFilter.direction = Direction.DESC;
-				setFilterSortName('Highest Price');
+				setFilterSortName('sort.highestPrice');
 				break;
 		}
 		setSearchFilter(nextFilter);
@@ -166,7 +168,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>TOUR PACKAGES MOBILE</h1>;
+		return <h1>{t('mobile.packages')}</h1>;
 	}
 
 	return (
@@ -230,7 +232,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 						{/* Results + sort bar */}
 						<Stack direction="row" className="results-bar">
 							<Typography className="results-count">
-								{total.toLocaleString()} result{total !== 1 ? 's' : ''}
+								{t('package:list.results', { count: total })}
 							</Typography>
 							<Box component="div" className="sort-box">
 								<Button
@@ -239,7 +241,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 									endIcon={<KeyboardArrowDownRoundedIcon />}
 									disableRipple
 								>
-									Sort by: {filterSortName}
+									{t('package:list.sortBy', { sort: t(filterSortName) })}
 								</Button>
 								<Menu
 									anchorEl={anchorEl}
@@ -248,22 +250,22 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 									sx={{ paddingTop: '5px' }}
 								>
 									<MenuItem onClick={sortingHandler} id="featured" disableRipple>
-										Featured
+										{t('sort.featured')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id="new" disableRipple>
-										New
+										{t('sort.new')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id="popular" disableRipple>
-										Popular
+										{t('sort.popular')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id="duration" disableRipple>
-										Shortest Duration
+										{t('sort.shortestDuration')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id="lowest" disableRipple>
-										Lowest Price
+										{t('sort.lowestPrice')}
 									</MenuItem>
 									<MenuItem onClick={sortingHandler} id="highest" disableRipple>
-										Highest Price
+										{t('sort.highestPrice')}
 									</MenuItem>
 								</Menu>
 							</Box>
@@ -283,7 +285,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 								>
 									<Box component="div" className="no-data">
 										<img src="/img/icons/icoAlert.svg" alt="" />
-										<p>No packages found!</p>
+										<p>{t('empty.noPackages')}</p>
 									</Box>
 								</Box>
 							) : (
@@ -311,7 +313,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 								</Stack>
 								<Stack className="total-result">
 									<Typography>
-										Total {total} package{total > 1 ? 's' : ''} available
+										{t('package:list.total', { count: total })}
 									</Typography>
 								</Stack>
 							</Stack>

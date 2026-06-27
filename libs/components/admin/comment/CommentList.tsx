@@ -20,6 +20,7 @@ import moment from 'moment';
 import { Comment } from '../../../types/comment/comment';
 import { CommentStatus } from '../../../enums/comment.enum';
 import { REACT_APP_API_URL } from '../../../config';
+import { useTranslation } from 'next-i18next';
 
 interface CommentListProps {
 	comments: Comment[];
@@ -29,18 +30,20 @@ interface CommentListProps {
 	onActivate: (commentId: string) => void;
 }
 
-const groupLabel: Record<string, string> = {
-	MEMBER: 'Member',
-	ARTICLE: 'Article',
-	PACKAGE: 'Package',
-};
-
 export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onActivate }: CommentListProps) => {
+	const { t } = useTranslation(['common', 'admin']);
+	const groupLabel = (group: string) =>
+		({
+			MEMBER: t('admin:labels.member'),
+			ARTICLE: t('admin:labels.article'),
+			PACKAGE: t('admin:labels.package'),
+		}[group] || group);
+
 	if (loading) {
 		return (
 			<Box sx={{ p: '32px 24px', textAlign: 'center' }}>
 				<Typography sx={{ color: '#9ca3af', fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '14px' }}>
-					Loading comments…
+					{t('admin:messages.loadingComments')}
 				</Typography>
 			</Box>
 		);
@@ -49,7 +52,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 	if (!comments.length) {
 		return (
 			<Box sx={{ p: '48px 24px', textAlign: 'center' }}>
-				<Typography className={'no-data'}>No comments found.</Typography>
+				<Typography className={'no-data'}>{t('common:empty.noComments')}</Typography>
 			</Box>
 		);
 	}
@@ -59,12 +62,12 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 			<Table sx={{ minWidth: 860 }}>
 				<TableHead>
 					<TableRow>
-						<TableCell>COMMENT</TableCell>
-						<TableCell>AUTHOR</TableCell>
-						<TableCell>TARGET</TableCell>
-						<TableCell>STATUS</TableCell>
-						<TableCell>DATE</TableCell>
-						<TableCell align={'right'}>ACTIONS</TableCell>
+						<TableCell>{t('admin:table.comment')}</TableCell>
+						<TableCell>{t('admin:table.author')}</TableCell>
+						<TableCell>{t('admin:table.target')}</TableCell>
+						<TableCell>{t('admin:table.status')}</TableCell>
+						<TableCell>{t('common:labels.date')}</TableCell>
+						<TableCell align={'right'}>{t('admin:table.actions')}</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -98,7 +101,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 											{comment.commentContent}
 										</Typography>
 										<Chip
-											label={groupLabel[comment.commentGroup] ?? comment.commentGroup}
+											label={groupLabel(comment.commentGroup)}
 											size={'small'}
 											sx={{
 												height: '20px',
@@ -139,7 +142,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 											fontFamily: "'Plus Jakarta Sans', sans-serif",
 										}}
 									>
-										{groupLabel[comment.commentGroup] ?? comment.commentGroup}
+										{groupLabel(comment.commentGroup)}
 									</Typography>
 									<Typography
 										sx={{
@@ -156,7 +159,11 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 								{/* Status badge */}
 								<TableCell>
 									<span className={`badge ${isDeleted ? 'error' : isPaused ? 'warning' : 'success'}`}>
-										{isDeleted ? 'Deleted' : isPaused ? 'Paused' : 'Active'}
+										{isDeleted
+											? t('common:status.deleted')
+											: isPaused
+												? t('common:status.paused')
+												: t('common:status.active')}
 									</span>
 								</TableCell>
 
@@ -201,7 +208,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 														},
 													}}
 												>
-													Pause
+													{t('admin:actions.pause')}
 												</Button>
 											)}
 											{isPaused && (
@@ -225,7 +232,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 														},
 													}}
 												>
-													Activate
+													{t('admin:actions.activate')}
 												</Button>
 											)}
 											<Button
@@ -249,7 +256,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 													},
 												}}
 											>
-												Delete
+												{t('admin:actions.delete')}
 											</Button>
 										</Stack>
 									)}

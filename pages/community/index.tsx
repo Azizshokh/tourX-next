@@ -7,7 +7,8 @@ import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
 import { T } from '../../libs/types/common';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, COMMUNITY_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
 import { BoardArticleCategory } from '../../libs/enums/board-article.enum';
 import { useMutation, useQuery } from '@apollo/client';
@@ -37,21 +38,22 @@ import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 
 const CATEGORIES = [
-	{ value: 'FREE', label: 'Travel Stories', Icon: ArticleRoundedIcon },
-	{ value: 'RECOMMEND', label: 'Tips & Guides', Icon: LightbulbRoundedIcon },
-	{ value: 'NEWS', label: 'News', Icon: NewspaperRoundedIcon },
-	{ value: 'HUMOR', label: 'Humor', Icon: TagFacesRoundedIcon },
+	{ value: 'FREE', labelKey: 'community:category.FREE', Icon: ArticleRoundedIcon },
+	{ value: 'RECOMMEND', labelKey: 'community:category.RECOMMEND', Icon: LightbulbRoundedIcon },
+	{ value: 'NEWS', labelKey: 'community:category.NEWS', Icon: NewspaperRoundedIcon },
+	{ value: 'HUMOR', labelKey: 'community:category.HUMOR', Icon: TagFacesRoundedIcon },
 ] as const;
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, COMMUNITY_NAMESPACES)),
 	},
 });
 
 const Community: NextPage = ({ initialInput, ...props }: T) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'community']);
 	const { query } = router;
 	const articleCategory = query?.articleCategory as string;
 	const [searchCommunity, setSearchCommunity] = useState<BoardArticlesInquiry>(initialInput);
@@ -117,7 +119,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	if (device === 'mobile') {
-		return <h1>COMMUNITY PAGE MOBILE</h1>;
+		return <h1>{t('common:mobile.community')}</h1>;
 	}
 
 	return (
@@ -177,20 +179,20 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 						startIcon={<AddRoundedIcon />}
 						onClick={() => router.push({ pathname: '/mypage', query: { category: 'writeArticle' } })}
 					>
-						Create Travel Post
+						{t('community:createPost')}
 					</Button>
 
 					<div className="cl-cat-section">
-						<span className="cl-cat-label">CATEGORIES</span>
+						<span className="cl-cat-label">{t('community:categories')}</span>
 						<nav className="cl-cat-nav">
-							{CATEGORIES.map(({ value, label, Icon }) => (
+							{CATEGORIES.map(({ value, labelKey, Icon }) => (
 								<button
 									key={value}
 									className={`cl-cat-item${searchCommunity.search.articleCategory === value ? ' active' : ''}`}
 									onClick={() => selectCategoryHandler(value)}
 								>
 									<Icon className="cl-cat-icon" />
-									{label}
+									{t(labelKey)}
 								</button>
 							))}
 						</nav>
@@ -219,14 +221,14 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 									onChange={paginationHandler}
 								/>
 								<span>
-									Total {totalCount} article{totalCount > 1 ? 's' : ''} available
+									{t('community:total', { count: totalCount })}
 								</span>
 							</div>
 						</>
 					) : (
 						<div className="cl-no-data">
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No articles found!</p>
+							<p>{t('common:empty.noArticles')}</p>
 						</div>
 					)}
 				</main>

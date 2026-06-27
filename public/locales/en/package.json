@@ -1,0 +1,71 @@
+{
+  "list": {
+    "results": "{{count}} result",
+    "results_plural": "{{count}} results",
+    "sortBy": "Sort by: {{sort}}",
+    "total": "Total {{count}} package available",
+    "total_plural": "Total {{count}} packages available"
+  },
+  "filter": {
+    "title": "Filters",
+    "keywords": "Keywords",
+    "searchDestinations": "Search destinations...",
+    "experienceType": "Experience Type",
+    "inclusions": "Inclusions",
+    "priceRange": "Price Range",
+    "durationDays": "Duration (Days)",
+    "min": "Min",
+    "max": "Max"
+  },
+  "card": {
+    "featured": "Featured",
+    "bestPrice": "Best Price Guarantee",
+    "freeCancellation": "Free Cancellation",
+    "from": "From",
+    "top": "Top",
+    "viewDetails": "View Details",
+    "durationNights": "{{days}} days {{nights}} nights",
+    "durationDays": "{{count}} day",
+    "durationDays_plural": "{{count}} days",
+    "upToPeople": "Up to {{count}} people",
+    "peopleRange": "{{min}}-{{max}} people",
+    "flightInc": "Flight Inc.",
+    "hotelInc": "Hotel Inc.",
+    "guideInc": "Guide Inc.",
+    "boutique": "Boutique",
+    "featuredDestination": "Featured destination"
+  },
+  "detail": {
+    "allTours": "All tours",
+    "adventure": "Adventure",
+    "daysAgo": "{{count}} days ago",
+    "storyline": "Experience Storyline",
+    "noDescription": "No description!",
+    "servicesIncluded": "Services Included",
+    "roundTrip": "Round trip included",
+    "fiveStar": "5-star accommodation",
+    "localExpert": "Local expert guide",
+    "leaveReview": "Leave a Review",
+    "submitReview": "Submit Review",
+    "tripSummary": "Trip summary",
+    "bookNow": "Book this package",
+    "wishlist": "Add to wishlist",
+    "hostedBy": "Hosted by",
+    "viewPackages": "View packages",
+    "related": "Related Packages",
+    "relatedDesc": "More packages in this destination",
+    "traveler": "traveler",
+    "travelers": "travelers",
+    "people": "people"
+  },
+  "type": {
+    "ADVENTURE": "Adventure",
+    "CULTURAL": "Cultural",
+    "RELIGIOUS": "Religious",
+    "BUSINESS": "Business",
+    "FAMILY": "Family",
+    "HONEYMOON": "Honeymoon",
+    "CRUISE": "Cruise",
+    "OTHER": "Other"
+  }
+}

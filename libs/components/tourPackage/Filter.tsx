@@ -6,6 +6,7 @@ import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PackageType } from '../../enums/package.enum';
 import { packageCities, packageCountries, packageDurations } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
+import { useTranslation } from 'next-i18next';
 
 interface FilterType {
 	searchFilter: TourPackagesInquiry;
@@ -17,6 +18,7 @@ const Filter = (props: FilterType) => {
 	const { searchFilter, setSearchFilter, initialInput } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'package']);
 	const [searchText, setSearchText] = useState<string>(searchFilter.search.text ?? '');
 
 	useEffect(() => {
@@ -98,28 +100,28 @@ const Filter = (props: FilterType) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>PACKAGES FILTER</div>;
+		return <div>{t('mobile.packages')}</div>;
 	}
 
 	return (
 		<Stack className="filter-main">
 			{/* Header */}
 			<Stack className="filter-header">
-				<Typography className="filter-title">Filters</Typography>
+				<Typography className="filter-title">{t('package:filter.title')}</Typography>
 				<Button className="clear-btn" onClick={refreshHandler} disableRipple>
-					CLEAR FILTERS
+					{t('actions.clearFilters')}
 				</Button>
 			</Stack>
 
 			{/* Keywords */}
 			<Stack className="filter-section">
-				<Typography className="section-label">Keywords</Typography>
+				<Typography className="section-label">{t('package:filter.keywords')}</Typography>
 				<Stack className="search-wrap">
 					<SearchRoundedIcon className="search-icon" />
 					<input
 						type="text"
 						className="search-input"
-						placeholder="Search destinations..."
+						placeholder={t('package:filter.searchDestinations')}
 						value={searchText}
 						onChange={(e) => setSearchText(e.target.value)}
 						onKeyDown={(e) => {
@@ -133,7 +135,7 @@ const Filter = (props: FilterType) => {
 			<Stack className="filter-section">
 				<Stack className="select-row">
 					<Stack className="select-group">
-						<Typography className="section-label">Country</Typography>
+						<Typography className="section-label">{t('labels.country')}</Typography>
 						<select
 							className="filter-select"
 							value={searchFilter?.search?.countryList?.[0] ?? ''}
@@ -148,7 +150,7 @@ const Filter = (props: FilterType) => {
 								pushFilter(nextFilter);
 							}}
 						>
-							<option value="">All</option>
+							<option value="">{t('labels.all')}</option>
 							{packageCountries.map((c) => (
 								<option value={c} key={c}>
 									{c}
@@ -157,7 +159,7 @@ const Filter = (props: FilterType) => {
 						</select>
 					</Stack>
 					<Stack className="select-group">
-						<Typography className="section-label">City</Typography>
+						<Typography className="section-label">{t('labels.city')}</Typography>
 						<select
 							className="filter-select"
 							value={searchFilter?.search?.cityList?.[0] ?? ''}
@@ -172,7 +174,7 @@ const Filter = (props: FilterType) => {
 								pushFilter(nextFilter);
 							}}
 						>
-							<option value="">All</option>
+							<option value="">{t('labels.all')}</option>
 							{packageCities.map((c) => (
 								<option value={c} key={c}>
 									{c}
@@ -185,7 +187,7 @@ const Filter = (props: FilterType) => {
 
 			{/* Experience Type */}
 			<Stack className="filter-section">
-				<Typography className="section-label">Experience Type</Typography>
+				<Typography className="section-label">{t('package:filter.experienceType')}</Typography>
 				<Stack className="type-grid">
 					{Object.values(PackageType).map((type) => (
 						<Stack className="type-item" key={type}>
@@ -203,10 +205,15 @@ const Filter = (props: FilterType) => {
 
 			{/* Inclusions */}
 			<Stack className="filter-section">
-				<Typography className="section-label">Inclusions</Typography>
+				<Typography className="section-label">{t('package:filter.inclusions')}</Typography>
 				<Stack className="type-grid">
 					{(['flightIncluded', 'hotelIncluded', 'guideIncluded'] as const).map((key) => {
-						const label = key === 'flightIncluded' ? 'Flight' : key === 'hotelIncluded' ? 'Hotel' : 'Guide';
+						const label =
+							key === 'flightIncluded'
+								? t('labels.flight')
+								: key === 'hotelIncluded'
+								? t('labels.hotel')
+								: t('labels.guide');
 						return (
 							<Stack className="type-item" key={key}>
 								<Checkbox
@@ -225,7 +232,7 @@ const Filter = (props: FilterType) => {
 			{/* Price Range */}
 			<Stack className="filter-section">
 				<Stack className="section-header-row">
-					<Typography className="section-label">Price Range</Typography>
+					<Typography className="section-label">{t('package:filter.priceRange')}</Typography>
 					<Typography className="range-display">
 						${(searchFilter?.search?.pricesRange?.start ?? 0).toLocaleString()} — $
 						{(searchFilter?.search?.pricesRange?.end ?? 2000000).toLocaleString()}
@@ -235,7 +242,7 @@ const Filter = (props: FilterType) => {
 					<input
 						type="number"
 						className="range-num"
-						placeholder="Min"
+						placeholder={t('package:filter.min')}
 						min={0}
 						value={searchFilter?.search?.pricesRange?.start ?? 0}
 						onChange={(e) => priceRangeHandler(Number(e.target.value), 'start')}
@@ -244,7 +251,7 @@ const Filter = (props: FilterType) => {
 					<input
 						type="number"
 						className="range-num"
-						placeholder="Max"
+						placeholder={t('package:filter.max')}
 						value={searchFilter?.search?.pricesRange?.end ?? 0}
 						onChange={(e) => priceRangeHandler(Number(e.target.value), 'end')}
 					/>
@@ -254,7 +261,7 @@ const Filter = (props: FilterType) => {
 			{/* Duration */}
 			<Stack className="filter-section">
 				<Stack className="section-header-row">
-					<Typography className="section-label">Duration (Days)</Typography>
+					<Typography className="section-label">{t('package:filter.durationDays')}</Typography>
 					<Typography className="range-display">
 						{searchFilter?.search?.durationRange?.start ?? 1} —{' '}
 						{searchFilter?.search?.durationRange?.end ?? 30} days
@@ -289,7 +296,7 @@ const Filter = (props: FilterType) => {
 
 			{/* Apply */}
 			<Button className="apply-btn" onClick={textSearchHandler} disableElevation>
-				Apply Filters
+				{t('actions.applyFilters')}
 			</Button>
 		</Stack>
 	);

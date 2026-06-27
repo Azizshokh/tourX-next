@@ -24,6 +24,7 @@ import { REACT_APP_API_URL } from '../../../config';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import { BoardArticleStatus } from '../../../enums/board-article.enum';
+import { useTranslation } from 'next-i18next';
 
 interface Data {
 	category: string;
@@ -39,7 +40,7 @@ interface Data {
 interface HeadCell {
 	disablePadding: boolean;
 	id: keyof Data;
-	label: string;
+	labelKey: string;
 	numeric: boolean;
 }
 
@@ -48,49 +49,49 @@ const headCells: readonly HeadCell[] = [
 		id: 'article_id',
 		numeric: true,
 		disablePadding: false,
-		label: 'ARTICLE ID',
+		labelKey: 'admin:table.articleId',
 	},
 	{
 		id: 'title',
 		numeric: true,
 		disablePadding: false,
-		label: 'TITLE',
+		labelKey: 'admin:table.title',
 	},
 	{
 		id: 'category',
 		numeric: true,
 		disablePadding: false,
-		label: 'CATEGORY',
+		labelKey: 'admin:table.category',
 	},
 	{
 		id: 'writer',
 		numeric: true,
 		disablePadding: false,
-		label: 'WRITER',
+		labelKey: 'admin:labels.writer',
 	},
 	{
 		id: 'view',
 		numeric: false,
 		disablePadding: false,
-		label: 'VIEW',
+		labelKey: 'admin:table.views',
 	},
 	{
 		id: 'like',
 		numeric: false,
 		disablePadding: false,
-		label: 'LIKE',
+		labelKey: 'admin:table.likes',
 	},
 	{
 		id: 'register',
 		numeric: true,
 		disablePadding: false,
-		label: 'REGISTER DATE',
+		labelKey: 'admin:table.registerDate',
 	},
 	{
 		id: 'status',
 		numeric: false,
 		disablePadding: false,
-		label: 'STATUS',
+		labelKey: 'admin:table.status',
 	},
 ];
 
@@ -102,6 +103,8 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
+	const { t } = useTranslation(['admin']);
+
 	return (
 		<TableHead>
 			<TableRow>
@@ -111,7 +114,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 						align={headCell.numeric ? 'left' : 'center'}
 						padding={headCell.disablePadding ? 'none' : 'normal'}
 					>
-						{headCell.label}
+						{t(headCell.labelKey)}
 					</TableCell>
 				))}
 			</TableRow>
@@ -131,6 +134,13 @@ interface CommunityArticleListProps {
 const CommunityArticleList = (props: CommunityArticleListProps) => {
 	const { articles, anchorEl, menuIconClickHandler, menuIconCloseHandler, updateArticleHandler, removeArticleHandler } =
 		props;
+	const { t } = useTranslation(['common', 'admin', 'community']);
+
+	const statusLabel = (status: string) =>
+		({
+			[BoardArticleStatus.ACTIVE]: t('common:status.active'),
+			[BoardArticleStatus.DELETE]: t('common:status.deleted'),
+		}[status] || status);
 
 	return (
 		<Stack>
@@ -142,7 +152,7 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 						{articles.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={8}>
-									<span className={'no-data'}>Data not found!</span>
+									<span className={'no-data'}>{t('common:empty.noArticles')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -160,7 +170,7 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 													className={'img_box'}
 												>
 													<IconButton className="btn_window">
-														<Tooltip title={'Open window'}>
+														<Tooltip title={t('admin:labels.openWindow')}>
 															<OpenInBrowserRoundedIcon />
 														</Tooltip>
 													</IconButton>
@@ -168,7 +178,9 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 											)}
 										</Box>
 									</TableCell>
-									<TableCell align="left">{article.articleCategory}</TableCell>
+									<TableCell align="left">
+										{t(`community:category.${article.articleCategory}`, { defaultValue: article.articleCategory })}
+									</TableCell>
 									<TableCell align="left" className={'name'}>
 										<Link href={`/member?memberId=${article?.memberData?._id}`}>
 											<Avatar
@@ -200,7 +212,7 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 										) : (
 											<>
 												<Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}>
-													{article.articleStatus}
+													{statusLabel(article.articleStatus)}
 												</Button>
 
 												<Menu
@@ -222,7 +234,7 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 																key={status}
 															>
 																<Typography variant={'subtitle1'} component={'span'}>
-																	{status}
+																	{statusLabel(status)}
 																</Typography>
 															</MenuItem>
 														))}

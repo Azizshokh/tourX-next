@@ -9,6 +9,7 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import { useTranslation } from 'next-i18next';
 
 interface AgentCardProps {
 	agent: any;
@@ -18,6 +19,7 @@ interface AgentCardProps {
 const AgentCard = (props: AgentCardProps) => {
 	const { agent } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['agent']);
 	useReactiveVar(userVar);
 
 	const imagePath: string = agent?.memberImage
@@ -34,14 +36,14 @@ const AgentCard = (props: AgentCardProps) => {
 		: 1;
 
 	const subtitle = [
-		'Travel Agent',
+		t('agent:role'),
 		agent?.memberAddress ? agent.memberAddress : null,
 	]
 		.filter(Boolean)
 		.join(' • ');
 
 	if (device === 'mobile') {
-		return <div>AGENT CARD</div>;
+		return <div>{t('agent:role')}</div>;
 	} else {
 		return (
 			<Box className="agent-general-card">
@@ -83,19 +85,19 @@ const AgentCard = (props: AgentCardProps) => {
 						{/* Stats: 2-column grid */}
 						<Box className="stats-grid">
 							<Box className="stat-box">
-								<Typography className="stat-lbl">Experience</Typography>
-								<Typography className="stat-val">{yearsExp} Years</Typography>
+								<Typography className="stat-lbl">{t('agent:card.experience')}</Typography>
+								<Typography className="stat-val">{yearsExp} {t('agent:card.years')}</Typography>
 							</Box>
 							<Box className="stat-box">
-								<Typography className="stat-lbl">Tours Managed</Typography>
-								<Typography className="stat-val">{agent?.memberTours ?? 0} Tours</Typography>
+								<Typography className="stat-lbl">{t('agent:card.toursManaged')}</Typography>
+								<Typography className="stat-val">{agent?.memberTours ?? 0} {t('agent:card.tours')}</Typography>
 							</Box>
 						</Box>
 
 						{/* Bio */}
 						<Typography className="agent-bio">
 							{agent?.memberDesc ??
-								'Experienced travel agent offering curated tour packages and personalized travel experiences for discerning adventurers.'}
+								t('agent:card.defaultBio')}
 						</Typography>
 
 						{/* CTA row */}
@@ -107,7 +109,7 @@ const AgentCard = (props: AgentCardProps) => {
 									disableRipple
 									fullWidth
 								>
-									View Profile
+									{t('agent:card.viewProfile')}
 								</Button>
 							</Link>
 							<Link href={agentDetailHref}>

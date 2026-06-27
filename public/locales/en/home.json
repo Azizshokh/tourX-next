@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "kicker": "Premium travel marketplace",
+    "titlePrefix": "Discover Your Next",
+    "titleAccent": "Global Adventure",
+    "description": "Explore curated travel packages from trusted TourX agents, built for memorable escapes.",
+    "travelers": "2M+ travelers",
+    "rating": "4.9 average rating",
+    "destinations": "120+ destinations"
+  },
+  "sections": {
+    "trending": "Trending Packages",
+    "trendingDesc": "Hand-picked experiences that everyone is talking about.",
+    "popular": "Popular packages",
+    "popularDesc": "Popularity is based on views",
+    "topRanked": "Top Ranked Packages",
+    "topRankedDesc": "Exceptional ratings and verified satisfaction from our community.",
+    "community": "Community Discussions",
+    "communityDesc": "Real tips and reviews from the TourX explorer community.",
+    "travelInspiration": "Travel Inspiration",
+    "travelInspirationDesc": "Choose your journey based on what moves you.",
+    "topAgents": "Top Agents",
+    "topAgentsDesc": "Our top agents are always ready to serve you.",
+    "testimonialsEyebrow": "Travel Community",
+    "testimonials": "See What Travelers Say About TourX",
+    "testimonialsDesc": "Discover real experiences shared by global explorers"
+  },
+  "labels": {
+    "trendingNow": "Trending Now",
+    "rating": "Rating",
+    "exploreNow": "Explore Now",
+    "seeAllCategories": "See All Categories",
+    "previous": "Previous",
+    "next": "Next",
+    "favorite": "Favorite",
+    "seeAllAgents": "See All Agents",
+    "previousComment": "Previous comment",
+    "nextComment": "Next comment",
+    "goToComment": "Go to comment {{count}}",
+    "globalExplorer": "Global Explorer",
+    "liked": "Liked!"
+  },
+  "inspiration": {
+    "beachEscapes": "Beach Escapes",
+    "adventureTravel": "Adventure Travel",
+    "culturalJourneys": "Cultural Journeys",
+    "familyHolidays": "Family Holidays",
+    "cityBreaks": "City Breaks",
+    "hiddenRetreats": "Hidden Retreats"
+  },
+  "testimonials": {
+    "mock1": "TourX completely transformed how I travel! The Bali package was breathtaking - every detail was perfectly planned, from sunrise hikes to hidden waterfall retreats. I felt like a local, not just a tourist.",
+    "mock2": "I booked the Santorini Escape and it exceeded every expectation. The cliffside villa, sunset boat cruise, and curated dining experiences made it truly magical. TourX is my go-to for luxury travel!",
+    "mock3": "From the moment I landed in Tokyo to the last bite of ramen, every moment of my TourX Japan tour was unforgettable. The guides were knowledgeable and the itinerary struck the perfect balance between culture and adventure.",
+    "mock4": "Safari in Kenya was a dream I never thought I'd live. TourX arranged everything flawlessly - the tented camps, game drives at golden hour, and that unforgettable moment watching a lion pride with her cubs. Absolutely life-changing.",
+    "mock5": "The Patagonia trekking package was the adventure of a lifetime. TourX took care of everything while still leaving room for those spontaneous moments. The glaciers, the condors, the silence - I still dream about it."
+  },
+  "empty": {
+    "trends": "Trends empty",
+    "top": "Top empty",
+    "community": "No discussions yet. Be the first to start one!"
+  },
+  "filters": {
+    "destination": "Destination",
+    "experience": "Experience",
+    "tripLength": "Trip length",
+    "packageType": "Package type",
+    "duration": "Duration",
+    "findTour": "Find your tour",
+    "searchPlaceholder": "What are you looking for?",
+    "allOptions": "All options",
+    "upToDays": "Up to {{count}} days",
+    "resetAll": "Reset all filters"
+  }
+}

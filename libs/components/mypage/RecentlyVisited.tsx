@@ -10,9 +10,11 @@ import { useMutation, useQuery } from '@apollo/client';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import { useTranslation } from 'next-i18next';
 
 const RecentlyVisited: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'mypage']);
 	const [recentlyVisited, setRecentlyVisited] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchVisited, setSearchVisited] = useState<T>({ page: 1, limit: 6 });
@@ -59,14 +61,14 @@ const RecentlyVisited: NextPage = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>RECENTLY VIEWED MOBILE</div>;
+		return <div>{t('mypage:menu.recentlyViewed')}</div>;
 	} else {
 		return (
 			<div id="recently-visited-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
-						<Typography className="main-title">Recently Viewed</Typography>
-						<Typography className="sub-title">Tour packages you opened recently.</Typography>
+						<Typography className="main-title">{t('mypage:recent.title')}</Typography>
+						<Typography className="sub-title">{t('mypage:recent.subtitle')}</Typography>
 					</Stack>
 				</Stack>
 				<Stack className="favorites-list-box">
@@ -77,7 +79,7 @@ const RecentlyVisited: NextPage = () => {
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No recently viewed packages yet!</p>
+							<p>{t('mypage:recent.empty')}</p>
 						</div>
 					)}
 				</Stack>
@@ -94,7 +96,7 @@ const RecentlyVisited: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} recently viewed package{total > 1 ? 's' : ''}
+								{t('mypage:recent.total', { count: total })}
 							</Typography>
 						</Stack>
 					</Stack>

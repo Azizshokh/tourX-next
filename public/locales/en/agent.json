@@ -1,0 +1,34 @@
+{
+  "searchPlaceholder": "Search for an agent",
+  "sortBy": "Sort by",
+  "total": "Total {{count}} agent available",
+  "total_plural": "Total {{count}} agents available",
+  "role": "Travel Agent",
+  "card": {
+    "tours": "Tours",
+    "rating": "Rating",
+    "likes": "Likes",
+    "experience": "Experience",
+    "years": "Years",
+    "toursManaged": "Tours Managed",
+    "defaultBio": "Experienced travel agent offering curated tour packages and personalized travel experiences for discerning adventurers.",
+    "viewProfile": "View Profile"
+  },
+  "stats": {
+    "packages": "Tour Packages",
+    "followers": "Followers",
+    "following": "Following",
+    "views": "Views",
+    "likes": "Likes",
+    "memberSince": "Member Since",
+    "experience": "Experience",
+    "managed": "Tours Managed"
+  },
+  "reviews": {
+    "title": "Reviews",
+    "subtitle": "We are glad to see you again",
+    "leave": "Leave a Review",
+    "submit": "Submit Review",
+    "reply": "Reply"
+  }
+}

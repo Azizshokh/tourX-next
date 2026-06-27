@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import { Notice, NoticeCategory } from '../../../types/notice/notice';
 import { NoticeStatus } from '../../../enums/notice.enum';
 import { UpdateNoticeInput } from '../../../types/notice/notice.input';
+import { useTranslation } from 'next-i18next';
 
 interface Data {
 	category: string;
@@ -17,7 +18,7 @@ interface Data {
 interface HeadCell {
 	disablePadding: boolean;
 	id: keyof Data;
-	label: string;
+	labelKey: string;
 	numeric: boolean;
 }
 
@@ -26,41 +27,43 @@ const headCells: readonly HeadCell[] = [
 		id: 'category',
 		numeric: true,
 		disablePadding: false,
-		label: 'CATEGORY',
+		labelKey: 'admin:table.category',
 	},
 	{
 		id: 'title',
 		numeric: true,
 		disablePadding: false,
-		label: 'TITLE',
+		labelKey: 'admin:table.title',
 	},
 	{
 		id: 'content',
 		numeric: true,
 		disablePadding: false,
-		label: 'CONTENT',
+		labelKey: 'admin:table.content',
 	},
 	{
 		id: 'order',
 		numeric: false,
 		disablePadding: false,
-		label: 'ORDER',
+		labelKey: 'admin:table.order',
 	},
 	{
 		id: 'register',
 		numeric: true,
 		disablePadding: false,
-		label: 'REGISTER DATE',
+		labelKey: 'admin:table.registerDate',
 	},
 	{
 		id: 'status',
 		numeric: false,
 		disablePadding: false,
-		label: 'STATUS',
+		labelKey: 'admin:table.status',
 	},
 ];
 
 function EnhancedTableHead() {
+	const { t } = useTranslation(['admin']);
+
 	return (
 		<TableHead>
 			<TableRow>
@@ -70,7 +73,7 @@ function EnhancedTableHead() {
 						align={headCell.numeric ? 'left' : 'center'}
 						padding={headCell.disablePadding ? 'none' : 'normal'}
 					>
-						{headCell.label}
+						{t(headCell.labelKey)}
 					</TableCell>
 				))}
 			</TableRow>
@@ -88,11 +91,19 @@ interface NoticeListType {
 
 export const NoticeList = (props: NoticeListType) => {
 	const { notices, categories, loading, updateNoticeStatusHandler, deleteNoticeHandler } = props;
+	const { t } = useTranslation(['common', 'admin']);
 	const [anchorEl, setAnchorEl] = useState<Array<HTMLElement | null>>([]);
 
 	const getCategoryTitle = (categoryId: string) => {
-		return categories.find((category) => category._id === categoryId)?.noticeCategoryTitle ?? 'Uncategorized';
+		return categories.find((category) => category._id === categoryId)?.noticeCategoryTitle ?? t('admin:labels.uncategorized');
 	};
+
+	const getStatusLabel = (status: NoticeStatus) =>
+		({
+			[NoticeStatus.ACTIVE]: t('common:status.active'),
+			[NoticeStatus.HOLD]: t('common:status.hold'),
+			[NoticeStatus.DELETE]: t('common:status.deleted'),
+		}[status] || status);
 
 	const getStatusBadgeClass = (status: NoticeStatus) => {
 		if (status === NoticeStatus.ACTIVE) return 'badge success';
@@ -131,7 +142,7 @@ export const NoticeList = (props: NoticeListType) => {
 						{!loading && notices.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={6}>
-									<span className={'no-data'}>No notices found!</span>
+									<span className={'no-data'}>{t('common:empty.noNotices')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -139,7 +150,7 @@ export const NoticeList = (props: NoticeListType) => {
 						{loading && notices.length === 0 && (
 							<TableRow>
 								<TableCell align="center" colSpan={6}>
-									<span className={'no-data'}>Loading notices...</span>
+									<span className={'no-data'}>{t('admin:messages.loadingNotices')}</span>
 								</TableCell>
 							</TableRow>
 						)}
@@ -163,7 +174,7 @@ export const NoticeList = (props: NoticeListType) => {
 										onClick={(event: React.MouseEvent<HTMLButtonElement>) => openStatusMenu(event, index)}
 										disabled={notice.noticeStatus === NoticeStatus.DELETE}
 									>
-										{notice.noticeStatus}
+										{getStatusLabel(notice.noticeStatus)}
 									</Button>
 									<Menu
 										anchorEl={anchorEl[index]}
@@ -172,15 +183,17 @@ export const NoticeList = (props: NoticeListType) => {
 									>
 										{notice.noticeStatus !== NoticeStatus.ACTIVE && (
 											<MenuItem onClick={() => statusChangeHandler(notice, NoticeStatus.ACTIVE, index)}>
-												Move to Active
+												{t('admin:actions.moveToActive')}
 											</MenuItem>
 										)}
 										{notice.noticeStatus !== NoticeStatus.HOLD && (
 											<MenuItem onClick={() => statusChangeHandler(notice, NoticeStatus.HOLD, index)}>
-												Move to Hold
+												{t('admin:actions.moveToHold')}
 											</MenuItem>
 										)}
-										<MenuItem onClick={() => statusChangeHandler(notice, NoticeStatus.DELETE, index)}>Delete</MenuItem>
+										<MenuItem onClick={() => statusChangeHandler(notice, NoticeStatus.DELETE, index)}>
+											{t('admin:actions.delete')}
+										</MenuItem>
 									</Menu>
 								</TableCell>
 							</TableRow>

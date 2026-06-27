@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { BoardArticleCategory } from '../../enums/board-article.enum';
 import { REACT_APP_API_URL } from '../../config';
+import { useTranslation } from 'next-i18next';
 
 interface CommunityCardProps {
 	vertical?: boolean;
@@ -23,13 +24,14 @@ interface CommunityCardProps {
 const CommunityCard = (props: CommunityCardProps) => {
 	const { article, variant = 'card' } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'community']);
 	const isReview = article?.articleCategory === BoardArticleCategory.FREE;
-	const tagLabel = isReview ? 'Package Review' : 'Travel Tips';
+	const tagLabel = isReview ? t('community:category.packageReview') : t('community:category.travelTips');
 	const detailHref = `/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`;
-	const authorName = article?.memberData?.memberNick || 'TourX Explorer';
+	const authorName = article?.memberData?.memberNick || String(t('common:labels.explorer'));
 
 	if (device === 'mobile') {
-		return <div>COMMUNITY CARD (MOBILE)</div>;
+		return <div>{t('common:mobile.community')}</div>;
 	}
 
 	if (variant === 'feature') {
@@ -111,10 +113,10 @@ const CommunityCard = (props: CommunityCardProps) => {
 					<p className={'discussion-desc'}>{article?.articleContent}</p>
 					<div className={'discussion-meta'}>
 						<span>
-							<ChatBubbleOutlineIcon /> {article?.articleComments || 0} Comments
+							<ChatBubbleOutlineIcon /> {article?.articleComments || 0} {t('common:labels.comments')}
 						</span>
 						<span>
-							<ThumbUpOutlinedIcon /> {article?.articleLikes || 0} Likes
+							<ThumbUpOutlinedIcon /> {article?.articleLikes || 0} {t('common:labels.likes')}
 						</span>
 					</div>
 				</div>

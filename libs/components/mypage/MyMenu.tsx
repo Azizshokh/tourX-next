@@ -20,6 +20,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
+import { useTranslation } from 'next-i18next';
 
 interface MenuItemConfig {
 	category: string;
@@ -31,6 +32,7 @@ interface MenuItemConfig {
 const MyMenu = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
+	const { t } = useTranslation(['common', 'mypage']);
 	const queryCategory = (router.query.category as string) ?? 'myProfile';
 	const activeCategory: string =
 		queryCategory === 'addProperty'
@@ -45,13 +47,13 @@ const MyMenu = () => {
 			? [
 					{
 						category: 'addTourPackage',
-						label: 'Add Package',
+						label: t('mypage:menu.addPackage'),
 						icon: <AddLocationAltRoundedIcon />,
 						accent: '#ff8a00',
 					},
 					{
 						category: 'myTourPackages',
-						label: 'My Packages',
+						label: t('mypage:menu.myPackages'),
 						icon: <LuggageRoundedIcon />,
 						accent: '#1f8f62',
 					},
@@ -59,25 +61,25 @@ const MyMenu = () => {
 			: []),
 		{
 			category: 'myFavorites',
-			label: 'Saved Trips',
+			label: t('mypage:menu.savedTrips'),
 			icon: <FavoriteRoundedIcon />,
 			accent: '#ef4444',
 		},
 		{
 			category: 'recentlyVisited',
-			label: 'Recently Viewed',
+			label: t('mypage:menu.recentlyViewed'),
 			icon: <HistoryRoundedIcon />,
 			accent: '#0284c7',
 		},
 		{
 			category: 'followers',
-			label: 'Followers',
+			label: t('mypage:menu.followers'),
 			icon: <GroupsRoundedIcon />,
 			accent: '#7c3aed',
 		},
 		{
 			category: 'followings',
-			label: 'Following',
+			label: t('mypage:menu.following'),
 			icon: <PersonAddAltRoundedIcon />,
 			accent: '#0f766e',
 		},
@@ -86,13 +88,13 @@ const MyMenu = () => {
 	const communityItems: MenuItemConfig[] = [
 		{
 			category: 'myArticles',
-			label: 'My Articles',
+			label: t('mypage:menu.myArticles'),
 			icon: <ArticleRoundedIcon />,
 			accent: '#2563eb',
 		},
 		{
 			category: 'writeArticle',
-			label: 'Write Article',
+			label: t('mypage:menu.writeArticle'),
 			icon: <EditNoteRoundedIcon />,
 			accent: '#ff8a00',
 		},
@@ -101,7 +103,7 @@ const MyMenu = () => {
 	const accountItems: MenuItemConfig[] = [
 		{
 			category: 'myProfile',
-			label: 'My Profile',
+			label: t('mypage:menu.myProfile'),
 			icon: <AccountCircleRoundedIcon />,
 			accent: '#334155',
 		},
@@ -110,7 +112,7 @@ const MyMenu = () => {
 	/** HANDLERS **/
 	const logoutHandler = async () => {
 		try {
-			if (await sweetConfirmAlert('Do you want to logout?')) logOut();
+			if (await sweetConfirmAlert(t('mypage:menu.logoutConfirm'))) logOut();
 		} catch (err: any) {
 			console.log('ERROR, logoutHandler:', err.message);
 		}
@@ -140,7 +142,7 @@ const MyMenu = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>MY MENU</div>;
+		return <div>{t('common:mobile.mypage')}</div>;
 	} else {
 		return (
 			<Stack width={'100%'} className={'my-menu-panel'}>
@@ -165,26 +167,26 @@ const MyMenu = () => {
 								</Typography>
 							</a>
 						) : (
-							<Typography className={'view-list'}>{user?.memberType === 'AGENT' ? 'Travel Agent' : 'Traveler'}</Typography>
+							<Typography className={'view-list'}>{user?.memberType === 'AGENT' ? t('mypage:menu.travelAgent') : t('mypage:menu.traveler')}</Typography>
 						)}
 					</Stack>
 				</Stack>
 				<Stack className={'sections'}>
 					<Stack className={'section'}>
 						<Typography className="title" variant={'h5'}>
-							TRAVEL TOOLS
+							{t('mypage:menu.travelTools')}
 						</Typography>
 						<List className={'sub-section'}>{travelItems.map(renderMenuItem)}</List>
 					</Stack>
 					<Stack className={'section'}>
 						<Typography className="title" variant={'h5'}>
-							COMMUNITY
+							{t('mypage:menu.community')}
 						</Typography>
 						<List className={'sub-section'}>{communityItems.map(renderMenuItem)}</List>
 					</Stack>
 					<Stack className={'section'}>
 						<Typography className="title" variant={'h5'}>
-							ACCOUNT
+							{t('mypage:menu.account')}
 						</Typography>
 						<List className={'sub-section'}>
 							{accountItems.map(renderMenuItem)}
@@ -194,7 +196,7 @@ const MyMenu = () => {
 										<LogoutRoundedIcon />
 									</Box>
 									<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-										Logout
+										{t('common:actions.logout')}
 									</Typography>
 								</div>
 							</ListItem>

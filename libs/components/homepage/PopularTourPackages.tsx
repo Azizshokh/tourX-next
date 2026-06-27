@@ -16,6 +16,7 @@ import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
+import { useTranslation } from 'next-i18next';
 
 interface PopularTourPackagesProps {
 	initialInput: TourPackagesInquiry;
@@ -24,6 +25,7 @@ interface PopularTourPackagesProps {
 const PopularTourPackages = (props: PopularTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['home']);
 	const [popularTourPackages, setPopularTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -52,7 +54,7 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 			<Stack className={'popular-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular packages</span>
+						<span>{t('home:sections.popular')}</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -94,13 +96,13 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular packages</span>
-							<p>Popularity is based on views</p>
+							<span>{t('home:sections.popular')}</span>
+							<p>{t('home:sections.popularDesc')}</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<Link href={'/tour-package'}>
-									<span>See All Categories</span>
+									<span>{t('home:labels.seeAllCategories')}</span>
 								</Link>
 								<img src="/img/icons/rightup.svg" alt="" />
 							</div>

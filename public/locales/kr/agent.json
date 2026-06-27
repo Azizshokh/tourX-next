@@ -1,0 +1,34 @@
+{
+  "searchPlaceholder": "여행 전문가 검색",
+  "sortBy": "정렬",
+  "total": "총 {{count}}명의 여행 전문가 이용 가능",
+  "total_plural": "총 {{count}}명의 여행 전문가 이용 가능",
+  "role": "여행 전문가",
+  "card": {
+    "tours": "투어",
+    "rating": "평점",
+    "likes": "좋아요",
+    "experience": "경험",
+    "years": "년",
+    "toursManaged": "운영 투어",
+    "defaultBio": "엄선된 투어 패키지와 맞춤형 여행 경험을 제공하는 숙련된 여행 에이전트입니다.",
+    "viewProfile": "프로필 보기"
+  },
+  "stats": {
+    "packages": "투어 패키지",
+    "followers": "팔로워",
+    "following": "팔로잉",
+    "views": "조회수",
+    "likes": "좋아요",
+    "memberSince": "가입 연도",
+    "experience": "경험",
+    "managed": "운영 투어"
+  },
+  "reviews": {
+    "title": "리뷰",
+    "subtitle": "다시 만나서 반갑습니다",
+    "leave": "리뷰 남기기",
+    "submit": "리뷰 제출",
+    "reply": "답글"
+  }
+}

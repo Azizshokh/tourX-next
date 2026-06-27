@@ -169,3 +169,43 @@ Validation: `yarn tsc --noEmit` passed.
 - Validation: `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with existing Browserslist/i18next warnings.
 - Remaining issue: manual browser verification against a running backend is still recommended for live admin status changes.
 - Next recommended step: run through admin status transitions in the browser for `ACTIVE`, `CLOSED`, and `DELETED` rows with real package data.
+
+## 2026-06-27 - Multilingual translation stabilization
+- Stabilized `next-i18next` for `en`, `kr`, and `ru` with explicit namespaces, English fallback, and shared app-level config passed into `appWithTranslation`.
+- Added consistent namespace files for `common`, `auth`, `home`, `package`, `agent`, `community`, `admin`, `footer`, and `errors` across all three locales.
+- Fixed the global language selector so Korean uses `kr` instead of the invalid `uz` path, persists the selected locale in localStorage, and syncs stored locale with `router.locale`.
+- Replaced hardcoded UI copy with translation keys across the global nav/footer/layouts, homepage hero/search/package/community sections, package list/detail/filter/cards, auth join/login form, agent list, community list/detail, and admin shell/users/package status pages.
+- Kept backend-provided content untranslated, including package titles/descriptions, member names, article/comment content, destination data, and GraphQL enum wire values.
+- Added `libs/i18n.ts` namespace helpers and page-level translation loading for key localized routes.
+- Files: `next-i18next.config.js`, `pages/_app.tsx`, `libs/i18n.ts`, `public/locales/{en,kr,ru}/*.json`, global layout components, homepage/package/community/agent/auth pages, and selected admin users/packages pages.
+- Validation: locale key consistency check passed; `rg "uz"` found no invalid locale references; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed without react-i18next initialization warnings.
+- Remaining issue: a few deeper legacy/account/admin support surfaces may still contain static copy and should be translated incrementally during the next focused UI pass.
+- Next recommended step: manually click EN/KR/RU on `/`, `/tour-package`, `/tour-package/detail`, `/agent`, `/community`, `/community/detail`, `/account/join`, and admin users/packages pages against a running backend.
+
+## 2026-06-27 - Homepage remaining translation fixes
+- Translated the remaining homepage sections reported after the first multilingual pass: Travel Inspiration, Top Agents, and See What Travelers Say About TourX.
+- Added localized section headings, descriptions, inspiration card labels, top agent labels/buttons, testimonial headings, fallback testimonial text, role labels, and carousel accessibility labels.
+- Files: `libs/components/homepage/TravelInspiration.tsx`, `libs/components/homepage/TopAgents.tsx`, `libs/components/homepage/TopAgentCard.tsx`, `libs/components/common/AgentCard.tsx`, `libs/components/homepage/CommunityComments.tsx`, `public/locales/{en,kr,ru}/home.json`, `public/locales/{en,kr,ru}/agent.json`.
+- Validation: exact phrase scan found no remaining hardcoded TSX matches for the reported section titles; locale key consistency passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed.
+
+## 2026-06-27 - MyPage and Help translation logic
+- Added a dedicated `mypage` namespace and registered it in `next-i18next` plus the shared i18n namespace helper.
+- Translated MyPage route loading, sidebar menu sections, logout confirmation, profile labels/placeholders/success message, saved trips, recently viewed packages, agent package inventory tabs, my articles, write article header, follower/following lists, follow/unfollow buttons, and key Add/Edit Package actions.
+- Expanded Help/CS translation coverage for popular topics and fallback FAQ categories/questions/answers while preserving backend-provided FAQ and notice content as dynamic data.
+- Files: `public/locales/{en,kr,ru}/mypage.json`, `public/locales/{en,kr,ru}/community.json`, `next-i18next.config.js`, `libs/i18n.ts`, `pages/mypage/index.tsx`, `pages/cs/index.tsx`, `libs/components/mypage/*`, `libs/components/member/MemberFollowers.tsx`, `libs/components/member/MemberFollowings.tsx`, `libs/components/cs/Faq.tsx`.
+- Validation: locale key consistency passed; exact phrase scan found no remaining TSX matches for the targeted MyPage/Help headings and empty states; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed.
+- Remaining issue: deeper Add Tour Package field-level labels and validation strings still have some static English and should be translated in a focused form pass.
+
+## 2026-06-27 - Help FAQ content translation fix
+- Fixed `#pc-wrap .cs-page .faq-content` so known TourX FAQ categories use localized category labels and localized FAQ question/answer content even when backend FAQ data exists.
+- Kept unknown/custom backend FAQ categories supported by falling back to their backend-provided titles and items.
+- File: `libs/components/cs/Faq.tsx`.
+- Validation: locale key consistency passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed.
+
+## 2026-06-27 - Admin menu and admin page translation pass
+- Removed visible top-level words from the admin sidebar menu while keeping translated `title` and `aria-label` text for accessibility; submenu labels remain translated for navigation clarity.
+- Expanded admin translations for users, packages, community articles, comments, FAQ, and notice management tables, filters, status badges, confirmation dialogs, modal labels, validation messages, empty states, and action buttons.
+- Added page-level admin namespace loading to admin community, comments, FAQ, and notice pages and included package/community namespaces in admin i18n loading for enum display labels.
+- Files: `libs/components/admin/*`, `pages/_admin/community/index.tsx`, `pages/_admin/comments/index.tsx`, `pages/_admin/cs/faq.tsx`, `pages/_admin/cs/notice.tsx`, `libs/i18n.ts`, `public/locales/{en,kr,ru}/admin.json`.
+- Validation: locale key consistency passed; `yarn.cmd tsc --noEmit` passed.
+- Remaining issue: the legacy admin inquiry placeholder page still contains mock/static placeholder data and should be replaced with real inquiry API logic before deeper translation work.

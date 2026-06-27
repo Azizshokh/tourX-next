@@ -20,6 +20,7 @@ import { FaqInquiry } from '../../types/faq/faq.input';
 import { FaqStatus } from '../../enums/faq.enum';
 import { Direction } from '../../enums/common.enum';
 import { T } from '../../types/common';
+import { useTranslation } from 'next-i18next';
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
 	() => ({
@@ -61,167 +62,94 @@ const iconMap: Record<string, any> = {
 const fallbackFaqCategories = [
 	{
 		key: 'booking',
-		label: 'Booking',
+		labelKey: 'community:help.fallbackCategories.booking',
 		Icon: LuggageRoundedIcon,
 		items: [
 			{
 				id: 'booking-package',
-				question: 'How do I book a tour package?',
-				answer:
-					'To book a package, simply search for your destination, select your preferred itinerary, and click Book Now. You will be prompted to enter traveler details and complete the payment securely through our marketplace.',
+				questionKey: 'community:help.fallback.bookingPackageQ',
+				answerKey: 'community:help.fallback.bookingPackageA',
 			},
 			{
 				id: 'booking-confirmation',
-				question: 'Where can I find my booking confirmation?',
-				answer:
-					'Your confirmation is available in your TourX account after checkout. You should also receive the confirmation details from the travel agent or TourX notification flow.',
+				questionKey: 'community:help.fallback.bookingConfirmationQ',
+				answerKey: 'community:help.fallback.bookingConfirmationA',
 			},
 			{
 				id: 'booking-modify',
-				question: 'Can I modify my traveler information after booking?',
-				answer:
-					'Contact the travel agent as soon as possible with the corrected traveler details. Changes depend on package availability, partner rules, and document deadlines.',
+				questionKey: 'community:help.fallback.bookingModifyQ',
+				answerKey: 'community:help.fallback.bookingModifyA',
 			},
 			{
 				id: 'booking-authenticity',
-				question: 'How do I verify the authenticity of a Travel Agency?',
-				answer:
-					'Open the agency profile to review its verification status, package history, traveler feedback, and contact details before confirming a trip.',
+				questionKey: 'community:help.fallback.bookingAuthenticityQ',
+				answerKey: 'community:help.fallback.bookingAuthenticityA',
 			},
 		],
 	},
 	{
 		key: 'payments',
-		label: 'Payments & Refunds',
+		labelKey: 'community:help.fallbackCategories.payments',
 		Icon: CreditCardRoundedIcon,
 		items: [
-			{
-				id: 'payment-methods',
-				question: 'Which payment methods are supported?',
-				answer: 'Supported payment options depend on the travel agent and package. Check the package details before booking.',
-			},
-			{
-				id: 'refund-status',
-				question: 'How can I check my refund status?',
-				answer: 'Review your booking messages or contact the travel agent handling the reservation for the latest refund update.',
-			},
-			{
-				id: 'invoice',
-				question: 'Can I receive an invoice for my booking?',
-				answer: 'Yes. Ask the travel agent or support contact for invoice details after your booking is confirmed.',
-			},
+			{ id: 'payment-methods', questionKey: 'community:help.fallback.paymentMethodsQ', answerKey: 'community:help.fallback.paymentMethodsA' },
+			{ id: 'refund-status', questionKey: 'community:help.fallback.refundStatusQ', answerKey: 'community:help.fallback.refundStatusA' },
+			{ id: 'invoice', questionKey: 'community:help.fallback.invoiceQ', answerKey: 'community:help.fallback.invoiceA' },
 		],
 	},
 	{
 		key: 'packages',
-		label: 'Tour Packages',
+		labelKey: 'community:help.fallbackCategories.packages',
 		Icon: TourRoundedIcon,
 		items: [
-			{
-				id: 'included',
-				question: 'What is included in a tour package?',
-				answer:
-					'Each package shows its own inclusions, such as flights, hotels, local guides, duration, traveler limits, and destination details.',
-			},
-			{
-				id: 'availability',
-				question: 'How do I know if a package is available?',
-				answer: 'Active packages are available to browse. Confirm final dates and capacity with the travel agent before payment.',
-			},
-			{
-				id: 'custom',
-				question: 'Can I request a custom itinerary?',
-				answer: 'Some travel agents can customize routes, dates, or activities. Contact the agent from the package or profile page.',
-			},
+			{ id: 'included', questionKey: 'community:help.fallback.includedQ', answerKey: 'community:help.fallback.includedA' },
+			{ id: 'availability', questionKey: 'community:help.fallback.availabilityQ', answerKey: 'community:help.fallback.availabilityA' },
+			{ id: 'custom', questionKey: 'community:help.fallback.customQ', answerKey: 'community:help.fallback.customA' },
 		],
 	},
 	{
 		key: 'agencies',
-		label: 'Travel Agencies',
+		labelKey: 'community:help.fallbackCategories.agencies',
 		Icon: GroupsRoundedIcon,
 		items: [
-			{
-				id: 'agency-contact',
-				question: 'How do I contact a travel agency?',
-				answer: 'Open the agent profile or package detail page to view available contact and profile information.',
-			},
-			{
-				id: 'agency-follow',
-				question: 'Can I follow a travel agency?',
-				answer: 'Yes. Logged-in users can follow travel agents from their profile page and return to them later.',
-			},
+			{ id: 'agency-contact', questionKey: 'community:help.fallback.agencyContactQ', answerKey: 'community:help.fallback.agencyContactA' },
+			{ id: 'agency-follow', questionKey: 'community:help.fallback.agencyFollowQ', answerKey: 'community:help.fallback.agencyFollowA' },
 		],
 	},
 	{
 		key: 'account',
-		label: 'Account',
+		labelKey: 'community:help.fallbackCategories.account',
 		Icon: PersonRoundedIcon,
 		items: [
-			{
-				id: 'account-update',
-				question: 'How do I update my profile?',
-				answer: 'Go to My Page, open My Profile, and update your personal details, image, and contact information.',
-			},
-			{
-				id: 'saved-trips',
-				question: 'Where are my saved trips?',
-				answer: 'Saved Trips are available from My Page. Tap the heart icon on packages to save or remove them.',
-			},
+			{ id: 'account-update', questionKey: 'community:help.fallback.accountUpdateQ', answerKey: 'community:help.fallback.accountUpdateA' },
+			{ id: 'saved-trips', questionKey: 'community:help.fallback.savedTripsQ', answerKey: 'community:help.fallback.savedTripsA' },
 		],
 	},
 	{
 		key: 'policies',
-		label: 'Travel Policies',
+		labelKey: 'community:help.fallbackCategories.policies',
 		Icon: PolicyRoundedIcon,
 		items: [
-			{
-				id: 'cancellation',
-				question: 'What is the cancellation policy?',
-				answer:
-					'Cancellation rules vary by travel agent and package. Review the package details and confirm with the agent before booking.',
-			},
-			{
-				id: 'documents',
-				question: 'Which travel documents do I need?',
-				answer:
-					'Document needs depend on destination and traveler nationality. Always check passport, visa, insurance, and voucher requirements early.',
-			},
+			{ id: 'cancellation', questionKey: 'community:help.fallback.cancellationQ', answerKey: 'community:help.fallback.cancellationA' },
+			{ id: 'documents', questionKey: 'community:help.fallback.documentsQ', answerKey: 'community:help.fallback.documentsA' },
 		],
 	},
 	{
 		key: 'community',
-		label: 'Community',
+		labelKey: 'community:help.fallbackCategories.community',
 		Icon: ForumRoundedIcon,
 		items: [
-			{
-				id: 'write-article',
-				question: 'Can I share travel stories on TourX?',
-				answer: 'Yes. Use Write Article from My Page to share travel stories, tips and guides, news, or humor posts.',
-			},
-			{
-				id: 'community-rules',
-				question: 'What content is allowed in community posts?',
-				answer: 'Keep posts travel-relevant, respectful, accurate, and safe for the TourX community.',
-			},
+			{ id: 'write-article', questionKey: 'community:help.fallback.writeArticleQ', answerKey: 'community:help.fallback.writeArticleA' },
+			{ id: 'community-rules', questionKey: 'community:help.fallback.communityRulesQ', answerKey: 'community:help.fallback.communityRulesA' },
 		],
 	},
 	{
 		key: 'general',
-		label: 'General Questions',
+		labelKey: 'community:help.fallbackCategories.general',
 		Icon: HelpOutlineRoundedIcon,
 		items: [
-			{
-				id: 'support',
-				question: 'How do I get more help?',
-				answer:
-					'Use the help page topics first, then contact the relevant travel agent or TourX support channel for booking-specific questions.',
-			},
-			{
-				id: 'tourx',
-				question: 'What is TourX?',
-				answer:
-					'TourX is a travel marketplace for discovering tour packages, travel agents, saved trips, and traveler community content.',
-			},
+			{ id: 'support', questionKey: 'community:help.fallback.supportQ', answerKey: 'community:help.fallback.supportA' },
+			{ id: 'tourx', questionKey: 'community:help.fallback.tourxQ', answerKey: 'community:help.fallback.tourxA' },
 		],
 	},
 ];
@@ -244,6 +172,7 @@ const faqInquiry: FaqInquiry = {
 
 const Faq = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['community']);
 	const [category, setCategory] = useState<string>('booking');
 	const [expanded, setExpanded] = useState<string | false>('booking-package');
 	const [backendCategories, setBackendCategories] = useState<FaqCategory[]>([]);
@@ -275,11 +204,22 @@ const Faq = () => {
 		const activeCategories = backendCategories.filter((item) => item.faqCategoryStatus === FaqStatus.ACTIVE);
 		const activeFaqs = backendFaqs.filter((item) => item.faqStatus === FaqStatus.ACTIVE);
 
-		if (activeCategories.length === 0 || activeFaqs.length === 0) return fallbackFaqCategories;
+		const localizedFallbackCategories = fallbackFaqCategories.map((category) => ({
+			...category,
+			label: t(category.labelKey),
+			items: category.items.map((item) => ({
+				id: item.id,
+				question: t(item.questionKey),
+				answer: t(item.answerKey),
+			})),
+		}));
+
+		if (activeCategories.length === 0 || activeFaqs.length === 0) return localizedFallbackCategories;
 
 		return activeCategories.map((category) => {
 			const Icon = iconMap[category.faqCategoryKey] ?? HelpOutlineRoundedIcon;
-			const items = activeFaqs
+			const fallbackCategory = localizedFallbackCategories.find((item) => item.key === category.faqCategoryKey);
+			const backendItems = activeFaqs
 				.filter((faq) => faq.faqCategoryId === category._id)
 				.map((faq) => ({
 					id: faq._id,
@@ -289,12 +229,12 @@ const Faq = () => {
 
 			return {
 				key: category.faqCategoryKey || category._id,
-				label: category.faqCategoryTitle,
+				label: fallbackCategory?.label ?? category.faqCategoryTitle,
 				Icon,
-				items,
+				items: fallbackCategory?.items ?? backendItems,
 			};
 		});
-	}, [backendCategories, backendFaqs]);
+	}, [backendCategories, backendFaqs, t]);
 
 	const activeCategory = faqCategories.find((item) => item.key === category) ?? faqCategories[0];
 
@@ -326,7 +266,7 @@ const Faq = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>FAQ MOBILE</div>;
+		return <div>{t('community:help.mobile')}</div>;
 	}
 
 	return (
@@ -347,7 +287,7 @@ const Faq = () => {
 			<Box component={'div'} className={'faq-accordion-panel'}>
 				{activeCategory?.items.length === 0 && (
 					<Box component={'div'} className={'faq-empty-state'}>
-						<Typography>No questions in this category yet.</Typography>
+						<Typography>{t('community:help.noQuestions')}</Typography>
 					</Box>
 				)}
 

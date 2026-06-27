@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import Link from 'next/link';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, Typography } from '@mui/material';
 import Collapse from '@mui/material/Collapse';
-import Typography from '@mui/material/Typography';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
@@ -13,10 +12,12 @@ import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import cookies from 'js-cookie';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
+import { useTranslation } from 'next-i18next';
 
 const AdminMenuList = (props: any) => {
 	const router = useRouter();
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['admin']);
 	const [mobileLayout, setMobileLayout] = useState(false);
 	const [openSubMenu, setOpenSubMenu] = useState('Users');
 	const [openMenu, setOpenMenu] = useState(typeof window === 'object' ? cookies.get('admin_menu') === 'true' : false);
@@ -133,6 +134,21 @@ const AdminMenuList = (props: any) => {
 		],
 	};
 
+	const menuLabel = (title: string) =>
+		({
+			Users: t('admin:menu.users'),
+			Packages: t('admin:menu.packages'),
+			Community: t('admin:menu.community'),
+			Cs: t('admin:menu.cs'),
+			Comments: t('admin:menu.comments'),
+			'User List': t('admin:menu.userList'),
+			'Package List': t('admin:menu.packageList'),
+			'Article List': t('admin:menu.articleList'),
+			'Comment List': t('admin:menu.commentList'),
+			Notice: t('admin:menu.notice'),
+			FAQ: t('admin:menu.faq'),
+		}[title] || title);
+
 	return (
 		<>
 			{menu_set.map((item, index) => (
@@ -141,6 +157,8 @@ const AdminMenuList = (props: any) => {
 						onClick={item.on_click}
 						component={'li'}
 						className={clickMenu[0] === item.title ? 'menu on' : 'menu'}
+						aria-label={menuLabel(item.title)}
+						title={menuLabel(item.title)}
 						sx={{
 							minHeight: 48,
 							justifyContent: openMenu ? 'initial' : 'center',
@@ -150,13 +168,15 @@ const AdminMenuList = (props: any) => {
 						<ListItemIcon
 							sx={{
 								minWidth: 0,
-								mr: openMenu ? 3 : 'auto',
+								mr: 2,
 								justifyContent: 'center',
 							}}
 						>
 							{item.icon}
 						</ListItemIcon>
-						<ListItemText>{item.title}</ListItemText>
+						<Typography variant={'body2'} component={'span'} sx={{ flex: 1, fontWeight: 'inherit', fontSize: 'inherit', fontFamily: 'inherit' }}>
+							{menuLabel(item.title)}
+						</Typography>
 						{clickMenu.find((menu: string) => item.title === menu) ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse
@@ -173,9 +193,11 @@ const AdminMenuList = (props: any) => {
 										<ListItemButton
 											component="li"
 											className={clickMenu[0] === item.title && clickSubMenu === sub.title ? 'li on' : 'li'}
+											aria-label={menuLabel(sub.title)}
+											title={menuLabel(sub.title)}
 										>
 											<Typography variant={sub.title} component={'span'}>
-												{sub.title}
+												{menuLabel(sub.title)}
 											</Typography>
 										</ListItemButton>
 									</Link>

@@ -40,6 +40,8 @@ import {
 	UPDATE_FAQ_BY_ADMIN,
 } from '../../../apollo/admin/mutation';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
+import { useTranslation } from 'next-i18next';
+import { ADMIN_NAMESPACES, getI18nProps } from '../../../libs/i18n';
 
 interface FaqFormState {
 	faqCategoryId: string;
@@ -65,6 +67,7 @@ const defaultFaqCategories: CreateFaqCategoryInput[] = [
 ];
 
 const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: any) => {
+	const { t } = useTranslation(['common', 'admin']);
 	const [faqInquiry, setFaqInquiry] = useState<FaqInquiry>(initialInquiry);
 	const [activeCategoryInquiry] = useState<FaqInquiry>(categoryInquiry);
 	const [faqs, setFaqs] = useState<Faq[]>([]);
@@ -203,15 +206,15 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 
 	const validateCreateForm = async () => {
 		if (!createForm.faqCategoryId) {
-			await sweetMixinErrorAlert('Please select an FAQ category.');
+			await sweetMixinErrorAlert(t('admin:faqs.categoryRequired'));
 			return false;
 		}
 		if (!createForm.faqQuestion.trim()) {
-			await sweetMixinErrorAlert('Please enter an FAQ question.');
+			await sweetMixinErrorAlert(t('admin:faqs.questionRequired'));
 			return false;
 		}
 		if (!createForm.faqAnswer.trim()) {
-			await sweetMixinErrorAlert('Please enter an FAQ answer.');
+			await sweetMixinErrorAlert(t('admin:faqs.answerRequired'));
 			return false;
 		}
 		return true;
@@ -240,7 +243,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 
 			setFaqCategories(categories);
 			setCreateForm((prev) => ({ ...prev, faqCategoryId: getValidCategoryId(categories, prev.faqCategoryId) }));
-			await sweetTopSmallSuccessAlert('FAQ categories created!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:faqs.categoriesCreated'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		} finally {
@@ -264,7 +267,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 			await createFaqByAdmin({ variables: { input } });
 			await getAllFaqCategoriesByAdminRefetch({ input: activeCategoryInquiry });
 			await getAllFaqsByAdminRefetch({ input: faqInquiry });
-			await sweetTopSmallSuccessAlert('FAQ created!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.faqCreated'), 900);
 			setOpenCreateModal(false);
 			setCreateForm(initialFaqForm);
 		} catch (err: any) {
@@ -278,7 +281,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		try {
 			await updateFaqByAdmin({ variables: { input } });
 			await getAllFaqsByAdminRefetch({ input: faqInquiry });
-			await sweetTopSmallSuccessAlert('FAQ status updated!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.faqStatus'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -288,7 +291,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		try {
 			await deleteFaqByAdmin({ variables: { input: faqId } });
 			await getAllFaqsByAdminRefetch({ input: faqInquiry });
-			await sweetTopSmallSuccessAlert('FAQ deleted!', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.faqDeleted'), 900);
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -303,11 +306,11 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 					<span className={'title-icon'}>
 						<HelpOutlineRoundedIcon />
 					</span>
-					<Typography variant={'h2'}>FAQ</Typography>
+					<Typography variant={'h2'}>{t('admin:pages.faq')}</Typography>
 				</Box>
 				<Button className="btn_add" variant={'contained'} size={'medium'} type={'button'} onClick={openCreateModalHandler}>
 					<AddRoundedIcon sx={{ mr: '8px' }} />
-					Add FAQ
+					{t('admin:actions.addFaq')}
 				</Button>
 			</Box>
 			<Box component={'div'} className={'table-wrap'}>
@@ -320,28 +323,28 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									value="ALL"
 									className={value === 'ALL' ? 'li on' : 'li'}
 								>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, FaqStatus.ACTIVE)}
 									value={FaqStatus.ACTIVE}
 									className={value === FaqStatus.ACTIVE ? 'li on' : 'li'}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, FaqStatus.HOLD)}
 									value={FaqStatus.HOLD}
 									className={value === FaqStatus.HOLD ? 'li on' : 'li'}
 								>
-									Hold
+									{t('admin:tabs.hold')}
 								</ListItem>
 								<ListItem
 									onClick={(e) => tabChangeHandler(e, FaqStatus.DELETE)}
 									value={FaqStatus.DELETE}
 									className={value === FaqStatus.DELETE ? 'li on' : 'li'}
 								>
-									Delete
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
@@ -354,7 +357,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									}}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search FAQ question or answer"
+									placeholder={t('admin:search.faq')}
 									endAdornment={
 										<>
 											{searchInput && <CancelRoundedIcon style={{ cursor: 'pointer' }} onClick={clearSearchTextHandler} />}
@@ -370,7 +373,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									onChange={(e: any) => categoryFilterHandler(e.target.value)}
 								>
 									<MenuItem value={'ALL'}>
-										All Categories
+										{t('admin:labels.allCategories')}
 									</MenuItem>
 									{faqCategories.map((category: FaqCategory) => (
 										<MenuItem value={category._id} key={category._id}>
@@ -410,14 +413,14 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 				fullWidth
 				scroll={'body'}
 			>
-				<DialogTitle>Add FAQ</DialogTitle>
+				<DialogTitle>{t('admin:actions.addFaq')}</DialogTitle>
 				<DialogContent>
 					<Stack className={'faq-modal-form'}>
 						<FormControl fullWidth disabled={faqCategoriesLoading || faqCategories.length === 0}>
-							<InputLabel id="faq-category-label">FAQ Category</InputLabel>
+							<InputLabel id="faq-category-label">{t('admin:labels.faqCategory')}</InputLabel>
 							<Select
 								labelId="faq-category-label"
-								label="FAQ Category"
+								label={t('admin:labels.faqCategory')}
 								value={selectedModalCategoryId}
 								onChange={(e: any) => createFormChangeHandler('faqCategoryId', String(e.target.value))}
 							>
@@ -430,7 +433,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						</FormControl>
 						{!faqCategoriesLoading && faqCategories.length === 0 && (
 							<Stack className={'faq-empty-category-box'}>
-								<Typography className={'empty-helper'}>No active FAQ categories available.</Typography>
+								<Typography className={'empty-helper'}>{t('admin:faqs.noActiveCategories')}</Typography>
 								<Button
 									className={'btn_seed_categories'}
 									type={'button'}
@@ -439,12 +442,12 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 									disabled={isCreatingCategories}
 								>
 									<AutoFixHighRoundedIcon />
-									{isCreatingCategories ? 'Creating...' : 'Create Default Categories'}
+									{isCreatingCategories ? t('admin:actions.syncing') : t('admin:actions.createFaqCategories')}
 								</Button>
 							</Stack>
 						)}
 						<TextField
-							label="Question"
+							label={t('admin:table.question')}
 							value={createForm.faqQuestion}
 							onChange={(e: any) => createFormChangeHandler('faqQuestion', e.target.value)}
 							inputProps={{ maxLength: 300 }}
@@ -454,7 +457,7 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 						/>
 						<TextField
 							className={'faq-answer-field'}
-							label="Answer"
+							label={t('admin:table.answer')}
 							value={createForm.faqAnswer}
 							onChange={(e: any) => createFormChangeHandler('faqAnswer', e.target.value)}
 							inputProps={{ maxLength: 2000 }}
@@ -466,10 +469,10 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 				</DialogContent>
 				<DialogActions>
 					<Button className={'btn_cancel'} onClick={closeCreateModalHandler} disabled={isSubmitting || isCreatingCategories}>
-						Cancel
+						{t('admin:actions.cancel')}
 					</Button>
 					<Button className={'btn_submit'} variant={'contained'} onClick={createFaqHandler} disabled={isCreateFaqDisabled()}>
-						{isSubmitting ? 'Saving...' : 'Create FAQ'}
+						{isSubmitting ? t('admin:actions.saving') : t('admin:actions.createFaq')}
 					</Button>
 				</DialogActions>
 			</Dialog>
@@ -497,3 +500,9 @@ FaqArticles.defaultProps = {
 };
 
 export default withAdminLayout(FaqArticles);
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});

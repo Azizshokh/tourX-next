@@ -5,6 +5,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import HeadsetMicRoundedIcon from '@mui/icons-material/HeadsetMicRounded';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { RippleBadge } from '../../scss/MaterialTheme/styled';
 import { useReactiveVar } from '@apollo/client';
 import { socketVar, userVar } from '../../apollo/store';
@@ -26,6 +27,7 @@ interface InfoPayload {
 }
 
 const Chat = () => {
+	const { t } = useTranslation(['common']);
 	const chatContentRef = useRef<HTMLDivElement>(null);
 	const bottomRef = useRef<HTMLDivElement>(null);
 	const [messagesList, setMessagesList] = useState<MessagePayload[]>([]);
@@ -101,7 +103,7 @@ const Chat = () => {
 		<Stack className={'chatting'}>
 			{/* Floating toggle button */}
 			{openButton && (
-				<button className={'chat-button'} onClick={handleOpenChat} aria-label={'Toggle chat'}>
+				<button className={'chat-button'} onClick={handleOpenChat} aria-label={t('common:chat.toggleChat')}>
 					{open ? <CloseRoundedIcon /> : <ChatRoundedIcon />}
 					{!open && onlineUsers > 0 && (
 						<span className={'chat-badge'}>{onlineUsers}</span>
@@ -119,14 +121,14 @@ const Chat = () => {
 							<span className={'chat-online-dot'} />
 						</Box>
 						<Box>
-							<div className={'chat-agent-name'}>TourX Support</div>
+							<div className={'chat-agent-name'}>{t('common:chat.support')}</div>
 							<div className={'chat-agent-status'}>
 								<RippleBadge badgeContent={onlineUsers} style={{ marginRight: 6 }} />
-								<span style={{ paddingLeft: '7px' }}>online</span>
+								<span style={{ paddingLeft: '7px' }}>{t('common:chat.online')}</span>
 							</div>
 						</Box>
 					</Box>
-					<button className={'chat-close-btn'} onClick={handleOpenChat} aria-label={'Close'}>
+					<button className={'chat-close-btn'} onClick={handleOpenChat} aria-label={t('common:actions.close')}>
 						<CloseRoundedIcon />
 					</button>
 				</Box>
@@ -137,7 +139,7 @@ const Chat = () => {
 						{/* Welcome */}
 						<Box className={'chat-welcome-row'} component={'div'}>
 							<div className={'welcome-msg'}>
-								👋 Welcome to TourX Live Chat! How can we help you today?
+								{t('common:chat.welcome')}
 							</div>
 						</Box>
 
@@ -183,7 +185,7 @@ const Chat = () => {
 						type={'text'}
 						name={'message'}
 						className={'msg-input'}
-						placeholder={'Type a message…'}
+						placeholder={t('common:chat.placeholder')}
 						value={messageInput}
 						onChange={getInputMessageHandler}
 						onKeyDown={getKeyHandler}

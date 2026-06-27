@@ -31,7 +31,7 @@ interface HeaderFilterProps {
 const HeaderFilter = (props: HeaderFilterProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const { t } = useTranslation('common');
+	const { t } = useTranslation(['common', 'home']);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(initialInput);
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
 	const [openCountry, setOpenCountry] = useState(false);
@@ -110,25 +110,25 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				<Stack className={'select-box'}>
 					<div className={`box ${openCountry ? 'on' : ''}`} onClick={toggleCountry}>
 						<div className={'field-copy'}>
-							<small>Destination</small>
+							<small>{t('home:filters.destination')}</small>
 							<span>{searchFilter?.search?.countryList?.[0] ?? t('Location')}</span>
 						</div>
 						<ExpandMoreIcon />
 					</div>
 					<div className={`box ${openType ? 'on' : ''}`} onClick={toggleType}>
 						<div className={'field-copy'}>
-							<small>Experience</small>
-							<span>{searchFilter?.search?.typeList?.[0] ?? 'Package type'}</span>
+							<small>{t('home:filters.experience')}</small>
+							<span>{searchFilter?.search?.typeList?.[0] ?? t('home:filters.packageType')}</span>
 						</div>
 						<ExpandMoreIcon />
 					</div>
 					<div className={`box ${openDuration ? 'on' : ''}`} onClick={toggleDuration}>
 						<div className={'field-copy'}>
-							<small>Trip length</small>
+							<small>{t('home:filters.tripLength')}</small>
 							<span>
 								{searchFilter?.search?.durationRange
 									? `${searchFilter.search.durationRange.start}-${searchFilter.search.durationRange.end} days`
-									: 'Duration'}
+									: t('home:filters.duration')}
 							</span>
 						</div>
 						<ExpandMoreIcon />
@@ -141,7 +141,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</div>
 					<div className={'search-btn'} onClick={pushSearchHandler}>
 						<img src="/img/icons/search_white.svg" alt="" />
-						<span>Search</span>
+						<span>{t('actions.search')}</span>
 					</div>
 				</Stack>
 
@@ -185,7 +185,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							}}
 							key={days}
 						>
-							Up to {days} days
+							{t('home:filters.upToDays', { count: days })}
 						</span>
 					))}
 				</div>
@@ -198,13 +198,13 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<CloseIcon />
 						</div>
 						<div className={'top'}>
-							<span>Find your tour</span>
+							<span>{t('home:filters.findTour')}</span>
 							<div className={'search-input-box'}>
 								<img src="/img/icons/search.svg" alt="" />
 								<input
 									value={searchFilter?.search?.text ?? ''}
 									type="text"
-									placeholder={'What are you looking for?'}
+									placeholder={t('home:filters.searchPlaceholder')}
 									onChange={(e: any) =>
 										setSearchFilter({ ...searchFilter, search: { ...searchFilter.search, text: e.target.value } })
 									}
@@ -215,7 +215,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						<div className={'middle'}>
 							<div className={'row-box'}>
 								<div className={'box'}>
-									<span>Inclusions</span>
+									<span>{t('labels.inclusions')}</span>
 									<div className={'inside'}>
 										<FormControl>
 											<Select
@@ -232,16 +232,16 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 													}
 												}}
 											>
-												<MenuItem value={'all'}>All Options</MenuItem>
-												<MenuItem value={'flightIncluded'}>Flight</MenuItem>
-												<MenuItem value={'hotelIncluded'}>Hotel</MenuItem>
-												<MenuItem value={'guideIncluded'}>Guide</MenuItem>
+												<MenuItem value={'all'}>{t('home:filters.allOptions')}</MenuItem>
+												<MenuItem value={'flightIncluded'}>{t('labels.flight')}</MenuItem>
+												<MenuItem value={'hotelIncluded'}>{t('labels.hotel')}</MenuItem>
+												<MenuItem value={'guideIncluded'}>{t('labels.guide')}</MenuItem>
 											</Select>
 										</FormControl>
 									</div>
 								</div>
 								<div className={'box'}>
-									<span>Duration</span>
+									<span>{t('home:filters.duration')}</span>
 									<div className={'inside space-between align-center'}>
 										<FormControl sx={{ width: '122px' }}>
 											<Select
@@ -298,14 +298,14 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						<div className={'bottom'}>
 							<div onClick={resetFilterHandler}>
 								<img src="/img/icons/reset.svg" alt="" />
-								<span>Reset all filters</span>
+								<span>{t('home:filters.resetAll')}</span>
 							</div>
 							<Button
 								startIcon={<img src={'/img/icons/search.svg'} />}
 								className={'search-btn'}
 								onClick={pushSearchHandler}
 							>
-								Search
+								{t('actions.search')}
 							</Button>
 						</div>
 					</div>

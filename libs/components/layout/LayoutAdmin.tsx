@@ -24,12 +24,14 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { REACT_APP_API_URL } from '../../config';
 import { MemberType } from '../../enums/member.enum';
+import { useTranslation } from 'next-i18next';
 const drawerWidth = 280;
 
 const withAdminLayout = (Component: ComponentType) => {
 	return (props: object) => {
 		const router = useRouter();
 		const user = useReactiveVar(userVar);
+		const { t } = useTranslation(['common', 'admin']);
 		const [settingsState, setSettingsStateState] = useState(false);
 		const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 		const [openMenu, setOpenMenu] = useState(false);
@@ -96,12 +98,12 @@ const withAdminLayout = (Component: ComponentType) => {
 							<Box component={'div'} className={'admin-topbar-title'}>
 								<AdminPanelSettingsRoundedIcon />
 								<Box component={'div'}>
-									<Typography component={'strong'}>TourX Admin Console</Typography>
-									<Typography component={'span'}>Manage travelers, packages, stories, and support.</Typography>
+									<Typography component={'strong'}>{t('admin:console')}</Typography>
+									<Typography component={'span'}>{t('admin:consoleDesc')}</Typography>
 								</Box>
-								<Chip label={'Admin'} size={'small'} className={'admin-role-chip'} />
+								<Chip label={t('admin:role')} size={'small'} className={'admin-role-chip'} />
 							</Box>
-							<Tooltip title="Open settings">
+							<Tooltip title={t('admin:settings')}>
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<Avatar
 										src={
@@ -146,7 +148,7 @@ const withAdminLayout = (Component: ComponentType) => {
 									<Box component={'div'} sx={{ p: 1, py: '6px' }} onClick={logoutHandler}>
 										<MenuItem sx={{ px: '16px', py: '6px' }}>
 											<Typography variant={'subtitle1'} component={'span'}>
-												Logout
+												{t('common:actions.logout')}
 											</Typography>
 										</MenuItem>
 									</Box>

@@ -1,0 +1,19 @@
+{
+  "notAuthenticated": "Please log in to continue.",
+  "invalidPackageId": "Invalid package id",
+  "commentVideoUnavailable": "Video uploads are not available for comments yet.",
+  "packageTitle": "Please enter a package title.",
+  "packagePrice": "Please enter a valid package price.",
+  "packageType": "Please select a package type.",
+  "packageCountry": "Please enter a destination country.",
+  "packageCity": "Please enter a destination city.",
+  "packageAddress": "Please enter a meeting point or package address.",
+  "packageDuration": "Please select a valid package duration.",
+  "minPeople": "Minimum people must be at least 1.",
+  "maxPeople": "Maximum people must be greater than or equal to minimum people.",
+  "startDate": "Please select a package start date.",
+  "endDate": "Please select a package end date.",
+  "endDateOrder": "End date must be the same as or later than the start date.",
+  "packageImage": "Please upload at least one package image.",
+  "packageImageLimit": "You can upload up to {{count}} package images."
+}

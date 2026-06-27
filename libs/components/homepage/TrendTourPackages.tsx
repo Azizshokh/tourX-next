@@ -23,6 +23,7 @@ import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 import { REACT_APP_API_URL } from '../../config';
+import { useTranslation } from 'next-i18next';
 
 interface TrendTourPackagesProps {
 	initialInput: TourPackagesInquiry;
@@ -31,6 +32,7 @@ interface TrendTourPackagesProps {
 const TrendTourPackages = (props: TrendTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['home']);
 	const [trendTourPackages, setTrendTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -79,14 +81,14 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Trending Packages</span>
-							<p>Hand-picked experiences that everyone is talking about.</p>
+							<span>{t('home:sections.trending')}</span>
+							<p>{t('home:sections.trendingDesc')}</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						{trendTourPackages.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
-								Trends Empty
+								{t('home:empty.trends')}
 							</Box>
 						) : (
 							<Stack className={'trend-feature-grid'}>
@@ -145,14 +147,14 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Trending Packages</span>
-							<p>Hand-picked experiences that everyone is talking about.</p>
+							<span>{t('home:sections.trending')}</span>
+							<p>{t('home:sections.trendingDesc')}</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						{featuredPackages.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
-								Trends Empty
+								{t('home:empty.trends')}
 							</Box>
 						) : (
 							<div className={'topbento-grid'}>
@@ -162,15 +164,15 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 										<span className={'topbento-overlay'} />
 										<div className={'topbento-content'}>
 											<div className={'verified'}>
-												<LocalFireDepartmentIcon /> {featured.packageType || 'Trending Now'}
+												<LocalFireDepartmentIcon /> {featured.packageType || t('home:labels.trendingNow')}
 											</div>
 											<h3>{featured.packageTitle}</h3>
 											<p>
 												{featured.packageDesc ||
 													featured.packageAddress ||
-													'Hand-picked travel experience loved by the TourX community.'}
+													t('home:sections.trendingDesc')}
 											</p>
-											<span className={'book-btn'}>Explore Now</span>
+											<span className={'book-btn'}>{t('home:labels.exploreNow')}</span>
 										</div>
 									</Link>
 								)}
@@ -182,7 +184,7 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 											<div className={'topbento-content'}>
 												<h4>{p.packageTitle}</h4>
 												<span className={'rank'}>
-													<StarIcon /> {ratingOf(p)} Rating
+													<StarIcon /> {ratingOf(p)} {t('home:labels.rating')}
 												</span>
 											</div>
 										</Link>

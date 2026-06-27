@@ -31,6 +31,7 @@ import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 import { userVar } from '../../../apollo/store';
+import { useTranslation } from 'next-i18next';
 
 interface TopTourPackagesProps {
 	initialInput: TourPackagesInquiry;
@@ -40,6 +41,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
+	const { t } = useTranslation(['home', 'package']);
 	const [topTourPackages, setTopTourPackages] = useState<TourPackage[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -82,7 +84,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 			<Stack className={'top-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top packages</span>
+						<span>{t('home:sections.topRanked')}</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -111,8 +113,8 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 	const ratingOf = (p?: TourPackage) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
 	const formatCount = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`);
 	const inclusionLabel = (p: TourPackage) =>
-		p.flightIncluded ? 'Flight Inc.' : p.hotelIncluded ? 'Hotel Inc.' : 'Guide Inc.';
-	const styleLabel = (p: TourPackage) => (p.guideIncluded ? '5-Star' : 'Boutique');
+		p.flightIncluded ? t('package:card.flightInc') : p.hotelIncluded ? t('package:card.hotelInc') : t('package:card.guideInc');
+	const styleLabel = (p: TourPackage) => (p.guideIncluded ? t('package:detail.fiveStar') : t('package:card.boutique'));
 
 	return (
 		<Stack className={'top-tour-packages'}>
@@ -136,14 +138,14 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 			<Stack className={'container'}>
 				<Stack className={'info-box'}>
 					<Box component={'div'} className={'left'}>
-						<span>Top Ranked Packages</span>
-						<p>Exceptional ratings and verified satisfaction from our community.</p>
+						<span>{t('home:sections.topRanked')}</span>
+						<p>{t('home:sections.topRankedDesc')}</p>
 					</Box>
 					<Box component={'div'} className={'right'}>
-						<button type={'button'} className={'nav-arrow top-prev'} aria-label={'Previous'}>
+						<button type={'button'} className={'nav-arrow top-prev'} aria-label={t('home:labels.previous')}>
 							<ArrowBackIcon />
 						</button>
-						<button type={'button'} className={'nav-arrow top-next'} aria-label={'Next'}>
+						<button type={'button'} className={'nav-arrow top-next'} aria-label={t('home:labels.next')}>
 							<ArrowForwardIcon />
 						</button>
 					</Box>
@@ -151,7 +153,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 				<Stack className={'card-box'}>
 					{(topTourPackages || []).length === 0 ? (
 						<Box component={'div'} className={'empty-list'}>
-							Top Empty
+							{t('home:empty.top')}
 						</Box>
 					) : (
 						<Swiper
@@ -173,7 +175,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 														e.stopPropagation();
 														likeTourPackageHandler(user, p._id);
 													}}
-													aria-label={'favorite'}
+													aria-label={t('home:labels.favorite')}
 												>
 													{liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
 												</IconButton>
@@ -183,7 +185,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 												<Link href={`/tour-package/detail?id=${p._id}`} className={'card-link'}>
 													<div className={'top-line'}>
 														<span className={'place'}>
-															{(p.packageAddress || p.packageCountry || 'Featured destination').toUpperCase()}
+															{(p.packageAddress || p.packageCountry || t('package:card.featuredDestination')).toUpperCase()}
 														</span>
 														<span className={'rating'}>
 															<StarIcon /> {ratingOf(p)}
@@ -199,7 +201,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 														<GradeOutlinedIcon /> {styleLabel(p)}
 													</span>
 													<span>
-														<AccessTimeIcon /> {p.durationDays || 7} Days
+														<AccessTimeIcon /> {t('package:card.durationDays', { count: p.durationDays || 7 })}
 													</span>
 												</div>
 												<div className={'foot-row'}>
@@ -210,7 +212,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 														<RemoveRedEyeOutlinedIcon /> {formatCount(p.packageViews || 0)}
 													</span>
 													<span className={'foot-stat travellers'}>
-														<PeopleAltOutlinedIcon /> {p.maxPeople || 2} Travelers
+														<PeopleAltOutlinedIcon /> {p.maxPeople || 2} {t('package:detail.travelers')}
 													</span>
 												</div>
 											</div>

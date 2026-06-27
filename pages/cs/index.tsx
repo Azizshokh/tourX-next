@@ -26,7 +26,8 @@ import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Faq from '../../libs/components/cs/Faq';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getI18nProps, CS_NAMESPACES } from '../../libs/i18n';
+import { useTranslation } from 'next-i18next';
 import { GET_NOTICE_CATEGORIES, GET_NOTICES } from '../../apollo/user/query';
 import { Direction } from '../../libs/enums/common.enum';
 import { NoticeStatus } from '../../libs/enums/notice.enum';
@@ -37,50 +38,50 @@ import { T } from '../../libs/types/common';
 const popularTopics = [
 	{
 		key: 'booking-help',
-		title: 'Booking Help',
-		description: 'Modify, cancel, or confirm your travel bookings.',
+		titleKey: 'community:help.topics.bookingHelp',
+		descriptionKey: 'community:help.topics.bookingHelpDesc',
 		Icon: ConfirmationNumberRoundedIcon,
 	},
 	{
 		key: 'payments-refunds',
-		title: 'Payments & Refunds',
-		description: 'Payment methods, invoices and refund status.',
+		titleKey: 'community:help.topics.paymentsRefunds',
+		descriptionKey: 'community:help.topics.paymentsRefundsDesc',
 		Icon: PaymentsRoundedIcon,
 	},
 	{
 		key: 'tour-packages',
-		title: 'Tour Packages',
-		description: 'Details on itineraries and included activities.',
+		titleKey: 'community:help.topics.tourPackages',
+		descriptionKey: 'community:help.topics.tourPackagesDesc',
 		Icon: TravelExploreRoundedIcon,
 	},
 	{
 		key: 'travel-agencies',
-		title: 'Travel Agencies',
-		description: 'Connect with certified local travel partners.',
+		titleKey: 'community:help.topics.travelAgencies',
+		descriptionKey: 'community:help.topics.travelAgenciesDesc',
 		Icon: SupportAgentRoundedIcon,
 	},
 	{
 		key: 'account-profile',
-		title: 'Account & Profile',
-		description: 'Update security, settings, and travel history.',
+		titleKey: 'community:help.topics.accountProfile',
+		descriptionKey: 'community:help.topics.accountProfileDesc',
 		Icon: AccountCircleRoundedIcon,
 	},
 	{
 		key: 'travel-documents',
-		title: 'Travel Documents',
-		description: 'Vouchers, insurance, and confirmation slips.',
+		titleKey: 'community:help.topics.travelDocuments',
+		descriptionKey: 'community:help.topics.travelDocumentsDesc',
 		Icon: ArticleRoundedIcon,
 	},
 	{
 		key: 'visa-information',
-		title: 'Visa Information',
-		description: 'Global entry requirements and visa assistance.',
+		titleKey: 'community:help.topics.visaInformation',
+		descriptionKey: 'community:help.topics.visaInformationDesc',
 		Icon: MoreHorizRoundedIcon,
 	},
 	{
 		key: 'travel-safety',
-		title: 'Travel Safety',
-		description: 'Security protocols and emergency guidelines.',
+		titleKey: 'community:help.topics.travelSafety',
+		descriptionKey: 'community:help.topics.travelSafetyDesc',
 		Icon: SecurityRoundedIcon,
 	},
 ];
@@ -103,12 +104,13 @@ const noticeInquiry: NoticeInquiry = {
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
-		...(await serverSideTranslations(locale, ['common'])),
+		...(await getI18nProps(locale, CS_NAMESPACES)),
 	},
 });
 
 const CS: NextPage = () => {
 	const device = useDeviceDetect();
+	const { t } = useTranslation(['common', 'community']);
 	const [noticeCategories, setNoticeCategories] = useState<NoticeCategory[]>([]);
 	const [notices, setNotices] = useState<Notice[]>([]);
 
@@ -153,7 +155,7 @@ const CS: NextPage = () => {
 	}, [noticeCategories, notices]);
 
 	if (device === 'mobile') {
-		return <h1>CS PAGE MOBILE</h1>;
+		return <h1>{t('common:mobile.help')}</h1>;
 	}
 
 	return (
@@ -207,23 +209,23 @@ const CS: NextPage = () => {
 			</Box>
 			<Stack className={'container'}>
 				<Stack className={'help-topics-section'}>
-					<Typography className={'section-eyebrow'}>Popular Topics</Typography>
+					<Typography className={'section-eyebrow'}>{t('community:help.popularTopics')}</Typography>
 					<Box component={'div'} className={'topic-grid'}>
-						{popularTopics.map(({ key, title, description, Icon }) => (
-							<Box component={'article'} className={'topic-card'} key={title}>
+						{popularTopics.map(({ key, titleKey, descriptionKey, Icon }) => (
+							<Box component={'article'} className={'topic-card'} key={key}>
 								<Box component={'div'} className={'topic-icon'}>
 									<Icon />
 								</Box>
-								<Typography className={'topic-title'}>{title}</Typography>
-								<Typography className={'topic-desc'}>{noticeDescriptionsByCategoryKey[key] ?? description}</Typography>
+								<Typography className={'topic-title'}>{t(titleKey)}</Typography>
+								<Typography className={'topic-desc'}>{noticeDescriptionsByCategoryKey[key] ?? t(descriptionKey)}</Typography>
 							</Box>
 						))}
 					</Box>
 				</Stack>
 
 				<Stack className={'faq-heading'}>
-					<Typography className={'faq-title'}>Frequently Asked Questions</Typography>
-					<Typography className={'faq-subtitle'}>Find quick answers to common traveler inquiries</Typography>
+					<Typography className={'faq-title'}>{t('community:help.faqTitle')}</Typography>
+					<Typography className={'faq-subtitle'}>{t('community:help.faqSubtitle')}</Typography>
 				</Stack>
 
 				<Box component={'div'} className={'cs-content'}>

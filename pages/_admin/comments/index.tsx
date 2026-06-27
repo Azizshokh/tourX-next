@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
 import {
@@ -34,8 +34,11 @@ import {
 	PAUSE_COMMENT_BY_ADMIN,
 } from '../../../apollo/admin/mutation';
 import { sweetErrorHandling, sweetTopSmallSuccessAlert } from '../../../libs/sweetAlert';
+import { useTranslation } from 'next-i18next';
+import { ADMIN_NAMESPACES, getI18nProps } from '../../../libs/i18n';
 
 const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
+	const { t } = useTranslation(['common', 'admin']);
 	const [commentInquiry, setCommentInquiry] = useState<AllCommentsInquiry>(initialInquiry);
 	const [comments, setComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
@@ -140,7 +143,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 		try {
 			setIsDeleting(true);
 			await deleteCommentByAdmin({ variables: { input: deleteTargetId } });
-			await sweetTopSmallSuccessAlert('Comment deleted.', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.commentDeleted'), 900);
 		} catch (err: any) {
 			setComments(snapshot);
 			setCommentTotal((prev) => prev + 1);
@@ -158,7 +161,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 
 		try {
 			await pauseCommentByAdmin({ variables: { input: commentId } });
-			await sweetTopSmallSuccessAlert('Comment paused.', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.commentPaused'), 900);
 		} catch (err: any) {
 			setComments(snapshot);
 			sweetErrorHandling(err).then();
@@ -173,7 +176,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 
 		try {
 			await activateCommentByAdmin({ variables: { input: commentId } });
-			await sweetTopSmallSuccessAlert('Comment activated.', 900);
+			await sweetTopSmallSuccessAlert(t('admin:messages.commentActivated'), 900);
 		} catch (err: any) {
 			setComments(snapshot);
 			sweetErrorHandling(err).then();
@@ -188,7 +191,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 					<span className={'title-icon'}>
 						<ChatBubbleOutlineRoundedIcon />
 					</span>
-					<Typography variant={'h2'}>Comments</Typography>
+					<Typography variant={'h2'}>{t('admin:pages.comments')}</Typography>
 				</Box>
 			</Box>
 
@@ -202,28 +205,28 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 									value="ALL"
 									className={value === 'ALL' ? 'li on' : 'li'}
 								>
-									All
+									{t('admin:tabs.all')}
 								</ListItem>
 								<ListItem
 									onClick={() => tabChangeHandler(CommentStatus.ACTIVE)}
 									value={CommentStatus.ACTIVE}
 									className={value === CommentStatus.ACTIVE ? 'li on' : 'li'}
 								>
-									Active
+									{t('admin:tabs.active')}
 								</ListItem>
 								<ListItem
 									onClick={() => tabChangeHandler(CommentStatus.PAUSED)}
 									value={CommentStatus.PAUSED}
 									className={value === CommentStatus.PAUSED ? 'li on' : 'li'}
 								>
-									Paused
+									{t('admin:tabs.paused')}
 								</ListItem>
 								<ListItem
 									onClick={() => tabChangeHandler(CommentStatus.DELETE)}
 									value={CommentStatus.DELETE}
 									className={value === CommentStatus.DELETE ? 'li on' : 'li'}
 								>
-									Deleted
+									{t('admin:tabs.deleted')}
 								</ListItem>
 							</List>
 							<Divider />
@@ -236,7 +239,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 									}}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search comment content"
+									placeholder={t('admin:search.comments')}
 									endAdornment={
 										<>
 											{searchInput && (
@@ -258,10 +261,10 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 									value={groupFilter}
 									onChange={(e: any) => groupFilterHandler(e.target.value)}
 								>
-									<MenuItem value={'ALL'}>All Types</MenuItem>
-									<MenuItem value={CommentGroup.MEMBER}>Member</MenuItem>
-									<MenuItem value={CommentGroup.ARTICLE}>Article</MenuItem>
-									<MenuItem value={CommentGroup.PACKAGE}>Package</MenuItem>
+									<MenuItem value={'ALL'}>{t('admin:labels.allTypes')}</MenuItem>
+									<MenuItem value={CommentGroup.MEMBER}>{t('admin:labels.member')}</MenuItem>
+									<MenuItem value={CommentGroup.ARTICLE}>{t('admin:labels.article')}</MenuItem>
+									<MenuItem value={CommentGroup.PACKAGE}>{t('admin:labels.package')}</MenuItem>
 								</Select>
 							</Stack>
 							<Divider />
@@ -299,7 +302,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 						pb: '8px',
 					}}
 				>
-					Delete Comment
+					{t('admin:confirm.deleteCommentTitle')}
 				</DialogTitle>
 				<DialogContent>
 					<Typography
@@ -309,7 +312,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 							color: '#6b7280',
 						}}
 					>
-						Are you sure you want to delete this comment? This action cannot be undone.
+						{t('admin:confirm.deleteCommentBody')}
 					</Typography>
 				</DialogContent>
 				<DialogActions sx={{ px: '24px', pb: '20px', gap: '8px' }}>
@@ -326,7 +329,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 							px: '20px',
 						}}
 					>
-						Cancel
+						{t('admin:actions.cancel')}
 					</Button>
 					<Button
 						onClick={confirmDeleteHandler}
@@ -344,7 +347,7 @@ const AdminComments: NextPage = ({ initialInquiry, ...props }: any) => {
 							'&:hover': { background: '#b91c1c' },
 						}}
 					>
-						{isDeleting ? 'Deleting…' : 'Delete'}
+						{isDeleting ? t('admin:actions.deleting') : t('admin:actions.delete')}
 					</Button>
 				</DialogActions>
 			</Dialog>
@@ -363,3 +366,10 @@ AdminComments.defaultProps = {
 };
 
 export default withAdminLayout(AdminComments);
+
+export const getStaticProps = async ({ locale }: any) => ({
+	props: {
+		...(await getI18nProps(locale, ADMIN_NAMESPACES)),
+	},
+});
+

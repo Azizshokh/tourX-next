@@ -9,6 +9,7 @@ import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import { useTranslation } from 'next-i18next';
 
 interface TopTourPackageCardProps {
 	tourPackage: TourPackage;
@@ -20,6 +21,7 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const { t } = useTranslation(['common', 'package']);
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (tourPackageId: string) => {
@@ -42,11 +44,11 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 					}}
 				>
 					<div className={'price-badge'}>${tourPackage?.packagePrice}</div>
-					<span className={'rating-badge'}>{tourPackage?.packageLikes || 0} saved</span>
+					<span className={'rating-badge'}>{tourPackage?.packageLikes || 0} {t('common:labels.saved')}</span>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<div className={'meta-row'}>
-						<span>{tourPackage?.packageCountry || 'Top destination'}</span>
+						<span>{tourPackage?.packageCountry || t('common:labels.destination')}</span>
 						<em>{tourPackage?.packageType}</em>
 					</div>
 					<strong
@@ -61,28 +63,28 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{tourPackage?.minPeople} min</span>
+							<span>{tourPackage?.minPeople} {t('common:labels.min')}</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{tourPackage?.maxPeople} max</span>
+							<span>{tourPackage?.maxPeople} {t('common:labels.max')}</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{tourPackage?.durationDays} days</span>
+							<span>{t('package:card.durationDays', { count: tourPackage?.durationDays ?? 0 })}</span>
 						</div>
 					</div>
 					<div className={'trust-row'}>
-						<span>{tourPackage.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{tourPackage.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{tourPackage.flightIncluded ? 'Flight' : 'Local pickup'}</span>
+						<span>{tourPackage.guideIncluded ? t('common:labels.guide') : t('common:labels.selfGuided')}</span>
+						<span>{tourPackage.hotelIncluded ? t('common:labels.hotel') : t('common:labels.flexibleStay')}</span>
+						<span>{tourPackage.flightIncluded ? t('common:labels.flight') : t('common:labels.localPickup')}</span>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>
 							{' '}
-							{tourPackage.hotelIncluded ? 'Hotel' : ''} {tourPackage.hotelIncluded && tourPackage.flightIncluded && '/'}{' '}
-							{tourPackage.flightIncluded ? 'Flight' : ''}
+							{tourPackage.hotelIncluded ? t('common:labels.hotel') : ''} {tourPackage.hotelIncluded && tourPackage.flightIncluded && '/'}{' '}
+							{tourPackage.flightIncluded ? t('common:labels.flight') : ''}
 						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
@@ -114,11 +116,11 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 					}}
 				>
 					<div className={'price-badge'}>${tourPackage?.packagePrice}</div>
-					<span className={'rating-badge'}>{tourPackage?.packageLikes || 0} saved</span>
+					<span className={'rating-badge'}>{tourPackage?.packageLikes || 0} {t('common:labels.saved')}</span>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<div className={'meta-row'}>
-						<span>{tourPackage?.packageCountry || 'Top destination'}</span>
+						<span>{tourPackage?.packageCountry || t('common:labels.destination')}</span>
 						<em>{tourPackage?.packageType}</em>
 					</div>
 					<strong
@@ -133,28 +135,28 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{tourPackage?.minPeople} min</span>
+							<span>{tourPackage?.minPeople} {t('common:labels.min')}</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{tourPackage?.maxPeople} max</span>
+							<span>{tourPackage?.maxPeople} {t('common:labels.max')}</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{tourPackage?.durationDays} days</span>
+							<span>{t('package:card.durationDays', { count: tourPackage?.durationDays ?? 0 })}</span>
 						</div>
 					</div>
 					<div className={'trust-row'}>
-						<span>{tourPackage.guideIncluded ? 'Guide' : 'Self guided'}</span>
-						<span>{tourPackage.hotelIncluded ? 'Hotel' : 'Flexible stay'}</span>
-						<span>{tourPackage.flightIncluded ? 'Flight' : 'Local pickup'}</span>
+						<span>{tourPackage.guideIncluded ? t('common:labels.guide') : t('common:labels.selfGuided')}</span>
+						<span>{tourPackage.hotelIncluded ? t('common:labels.hotel') : t('common:labels.flexibleStay')}</span>
+						<span>{tourPackage.flightIncluded ? t('common:labels.flight') : t('common:labels.localPickup')}</span>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>
 							{' '}
-							{tourPackage.hotelIncluded ? 'Hotel' : ''} {tourPackage.hotelIncluded && tourPackage.flightIncluded && '/'}{' '}
-							{tourPackage.flightIncluded ? 'Flight' : ''}
+							{tourPackage.hotelIncluded ? t('common:labels.hotel') : ''} {tourPackage.hotelIncluded && tourPackage.flightIncluded && '/'}{' '}
+							{tourPackage.flightIncluded ? t('common:labels.flight') : ''}
 						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>

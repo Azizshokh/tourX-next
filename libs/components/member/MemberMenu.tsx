@@ -27,6 +27,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 	const activeCategory = category === 'properties' ? 'tourPackages' : category;
 	const [member, setMember] = useState<Member | null>(null);
 	const { memberId } = router.query;
+	const defaultMemberImage = '/img/profile/defaultUser.svg';
 
 	/** APOLLO REQUESTS **/
 	const {
@@ -52,8 +53,11 @@ const MemberMenu = (props: MemberMenuProps) => {
 				<Stack className={'profile'}>
 					<Box component={'div'} className={'profile-img'}>
 						<img
-							src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : '/img/profile/defaultUser.svg'}
+							src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : defaultMemberImage}
 							alt={'member-photo'}
+							onError={(event) => {
+								event.currentTarget.src = defaultMemberImage;
+							}}
 						/>
 					</Box>
 					<Stack className={'user-info'}>

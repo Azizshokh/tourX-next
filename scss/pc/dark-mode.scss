@@ -2848,4 +2848,27 @@ html.dark {
     }
   }
 
+  #pc-wrap #member-page .container .member-page .back-frame .main-config #member-articles-page .articles-list-box {
+    background:
+      linear-gradient(135deg, rgba(255,138,0,0.10) 0%, var(--bg-card) 52%, var(--bg-card-alt) 100%) !important;
+    border-color: var(--border-orange) !important;
+    border-top-color: rgba(255,138,0,0.34) !important;
+    box-shadow: var(--shadow-card) !important;
+
+    .community-general-card-config {
+      background: var(--bg-card) !important;
+      border-color: var(--border) !important;
+      box-shadow: var(--shadow-card) !important;
+    }
+
+    .no-data {
+      background: var(--bg-card-alt) !important;
+      border-color: var(--border-orange) !important;
+
+      p {
+        color: var(--text-muted) !important;
+      }
+    }
+  }
+
 } // end html.dark

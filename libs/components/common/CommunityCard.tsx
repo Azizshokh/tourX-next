@@ -1,7 +1,11 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
+const MotionStack = motion(Stack);
+const MotionBox = motion(Box);
 import { BoardArticle } from '../../types/board-article/board-article';
 import Moment from 'react-moment';
 import { REACT_APP_API_URL } from '../../config';
@@ -65,10 +69,11 @@ const CommunityCard = (props: CommunityCardProps) => {
 	/* ── Small size: used in MyArticles / MemberArticles (keep existing layout) ── */
 	if (size === 'small') {
 		return (
-			<Stack
+			<MotionStack
 				sx={{ width: '285px' }}
 				className="community-general-card-config"
 				onClick={(e) => chooseArticleHandler(e, boardArticle)}
+				{...fadeUpMotionProps}
 			>
 				<Stack className="image-box">
 					<img src={imagePath} alt="" className="card-img" />
@@ -112,13 +117,13 @@ const CommunityCard = (props: CommunityCardProps) => {
 						<Moment format="DD">{boardArticle?.createdAt}</Moment>
 					</Typography>
 				</Stack>
-			</Stack>
+			</MotionStack>
 		);
 	}
 
 	/* ── Normal size: new premium card for the community feed ── */
 	return (
-		<Box className="community-article-card" onClick={(e) => chooseArticleHandler(e, boardArticle)}>
+		<MotionBox className="community-article-card" onClick={(e) => chooseArticleHandler(e, boardArticle)} {...fadeUpMotionProps}>
 			{/* Image */}
 			<Box className="cac-image-wrap">
 				<img src={imagePath} alt={boardArticle?.articleTitle} className="cac-img" />
@@ -190,7 +195,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 				</Box>
 
 			</Box>
-		</Box>
+		</MotionBox>
 	);
 };
 

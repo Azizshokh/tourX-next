@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Box, Stack } from '@mui/material';
@@ -14,6 +15,11 @@ import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
 import { useTranslation } from 'next-i18next';
 import { ABOUT_NAMESPACES, getI18nProps } from '../../libs/i18n';
+import FadeUp from '../../libs/components/animation/FadeUp';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
+import StaggerContainer from '../../libs/components/animation/StaggerContainer';
+import StaggerItem from '../../libs/components/animation/StaggerItem';
+import { sectionMotionProps } from '../../libs/config/animations';
 
 const About: NextPage = () => {
 	const device = useDeviceDetect();
@@ -62,33 +68,39 @@ const About: NextPage = () => {
 
 	return (
 		<Stack className={'about-page'}>
+			{/* Hero */}
 			<section className={'about-hero'}>
 				<Stack className={'container'}>
-					<Stack className={'hero-copy'}>
-						<span className={'eyebrow'}>{t('about:hero.kicker')}</span>
-						<h1>{t('about:hero.title')}</h1>
-						<p>{t('about:hero.subtitle')}</p>
-						<Stack className={'hero-actions'}>
-							<Link href={'/tour-package'} className={'primary-action'}>
-								{t('about:hero.primary')}
-								<ArrowOutwardRoundedIcon />
-							</Link>
-							<Link href={'/agent'} className={'secondary-action'}>
-								{t('about:hero.secondary')}
-							</Link>
+					<FadeUp>
+						<Stack className={'hero-copy'}>
+							<span className={'eyebrow'}>{t('about:hero.kicker')}</span>
+							<h1>{t('about:hero.title')}</h1>
+							<p>{t('about:hero.subtitle')}</p>
+							<Stack className={'hero-actions'}>
+								<Link href={'/tour-package'} className={'primary-action'}>
+									{t('about:hero.primary')}
+									<ArrowOutwardRoundedIcon />
+								</Link>
+								<Link href={'/agent'} className={'secondary-action'}>
+									{t('about:hero.secondary')}
+								</Link>
+							</Stack>
 						</Stack>
-					</Stack>
-					<Box className={'hero-media'}>
-						<img src={'/img/events/about_us_img.png'} alt={t('about:hero.imageAlt')} />
-						<div className={'floating-note'}>
-							<RouteRoundedIcon />
-							<span>{t('about:stats.destinations')}</span>
-						</div>
-					</Box>
+					</FadeUp>
+					<FadeUp delay={0.2}>
+						<Box className={'hero-media'}>
+							<img src={'/img/events/about_us_img.png'} alt={t('about:hero.imageAlt')} />
+							<div className={'floating-note'}>
+								<RouteRoundedIcon />
+								<span>{t('about:stats.destinations')}</span>
+							</div>
+						</Box>
+					</FadeUp>
 				</Stack>
 			</section>
 
-			<section className={'about-stats'}>
+			{/* Stats — motion.section avoids extra div matching .about-stats div selector */}
+			<motion.section className={'about-stats'} {...sectionMotionProps}>
 				<Stack className={'container'}>
 					<div>
 						<strong>40+</strong>
@@ -107,127 +119,155 @@ const About: NextPage = () => {
 						<span>{t('about:stats.support')}</span>
 					</div>
 				</Stack>
-			</section>
+			</motion.section>
 
+			{/* Mission */}
 			<section className={'about-mission'}>
 				<Stack className={'container'}>
-					<Stack className={'section-heading'}>
-						<span>{t('about:mission.eyebrow')}</span>
-						<h2>{t('about:mission.title')}</h2>
-						<p>{t('about:mission.body')}</p>
-					</Stack>
-					<Stack className={'mission-grid'}>
+					<AnimatedSection>
+						<Stack className={'section-heading'}>
+							<span>{t('about:mission.eyebrow')}</span>
+							<h2>{t('about:mission.title')}</h2>
+							<p>{t('about:mission.body')}</p>
+						</Stack>
+					</AnimatedSection>
+					<StaggerContainer className={'mission-grid'}>
 						{missionCards.map((card) => (
-							<article className={'mission-card'} key={card.title}>
-								<div className={'icon-box'}>{card.icon}</div>
-								<h3>{card.title}</h3>
-								<p>{card.body}</p>
-							</article>
+							<StaggerItem key={card.title}>
+								<article className={'mission-card'}>
+									<div className={'icon-box'}>{card.icon}</div>
+									<h3>{card.title}</h3>
+									<p>{card.body}</p>
+								</article>
+							</StaggerItem>
 						))}
-					</Stack>
+					</StaggerContainer>
 				</Stack>
 			</section>
 
+			{/* Feature */}
 			<section className={'about-feature'}>
 				<Stack className={'container'}>
-					<Box className={'feature-image'}>
-						<img src={'/img/events/travel_concepts.png'} alt={t('about:feature.imageAlt')} />
-					</Box>
-					<Stack className={'feature-copy'}>
-						<span className={'eyebrow'}>{t('about:feature.eyebrow')}</span>
-						<h2>{t('about:feature.title')}</h2>
-						<p>{t('about:feature.body')}</p>
-						<ul>
-							<li>
-								<VerifiedRoundedIcon />
-								{t('about:feature.item1')}
-							</li>
-							<li>
-								<FavoriteRoundedIcon />
-								{t('about:feature.item2')}
-							</li>
-							<li>
-								<SupportAgentRoundedIcon />
-								{t('about:feature.item3')}
-							</li>
-						</ul>
-					</Stack>
+					<FadeUp>
+						<Box className={'feature-image'}>
+							<img src={'/img/events/travel_concepts.png'} alt={t('about:feature.imageAlt')} />
+						</Box>
+					</FadeUp>
+					<FadeUp delay={0.2}>
+						<Stack className={'feature-copy'}>
+							<span className={'eyebrow'}>{t('about:feature.eyebrow')}</span>
+							<h2>{t('about:feature.title')}</h2>
+							<p>{t('about:feature.body')}</p>
+							<ul>
+								<li>
+									<VerifiedRoundedIcon />
+									{t('about:feature.item1')}
+								</li>
+								<li>
+									<FavoriteRoundedIcon />
+									{t('about:feature.item2')}
+								</li>
+								<li>
+									<SupportAgentRoundedIcon />
+									{t('about:feature.item3')}
+								</li>
+							</ul>
+						</Stack>
+					</FadeUp>
 				</Stack>
 			</section>
 
+			{/* Services */}
 			<section className={'about-services'}>
 				<Stack className={'container'}>
-					<Stack className={'section-heading'}>
-						<span>{t('about:services.eyebrow')}</span>
-						<h2>{t('about:services.title')}</h2>
-						<p>{t('about:services.body')}</p>
-					</Stack>
-					<Stack className={'services-grid'}>
+					<AnimatedSection>
+						<Stack className={'section-heading'}>
+							<span>{t('about:services.eyebrow')}</span>
+							<h2>{t('about:services.title')}</h2>
+							<p>{t('about:services.body')}</p>
+						</Stack>
+					</AnimatedSection>
+					<StaggerContainer className={'services-grid'}>
 						{services.map((service, index) => (
-							<article key={service}>
-								<span>{String(index + 1).padStart(2, '0')}</span>
-								<p>{service}</p>
-							</article>
+							<StaggerItem key={service}>
+								<article>
+									<span>{String(index + 1).padStart(2, '0')}</span>
+									<p>{service}</p>
+								</article>
+							</StaggerItem>
 						))}
-					</Stack>
+					</StaggerContainer>
 				</Stack>
 			</section>
 
+			{/* Values */}
 			<section className={'about-values'}>
 				<Stack className={'container'}>
-					<Stack className={'values-copy'}>
-						<span>{t('about:values.eyebrow')}</span>
-						<h2>{t('about:values.title')}</h2>
-						<p>{t('about:values.vision')}</p>
-					</Stack>
-					<Stack className={'values-grid'}>
+					<AnimatedSection>
+						<Stack className={'values-copy'}>
+							<span>{t('about:values.eyebrow')}</span>
+							<h2>{t('about:values.title')}</h2>
+							<p>{t('about:values.vision')}</p>
+						</Stack>
+					</AnimatedSection>
+					<StaggerContainer className={'values-grid'}>
 						{values.map((value, index) => (
-							<article key={value.title}>
-								<span>{String(index + 1).padStart(2, '0')}</span>
-								<h3>{value.title}</h3>
-								<p>{value.body}</p>
-							</article>
+							<StaggerItem key={value.title}>
+								<article>
+									<span>{String(index + 1).padStart(2, '0')}</span>
+									<h3>{value.title}</h3>
+									<p>{value.body}</p>
+								</article>
+							</StaggerItem>
 						))}
-					</Stack>
+					</StaggerContainer>
 				</Stack>
 			</section>
 
+			{/* Team */}
 			<section className={'about-team'}>
 				<Stack className={'container'}>
-					<Stack className={'section-heading'}>
-						<span>{t('about:team.eyebrow')}</span>
-						<h2>{t('about:team.title')}</h2>
-						<p>{t('about:team.body')}</p>
-					</Stack>
-					<Stack className={'team-grid'}>
+					<AnimatedSection>
+						<Stack className={'section-heading'}>
+							<span>{t('about:team.eyebrow')}</span>
+							<h2>{t('about:team.title')}</h2>
+							<p>{t('about:team.body')}</p>
+						</Stack>
+					</AnimatedSection>
+					<StaggerContainer className={'team-grid'}>
 						{team.map((member) => (
-							<article key={member.name}>
-								<div>{member.name.charAt(0)}</div>
-								<h3>{member.name}</h3>
-								<p>{member.role}</p>
-							</article>
+							<StaggerItem key={member.name}>
+								<article>
+									<div>{member.name.charAt(0)}</div>
+									<h3>{member.name}</h3>
+									<p>{member.role}</p>
+								</article>
+							</StaggerItem>
 						))}
-					</Stack>
+					</StaggerContainer>
 				</Stack>
 			</section>
 
+			{/* Help CTA */}
 			<section className={'about-help'}>
-				<Stack className={'container'}>
-					<Stack className={'left'}>
-						<h2>{t('about:cta.title')}</h2>
-						<p>{t('about:cta.body')}</p>
+				<AnimatedSection>
+					<Stack className={'container'}>
+						<Stack className={'left'}>
+							<h2>{t('about:cta.title')}</h2>
+							<p>{t('about:cta.body')}</p>
+						</Stack>
+						<Stack className={'right'}>
+							<Link href={'/cs'} className={'outline-action'}>
+								{t('about:cta.contact')}
+								<ArrowOutwardRoundedIcon />
+							</Link>
+							<a href={`tel:${t('about:cta.phone').replace(/\\s/g, '')}`} className={'phone-action'}>
+								<PhoneRoundedIcon />
+								{t('about:cta.phone')}
+							</a>
+						</Stack>
 					</Stack>
-					<Stack className={'right'}>
-						<Link href={'/cs'} className={'outline-action'}>
-							{t('about:cta.contact')}
-							<ArrowOutwardRoundedIcon />
-						</Link>
-						<a href={`tel:${t('about:cta.phone').replace(/\\s/g, '')}`} className={'phone-action'}>
-							<PhoneRoundedIcon />
-							{t('about:cta.phone')}
-						</a>
-					</Stack>
-				</Stack>
+				</AnimatedSection>
 			</section>
 		</Stack>
 	);

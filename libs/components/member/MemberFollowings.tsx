@@ -1,4 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
+const MotionStack = motion(Stack);
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
@@ -101,7 +104,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 							? `${REACT_APP_API_URL}/${follower?.followingData?.memberImage}`
 							: '/img/profile/defaultUser.svg';
 						return (
-							<Stack className="follows-card-box" key={follower._id}>
+							<MotionStack className="follows-card-box" key={follower._id} {...fadeUpMotionProps}>
 								<Stack className={'info'} onClick={() => redirectToMemberPageHandler(follower?.followingData?._id)}>
 									<Stack className="image-box">
 										<img src={imagePath} alt="" />
@@ -168,7 +171,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 										)}
 									</Stack>
 								)}
-							</Stack>
+							</MotionStack>
 						);
 					})}
 				</Stack>

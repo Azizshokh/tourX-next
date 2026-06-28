@@ -10,9 +10,13 @@ import { useReactiveVar } from '@apollo/client';
 import { getJwtToken, updateUserInfo } from '../../auth';
 import Chat from '../Chat';
 import { useTranslation } from 'next-i18next';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+
+const MotionStack = motion(Stack);
 
 const withLayoutMain = (Component: any) => {
 	return (props: any) => {
@@ -64,7 +68,7 @@ const withLayoutMain = (Component: any) => {
 
 						<Stack className={'header-main'}>
 							<span className={'hero-video-overlay'} />
-							<Stack className={'container'}>
+							<MotionStack className={'container'} {...fadeUpMotionProps}>
 								<Stack className={'hero-content'}>
 									<span className={'hero-kicker'}>{t('home:hero.kicker')}</span>
 									<h1>
@@ -78,7 +82,7 @@ const withLayoutMain = (Component: any) => {
 									</Stack>
 								</Stack>
 								<HeaderFilter />
-							</Stack>
+							</MotionStack>
 						</Stack>
 
 						<Stack id={'main'}>

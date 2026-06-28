@@ -42,6 +42,7 @@ import { CommentGroup } from '../../libs/enums/comment.enum';
 import { Messages, REACT_APP_API_URL } from '../../libs/config';
 import { getI18nProps, AGENT_NAMESPACES } from '../../libs/i18n';
 import { T } from '../../libs/types/common';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 import { GET_MEMBER, GET_TOUR_PACKAGES, GET_COMMENTS } from '../../apollo/user/query';
 import {
 	CREATE_COMMENT,
@@ -375,7 +376,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 					</span>
 				</Box>
 				<Stack className={'container'}>
-					<Stack className={'agent-info'}>
+					<AnimatedSection><Stack className={'agent-info'}>
 						<Box className={'agent-photo-wrap'}>
 							<img
 								src={agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'}
@@ -471,8 +472,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 								</Stack>
 							)}
 						</Box>
-					</Stack>
-					<Stack className={'agent-home-list'}>
+					</Stack></AnimatedSection>
+					<AnimatedSection><Stack className={'agent-home-list'}>
 						<Stack className={'card-wrap'}>
 							{agentTourPackages.map((tourPackage: TourPackage) => {
 								return (
@@ -571,7 +572,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 								</Button>
 							</Box>
 						</Stack>
-					</Stack>
+					</Stack></AnimatedSection>
 				</Stack>
 			</Stack>
 		);

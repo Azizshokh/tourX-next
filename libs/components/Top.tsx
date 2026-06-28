@@ -20,6 +20,10 @@ import { useTheme as useNextTheme } from 'next-themes';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import NotificationDropdown from './notifications/NotificationDropdown';
+import { motion } from 'framer-motion';
+import { baseTransition } from '../config/animations';
+
+const MotionStack = motion(Stack);
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -182,7 +186,12 @@ const Top = () => {
 	} else {
 		return (
 			<Stack className={'navbar'}>
-				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
+				<MotionStack
+					className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}
+					initial={{ opacity: 0, y: 32 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={baseTransition}
+				>
 					<Stack className={'container'}>
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
@@ -315,7 +324,7 @@ const Top = () => {
 							</div>
 						</Box>
 					</Stack>
-				</Stack>
+				</MotionStack>
 			</Stack>
 		);
 	}

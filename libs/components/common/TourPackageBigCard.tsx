@@ -1,5 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
 import { Stack, Box, Typography } from '@mui/material';
+const MotionStack = motion(Stack);
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -41,7 +44,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 		return <div>{t('common:mobile.packages')}</div>;
 	} else {
 		return (
-			<Stack className="tour-package-big-card-box" onClick={() => goTourPackageDetailPage(tourPackage?._id)}>
+			<MotionStack className="tour-package-big-card-box" onClick={() => goTourPackageDetailPage(tourPackage?._id)} {...fadeUpMotionProps}>
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -107,7 +110,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 						</div>
 					</div>
 				</Box>
-			</Stack>
+			</MotionStack>
 		);
 	}
 };

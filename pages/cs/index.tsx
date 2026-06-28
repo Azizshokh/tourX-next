@@ -26,6 +26,10 @@ import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Faq from '../../libs/components/cs/Faq';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../libs/config/animations';
+const MotionBox = motion(Box);
 import { getI18nProps, CS_NAMESPACES } from '../../libs/i18n';
 import { useTranslation } from 'next-i18next';
 import { GET_NOTICE_CATEGORIES, GET_NOTICES } from '../../apollo/user/query';
@@ -208,29 +212,35 @@ const CS: NextPage = () => {
 				</span>
 			</Box>
 			<Stack className={'container'}>
-				<Stack className={'help-topics-section'}>
-					<Typography className={'section-eyebrow'}>{t('community:help.popularTopics')}</Typography>
-					<Box component={'div'} className={'topic-grid'}>
-						{popularTopics.map(({ key, titleKey, descriptionKey, Icon }) => (
-							<Box component={'article'} className={'topic-card'} key={key}>
-								<Box component={'div'} className={'topic-icon'}>
-									<Icon />
-								</Box>
-								<Typography className={'topic-title'}>{t(titleKey)}</Typography>
-								<Typography className={'topic-desc'}>{noticeDescriptionsByCategoryKey[key] ?? t(descriptionKey)}</Typography>
-							</Box>
-						))}
+				<AnimatedSection>
+					<Stack className={'help-topics-section'}>
+						<Typography className={'section-eyebrow'}>{t('community:help.popularTopics')}</Typography>
+						<Box component={'div'} className={'topic-grid'}>
+							{popularTopics.map(({ key, titleKey, descriptionKey, Icon }) => (
+								<MotionBox component={'article'} className={'topic-card'} key={key} {...fadeUpMotionProps}>
+									<Box component={'div'} className={'topic-icon'}>
+										<Icon />
+									</Box>
+									<Typography className={'topic-title'}>{t(titleKey)}</Typography>
+									<Typography className={'topic-desc'}>{noticeDescriptionsByCategoryKey[key] ?? t(descriptionKey)}</Typography>
+								</MotionBox>
+							))}
+						</Box>
+					</Stack>
+				</AnimatedSection>
+
+				<AnimatedSection>
+					<Stack className={'faq-heading'}>
+						<Typography className={'faq-title'}>{t('community:help.faqTitle')}</Typography>
+						<Typography className={'faq-subtitle'}>{t('community:help.faqSubtitle')}</Typography>
+					</Stack>
+				</AnimatedSection>
+
+				<AnimatedSection>
+					<Box component={'div'} className={'cs-content'}>
+						<Faq />
 					</Box>
-				</Stack>
-
-				<Stack className={'faq-heading'}>
-					<Typography className={'faq-title'}>{t('community:help.faqTitle')}</Typography>
-					<Typography className={'faq-subtitle'}>{t('community:help.faqSubtitle')}</Typography>
-				</Stack>
-
-				<Box component={'div'} className={'cs-content'}>
-					<Faq />
-				</Box>
+				</AnimatedSection>
 			</Stack>
 		</Stack>
 	);

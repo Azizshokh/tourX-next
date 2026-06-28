@@ -21,6 +21,7 @@ import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
 import AgentCard from '../../libs/components/common/AgentCard';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 import { useRouter } from 'next/router';
 import { getI18nProps, AGENT_NAMESPACES } from '../../libs/i18n';
 import { useTranslation } from 'next-i18next';
@@ -199,7 +200,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 					</span>
 				</Box>
 				<Stack className={'container'}>
-					<Stack className={'filter'}>
+					<AnimatedSection><Stack className={'filter'}>
 						<Box component={'div'} className={'left'}>
 							<input
 								type="text"
@@ -238,7 +239,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 								</Menu>
 							</div>
 						</Box>
-					</Stack>
+					</Stack></AnimatedSection>
 					<Stack className={'card-wrap'}>
 						{agents?.length === 0 ? (
 							<div className={'no-data'}>
@@ -251,7 +252,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							})
 						)}
 					</Stack>
-					<Stack className={'pagination'}>
+					<AnimatedSection><Stack className={'pagination'}>
 						<Stack className="pagination-box">
 							{agents.length !== 0 && Math.ceil(total / searchFilter.limit) > 1 && (
 								<Stack className="pagination-box">
@@ -271,7 +272,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 								{t('agent:total', { count: total })}
 							</span>
 						)}
-					</Stack>
+					</Stack></AnimatedSection>
 				</Stack>
 			</Stack>
 		);

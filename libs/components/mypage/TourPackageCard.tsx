@@ -1,5 +1,8 @@
 import { Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
+const MotionStack = motion(Stack);
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
@@ -60,7 +63,7 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 		return <div>MOBILE PACKAGE CARD</div>;
 	} else
 		return (
-			<Stack className="tour-package-card-box">
+			<MotionStack className="tour-package-card-box" {...fadeUpMotionProps}>
 				<Stack className="image-box" onClick={() => pushTourPackageDetail(tourPackage?._id)}>
 					{packageImage ? (
 						<img src={`${process.env.REACT_APP_API_URL}/${packageImage}`} alt={tourPackage.packageTitle} />
@@ -160,6 +163,6 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 						</IconButton>
 					</Stack>
 				)}
-			</Stack>
+			</MotionStack>
 		);
 };

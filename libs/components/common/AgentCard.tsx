@@ -1,6 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../../config/animations';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box, Typography, Button } from '@mui/material';
+const MotionBox = motion(Box);
 import Link from 'next/link';
 import { REACT_APP_API_URL } from '../../config';
 import IconButton from '@mui/material/IconButton';
@@ -46,7 +49,7 @@ const AgentCard = (props: AgentCardProps) => {
 		return <div>{t('agent:role')}</div>;
 	} else {
 		return (
-			<Box className="agent-general-card">
+			<MotionBox className="agent-general-card" {...fadeUpMotionProps}>
 				{/* Left — large photo with own border-radius */}
 				<Box className="agent-img-col">
 					<Link href={agentDetailHref}>
@@ -120,7 +123,7 @@ const AgentCard = (props: AgentCardProps) => {
 						</Box>
 					</Box>
 				</Box>
-			</Box>
+			</MotionBox>
 		);
 	}
 };

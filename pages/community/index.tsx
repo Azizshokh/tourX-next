@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { Box, Button, Pagination } from '@mui/material';
 import CommunityCard from '../../libs/components/common/CommunityCard';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
@@ -173,7 +174,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 			</Box>
 			<div className="cl-inner">
 				{/* Left sidebar */}
-				<aside className="cl-sidebar">
+				<AnimatedSection><aside className="cl-sidebar">
 					<Button
 						className="cl-write-btn"
 						startIcon={<AddRoundedIcon />}
@@ -197,10 +198,10 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 							))}
 						</nav>
 					</div>
-				</aside>
+				</aside></AnimatedSection>
 
 				{/* Main feed */}
-				<main className="cl-feed">
+				<AnimatedSection><main className="cl-feed">
 					{totalCount > 0 ? (
 						<>
 							<div className="cl-grid">
@@ -231,7 +232,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 							<p>{t('common:empty.noArticles')}</p>
 						</div>
 					)}
-				</main>
+				</main></AnimatedSection>
 			</div>
 		</div>
 	);
@@ -240,7 +241,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 Community.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 6,
+		limit: 4,
 		sort: 'createdAt',
 		direction: 'ASC',
 		search: {

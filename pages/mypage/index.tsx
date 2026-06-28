@@ -33,6 +33,8 @@ import MemberFollowers from '../../libs/components/member/MemberFollowers';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import MemberFollowings from '../../libs/components/member/MemberFollowings';
 import { getI18nProps, MYPAGE_NAMESPACES } from '../../libs/i18n';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
+import FadeUp from '../../libs/components/animation/FadeUp';
 import { useTranslation } from 'next-i18next';
 import { SUBSCRIBE, UNSUBSCRIBE, LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { Messages } from '../../libs/config';
@@ -181,34 +183,38 @@ const MyPage: NextPage = () => {
 					<Stack className={'my-page'}>
 						<Stack className={'back-frame'}>
 							<Stack className={'left-config'}>
-								<MyMenu />
+								<FadeUp><MyMenu /></FadeUp>
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
-									{activeCategory === 'addTourPackage' && <AddTourPackage />}
-									{activeCategory === 'myTourPackages' && <MyTourPackages />}
-									{activeCategory === 'myFavorites' && <MyFavorites />}
-									{activeCategory === 'recentlyVisited' && <RecentlyVisited />}
-									{activeCategory === 'myArticles' && <MyArticles />}
-									{activeCategory === 'writeArticle' && <WriteArticle />}
-									{activeCategory === 'myProfile' && <MyProfile />}
+									{activeCategory === 'addTourPackage' && <AnimatedSection><AddTourPackage /></AnimatedSection>}
+									{activeCategory === 'myTourPackages' && <AnimatedSection><MyTourPackages /></AnimatedSection>}
+									{activeCategory === 'myFavorites' && <AnimatedSection><MyFavorites /></AnimatedSection>}
+									{activeCategory === 'recentlyVisited' && <AnimatedSection><RecentlyVisited /></AnimatedSection>}
+									{activeCategory === 'myArticles' && <AnimatedSection><MyArticles /></AnimatedSection>}
+									{activeCategory === 'writeArticle' && <AnimatedSection><WriteArticle /></AnimatedSection>}
+									{activeCategory === 'myProfile' && <AnimatedSection><MyProfile /></AnimatedSection>}
 									{activeCategory === 'followers' && (
-										<MemberFollowers
-											initialInput={{ page: 1, limit: 5, search: {} }}
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
+										<AnimatedSection>
+											<MemberFollowers
+												initialInput={{ page: 1, limit: 5, search: {} }}
+												subscribeHandler={subscribeHandler}
+												unsubscribeHandler={unsubscribeHandler}
+												likeMemberHandler={likeMemberHandler}
+												redirectToMemberPageHandler={redirectToMemberPageHandler}
+											/>
+										</AnimatedSection>
 									)}
 									{activeCategory === 'followings' && (
-										<MemberFollowings
-											initialInput={{ page: 1, limit: 5, search: {} }}
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
+										<AnimatedSection>
+											<MemberFollowings
+												initialInput={{ page: 1, limit: 5, search: {} }}
+												subscribeHandler={subscribeHandler}
+												unsubscribeHandler={unsubscribeHandler}
+												likeMemberHandler={likeMemberHandler}
+												redirectToMemberPageHandler={redirectToMemberPageHandler}
+											/>
+										</AnimatedSection>
 									)}
 								</Stack>
 							</Stack>

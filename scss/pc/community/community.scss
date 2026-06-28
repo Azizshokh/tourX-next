@@ -293,13 +293,11 @@
 			flex: 0 1 720px;
 			min-width: 0;
 
-			/* 3-column article grid */
+			/* 2-column article grid */
 			.cl-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
-				gap: 20px;
-				justify-content: center;
-				align-items: start;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 24px;
 			}
 
 			/* Empty state */
@@ -347,7 +345,8 @@
 		   Premium article card
 		──────────────────────────────── */
 		.community-article-card {
-			width: 300px;
+			width: 100%;
+			height: 100%;
 			min-height: 334px;
 			display: flex;
 			flex-direction: column;
@@ -456,6 +455,8 @@
 					line-height: 1.45;
 					display: -webkit-box;
 					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					line-clamp: 2;
 					overflow: hidden;
 				}
 

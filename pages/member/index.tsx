@@ -15,6 +15,8 @@ import { userVar } from '../../apollo/store';
 import { getI18nProps, MYPAGE_NAMESPACES } from '../../libs/i18n';
 import { SUBSCRIBE, UNSUBSCRIBE, LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { Messages } from '../../libs/config';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
+import FadeUp from '../../libs/components/animation/FadeUp';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -120,28 +122,32 @@ const MemberPage: NextPage = () => {
 					<Stack className={'member-page'}>
 						<Stack className={'back-frame'}>
 							<Stack className={'left-config'}>
-								<MemberMenu subscribeHandler={subscribeHandler} unsubscribeHandler={unsubscribeHandler} />
+								<FadeUp><MemberMenu subscribeHandler={subscribeHandler} unsubscribeHandler={unsubscribeHandler} /></FadeUp>
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
-									{activeCategory === 'tourPackages' && <MemberTours />}
+									{activeCategory === 'tourPackages' && <AnimatedSection><MemberTours /></AnimatedSection>}
 									{category === 'followers' && (
-										<MemberFollowers
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
+										<AnimatedSection>
+											<MemberFollowers
+												subscribeHandler={subscribeHandler}
+												unsubscribeHandler={unsubscribeHandler}
+												likeMemberHandler={likeMemberHandler}
+												redirectToMemberPageHandler={redirectToMemberPageHandler}
+											/>
+										</AnimatedSection>
 									)}
 									{category === 'followings' && (
-										<MemberFollowings
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
+										<AnimatedSection>
+											<MemberFollowings
+												subscribeHandler={subscribeHandler}
+												unsubscribeHandler={unsubscribeHandler}
+												likeMemberHandler={likeMemberHandler}
+												redirectToMemberPageHandler={redirectToMemberPageHandler}
+											/>
+										</AnimatedSection>
 									)}
-									{category === 'articles' && <MemberArticles />}
+									{category === 'articles' && <AnimatedSection><MemberArticles /></AnimatedSection>}
 								</Stack>
 							</Stack>
 						</Stack>

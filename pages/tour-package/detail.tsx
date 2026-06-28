@@ -38,6 +38,7 @@ import { Direction, Message } from '../../libs/enums/common.enum';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { CREATE_COMMENT, LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 import { getI18nProps, PACKAGE_NAMESPACES } from '../../libs/i18n';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 
 const objectIdRegex = /^[0-9a-fA-F]{24}$/;
 

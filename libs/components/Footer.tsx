@@ -1,4 +1,6 @@
 import { FormEvent, useState } from 'react';
+import { motion } from 'framer-motion';
+import { fadeUpMotionProps } from '../config/animations';
 import Link from 'next/link';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -6,6 +8,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
+const MotionStack = motion(Stack);
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 
@@ -55,7 +58,7 @@ const Footer = () => {
 
 	const renderFooterBody = (showBottomRight: boolean) => (
 		<>
-			<Stack className={'footer-top'}>
+			<MotionStack className={'footer-top'} {...fadeUpMotionProps}>
 				<Box component={'div'} className={'expert'}>
 					<span>{t('footer:expert')}</span>
 					<a className={'phone'} href={'tel:+18004536744'}>
@@ -79,11 +82,11 @@ const Footer = () => {
 						</a>
 					</div>
 				</Box>
-			</Stack>
+			</MotionStack>
 
 			<div className={'footer-divider'} />
 
-			<Stack className={'footer-cols'}>
+			<MotionStack className={'footer-cols'} {...fadeUpMotionProps}>
 				<Box component={'div'} className={'col contact'}>
 					<h4>{t('footer:contact')}</h4>
 					<p>{t('footer:address')}</p>
@@ -150,16 +153,16 @@ const Footer = () => {
 						</li>
 					</ul>
 				</Box>
-			</Stack>
+			</MotionStack>
 
-			<Stack className={'footer-bottom'}>
+			<MotionStack className={'footer-bottom'} {...fadeUpMotionProps}>
 				<span>© TourX - {t('footer:rights')} {moment().year()}</span>
 				{showBottomRight && (
 					<span>
 						{t('footer:privacy')} · {t('footer:terms')} · {t('footer:sitemap')}
 					</span>
 				)}
-			</Stack>
+			</MotionStack>
 		</>
 	);
 

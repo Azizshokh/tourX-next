@@ -10,6 +10,7 @@ import { Box, Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
 import TravelInspiration from '../libs/components/homepage/TravelInspiration';
 import { getI18nProps, HOME_NAMESPACES } from '../libs/i18n';
+import AnimatedSection from '../libs/components/animation/AnimatedSection';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import FlightLandRoundedIcon from '@mui/icons-material/FlightLandRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
@@ -38,12 +39,12 @@ const Home: NextPage = () => {
 	if (device === 'mobile') {
 		return (
 			<Stack className={'home-page'}>
-				<TrendTourPackages />
-				<PopularTourPackages />
-				<Advertisement />
-				<TopTourPackages />
-				<TravelInspiration />
-				<TopAgents />
+				<AnimatedSection><TrendTourPackages /></AnimatedSection>
+				<AnimatedSection><PopularTourPackages /></AnimatedSection>
+				<AnimatedSection><Advertisement /></AnimatedSection>
+				<AnimatedSection><TopTourPackages /></AnimatedSection>
+				<AnimatedSection><TravelInspiration /></AnimatedSection>
+				<AnimatedSection><TopAgents /></AnimatedSection>
 			</Stack>
 		);
 	} else {
@@ -66,13 +67,13 @@ const Home: NextPage = () => {
 					<span className={'home-bg-icon hike'}><HikingRoundedIcon /></span>
 					<span className={'home-bg-icon sun'}><WbSunnyRoundedIcon /></span>
 				</Box>
-				<TrendTourPackages />
-				<PopularTourPackages />
-				<Advertisement />
-				<TopTourPackages />
-				<TravelInspiration />
-				<TopAgents />
-				<CommunityComments />
+				<AnimatedSection><TrendTourPackages /></AnimatedSection>
+				<AnimatedSection><PopularTourPackages /></AnimatedSection>
+				<AnimatedSection><Advertisement /></AnimatedSection>
+				<AnimatedSection><TopTourPackages /></AnimatedSection>
+				<AnimatedSection><TravelInspiration /></AnimatedSection>
+				<AnimatedSection><TopAgents /></AnimatedSection>
+				<AnimatedSection><CommunityComments /></AnimatedSection>
 			</Stack>
 		);
 	}

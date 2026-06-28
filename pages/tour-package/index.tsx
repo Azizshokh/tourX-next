@@ -22,6 +22,7 @@ import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from '@apollo/client';
 import TourPackageCard from '../../libs/components/tourPackage/TourPackageCard';
 import Filter from '../../libs/components/tourPackage/Filter';
+import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { TourPackagesInquiry } from '../../libs/types/tour-package/tour-package.input';
@@ -215,14 +216,16 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 			<div className="container">
 				<Stack direction="row" className="tour-package-page">
 					{/* Sidebar */}
-					<Stack className="filter-config">
-						<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
-					</Stack>
+					<AnimatedSection>
+						<Stack className="filter-config">
+							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
+						</Stack>
+					</AnimatedSection>
 
 					{/* Main content */}
 					<Stack className="main-config" mb={'76px'}>
 						{/* Results + sort bar */}
-						<Stack direction="row" className="results-bar">
+						<AnimatedSection><Stack direction="row" className="results-bar">
 							<Typography className="results-count">
 								{t('package:list.results', { count: total })}
 							</Typography>
@@ -261,7 +264,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 									</MenuItem>
 								</Menu>
 							</Box>
-						</Stack>
+						</Stack></AnimatedSection>
 
 						{/* Card list */}
 						<Stack className="list-config">

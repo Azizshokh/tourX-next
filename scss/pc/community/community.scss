@@ -1280,3 +1280,53 @@
 		}
 	}
 }
+
+/* ─── Community list: responsive sidebar + grid ─── */
+@media (max-width: 1024px) {
+	#pc-wrap .community-list-page,
+	#mobile-wrap .community-list-page {
+		.cl-inner {
+			flex-direction: column;
+			gap: 20px;
+			padding: 0 16px;
+
+			.cl-sidebar {
+				width: 100%;
+				flex: none;
+				position: static;
+				top: auto;
+			}
+
+			.cl-cat-nav {
+				flex-direction: row;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+
+			.cl-feed {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+				flex: none;
+			}
+
+			.cl-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#pc-wrap .community-list-page,
+	#mobile-wrap .community-list-page {
+		.cl-inner {
+			padding: 0 12px;
+			gap: 16px;
+
+			.cl-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+}

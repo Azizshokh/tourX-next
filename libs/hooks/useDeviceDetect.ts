@@ -4,10 +4,8 @@ const useDeviceDetect = (): string => {
 	const [device, setDevice] = useState('desktop');
 
 	useEffect(() => {
-		const userAgent = navigator.userAgent;
-		const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-		const mediaQuery = window.matchMedia('(max-width: 900px)');
-		const updateDevice = () => setDevice(isMobileUserAgent || mediaQuery.matches ? 'mobile' : 'desktop');
+		const mediaQuery = window.matchMedia('(max-width: 767px)');
+		const updateDevice = () => setDevice(mediaQuery.matches ? 'mobile' : 'desktop');
 
 		updateDevice();
 		if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', updateDevice);

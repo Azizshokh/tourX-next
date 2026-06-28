@@ -96,6 +96,15 @@ const withLayoutBasic = (Component: any) => {
 							<Top />
 						</Stack>
 
+						<Stack className={`header-basic ${authHeader && 'auth'}`}>
+							<FadeUp key={router.pathname}>
+								<Stack className={'container'}>
+									<strong>{t(memoizedValues.title)}</strong>
+									<span>{t(memoizedValues.desc)}</span>
+								</Stack>
+							</FadeUp>
+						</Stack>
+
 						<Stack id={'main'}>
 							<Component {...props} />
 						</Stack>

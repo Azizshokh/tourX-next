@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Checkbox, Stack, Typography } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PackageType } from '../../enums/package.enum';
 import { packageCities, packageCountries, packageDurations } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
@@ -25,12 +26,26 @@ interface FilterType {
 
 const Filter = (props: FilterType) => {
 	const { searchFilter, setSearchFilter, initialInput } = props;
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package']);
 	const [searchText, setSearchText] = useState<string>(searchFilter.search.text ?? '');
 	const [isFiltering, setIsFiltering] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 	const [checkTourPackages] = useLazyQuery(GET_TOUR_PACKAGES, { fetchPolicy: 'network-only' });
+
+	const activeCount = useMemo(() => {
+		const s = searchFilter.search;
+		let n = 0;
+		if (s.text) n++;
+		if (s.countryList?.length) n++;
+		if (s.cityList?.length) n++;
+		if (s.typeList?.length) n++;
+		if (s.options?.length) n++;
+		if (s.durationRange) n++;
+		const defaultPrice = s.pricesRange?.start === 0 && s.pricesRange?.end === 2000000;
+		if (s.pricesRange && !defaultPrice) n++;
+		return n;
+	}, [searchFilter.search]);
 
 	useEffect(() => {
 		setSearchText(searchFilter.search.text ?? '');
@@ -134,12 +149,24 @@ const Filter = (props: FilterType) => {
 		await pushFilter(initialInput);
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('mobile.packages')}</div>;
-	}
-
 	return (
-		<Stack className="filter-main">
+		<>
+			{/* Mobile toggle trigger — hidden on desktop via CSS */}
+			<button
+				type="button"
+				className={`filter-toggle${isOpen ? ' is-open' : ''}`}
+				onClick={() => setIsOpen((v) => !v)}
+				aria-expanded={isOpen}
+			>
+				<Stack className="toggle-left">
+					<TuneRoundedIcon className="toggle-icon" />
+					<Typography className="toggle-label">{t('package:filter.title')}</Typography>
+					{activeCount > 0 && <span className="toggle-badge">{activeCount}</span>}
+				</Stack>
+				<KeyboardArrowDownRoundedIcon className="toggle-chevron" />
+			</button>
+
+		<Stack className={`filter-main${isOpen ? ' is-open' : ''}`}>
 			{/* Header */}
 			<Stack className="filter-header">
 				<Typography className="filter-title">{t('package:filter.title')}</Typography>
@@ -334,6 +361,7 @@ const Filter = (props: FilterType) => {
 				{isFiltering ? t('searchPackages') : t('actions.applyFilters')}
 			</Button>
 		</Stack>
+		</>
 	);
 };
 

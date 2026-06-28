@@ -23,7 +23,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import TourPackageCard from '../../libs/components/tourPackage/TourPackageCard';
 import Filter from '../../libs/components/tourPackage/Filter';
 import AnimatedSection from '../../libs/components/animation/AnimatedSection';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { TourPackagesInquiry } from '../../libs/types/tour-package/tour-package.input';
 import { TourPackage } from '../../libs/types/tour-package/tour-package';
@@ -49,7 +48,6 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package']);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(
@@ -159,10 +157,6 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 		setSortingOpen(false);
 		setAnchorEl(null);
 	};
-
-	if (device === 'mobile') {
-		return <h1>{t('mobile.packages')}</h1>;
-	}
 
 	return (
 		<div id="tour-package-list-page">

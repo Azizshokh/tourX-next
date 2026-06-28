@@ -1770,3 +1770,606 @@
 		}
 	}
 }
+
+/* ─── Detail page: base styles for #mobile-wrap context ─── */
+#mobile-wrap #tour-package-detail-page {
+	background: #fbf9f8;
+	padding-top: 20px;
+	padding-bottom: 60px;
+	color: #0d1c32;
+	font-family: 'Plus Jakarta Sans', $font;
+
+	.container {
+		width: 100%;
+	}
+
+	.tour-package-detail-config {
+		width: 100%;
+		padding: 0 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		margin: 0 auto;
+	}
+
+	.detail-breadcrumb {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: 0;
+
+		a {
+			color: #2f9e8f;
+			font-size: 12px;
+			font-weight: 700;
+			text-decoration: none;
+		}
+
+		span,
+		p {
+			color: #557082;
+			font-size: 12px;
+			font-weight: 700;
+			text-decoration: none;
+		}
+	}
+
+	.detail-main-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.detail-main-left {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		min-width: 0;
+		width: 100%;
+	}
+
+	.tour-package-info-config {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+
+		.info {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+
+		.left-box {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			width: 100%;
+		}
+
+		.top-box {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 6px;
+			margin: 0;
+		}
+
+		.city {
+			color: #2f9e8f;
+			font-size: 11px;
+			font-weight: 900;
+		}
+
+		.date {
+			color: #7c8796;
+			font-size: 11px;
+			font-weight: 800;
+		}
+
+		.divider {
+			width: 3px;
+			height: 3px;
+			background: #d8a86b;
+			border-radius: 50%;
+		}
+
+		.title-main {
+			color: #080b13;
+			font-size: 22px;
+			font-weight: 900;
+			line-height: 28px;
+			margin: 0;
+		}
+
+		.bottom-box {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 0;
+		}
+
+		.right-box {
+			width: 100%;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 10px;
+		}
+
+		.images {
+			width: 100%;
+			height: 200px;
+			display: flex;
+			flex-direction: row;
+			gap: 8px;
+
+			.main-image {
+				flex: 1 1 auto;
+				border-radius: 6px;
+				overflow: hidden;
+				background: #f6f1ec;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			.sub-images {
+				flex: 0 0 80px;
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				overflow: hidden;
+
+				.sub-img-box {
+					flex: 1;
+					border-radius: 4px;
+					overflow: hidden;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+				}
+			}
+		}
+	}
+
+	.tour-package-desc-config {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.left-config {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+
+		.prop-desc-config {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+
+			.top {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				padding-bottom: 16px;
+				border-bottom: 1px solid #f1e4d7;
+
+				.title {
+					color: #111827;
+					font-size: 16px;
+					font-weight: 900;
+					line-height: 22px;
+				}
+
+				.desc {
+					color: #4b5563;
+					font-size: 13px;
+					font-weight: 600;
+					line-height: 22px;
+				}
+			}
+
+			.bottom {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+
+				.title {
+					color: #111827;
+					font-size: 16px;
+					font-weight: 900;
+				}
+
+				.info-box {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					gap: 10px;
+					padding: 0;
+					background: transparent;
+				}
+
+				.service-card {
+					flex: 1 1 140px;
+					flex-direction: row;
+					align-items: center;
+					gap: 12px;
+					padding: 12px 14px;
+					border-radius: 10px;
+					border: 1.5px solid #f1e4d7;
+					background: #ffffff;
+				}
+			}
+		}
+
+		.address-config,
+		.reviews-config,
+		.leave-review-config {
+			padding: 16px;
+			border: 1px solid #f1e4d7;
+			border-radius: 4px;
+			background: #ffffff;
+			box-shadow: none;
+		}
+
+		.address-config {
+			gap: 8px;
+			border-top: 1px solid #f1e4d7;
+			display: flex;
+			flex-direction: column;
+
+			.title {
+				color: #111827;
+				font-size: 15px;
+				font-weight: 900;
+			}
+
+			> p {
+				color: #4b5563;
+				font-size: 13px;
+				font-weight: 700;
+			}
+		}
+
+		.leave-review-config {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+
+			.main-title {
+				color: #111827;
+				font-size: 16px;
+				font-weight: 900;
+			}
+
+			textarea {
+				width: 100%;
+				min-height: 100px;
+				padding: 12px;
+				border-radius: 4px;
+				border: 1px solid #f1e4d7;
+				background: #fffdfb;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				resize: vertical;
+				outline: none;
+
+				&:focus {
+					border-color: #ff8a00;
+				}
+			}
+
+			.submit-btn {
+				display: flex;
+				justify-content: flex-end;
+
+				.submit-review {
+					min-width: 140px;
+					height: 36px;
+					border-radius: 4px;
+					background: #b86a10;
+					color: #ffffff;
+					font-size: 12px;
+					font-weight: 900;
+					text-transform: none;
+				}
+			}
+		}
+	}
+
+	.right-config {
+		position: static;
+		top: auto;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.booking-card,
+	.right-config .info-box {
+		padding: 16px;
+		border: 1px solid #e8d7c7;
+		border-radius: 4px;
+		background: #ffffff;
+		box-shadow: 0 4px 12px rgba(94, 59, 28, 0.06);
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.booking-card {
+		.sidebar-kicker {
+			color: #7c8796;
+			font-size: 11px;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+
+		.price {
+			color: #111827;
+			font-size: 22px;
+			font-weight: 900;
+			line-height: 28px;
+		}
+
+		.price-note {
+			color: #7c8796;
+			font-size: 11px;
+			font-weight: 700;
+		}
+
+		.book-now,
+		.outline-action {
+			height: 40px;
+			border-radius: 4px;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 900;
+			text-transform: none;
+			width: 100%;
+		}
+
+		.book-now {
+			background: #ff8a00;
+			color: #ffffff;
+		}
+
+		.outline-action {
+			border: 1px solid #f1e4d7;
+			background: #fff8f0;
+			color: #b86a10;
+		}
+
+		.booking-stats,
+		.included-list {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 6px;
+			margin-top: 4px;
+
+			span {
+				padding: 6px 8px;
+				border-radius: 999px;
+				background: #f8f2ec;
+				color: #4b5563;
+				font-size: 11px;
+				font-weight: 900;
+			}
+		}
+
+		.included-list span.on {
+			background: #e8f8f4;
+			color: #11806f;
+		}
+
+		.package-location-map {
+			margin: -16px -16px 10px;
+		}
+
+		/* map modal — position:fixed so it renders at viewport level,
+		   but still needs styles scoped to the #mobile-wrap selector chain */
+		.map-modal-backdrop {
+			position: fixed;
+			inset: 0;
+			z-index: 1400;
+			padding: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(15, 23, 42, 0.28);
+			backdrop-filter: blur(14px);
+			-webkit-backdrop-filter: blur(14px);
+			animation: tourx-map-backdrop-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+		}
+
+		.map-modal {
+			position: relative;
+			width: 96vw;
+			height: 84vh;
+			padding: 8px;
+			overflow: hidden;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			border-radius: 24px;
+			background: #fff;
+			box-shadow: 0 35px 100px rgba(0, 0, 0, 0.28);
+			animation: tourx-map-modal-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+		}
+
+		.map-modal-header {
+			position: absolute;
+			top: 14px;
+			left: 14px;
+			right: 14px;
+			z-index: 2;
+			min-height: 0;
+			padding: 10px;
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 12px;
+			border: 1px solid rgba(0, 0, 0, 0.08);
+			border-radius: 18px;
+			background: rgba(255, 255, 255, 0.88);
+			backdrop-filter: blur(18px);
+			-webkit-backdrop-filter: blur(18px);
+		}
+
+		.map-modal-title {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 8px;
+			overflow: hidden;
+			min-width: 0;
+
+			svg {
+				width: 34px;
+				height: 34px;
+				padding: 7px;
+				flex-shrink: 0;
+				border-radius: 50%;
+			}
+		}
+
+		.map-modal-heading {
+			font-size: 14px;
+			line-height: 19px;
+		}
+
+		.map-modal-subtitle {
+			max-width: 56vw;
+			font-size: 11px;
+			line-height: 16px;
+			white-space: normal;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.map-close-button.MuiIconButton-root {
+			width: 36px;
+			height: 36px;
+			flex-shrink: 0;
+		}
+
+		.map-modal-frame {
+			border-radius: 18px;
+		}
+
+		.map-modal-footer {
+			position: absolute;
+			left: 14px;
+			right: 14px;
+			bottom: 14px;
+			padding: 10px;
+			border-radius: 18px;
+
+			.map-open-button.MuiButton-root {
+				width: 100%;
+			}
+		}
+	}
+
+	.right-config .info-box {
+		gap: 12px;
+
+		.main-title {
+			color: #111827;
+			font-size: 15px;
+			font-weight: 900;
+		}
+
+		.image-info {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.member-image {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 2px solid #f1e4d7;
+		}
+
+		.name {
+			color: #111827;
+			font-size: 13px;
+			font-weight: 900;
+		}
+
+		.listings {
+			color: #b86a10;
+			font-size: 11px;
+			font-weight: 900;
+		}
+	}
+
+	.similar-tour-packages-config {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding-top: 28px;
+		border-top: 1px solid #e4e2e1;
+
+		.title-box .main-title {
+			color: #111827;
+			font-size: 20px;
+			font-weight: 900;
+		}
+
+		.cards-box {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+		}
+	}
+}
+
+/* ─── Detail page: collapse sidebar to single column at narrow tablet ─── */
+@media (max-width: 900px) {
+	#pc-wrap #tour-package-detail-page {
+		.detail-main-grid {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+
+		.right-config {
+			position: static;
+			top: auto;
+			width: 100%;
+		}
+
+		.tour-package-info-config .images {
+			height: 260px;
+
+			.sub-images {
+				flex: 0 0 100px;
+			}
+		}
+	}
+}
+
+/* ─── Detail page: related packages 2 cols on tablet ─── */
+@media (max-width: 1024px) {
+	#pc-wrap #tour-package-detail-page {
+		.similar-tour-packages-config .cards-box {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+}

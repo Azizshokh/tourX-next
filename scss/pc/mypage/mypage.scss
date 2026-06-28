@@ -168,7 +168,8 @@
 				gap: 25px;
 				padding-top: 96px;
 				.back-frame {
-					width: 1260px;
+					width: 100%;
+					max-width: 1260px;
 					height: auto;
 					display: flex;
 					flex-direction: row;
@@ -701,6 +702,52 @@
 		@media (max-width: 768px) {
 			.mypage-bg-icons {
 				display: none;
+			}
+		}
+	}
+}
+
+/* ─── MyPage responsive: tablet + mobile ─── */
+@media (max-width: 1024px) {
+	#pc-wrap #my-page .container .my-page,
+	#mobile-wrap #my-page .container .my-page {
+		padding-top: 40px;
+
+		.back-frame {
+			flex-direction: column;
+			border-radius: 16px;
+			margin: 32px 0 60px;
+
+			.left-config {
+				width: 100%;
+				flex: none;
+				margin: 16px 16px 0;
+				width: calc(100% - 32px);
+				border-radius: 14px;
+			}
+
+			.my-page-content,
+			.right-config {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#pc-wrap #my-page .container .my-page,
+	#mobile-wrap #my-page .container .my-page {
+		padding-top: 24px;
+
+		.back-frame {
+			margin: 16px 0 40px;
+			border-radius: 12px;
+
+			.left-config {
+				margin: 12px 12px 0;
+				width: calc(100% - 24px);
 			}
 		}
 	}

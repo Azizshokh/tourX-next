@@ -405,3 +405,33 @@
 		}
 	}
 }
+
+/* ─── CS page: mobile responsive ─── */
+@media (max-width: 767px) {
+	#pc-wrap .cs-page,
+	#mobile-wrap .cs-page {
+		padding: 24px 0 48px;
+
+		.container {
+			padding: 0 16px;
+		}
+
+		.topic-grid {
+			grid-template-columns: 1fr;
+			gap: 12px;
+			margin-top: 20px;
+		}
+
+		.faq-content {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+
+		.faq-categories,
+		.faq-list {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+		}
+	}
+}

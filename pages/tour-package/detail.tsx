@@ -15,7 +15,6 @@ import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import moment from 'moment';
 import Link from 'next/link';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import Review from '../../libs/components/tourPackage/Review';
 import PackageLocationMap from '../../libs/components/tourPackage/PackageLocationMap';
 import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
@@ -49,7 +48,6 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package', 'errors']);
 	const user = useReactiveVar(userVar);
@@ -217,10 +215,6 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 				<CircularProgress size={'4rem'} />
 			</Stack>
 		);
-	}
-
-	if (device === 'mobile') {
-		return <div>{t('mobile.packageDetail')}</div>;
 	}
 
 	return (

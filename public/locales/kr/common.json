@@ -165,6 +165,17 @@
     "about": "소개 모바일",
     "mypage": "마이페이지 모바일"
   },
+  "mobileNav": {
+    "menu": "모바일 내비게이션",
+    "subtitle": "프리미엄 여행 마켓플레이스",
+    "theme": "테마 모드",
+    "language": "언어",
+    "bottomNavigation": "모바일 탭 내비게이션",
+    "explore": "탐색",
+    "bookings": "예약",
+    "saved": "저장",
+    "profile": "프로필"
+  },
   "Home": "홈",
   "Packages": "패키지",
   "Tour Packages": "투어 패키지",

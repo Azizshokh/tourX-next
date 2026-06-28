@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import Head from 'next/head';
 import Top from '../Top';
@@ -23,6 +23,7 @@ const withLayoutMain = (Component: any) => {
 		const device = useDeviceDetect();
 		const user = useReactiveVar(userVar);
 		const { t } = useTranslation(['home']);
+		const [isCompactViewport, setIsCompactViewport] = useState(false);
 
 		/** LIFECYCLES **/
 		useEffect(() => {
@@ -30,9 +31,21 @@ const withLayoutMain = (Component: any) => {
 			if (jwt) updateUserInfo(jwt);
 		}, []);
 
+		useEffect(() => {
+			const mediaQuery = window.matchMedia('(max-width: 900px)');
+			const updateViewport = () => setIsCompactViewport(mediaQuery.matches);
+			updateViewport();
+			if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', updateViewport);
+			else mediaQuery.addListener(updateViewport);
+			return () => {
+				if (mediaQuery.removeEventListener) mediaQuery.removeEventListener('change', updateViewport);
+				else mediaQuery.removeListener(updateViewport);
+			};
+		}, []);
+
 		/** HANDLERS **/
 
-		if (device == 'mobile') {
+		if (device == 'mobile' || isCompactViewport) {
 			return (
 				<>
 					<Head>
@@ -42,6 +55,25 @@ const withLayoutMain = (Component: any) => {
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
 							<Top />
+						</Stack>
+
+						<Stack className={'header-main'}>
+							<span className={'hero-video-overlay'} />
+							<Stack className={'container'}>
+								<Stack className={'hero-content'}>
+									<span className={'hero-kicker'}>{t('home:hero.kicker')}</span>
+									<h1>
+										{t('home:hero.titlePrefix')} <span>{t('home:hero.titleAccent')}</span>
+									</h1>
+									<p>{t('home:hero.description')}</p>
+									<Stack className={'hero-trust-row'}>
+										<strong>{t('home:hero.travelers')}</strong>
+										<strong>{t('home:hero.rating')}</strong>
+										<strong>{t('home:hero.destinations')}</strong>
+									</Stack>
+								</Stack>
+								<HeaderFilter />
+							</Stack>
 						</Stack>
 
 						<Stack id={'main'}>

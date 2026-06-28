@@ -22,6 +22,8 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import NotificationDropdown from './notifications/NotificationDropdown';
 import { motion } from 'framer-motion';
 import { baseTransition } from '../config/animations';
+import MobileTopNavbar from './mobile/MobileTopNavbar';
+import MobileBottomNav from './mobile/MobileBottomNav';
 
 const MotionStack = motion(Stack);
 
@@ -41,6 +43,7 @@ const Top = () => {
 	const logoutOpen = Boolean(logoutAnchor);
 	const { theme: nextTheme, setTheme } = useNextTheme();
 	const [mounted, setMounted] = useState(false);
+	const [isCompactViewport, setIsCompactViewport] = useState(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -75,6 +78,20 @@ const Top = () => {
 
 	useEffect(() => {
 		setMounted(true);
+	}, []);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia('(max-width: 900px)');
+		const updateViewport = () => setIsCompactViewport(mediaQuery.matches);
+		updateViewport();
+
+		if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', updateViewport);
+		else mediaQuery.addListener(updateViewport);
+
+		return () => {
+			if (mediaQuery.removeEventListener) mediaQuery.removeEventListener('change', updateViewport);
+			else mediaQuery.removeListener(updateViewport);
+		};
 	}, []);
 
 	/** HANDLERS **/
@@ -159,29 +176,12 @@ const Top = () => {
 		window.addEventListener('scroll', changeNavbarColor);
 	}
 
-	if (device == 'mobile') {
+	if (device == 'mobile' || isCompactViewport) {
 		return (
-			<Stack className={'top'}>
-				<Link href={'/'}>
-					<div>{t('nav.home')}</div>
-				</Link>
-				<Link href={'/tour-package'}>
-					<div>{t('nav.packages')}</div>
-				</Link>
-				<Link href={'/agent'}>
-					<div> {t('nav.agents')} </div>
-				</Link>
-				<Link href={'/community?articleCategory=FREE'}>
-					<div> {t('nav.community')} </div>
-				</Link>
-				<Link href={'/cs'}>
-					<div> {t('nav.help')} </div>
-				</Link>
-				<Link href={'/about'}>
-					<div> {t('nav.about')} </div>
-				</Link>
-				<NotificationDropdown isAuthenticated={!!user?._id} />
-			</Stack>
+			<>
+				<MobileTopNavbar />
+				<MobileBottomNav />
+			</>
 		);
 	} else {
 		return (

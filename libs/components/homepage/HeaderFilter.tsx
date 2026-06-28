@@ -179,10 +179,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		setOptionCheck('all');
 	};
 
-	if (device === 'mobile') {
-		return <div>HEADER FILTER MOBILE</div>;
-	}
-
 	return (
 		<>
 			<Stack className={'search-box'} ref={searchBoxRef as any}>

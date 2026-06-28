@@ -268,3 +268,13 @@ Validation: `yarn tsc --noEmit` passed.
 - Added localized `common.clearSearch` for `en`, `kr`, and `ru` and dark-mode styling for the new modal search/clear buttons.
 - Files: `libs/components/homepage/HeaderFilter.tsx`, `pages/tour-package/index.tsx`, `libs/utils/tourPackageFilter.ts`, `scss/pc/main.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/common.json`.
 - Validation: common locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed.
+
+## 2026-06-28 - Professional mobile navigation system
+- Added reusable mobile navigation components: `MobileTopNavbar`, `MobileNavDrawer`, and `MobileBottomNav`.
+- Replaced the compact `Top` navbar branch with a hamburger top bar, TourX brand, avatar/profile link, slide-out drawer, and fixed bottom tab bar.
+- Drawer includes Home, Packages, Agents, Community, My Page, Help, and About Us plus notification, theme toggle, and EN/KR/RU language controls with backdrop click and ESC close behavior.
+- Bottom mobile tabs route to Explore `/`, Bookings `/mypage?category=recentlyVisited`, Saved `/mypage?category=myFavorites`, and Profile `/mypage`, falling back to `/account/join` for unauthenticated account-only tabs.
+- Added mobile/tablet styling with theme variables, dark-mode compatible surfaces, safe-area bottom padding, active orange tab states, drawer animation, and no-overflow guards while preserving the desktop navbar branch.
+- Added the app-level viewport meta tag for mobile-width rendering and safe-area support.
+- Files: `libs/components/mobile/*`, `libs/components/Top.tsx`, `pages/_app.tsx`, `scss/mobile/main.scss`, `public/locales/{en,kr,ru}/common.json`.
+- Validation: common locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed; `yarn.cmd build` passed with the existing Browserslist update warning; headless screenshots confirmed the mobile top/bottom bars on compact widths and unchanged desktop navbar at 1440px.

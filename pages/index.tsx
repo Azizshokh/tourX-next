@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import useDeviceDetect from '../libs/hooks/useDeviceDetect';
 import withLayoutMain from '../libs/components/layout/LayoutHome';
 import CommunityComments from '../libs/components/homepage/CommunityComments';
@@ -35,8 +36,21 @@ export const getStaticProps = async ({ locale }: any) => ({
 
 const Home: NextPage = () => {
 	const device = useDeviceDetect();
+	const [isCompactViewport, setIsCompactViewport] = useState(false);
 
-	if (device === 'mobile') {
+	useEffect(() => {
+		const mediaQuery = window.matchMedia('(max-width: 900px)');
+		const updateViewport = () => setIsCompactViewport(mediaQuery.matches);
+		updateViewport();
+		if (mediaQuery.addEventListener) mediaQuery.addEventListener('change', updateViewport);
+		else mediaQuery.addListener(updateViewport);
+		return () => {
+			if (mediaQuery.removeEventListener) mediaQuery.removeEventListener('change', updateViewport);
+			else mediaQuery.removeListener(updateViewport);
+		};
+	}, []);
+
+	if (device === 'mobile' || isCompactViewport) {
 		return (
 			<Stack className={'home-page'}>
 				<AnimatedSection><TrendTourPackages /></AnimatedSection>

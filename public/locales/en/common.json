@@ -165,6 +165,17 @@
     "about": "About page mobile",
     "mypage": "My page mobile"
   },
+  "mobileNav": {
+    "menu": "Mobile navigation",
+    "subtitle": "Premium travel marketplace",
+    "theme": "Theme mode",
+    "language": "Language",
+    "bottomNavigation": "Mobile tab navigation",
+    "explore": "Explore",
+    "bookings": "Bookings",
+    "saved": "Saved",
+    "profile": "Profile"
+  },
   "Home": "Home",
   "Packages": "Packages",
   "Tour Packages": "Tour Packages",

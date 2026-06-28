@@ -722,7 +722,7 @@
 
 	#pc-wrap #my-page,
 	#mobile-wrap #my-page {
-		overflow-x: hidden;
+		overflow-x: clip;
 
 		.container {
 			.mypage-menu-toggle-wrap {

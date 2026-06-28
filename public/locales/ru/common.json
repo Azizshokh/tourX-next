@@ -30,6 +30,13 @@
     "packageFallback": "Новый турпакет",
     "defaultMessage": "{{agent}} опубликовал новый турпакет."
   },
+  "alerts": {
+    "noPackagesFound": "Пакеты не найдены",
+    "noPackagesFoundForSearch": "По вашему запросу пакеты не найдены.",
+    "invalidFilterInput": "Некорректные параметры фильтра"
+  },
+  "searchPackages": "Поиск пакетов...",
+  "clearSearch": "Очистить поиск",
   "actions": {
     "search": "Поиск",
     "reset": "Сбросить",

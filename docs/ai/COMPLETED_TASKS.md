@@ -251,3 +251,20 @@ Validation: `yarn tsc --noEmit` passed.
 - Added light/dark/mobile footer styling for link hover/focus states, the Live Chat button, newsletter messages, and disabled app labels.
 - Files: `libs/components/Footer.tsx`, `libs/components/Chat.tsx`, `scss/pc/main.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/footer.json`.
 - Validation: footer locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed.
+
+## 2026-06-28 - Package filter SweetAlert no-results behavior
+- Added shared Tour Package filter helpers to normalize, clean, validate, serialize, and parse package list query filters without changing the backend GraphQL shape.
+- Updated the homepage header search to trim/remove empty filters, validate ranges, preflight `getTourPackages` with `limit: 1`, show a SweetAlert warning when no packages match, and redirect only when matching packages exist.
+- Updated the package list page to initialize filters from URL query input through the same sanitizer and keep pagination/sorting URLs using the cleaned filter payload.
+- Updated the package sidebar filters to preserve entered values, prevent repeated apply clicks, preflight matching packages, and show the localized no-results SweetAlert before routing.
+- Added localized `common.alerts.noPackagesFound`, `common.alerts.noPackagesFoundForSearch`, `common.searchPackages`, and `common.alerts.invalidFilterInput` keys for `en`, `kr`, and `ru`.
+- Files: `libs/utils/tourPackageFilter.ts`, `libs/components/homepage/HeaderFilter.tsx`, `libs/components/tourPackage/Filter.tsx`, `pages/tour-package/index.tsx`, `libs/sweetAlert.ts`, `public/locales/{en,kr,ru}/common.json`, `scss/pc/main.scss`.
+- Validation: common locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed.
+
+## 2026-06-28 - Advanced filter modal text search
+- Connected `.advanced-filter-modal .top div.search-input-box` to the existing package search flow with trim, empty-search ignore, loading guard, Enter submit, search-icon submit, and clear-search action.
+- The advanced modal text search now preflights `getTourPackages` with `search.text`, keeps the modal open on zero results with a TourX SweetAlert warning, and redirects to `/tour-package?search=...` only when matches exist.
+- Updated the package list page to read `router.query.search`, convert it into `TourPackagesInquiry.search.text`, keep the text visible in the package filter input, and preserve search pagination with `/tour-package?search=...&page=...`.
+- Added localized `common.clearSearch` for `en`, `kr`, and `ru` and dark-mode styling for the new modal search/clear buttons.
+- Files: `libs/components/homepage/HeaderFilter.tsx`, `pages/tour-package/index.tsx`, `libs/utils/tourPackageFilter.ts`, `scss/pc/main.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/common.json`.
+- Validation: common locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed.

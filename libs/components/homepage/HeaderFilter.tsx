@@ -7,10 +7,20 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useLazyQuery } from '@apollo/client';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { packageCountries, packageDurations } from '../../config';
 import { PackageType } from '../../enums/package.enum';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
+import {
+	cleanTourPackageInquiry,
+	hasActiveTourPackageFilters,
+	isTourPackageInquiryValid,
+	tourPackageSearchUrl,
+	tourPackageInquiryUrl,
+} from '../../utils/tourPackageFilter';
+import { sweetWarningAlert } from '../../sweetAlert';
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -36,8 +46,10 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [openType, setOpenType] = useState(false);
 	const [openDuration, setOpenDuration] = useState(false);
 	const [optionCheck, setOptionCheck] = useState('all');
+	const [isSearching, setIsSearching] = useState(false);
 	const router = useRouter();
 	const searchBoxRef = useRef<HTMLDivElement | null>(null);
+	const [checkTourPackages] = useLazyQuery(GET_TOUR_PACKAGES, { fetchPolicy: 'network-only' });
 
 	const closeAllDropdowns = () => {
 		setOpenCountry(false);
@@ -82,15 +94,84 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	}, []);
 
 	const pushSearchHandler = async () => {
-		const nextFilter = { ...searchFilter, search: { ...searchFilter.search } };
-		if (nextFilter.search.countryList?.length === 0) delete nextFilter.search.countryList;
-		if (nextFilter.search.typeList?.length === 0) delete nextFilter.search.typeList;
-		if (nextFilter.search.options?.length === 0) delete nextFilter.search.options;
+		if (isSearching) return;
 
-		await router.push(
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
+		const nextFilter = cleanTourPackageInquiry({ ...searchFilter, page: 1 }, initialInput.limit ?? 9);
+		setSearchFilter(nextFilter);
+
+		if (!isTourPackageInquiryValid(nextFilter)) {
+			await sweetWarningAlert(t('alerts.invalidFilterInput'), t('alerts.invalidFilterInput'));
+			return;
+		}
+
+		if (!hasActiveTourPackageFilters(nextFilter)) {
+			await router.push('/tour-package');
+			return;
+		}
+
+		setIsSearching(true);
+		try {
+			const result = await checkTourPackages({
+				variables: {
+					input: { ...nextFilter, page: 1, limit: 1 },
+				},
+			});
+			const total = result.data?.getTourPackages?.metaCounter?.[0]?.total ?? 0;
+
+			if (total < 1) {
+				await sweetWarningAlert(t('alerts.noPackagesFound'), t('alerts.noPackagesFoundForSearch'));
+				return;
+			}
+
+			const url = tourPackageInquiryUrl(nextFilter);
+			await router.push(url, url);
+		} finally {
+			setIsSearching(false);
+		}
+	};
+
+	const submitAdvancedTextSearch = async () => {
+		if (isSearching) return;
+		const text = (searchFilter.search.text ?? '').trim();
+		if (!text) return;
+
+		const nextFilter = cleanTourPackageInquiry(
+			{
+				...initialInput,
+				page: 1,
+				search: {
+					...initialInput.search,
+					text,
+				},
+			},
+			initialInput.limit ?? 9,
 		);
+
+		setIsSearching(true);
+		try {
+			const result = await checkTourPackages({
+				variables: {
+					input: { ...nextFilter, page: 1, limit: 1 },
+				},
+			});
+			const total = result.data?.getTourPackages?.metaCounter?.[0]?.total ?? 0;
+
+			if (total < 1) {
+				await sweetWarningAlert(t('alerts.noPackagesFound'), t('alerts.noPackagesFoundForSearch'));
+				return;
+			}
+
+			setOpenAdvancedFilter(false);
+			await router.push(tourPackageSearchUrl(text), tourPackageSearchUrl(text));
+		} finally {
+			setIsSearching(false);
+		}
+	};
+
+	const clearAdvancedTextSearch = () => {
+		const nextSearch = { ...searchFilter.search };
+		delete nextSearch.text;
+		setSearchFilter({ ...searchFilter, search: nextSearch });
 	};
 
 	const resetFilterHandler = () => {
@@ -137,9 +218,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						<img src="/img/icons/tune.svg" alt="" />
 						<span>{t('Advanced')}</span>
 					</div>
-					<div className={'search-btn'} onClick={pushSearchHandler}>
+					<div className={`search-btn ${isSearching ? 'disabled' : ''}`} onClick={pushSearchHandler}>
 						<img src="/img/icons/search_white.svg" alt="" />
-						<span>{t('actions.search')}</span>
+						<span>{isSearching ? t('searchPackages') : t('actions.search')}</span>
 					</div>
 				</Stack>
 
@@ -198,15 +279,38 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						<div className={'top'}>
 							<span>{t('home:filters.findTour')}</span>
 							<div className={'search-input-box'}>
-								<img src="/img/icons/search.svg" alt="" />
+								<button
+									type={'button'}
+									className={'modal-search-icon'}
+									onClick={submitAdvancedTextSearch}
+									disabled={isSearching}
+									aria-label={t('actions.search')}
+								>
+									<img src="/img/icons/search.svg" alt="" />
+								</button>
 								<input
 									value={searchFilter?.search?.text ?? ''}
 									type="text"
 									placeholder={t('home:filters.searchPlaceholder')}
+									disabled={isSearching}
 									onChange={(e: any) =>
 										setSearchFilter({ ...searchFilter, search: { ...searchFilter.search, text: e.target.value } })
 									}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter') submitAdvancedTextSearch();
+									}}
 								/>
+								{searchFilter?.search?.text && (
+									<button
+										type={'button'}
+										className={'modal-clear-search'}
+										onClick={clearAdvancedTextSearch}
+										disabled={isSearching}
+										aria-label={t('clearSearch')}
+									>
+										<CloseIcon />
+									</button>
+								)}
 							</div>
 						</div>
 						<Divider sx={{ mt: '30px', mb: '35px' }} />
@@ -301,9 +405,10 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<Button
 								startIcon={<img src={'/img/icons/search.svg'} />}
 								className={'search-btn'}
+								disabled={isSearching}
 								onClick={pushSearchHandler}
 							>
-								{t('actions.search')}
+								{isSearching ? t('searchPackages') : t('actions.search')}
 							</Button>
 						</div>
 					</div>

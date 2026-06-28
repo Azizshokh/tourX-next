@@ -30,6 +30,13 @@
     "packageFallback": "새 투어 패키지",
     "defaultMessage": "{{agent}}님이 새 투어 패키지를 등록했습니다."
   },
+  "alerts": {
+    "noPackagesFound": "패키지를 찾을 수 없습니다",
+    "noPackagesFoundForSearch": "검색 조건에 맞는 패키지를 찾을 수 없습니다.",
+    "invalidFilterInput": "필터 입력이 올바르지 않습니다"
+  },
+  "searchPackages": "패키지 검색 중...",
+  "clearSearch": "검색 지우기",
   "actions": {
     "search": "검색",
     "reset": "초기화",

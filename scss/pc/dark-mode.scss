@@ -111,6 +111,11 @@ html.dark {
       border-color: var(--border-orange) !important;
 
       img { filter: invert(57%) sepia(96%) saturate(2476%) hue-rotate(2deg) brightness(102%) contrast(104%) !important; }
+      .modal-search-icon,
+      .modal-clear-search {
+        color: var(--text-muted) !important;
+        &:hover:not(:disabled) { color: var(--brand-orange) !important; background: rgba(255,138,0,0.10) !important; }
+      }
       input {
         color: var(--text-primary) !important;
         background: transparent !important;

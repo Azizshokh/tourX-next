@@ -2,11 +2,20 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Checkbox, Stack, Typography } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { useRouter } from 'next/router';
+import { useLazyQuery } from '@apollo/client';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PackageType } from '../../enums/package.enum';
 import { packageCities, packageCountries, packageDurations } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { useTranslation } from 'next-i18next';
+import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
+import {
+	cleanTourPackageInquiry,
+	hasActiveTourPackageFilters,
+	isTourPackageInquiryValid,
+	tourPackageInquiryUrl,
+} from '../../utils/tourPackageFilter';
+import { sweetWarningAlert } from '../../sweetAlert';
 
 interface FilterType {
 	searchFilter: TourPackagesInquiry;
@@ -20,23 +29,49 @@ const Filter = (props: FilterType) => {
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package']);
 	const [searchText, setSearchText] = useState<string>(searchFilter.search.text ?? '');
+	const [isFiltering, setIsFiltering] = useState(false);
+	const [checkTourPackages] = useLazyQuery(GET_TOUR_PACKAGES, { fetchPolicy: 'network-only' });
 
 	useEffect(() => {
-		if (searchFilter?.search?.countryList?.length === 0) delete searchFilter.search.countryList;
-		if (searchFilter?.search?.cityList?.length === 0) delete searchFilter.search.cityList;
-		if (searchFilter?.search?.typeList?.length === 0) delete searchFilter.search.typeList;
-		if (searchFilter?.search?.options?.length === 0) delete searchFilter.search.options;
-	}, [searchFilter]);
+		setSearchText(searchFilter.search.text ?? '');
+	}, [searchFilter.search.text]);
 
 	const pushFilter = useCallback(
 		async (input: TourPackagesInquiry) => {
-			await router.push(
-				`/tour-package?input=${JSON.stringify(input)}`,
-				`/tour-package?input=${JSON.stringify(input)}`,
-				{ scroll: false },
-			);
+			if (isFiltering) return;
+			const nextFilter = cleanTourPackageInquiry(input, input.limit);
+
+			if (!isTourPackageInquiryValid(nextFilter)) {
+				await sweetWarningAlert(t('alerts.invalidFilterInput'), t('alerts.invalidFilterInput'));
+				return;
+			}
+
+			if (!hasActiveTourPackageFilters(nextFilter)) {
+				await router.push('/tour-package', '/tour-package', { scroll: false });
+				return;
+			}
+
+			setIsFiltering(true);
+			try {
+				const result = await checkTourPackages({
+					variables: {
+						input: { ...nextFilter, page: 1, limit: 1 },
+					},
+				});
+				const total = result.data?.getTourPackages?.metaCounter?.[0]?.total ?? 0;
+
+				if (total < 1) {
+					await sweetWarningAlert(t('alerts.noPackagesFound'), t('alerts.noPackagesFoundForSearch'));
+					return;
+				}
+
+				const url = tourPackageInquiryUrl(nextFilter);
+				await router.push(url, url, { scroll: false });
+			} finally {
+				setIsFiltering(false);
+			}
 		},
-		[router],
+		[checkTourPackages, isFiltering, router, t],
 	);
 
 	const toggleListValue = async (key: 'countryList' | 'cityList' | 'typeList' | 'options', value: string) => {
@@ -87,7 +122,7 @@ const Filter = (props: FilterType) => {
 		const nextFilter = {
 			...searchFilter,
 			page: 1,
-			search: { ...searchFilter.search, text: searchText },
+			search: { ...searchFilter.search, text: searchText.trim() },
 		};
 		setSearchFilter(nextFilter);
 		await pushFilter(nextFilter);
@@ -295,8 +330,8 @@ const Filter = (props: FilterType) => {
 			</Stack>
 
 			{/* Apply */}
-			<Button className="apply-btn" onClick={textSearchHandler} disableElevation>
-				{t('actions.applyFilters')}
+			<Button className="apply-btn" onClick={textSearchHandler} disabled={isFiltering} disableElevation>
+				{isFiltering ? t('searchPackages') : t('actions.applyFilters')}
 			</Button>
 		</Stack>
 	);

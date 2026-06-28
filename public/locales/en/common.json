@@ -30,6 +30,13 @@
     "packageFallback": "New tour package",
     "defaultMessage": "{{agent}} published a new tour package."
   },
+  "alerts": {
+    "noPackagesFound": "No packages found",
+    "noPackagesFoundForSearch": "No packages found for your search.",
+    "invalidFilterInput": "Invalid filter input"
+  },
+  "searchPackages": "Searching packages...",
+  "clearSearch": "Clear search",
   "actions": {
     "search": "Search",
     "reset": "Reset",

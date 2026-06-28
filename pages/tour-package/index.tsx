@@ -32,25 +32,14 @@ import { LIKE_TARGET_TOUR_PACKAGE } from '../../apollo/user/mutation';
 import { T } from '../../libs/types/common';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 import { getI18nProps, PACKAGE_NAMESPACES } from '../../libs/i18n';
+import {
+	cleanTourPackageInquiry,
+	parseTourPackageInquiryFromQuery,
+	tourPackageSearchUrl,
+	tourPackageInquiryUrl,
+} from '../../libs/utils/tourPackageFilter';
 
 const PACKAGE_LIST_LIMIT = 3;
-
-const normalizePackageListInput = (input: TourPackagesInquiry): TourPackagesInquiry => ({
-	...input,
-	page: input?.page && input.page > 0 ? input.page : 1,
-	limit: PACKAGE_LIST_LIMIT,
-	search: input?.search ?? {},
-});
-
-const parsePackageListInput = (input: string | string[] | undefined, fallback: TourPackagesInquiry): TourPackagesInquiry => {
-	if (typeof input !== 'string') return normalizePackageListInput(fallback);
-
-	try {
-		return normalizePackageListInput(JSON.parse(input));
-	} catch (err) {
-		return normalizePackageListInput(fallback);
-	}
-};
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -63,7 +52,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package']);
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>(
-		parsePackageListInput(router?.query?.input, initialInput),
+		parseTourPackageInquiryFromQuery(router?.query?.input, router?.query?.search, router?.query?.page, initialInput, PACKAGE_LIST_LIMIT),
 	);
 	const [tourPackages, setTourPackages] = useState<TourPackage[]>([]);
 	const [total, setTotal] = useState<number>(0);
@@ -85,19 +74,25 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	});
 
 	useEffect(() => {
-		const nextFilter = parsePackageListInput(router.query.input, initialInput);
+		const nextFilter = parseTourPackageInquiryFromQuery(
+			router.query.input,
+			router.query.search,
+			router.query.page,
+			initialInput,
+			PACKAGE_LIST_LIMIT,
+		);
 		setSearchFilter(nextFilter);
 		setCurrentPage(nextFilter.page);
-	}, [router.query.input, initialInput]);
+	}, [router.query.input, router.query.search, router.query.page, initialInput]);
 
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
-		const nextFilter = normalizePackageListInput({ ...searchFilter, page: value });
+		const nextFilter = cleanTourPackageInquiry({ ...searchFilter, page: value }, PACKAGE_LIST_LIMIT);
 		setSearchFilter(nextFilter);
-		await router.push(
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
-			{ scroll: false },
-		);
+		const url =
+			typeof router.query.search === 'string' && router.query.search.trim()
+				? tourPackageSearchUrl(router.query.search, value)
+				: tourPackageInquiryUrl(nextFilter);
+		await router.push(url, url, { scroll: false });
 		setCurrentPage(value);
 	};
 
@@ -124,7 +119,7 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	const sortingHandler = (e: React.MouseEvent<HTMLLIElement>) => {
-		const nextFilter = normalizePackageListInput({ ...searchFilter, page: 1 });
+		const nextFilter = cleanTourPackageInquiry({ ...searchFilter, page: 1 }, PACKAGE_LIST_LIMIT);
 		switch (e.currentTarget.id) {
 			case 'featured':
 				nextFilter.sort = 'packageLikes';
@@ -158,11 +153,8 @@ const TourPackageList: NextPage = ({ initialInput, ...props }: any) => {
 				break;
 		}
 		setSearchFilter(nextFilter);
-		router.push(
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
-			`/tour-package?input=${JSON.stringify(nextFilter)}`,
-			{ scroll: false },
-		);
+		const url = tourPackageInquiryUrl(nextFilter);
+		router.push(url, url, { scroll: false });
 		setSortingOpen(false);
 		setAnchorEl(null);
 	};

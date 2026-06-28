@@ -118,6 +118,17 @@ export const sweetBasicAlert = async (text: string) => {
 	await tourxSwal.fire({ text });
 };
 
+export const sweetWarningAlert = async (title: string, text: string, confirmButtonText: string = 'OK') => {
+	await tourxSwal.fire({
+		icon: 'warning',
+		title,
+		text,
+		showConfirmButton: true,
+		confirmButtonText,
+		confirmButtonColor: '#ff8a00',
+	});
+};
+
 export const sweetErrorHandlingForAdmin = async (err: any) => {
 	const errorMessage = err.message ?? Messages.error1;
 	await tourxSwal.fire({

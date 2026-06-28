@@ -329,3 +329,11 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `pages/agent/detail.tsx`, `libs/components/agent/ReviewCard.tsx`, `scss/pc/agent/detailResponsive.scss`, `scss/pc/main.scss`.
 - Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
 - Remaining issue: browser visual QA was not run in this pass; manual checks at 320px, 375px, 430px, 768px, 1024px, and 1440px are still recommended.
+
+## 2026-06-28 - Community list responsive layer
+- Removed the Community list and shared CommunityCard mobile placeholder branches so the real community feed renders on mobile.
+- Added a dedicated Community responsive SCSS layer imported after the approved desktop Community styles, keeping the 1025px+ desktop base untouched while stacking tablet/mobile layouts.
+- Covered the sidebar/category panel, create-post button, category nav, article grid/cards, images, text wrapping, pagination, empty state, and mobile dark-mode surfaces with scoped `max-width: 1024px`, `max-width: 767px`, `max-width: 430px`, and `max-width: 360px` rules.
+- Files: `pages/community/index.tsx`, `libs/components/common/CommunityCard.tsx`, `scss/pc/community/responsive.scss`, `scss/pc/main.scss`.
+- Validation: Community placeholder scan passed; PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+- Remaining issue: browser viewport/scrollWidth QA was not run in this pass; manual checks at 320px, 375px, 430px, 768px, 1024px, and 1440px are still recommended.

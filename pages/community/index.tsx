@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Box, Button, Pagination } from '@mui/material';
 import CommunityCard from '../../libs/components/common/CommunityCard';
 import AnimatedSection from '../../libs/components/animation/AnimatedSection';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
 import { T } from '../../libs/types/common';
@@ -52,7 +51,6 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const Community: NextPage = ({ initialInput, ...props }: T) => {
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'community']);
 	const { query } = router;
@@ -118,10 +116,6 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
-
-	if (device === 'mobile') {
-		return <h1>{t('common:mobile.community')}</h1>;
-	}
 
 	return (
 		<div className="community-list-page">

@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 import { useRouter } from 'next/router';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 const MotionStack = motion(Stack);
 const MotionBox = motion(Box);
@@ -34,7 +33,6 @@ interface CommunityCardProps {
 
 const CommunityCard = (props: CommunityCardProps) => {
 	const { boardArticle, size = 'normal', likeArticleHandler } = props;
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
@@ -61,10 +59,6 @@ const CommunityCard = (props: CommunityCardProps) => {
 		if (id === user?._id) router.push('/mypage');
 		else router.push(`/member?memberId=${id}`);
 	};
-
-	if (device === 'mobile') {
-		return <div>COMMUNITY CARD MOBILE</div>;
-	}
 
 	/* ── Small size: used in MyArticles / MemberArticles (keep existing layout) ── */
 	if (size === 'small') {

@@ -2,7 +2,6 @@ import React from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Box, Stack } from '@mui/material';
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
@@ -22,12 +21,7 @@ import StaggerItem from '../../libs/components/animation/StaggerItem';
 import { sectionMotionProps } from '../../libs/config/animations';
 
 const About: NextPage = () => {
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['common', 'about']);
-
-	if (device === 'mobile') {
-		return <div>{t('common:mobile.about')}</div>;
-	}
 
 	const missionCards = [
 		{

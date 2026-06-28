@@ -600,5 +600,739 @@
 				box-shadow: 0 16px 34px rgba(236,102,42,0.26);
 			}
 		}
+
+		/* ─── Tablet: fix container overflow and grid collisions (768–1240px) ─── */
+		@media (max-width: 1240px) {
+			.container {
+				width: calc(100% - 48px);
+			}
+
+			.about-hero .container {
+				grid-template-columns: minmax(0, 1fr) 400px;
+				gap: 48px;
+			}
+
+			.about-feature .container {
+				grid-template-columns: 460px minmax(0, 1fr);
+				gap: 48px;
+			}
+		}
+
+		@media (max-width: 1000px) {
+			.container {
+				width: calc(100% - 32px);
+			}
+
+			.about-hero {
+				padding: 80px 0 56px;
+
+				.container {
+					grid-template-columns: minmax(0, 1fr) 300px;
+					gap: 36px;
+				}
+
+				h1 {
+					font-size: 44px;
+					line-height: 52px;
+				}
+
+				.hero-media {
+					height: 400px;
+				}
+			}
+
+			.about-stats .container {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.mission-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.about-feature {
+				.container {
+					grid-template-columns: 360px minmax(0, 1fr);
+					gap: 40px;
+				}
+
+				h2 {
+					font-size: 34px;
+					line-height: 42px;
+				}
+			}
+
+			.about-values .container {
+				grid-template-columns: 240px minmax(0, 1fr);
+				gap: 32px;
+			}
+
+			.services-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.about-team .team-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.about-help {
+				.container {
+					padding: 36px;
+					gap: 24px;
+				}
+
+				h2 {
+					font-size: 28px;
+				}
+			}
+		}
+
+		@media (max-width: 860px) {
+			.about-hero {
+				.container {
+					grid-template-columns: 1fr;
+					gap: 32px;
+				}
+
+				.hero-media {
+					height: 280px;
+				}
+			}
+
+			.about-feature {
+				.container {
+					grid-template-columns: 1fr;
+					gap: 32px;
+				}
+
+				.feature-image {
+					height: 300px;
+				}
+			}
+
+			.about-values {
+				.container {
+					grid-template-columns: 1fr;
+				}
+
+				.values-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			.about-help .container {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+		}
+	}
+}
+
+/* ══════════════════════════════════════════════════════
+   ABOUT PAGE — #mobile-wrap (≤767px)
+   Desktop #pc-wrap styles above are untouched.
+   Visual design identical — only layout adapts.
+══════════════════════════════════════════════════════ */
+#mobile-wrap .about-page {
+	width: 100%;
+	background: #fbf9f8;
+	overflow-x: clip; /* never overflow:hidden — kills whileInView IO */
+
+	/* Base container: full-width with side padding */
+	.container {
+		width: 100%;
+		padding: 0 16px;
+		box-sizing: border-box;
+	}
+
+	/* ── HERO ── */
+	.about-hero {
+		position: relative;
+		padding: 40px 0 44px;
+		background: #fbf9f8;
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 28px;
+		}
+
+		.hero-copy {
+			align-items: flex-start;
+		}
+
+		.eyebrow {
+			width: fit-content;
+			padding: 8px 14px;
+			border-radius: 999px;
+			background: rgba(236, 102, 42, 0.12);
+			color: #ec662a;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 900;
+			letter-spacing: 0;
+		}
+
+		h1 {
+			margin: 14px 0 0;
+			max-width: 100%;
+			color: #082f49;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 30px;
+			font-weight: 900;
+			line-height: 38px;
+			letter-spacing: 0;
+		}
+
+		p {
+			margin: 12px 0 0;
+			max-width: 100%;
+			color: #334155;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 15px;
+			font-weight: 500;
+			line-height: 26px;
+		}
+
+		.hero-actions {
+			margin-top: 22px;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.primary-action,
+		.secondary-action {
+			height: 48px;
+			padding: 0 18px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			border-radius: 12px;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 14px;
+			font-weight: 900;
+			text-decoration: none;
+			transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+		}
+
+		.primary-action {
+			background: #ec662a;
+			color: #ffffff;
+			box-shadow: 0 18px 38px rgba(236, 102, 42, 0.28);
+
+			svg {
+				font-size: 18px;
+			}
+
+			&:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 24px 44px rgba(236, 102, 42, 0.34);
+			}
+		}
+
+		.secondary-action {
+			border: 1px solid rgba(8, 47, 73, 0.14);
+			background: rgba(255, 255, 255, 0.72);
+			color: #082f49;
+
+			&:hover {
+				border-color: rgba(236, 102, 42, 0.38);
+				background: #fff7ed;
+			}
+		}
+
+		.hero-media {
+			position: relative;
+			width: 100%;
+			height: 220px;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 20px 60px rgba(8, 24, 44, 0.18);
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, rgba(8, 47, 73, 0.02) 0%, rgba(8, 47, 73, 0.34) 100%);
+			}
+		}
+
+		.floating-note {
+			position: absolute;
+			left: 16px;
+			bottom: 16px;
+			z-index: 1;
+			padding: 10px 12px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			border: 1px solid rgba(255, 255, 255, 0.32);
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.88);
+			backdrop-filter: blur(12px);
+			color: #082f49;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 12px;
+			font-weight: 900;
+
+			svg {
+				color: #1f8f62;
+			}
+		}
+	}
+
+	/* ── STATS ── */
+	.about-stats {
+		padding: 0 0 44px;
+
+		.container {
+			padding: 14px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 10px;
+			border: 1px solid rgba(8, 47, 73, 0.08);
+			border-radius: 20px;
+			background: #ffffff;
+			box-shadow: 0 24px 70px rgba(8, 24, 44, 0.08);
+		}
+
+		div {
+			padding: 16px 12px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border-radius: 14px;
+			background: #f8fafc;
+		}
+
+		strong {
+			color: #ec662a;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 28px;
+			font-weight: 900;
+			line-height: 1;
+		}
+
+		span {
+			margin-top: 6px;
+			color: #557082;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 12px;
+			font-weight: 800;
+			text-align: center;
+		}
+	}
+
+	/* ── Shared section padding ── */
+	.about-mission,
+	.about-feature,
+	.about-services,
+	.about-values,
+	.about-team,
+	.about-help {
+		padding: 44px 0;
+	}
+
+	/* Section heading: left-aligned on mobile (centered on desktop) */
+	.section-heading {
+		max-width: 100%;
+		margin: 0;
+		align-items: flex-start;
+		text-align: left;
+
+		span {
+			color: #ec662a;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 900;
+		}
+
+		h2 {
+			margin: 10px 0 0;
+			color: #082f49;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 24px;
+			font-weight: 900;
+			line-height: 32px;
+			letter-spacing: 0;
+		}
+
+		p {
+			margin: 12px 0 0;
+			color: #557082;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 14px;
+			line-height: 24px;
+		}
+	}
+
+	/* ── MISSION ── */
+	.about-mission {
+		.mission-grid {
+			margin-top: 24px;
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.mission-card {
+			padding: 22px 18px;
+			border: 1px solid rgba(8, 47, 73, 0.08);
+			border-radius: 20px;
+			background: #ffffff;
+			box-shadow: 0 18px 50px rgba(8, 24, 44, 0.07);
+
+			.icon-box {
+				width: 48px;
+				height: 48px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 14px;
+				background: #fff7ed;
+				color: #ec662a;
+
+				svg {
+					font-size: 22px;
+				}
+			}
+
+			h3 {
+				margin: 16px 0 0;
+				color: #082f49;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 17px;
+				font-weight: 900;
+			}
+
+			p {
+				margin: 8px 0 0;
+				color: #557082;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 14px;
+				line-height: 24px;
+			}
+		}
+	}
+
+	/* ── FEATURE: stacked column on mobile (image → copy) ── */
+	.about-feature {
+		background: #ffffff;
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+		}
+
+		.feature-image {
+			width: 100%;
+			height: 220px;
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 20px 60px rgba(8, 24, 44, 0.12);
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+		}
+
+		.feature-copy {
+			align-items: flex-start;
+		}
+
+		.eyebrow {
+			color: #1f8f62;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 900;
+		}
+
+		h2 {
+			margin: 10px 0 0;
+			color: #082f49;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 24px;
+			font-weight: 900;
+			line-height: 32px;
+			letter-spacing: 0;
+		}
+
+		p {
+			margin: 12px 0 0;
+			color: #557082;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 14px;
+			line-height: 24px;
+		}
+
+		ul {
+			margin: 16px 0 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			list-style: none;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			color: #0d1c32;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 14px;
+			font-weight: 800;
+
+			svg {
+				color: #ec662a;
+				font-size: 20px;
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	/* ── SERVICES: 2-col grid on mobile ── */
+	.about-services {
+		.services-grid {
+			margin-top: 24px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px;
+		}
+
+		article {
+			min-height: auto;
+			padding: 18px 14px;
+			border: 1px solid rgba(8, 47, 73, 0.08);
+			border-radius: 16px;
+			background: #ffffff;
+			box-shadow: 0 18px 50px rgba(8, 24, 44, 0.06);
+
+			span {
+				color: #ec662a;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 900;
+			}
+
+			p {
+				margin: 12px 0 0;
+				color: #0d1c32;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 900;
+				line-height: 20px;
+			}
+		}
+	}
+
+	/* ── VALUES: column then 1-col grid on mobile ── */
+	.about-values {
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+		}
+
+		.values-copy {
+			align-items: flex-start;
+
+			span {
+				color: #ec662a;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 900;
+			}
+
+			h2 {
+				margin: 10px 0 0;
+				color: #082f49;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 24px;
+				font-weight: 900;
+				line-height: 32px;
+				letter-spacing: 0;
+			}
+
+			p {
+				margin: 12px 0 0;
+				color: #557082;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 14px;
+				line-height: 24px;
+			}
+		}
+
+		.values-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		article {
+			padding: 20px 16px;
+			border: 1px solid rgba(8, 47, 73, 0.08);
+			border-radius: 18px;
+			background: #ffffff;
+
+			span {
+				color: #ec662a;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 900;
+			}
+
+			h3 {
+				margin: 12px 0 0;
+				color: #082f49;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 16px;
+				font-weight: 900;
+			}
+
+			p {
+				margin: 8px 0 0;
+				color: #557082;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				line-height: 22px;
+			}
+		}
+	}
+
+	/* ── TEAM: 1-col on mobile ── */
+	.about-team {
+		background: #ffffff;
+
+		.team-grid {
+			margin-top: 24px;
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		article {
+			padding: 24px 18px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			border: 1px solid rgba(8, 47, 73, 0.08);
+			border-radius: 20px;
+			background: #fbf9f8;
+			box-shadow: 0 18px 50px rgba(8, 24, 44, 0.06);
+
+			div {
+				width: 52px;
+				height: 52px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				background: #fff7ed;
+				color: #ec662a;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 20px;
+				font-weight: 900;
+			}
+
+			h3 {
+				margin: 14px 0 0;
+				color: #082f49;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 17px;
+				font-weight: 900;
+			}
+
+			p {
+				margin: 6px 0 0;
+				color: #557082;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				line-height: 22px;
+			}
+		}
+	}
+
+	/* ── CTA / HELP: column layout, dark gradient preserved ── */
+	.about-help {
+		padding-bottom: 60px;
+
+		.container {
+			padding: 28px 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 22px;
+			border-radius: 20px;
+			background:
+				linear-gradient(90deg, rgba(8, 47, 73, 0.94), rgba(13, 28, 50, 0.92)),
+				url('/img/events/Footer%20img.png') center / cover no-repeat;
+			box-shadow: 0 28px 80px rgba(8, 24, 44, 0.22);
+		}
+
+		h2 {
+			margin: 0;
+			color: #ffffff;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 22px;
+			font-weight: 900;
+			letter-spacing: 0;
+		}
+
+		p {
+			margin: 8px 0 0;
+			color: rgba(255, 255, 255, 0.72);
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 14px;
+			line-height: 24px;
+		}
+
+		.right {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.outline-action,
+		.phone-action {
+			height: 46px;
+			padding: 0 16px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			border-radius: 12px;
+			font-family: 'Plus Jakarta Sans', $font;
+			font-size: 13px;
+			font-weight: 900;
+			text-decoration: none;
+			white-space: nowrap;
+		}
+
+		.outline-action {
+			border: 1px solid rgba(255, 255, 255, 0.34);
+			color: #ffffff;
+		}
+
+		.phone-action {
+			background: #ec662a;
+			color: #ffffff;
+			box-shadow: 0 16px 34px rgba(236, 102, 42, 0.26);
+		}
 	}
 }

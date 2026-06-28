@@ -23,7 +23,6 @@ import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
 import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import HikingRoundedIcon from '@mui/icons-material/HikingRounded';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import Faq from '../../libs/components/cs/Faq';
 import AnimatedSection from '../../libs/components/animation/AnimatedSection';
@@ -113,7 +112,6 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const CS: NextPage = () => {
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['common', 'community']);
 	const [noticeCategories, setNoticeCategories] = useState<NoticeCategory[]>([]);
 	const [notices, setNotices] = useState<Notice[]>([]);
@@ -157,10 +155,6 @@ const CS: NextPage = () => {
 
 		return descriptionMap;
 	}, [noticeCategories, notices]);
-
-	if (device === 'mobile') {
-		return <h1>{t('common:mobile.help')}</h1>;
-	}
 
 	return (
 		<Stack className={'cs-page'}>

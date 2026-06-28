@@ -13,7 +13,6 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import PolicyRoundedIcon from '@mui/icons-material/PolicyRounded';
 import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { GET_FAQ_CATEGORIES, GET_FAQS } from '../../../apollo/user/query';
 import { Faq as FaqItem, FaqCategory } from '../../types/faq/faq';
 import { FaqInquiry } from '../../types/faq/faq.input';
@@ -171,7 +170,6 @@ const faqInquiry: FaqInquiry = {
 };
 
 const Faq = () => {
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['community']);
 	const [category, setCategory] = useState<string>('booking');
 	const [expanded, setExpanded] = useState<string | false>('booking-package');
@@ -264,10 +262,6 @@ const Faq = () => {
 	const handleChange = (panel: string) => (event: SyntheticEvent, newExpanded: boolean) => {
 		setExpanded(newExpanded ? panel : false);
 	};
-
-	if (device === 'mobile') {
-		return <div>{t('community:help.mobile')}</div>;
-	}
 
 	return (
 		<Stack className={'faq-content'}>

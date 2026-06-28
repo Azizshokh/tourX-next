@@ -58,6 +58,16 @@
     "travelers": "travelers",
     "people": "people"
   },
+  "map": {
+    "title": "Package location",
+    "previewTitle": "Map preview for {{title}}",
+    "openLarge": "View larger map",
+    "openGoogle": "Open in Google Maps",
+    "previewUnavailable": "Map preview is not available, but you can open this location in Google Maps.",
+    "locationUnavailable": "Location details are not available for this package.",
+    "dialogLabel": "Package location map",
+    "close": "Close map"
+  },
   "type": {
     "ADVENTURE": "Adventure",
     "CULTURAL": "Cultural",

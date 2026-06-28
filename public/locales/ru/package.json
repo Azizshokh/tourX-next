@@ -58,6 +58,16 @@
     "travelers": "путешественников",
     "people": "чел."
   },
+  "map": {
+    "title": "Место пакета",
+    "previewTitle": "Предпросмотр карты для {{title}}",
+    "openLarge": "Открыть большую карту",
+    "openGoogle": "Открыть в Google Maps",
+    "previewUnavailable": "Предпросмотр карты недоступен, но вы можете открыть это место в Google Maps.",
+    "locationUnavailable": "Сведения о местоположении для этого пакета недоступны.",
+    "dialogLabel": "Карта местоположения пакета",
+    "close": "Закрыть карту"
+  },
   "type": {
     "ADVENTURE": "Приключения",
     "CULTURAL": "Культура",

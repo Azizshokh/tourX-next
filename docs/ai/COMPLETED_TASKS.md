@@ -225,3 +225,20 @@ Validation: `yarn tsc --noEmit` passed.
 - Preserved existing upload limits, create/update GraphQL payload shape, and validation requiring at least one package image.
 - Files: `libs/components/mypage/AddNewTourPackage.tsx`, `scss/pc/mypage/addNewTourPackage.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/mypage.json`.
 - Validation: `yarn.cmd tsc --noEmit` passed; PC Sass compile passed; MyPage locale key consistency passed.
+
+## 2026-06-28 - About Us navbar link and About page sections
+- Added `About Us` immediately after `Help` in the shared desktop and mobile `Top` navbar and the reusable common `Navbar` implementation.
+- Reused the existing `/about` route and expanded the About page with explicit services, vision/why choose, and team sections while preserving the existing TourX layout and i18n loading.
+- Added/updated `nav.about` and About page translation keys across `en`, `kr`, and `ru`.
+- Files: `libs/components/Top.tsx`, `libs/components/common/Navbar.tsx`, `pages/about/index.tsx`, `public/locales/{en,kr,ru}/common.json`, `public/locales/{en,kr,ru}/about.json`, `scss/pc/about/about.scss`, `scss/pc/dark-mode.scss`.
+- Validation: common/about locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC Sass compile passed.
+
+## 2026-06-28 - Package detail Google Maps preview
+- Added a reusable `PackageLocationMap` component for the Tour Package detail booking card using `packageAddress`, `packageCity`, `packageCountry`, and `packageTitle`.
+- Replaced the old static `booking-card:before` map placeholder with a themed map preview that opens a centered modal with backdrop click, X close, ESC close, and an `Open in Google Maps` action.
+- Uses the no-key Google Maps iframe URL `https://www.google.com/maps?q=...&output=embed` so package locations render inside TourX without requiring `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`; fallback copy only appears when the package has no location fields.
+- Redesigned the map modal as an Apple Maps-inspired glass floating card with blurred backdrop, compact floating header, large rounded iframe, bottom action bar, smooth fade/scale animation, responsive sizing, and dark-mode overlay support.
+- Added localized package map labels for `en`, `kr`, and `ru` and kept light/dark styling tied to existing TourX CSS variables.
+- Files: `libs/components/tourPackage/PackageLocationMap.tsx`, `pages/tour-package/detail.tsx`, `scss/pc/tourPackage/detail.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/package.json`.
+- Validation: package locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC Sass compile passed; `yarn.cmd build` passed with the existing Browserslist update warning.
+- Remaining issue: manual browser verification with live package addresses is recommended to confirm Google iframe rendering in the local browser.

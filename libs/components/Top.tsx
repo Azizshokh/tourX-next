@@ -173,6 +173,9 @@ const Top = () => {
 				<Link href={'/cs'}>
 					<div> {t('nav.help')} </div>
 				</Link>
+				<Link href={'/about'}>
+					<div> {t('nav.about')} </div>
+				</Link>
 				<NotificationDropdown isAuthenticated={!!user?._id} />
 			</Stack>
 		);
@@ -206,6 +209,9 @@ const Top = () => {
 							)}
 							<Link href={'/cs'}>
 								<div className={router.pathname.startsWith('/cs') ? 'active' : ''}> {t('nav.help')} </div>
+							</Link>
+							<Link href={'/about'}>
+								<div className={router.pathname.startsWith('/about') ? 'active' : ''}> {t('nav.about')} </div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>

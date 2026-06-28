@@ -58,6 +58,16 @@
     "travelers": "여행자",
     "people": "명"
   },
+  "map": {
+    "title": "패키지 위치",
+    "previewTitle": "{{title}} 지도 미리보기",
+    "openLarge": "큰 지도 보기",
+    "openGoogle": "Google 지도에서 열기",
+    "previewUnavailable": "지도 미리보기를 사용할 수 없지만 Google 지도에서 이 위치를 열 수 있습니다.",
+    "locationUnavailable": "이 패키지의 위치 정보가 없습니다.",
+    "dialogLabel": "패키지 위치 지도",
+    "close": "지도 닫기"
+  },
   "type": {
     "ADVENTURE": "모험",
     "CULTURAL": "문화",

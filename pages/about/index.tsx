@@ -47,6 +47,19 @@ const About: NextPage = () => {
 		{ title: t('about:values.threeTitle'), body: t('about:values.threeBody') },
 	];
 
+	const services = [
+		t('about:services.item1'),
+		t('about:services.item2'),
+		t('about:services.item3'),
+		t('about:services.item4'),
+	];
+
+	const team = [
+		{ name: t('about:team.oneName'), role: t('about:team.oneRole') },
+		{ name: t('about:team.twoName'), role: t('about:team.twoRole') },
+		{ name: t('about:team.threeName'), role: t('about:team.threeRole') },
+	];
+
 	return (
 		<Stack className={'about-page'}>
 			<section className={'about-hero'}>
@@ -142,15 +155,56 @@ const About: NextPage = () => {
 				</Stack>
 			</section>
 
+			<section className={'about-services'}>
+				<Stack className={'container'}>
+					<Stack className={'section-heading'}>
+						<span>{t('about:services.eyebrow')}</span>
+						<h2>{t('about:services.title')}</h2>
+						<p>{t('about:services.body')}</p>
+					</Stack>
+					<Stack className={'services-grid'}>
+						{services.map((service, index) => (
+							<article key={service}>
+								<span>{String(index + 1).padStart(2, '0')}</span>
+								<p>{service}</p>
+							</article>
+						))}
+					</Stack>
+				</Stack>
+			</section>
+
 			<section className={'about-values'}>
 				<Stack className={'container'}>
-					<h2>{t('about:values.title')}</h2>
+					<Stack className={'values-copy'}>
+						<span>{t('about:values.eyebrow')}</span>
+						<h2>{t('about:values.title')}</h2>
+						<p>{t('about:values.vision')}</p>
+					</Stack>
 					<Stack className={'values-grid'}>
 						{values.map((value, index) => (
 							<article key={value.title}>
 								<span>{String(index + 1).padStart(2, '0')}</span>
 								<h3>{value.title}</h3>
 								<p>{value.body}</p>
+							</article>
+						))}
+					</Stack>
+				</Stack>
+			</section>
+
+			<section className={'about-team'}>
+				<Stack className={'container'}>
+					<Stack className={'section-heading'}>
+						<span>{t('about:team.eyebrow')}</span>
+						<h2>{t('about:team.title')}</h2>
+						<p>{t('about:team.body')}</p>
+					</Stack>
+					<Stack className={'team-grid'}>
+						{team.map((member) => (
+							<article key={member.name}>
+								<div>{member.name.charAt(0)}</div>
+								<h3>{member.name}</h3>
+								<p>{member.role}</p>
 							</article>
 						))}
 					</Stack>

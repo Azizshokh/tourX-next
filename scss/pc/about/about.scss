@@ -213,7 +213,9 @@
 
 		.about-mission,
 		.about-feature,
+		.about-services,
 		.about-values,
+		.about-team,
 		.about-help {
 			padding: 72px 0;
 		}
@@ -390,6 +392,25 @@
 				letter-spacing: 0;
 			}
 
+			.values-copy {
+				align-items: flex-start;
+
+				span {
+					color: #ec662a;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 900;
+				}
+
+				p {
+					margin: 14px 0 0;
+					color: #557082;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 15px;
+					line-height: 26px;
+				}
+			}
+
 			.values-grid {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
@@ -419,6 +440,92 @@
 
 				p {
 					margin: 10px 0 0;
+					color: #557082;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					line-height: 24px;
+				}
+			}
+		}
+
+		.about-services {
+			.services-grid {
+				margin-top: 36px;
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 16px;
+			}
+
+			article {
+				min-height: 160px;
+				padding: 24px;
+				border: 1px solid rgba(8,47,73,0.08);
+				border-radius: 18px;
+				background: #ffffff;
+				box-shadow: 0 18px 50px rgba(8,24,44,0.06);
+
+				span {
+					color: #ec662a;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 900;
+				}
+
+				p {
+					margin: 18px 0 0;
+					color: #0d1c32;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 16px;
+					font-weight: 900;
+					line-height: 24px;
+				}
+			}
+		}
+
+		.about-team {
+			background: #ffffff;
+
+			.team-grid {
+				margin-top: 36px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 18px;
+			}
+
+			article {
+				padding: 28px;
+				align-items: center;
+				text-align: center;
+				border: 1px solid rgba(8,47,73,0.08);
+				border-radius: 20px;
+				background: #fbf9f8;
+				box-shadow: 0 18px 50px rgba(8,24,44,0.06);
+
+				div {
+					width: 58px;
+					height: 58px;
+					margin: 0 auto;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 50%;
+					background: #fff7ed;
+					color: #ec662a;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 22px;
+					font-weight: 900;
+				}
+
+				h3 {
+					margin: 18px 0 0;
+					color: #082f49;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 19px;
+					font-weight: 900;
+				}
+
+				p {
+					margin: 8px 0 0;
 					color: #557082;
 					font-family: 'Plus Jakarta Sans', $font;
 					font-size: 14px;

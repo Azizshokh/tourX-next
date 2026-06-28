@@ -17,6 +17,7 @@ import Link from 'next/link';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import Review from '../../libs/components/tourPackage/Review';
+import PackageLocationMap from '../../libs/components/tourPackage/PackageLocationMap';
 import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
@@ -438,6 +439,12 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 						</Stack>
 						<Stack className={'right-config'}>
 							<Stack className={'booking-card'}>
+								<PackageLocationMap
+									packageCountry={tourPackage?.packageCountry}
+									packageCity={tourPackage?.packageCity}
+									packageAddress={tourPackage?.packageAddress}
+									packageTitle={tourPackage?.packageTitle}
+								/>
 								<Typography className={'sidebar-kicker'}>{t('package:detail.tripSummary')}</Typography>
 								<Typography className={'price'}>
 									{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(totalPrice)}

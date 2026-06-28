@@ -13,7 +13,8 @@ const navLinks = [
 	{ label: 'Packages', href: '/tour-package', match: '/tour-package' },
 	{ label: 'Agents', href: '/agent', match: '/agent' },
 	{ label: 'Community', href: '/community?articleCategory=FREE', match: '/community' },
-	{ label: 'Support', href: '/cs', match: '/cs' },
+	{ label: 'Help', href: '/cs', match: '/cs' },
+	{ label: 'About Us', href: '/about', match: '/about' },
 ];
 
 const normalizeRoute = (route?: string) => {

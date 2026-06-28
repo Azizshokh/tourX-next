@@ -33,14 +33,36 @@
     "item3": "Agent profiles with social proof",
     "imageAlt": "TourX curated trips"
   },
+  "services": {
+    "eyebrow": "Our Services",
+    "title": "Everything travelers and agents need to move with confidence",
+    "body": "TourX brings discovery, comparison, agency profiles, saved trips, and community insight into one clear travel marketplace.",
+    "item1": "Curated tour package discovery",
+    "item2": "Verified travel agent profiles",
+    "item3": "Wishlist, recently viewed trips, and planning signals",
+    "item4": "Community stories, comments, and support pathways"
+  },
   "values": {
+    "eyebrow": "Why Choose Us",
     "title": "What guides TourX",
+    "vision": "Our vision is to make TourX the trusted place where travelers discover meaningful trips and local experts grow lasting travel relationships.",
     "oneTitle": "Clarity first",
     "oneBody": "Packages should be easy to scan, compare, and understand.",
     "twoTitle": "Trust through people",
     "twoBody": "Agents and travelers both add context that static listings cannot.",
     "threeTitle": "Travel with care",
     "threeBody": "Good journeys need useful details, responsible expectations, and responsive support."
+  },
+  "team": {
+    "eyebrow": "Meet our team",
+    "title": "Built by people who care about better travel",
+    "body": "TourX combines product, travel operations, and community thinking to make trip discovery feel human and reliable.",
+    "oneName": "TourX Product",
+    "oneRole": "Marketplace experience and traveler workflows",
+    "twoName": "Agent Success",
+    "twoRole": "Agency onboarding, quality signals, and support",
+    "threeName": "Community Team",
+    "threeRole": "Stories, reviews, and helpful travel conversations"
   },
   "cta": {
     "title": "Ready to plan a better trip?",

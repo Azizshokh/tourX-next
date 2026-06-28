@@ -1101,20 +1101,279 @@
 			gap: 10px;
 
 			&:before {
-				content: 'Map / Route';
-				height: 145px;
-				margin: -18px -18px 8px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+				content: none;
+			}
+
+			.package-location-map {
+				margin: -18px -18px 10px;
+				padding: 12px;
+				gap: 10px;
+				border-bottom: 1px solid var(--border);
 				border-radius: 4px 4px 0 0;
-				background:
-					linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)),
-					url('/img/banner/TourX%20background.png') center / cover no-repeat;
-				color: rgba(255, 255, 255, 0.9);
+				background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-alt) 100%);
+			}
+
+			.map-title-row {
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				gap: 10px;
+			}
+
+			.map-title-copy,
+			.map-modal-title {
+				min-width: 0;
+				flex-direction: row;
+				align-items: center;
+				gap: 10px;
+
+				svg {
+					flex-shrink: 0;
+					color: var(--brand-orange);
+					font-size: 20px;
+				}
+			}
+
+			.map-kicker,
+			.map-modal-heading {
+				color: var(--text-primary);
 				font-family: 'Plus Jakarta Sans', $font;
 				font-size: 12px;
 				font-weight: 900;
+				line-height: 16px;
+			}
+
+			.map-address,
+			.map-modal-subtitle {
+				margin-top: 1px;
+				overflow: hidden;
+				color: var(--text-secondary);
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 11px;
+				font-weight: 700;
+				line-height: 16px;
+			}
+
+			.map-preview {
+				position: relative;
+				width: 100%;
+				height: 145px;
+				padding: 0;
+				overflow: hidden;
+				border: 1px solid var(--border);
+				border-radius: 4px;
+				background: var(--bg-card-alt);
+				cursor: pointer;
+				transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+				&:hover {
+					border-color: var(--border-orange);
+					box-shadow: var(--shadow-card);
+					transform: translateY(-1px);
+
+					.map-preview-overlay {
+						opacity: 1;
+					}
+				}
+			}
+
+			.map-preview-frame {
+				width: 100%;
+				height: 100%;
+				border: 0;
+				pointer-events: none;
+			}
+
+			.map-preview-overlay {
+				position: absolute;
+				inset: auto 10px 10px;
+				height: 34px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 7px;
+				border-radius: 999px;
+				background: color-mix(in srgb, var(--bg-card) 84%, transparent);
+				color: var(--brand-orange);
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 11px;
+				font-weight: 900;
+				opacity: 0.92;
+				box-shadow: var(--shadow-card);
+				transition: opacity 0.2s ease, background 0.2s ease;
+
+				svg {
+					font-size: 16px;
+				}
+			}
+
+			.map-fallback {
+				min-height: 145px;
+				padding: 18px 14px;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				text-align: center;
+				border: 1px dashed var(--border-orange);
+				border-radius: 4px;
+				background: var(--bg-card-alt);
+
+				> svg {
+					color: var(--brand-orange);
+					font-size: 26px;
+				}
+
+				p {
+					color: var(--text-secondary);
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 12px;
+					font-weight: 700;
+					line-height: 18px;
+				}
+			}
+
+			.map-modal-backdrop {
+				position: fixed;
+				inset: 0;
+				z-index: 1400;
+				padding: 28px;
+				align-items: center;
+				justify-content: center;
+				background: rgba(15, 23, 42, 0.28);
+				backdrop-filter: blur(14px);
+				-webkit-backdrop-filter: blur(14px);
+				animation: tourx-map-backdrop-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+			}
+
+			.map-modal {
+				position: relative;
+				width: min(980px, 92vw);
+				height: min(720px, 86vh);
+				padding: 12px;
+				overflow: hidden;
+				border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+				border-radius: 32px;
+				background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+				box-shadow: 0 35px 100px rgba(0, 0, 0, 0.28);
+				animation: tourx-map-modal-in 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+			}
+
+			.map-modal-header {
+				position: absolute;
+				top: 24px;
+				left: 24px;
+				right: 24px;
+				z-index: 2;
+				min-height: 72px;
+				padding: 12px 14px 12px 16px;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+				border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+				border-radius: 22px;
+				background: color-mix(in srgb, var(--bg-card) 78%, transparent);
+				box-shadow: var(--shadow-card);
+				backdrop-filter: blur(18px);
+				-webkit-backdrop-filter: blur(18px);
+			}
+
+			.map-modal-title {
+				overflow: hidden;
+
+				svg {
+					width: 40px;
+					height: 40px;
+					padding: 9px;
+					border-radius: 50%;
+					background: color-mix(in srgb, var(--brand-orange) 14%, transparent);
+					color: var(--brand-orange);
+				}
+			}
+
+			.map-modal-heading {
+				font-size: 16px;
+				line-height: 22px;
+			}
+
+			.map-modal-subtitle {
+				max-width: 620px;
+				font-size: 13px;
+				line-height: 19px;
+			}
+
+			.map-close-button.MuiIconButton-root {
+				width: 42px;
+				height: 42px;
+				flex-shrink: 0;
+				border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
+				background: color-mix(in srgb, var(--bg-card-alt) 82%, transparent);
+				color: var(--text-primary);
+				box-shadow: var(--shadow-card);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+
+				&:hover {
+					border-color: var(--border-orange);
+					color: var(--brand-orange);
+					background: var(--bg-hover);
+					transform: scale(1.04);
+				}
+			}
+
+			.map-modal-frame {
+				width: 100%;
+				height: 100%;
+				border: none;
+				border-radius: 24px;
+				background: var(--bg-card-alt);
+			}
+
+			.map-modal-footer {
+				position: absolute;
+				left: 24px;
+				right: 24px;
+				bottom: 24px;
+				z-index: 2;
+				min-height: 64px;
+				padding: 12px;
+				flex-direction: row;
+				align-items: center;
+				justify-content: flex-end;
+				border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+				border-radius: 22px;
+				background: color-mix(in srgb, var(--bg-card) 74%, transparent);
+				box-shadow: var(--shadow-card);
+				backdrop-filter: blur(18px);
+				-webkit-backdrop-filter: blur(18px);
+			}
+
+			.map-open-button.MuiButton-root {
+				min-width: 0;
+				height: 42px;
+				padding: 0 18px;
+				border-radius: 999px;
+				background: var(--brand-orange);
+				color: var(--bg-card);
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 13px;
+				font-weight: 900;
+				text-transform: none;
+				box-shadow: 0 14px 30px rgba(255, 138, 0, 0.28);
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+				svg {
+					font-size: 17px;
+				}
+
+				&:hover {
+					background: var(--brand-orange);
+					box-shadow: 0 18px 38px rgba(255, 138, 0, 0.36);
+					transform: translateY(-1px);
+				}
 			}
 
 			.sidebar-kicker {
@@ -1366,6 +1625,28 @@
 	}
 }
 
+@keyframes tourx-map-backdrop-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes tourx-map-modal-in {
+	from {
+		opacity: 0;
+		transform: scale(0.94) translateY(16px);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
 @media (max-width: 1180px) {
 	#pc-wrap {
 		#tour-package-detail-page {
@@ -1376,6 +1657,115 @@
 
 			.tour-package-info-config .images {
 				height: 300px;
+			}
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	#pc-wrap {
+		#tour-package-detail-page {
+			.booking-card {
+				.map-modal-backdrop {
+					padding: 24px;
+				}
+
+				.map-modal {
+					width: 94vw;
+					height: 82vh;
+					border-radius: 28px;
+				}
+
+				.map-modal-header,
+				.map-modal-footer {
+					left: 20px;
+					right: 20px;
+				}
+
+				.map-modal-header {
+					top: 20px;
+				}
+
+				.map-modal-footer {
+					bottom: 20px;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	#pc-wrap {
+		#tour-package-detail-page {
+			.booking-card {
+				.package-location-map {
+					margin: -18px -18px 10px;
+				}
+
+				.map-modal-backdrop {
+					padding: 12px;
+				}
+
+				.map-modal {
+					width: 96vw;
+					height: 84vh;
+					padding: 8px;
+					border-radius: 24px;
+				}
+
+				.map-modal-header {
+					top: 14px;
+					left: 14px;
+					right: 14px;
+					min-height: 0;
+					padding: 10px;
+					align-items: flex-start;
+					border-radius: 18px;
+				}
+
+				.map-modal-title {
+					align-items: flex-start;
+					gap: 8px;
+
+					svg {
+						width: 34px;
+						height: 34px;
+						padding: 7px;
+					}
+				}
+
+				.map-modal-heading {
+					font-size: 14px;
+					line-height: 19px;
+				}
+
+				.map-modal-subtitle {
+					max-width: 56vw;
+					font-size: 11px;
+					line-height: 16px;
+					white-space: normal;
+				}
+
+				.map-close-button.MuiIconButton-root {
+					width: 36px;
+					height: 36px;
+				}
+
+				.map-modal-frame {
+					border-radius: 18px;
+				}
+
+				.map-modal-footer {
+					left: 14px;
+					right: 14px;
+					bottom: 14px;
+					padding: 10px;
+					border-radius: 18px;
+
+					.map-open-button.MuiButton-root {
+						width: 100%;
+					}
+				}
 			}
 		}
 	}

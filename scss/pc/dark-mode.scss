@@ -696,14 +696,17 @@ html.dark {
 
       .about-stats .container,
       .mission-card,
-      .about-values article {
+      .about-values article,
+      .about-services article,
+      .about-team article {
         background: var(--bg-card) !important;
         border-color: var(--border) !important;
         box-shadow: var(--shadow-card) !important;
       }
 
       .about-stats div,
-      .mission-card .icon-box {
+      .mission-card .icon-box,
+      .about-team article div {
         background: var(--bg-card-alt) !important;
       }
 
@@ -711,7 +714,9 @@ html.dark {
       .section-heading p,
       .mission-card p,
       .about-feature p,
-      .about-values article p {
+      .values-copy p,
+      .about-values article p,
+      .about-team article p {
         color: var(--text-secondary) !important;
       }
 
@@ -719,12 +724,15 @@ html.dark {
       .mission-card h3,
       .about-feature h2,
       .about-feature li,
+      .about-services article p,
       .about-values h2,
-      .about-values article h3 {
+      .about-values article h3,
+      .about-team article h3 {
         color: var(--text-primary) !important;
       }
 
-      .about-feature {
+      .about-feature,
+      .about-team {
         background: var(--bg-card) !important;
 
         .feature-image {
@@ -1039,6 +1047,40 @@ html.dark {
             background: rgba(255,138,0,0.08) !important;
             border-color: rgba(255,138,0,0.25) !important;
             color: var(--brand-orange) !important;
+          }
+
+          .map-modal-backdrop {
+            background: rgba(0, 0, 0, 0.60) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+          }
+
+          .map-modal {
+            background: color-mix(in srgb, var(--bg-card) 92%, transparent) !important;
+            border-color: var(--border-orange) !important;
+            box-shadow: 0 35px 100px rgba(0, 0, 0, 0.60) !important;
+          }
+
+          .map-modal-header,
+          .map-modal-footer {
+            background: color-mix(in srgb, var(--bg-card) 78%, transparent) !important;
+            border-color: var(--border-orange) !important;
+          }
+
+          .map-modal-heading,
+          .map-modal-subtitle {
+            color: var(--text-primary) !important;
+          }
+
+          .map-close-button.MuiIconButton-root {
+            background: color-mix(in srgb, var(--bg-card-alt) 86%, transparent) !important;
+            border-color: var(--border) !important;
+            color: var(--text-primary) !important;
+
+            &:hover {
+              border-color: var(--brand-orange) !important;
+              color: var(--brand-orange) !important;
+            }
           }
 
           .booking-stats span,

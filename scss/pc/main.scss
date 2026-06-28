@@ -3858,62 +3858,52 @@ body::-webkit-scrollbar {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   header-basic responsive
-   #pc-wrap is active at ≥768px (LayoutBasic switches to #mobile-wrap at ≤767px)
-   Breakpoints mirror the navbar breakpoints so padding-top tracks nav height.
+   #pc-wrap .header-basic — responsive
+   Desktop ≥1025px: no overrides — height 620px + margin 439px auto 0 intact.
+   Tablet  768–1024px: height auto, margin reset, padding-based centering.
+   #pc-wrap is never active below 768px (LayoutBasic uses #mobile-wrap at ≤767px).
    ══════════════════════════════════════════════════════════════ */
 
-/* ── ≤1180px: navbar shrinks → start scaling header height + type ── */
-@media (max-width: 1180px) {
+/* ── Tablet 768px–1024px ── */
+@media (max-width: 1024px) {
 	#pc-wrap .header-basic {
 		height: auto;
-		min-height: 460px;
-		padding: 116px 24px 60px;
+		min-height: 280px;
+		padding: 100px 24px 48px;
 
+		/* reset the desktop margin that would push content off-screen */
 		.container {
 			margin: 0 auto;
 			padding: 0 24px;
-			gap: 12px;
+			width: 100%;
+			max-width: 1200px;
 
 			strong {
-				font-size: 44px;
-				line-height: 54px;
+				font-size: 36px;
+				line-height: 46px;
+				max-width: 100%;
 			}
 
 			span {
 				font-size: 14px;
+				max-width: 100%;
 			}
 		}
 	}
 }
 
-/* ── ≤1024px: narrower tablet ── */
-@media (max-width: 1024px) {
-	#pc-wrap .header-basic {
-		min-height: 360px;
-		padding: 108px 20px 52px;
-
-		.container {
-			strong {
-				font-size: 38px;
-				line-height: 48px;
-			}
-		}
-	}
-}
-
-/* ── ≤900px: small tablet — navbar hides join text ── */
+/* ── Small tablet 769px–900px ── */
 @media (max-width: 900px) {
 	#pc-wrap .header-basic {
-		min-height: 290px;
-		padding: 96px 16px 44px;
+		min-height: 240px;
+		padding: 88px 16px 40px;
 
 		.container {
 			gap: 10px;
 
 			strong {
-				font-size: 32px;
-				line-height: 42px;
+				font-size: 30px;
+				line-height: 40px;
 			}
 
 			span {
@@ -3924,23 +3914,21 @@ body::-webkit-scrollbar {
 	}
 }
 
-/* ── 768px: minimum pc-wrap viewport ── */
+/* ── Minimum pc-wrap viewport (exactly 768px) ── */
 @media (max-width: 768px) {
 	#pc-wrap .header-basic {
-		min-height: 240px;
-		padding: 88px 14px 38px;
+		min-height: 200px;
+		padding: 80px 14px 36px;
 
 		.container {
 			strong {
-				font-size: 28px;
-				line-height: 36px;
-				max-width: 100%;
+				font-size: 26px;
+				line-height: 34px;
 			}
 
 			span {
 				font-size: 12px;
 				padding: 6px 12px;
-				max-width: 100%;
 			}
 		}
 	}

@@ -4,7 +4,6 @@ import { fadeUpMotionProps } from '../../config/animations';
 import { Stack, Box, Typography } from '@mui/material';
 const MotionStack = motion(Stack);
 import IconButton from '@mui/material/IconButton';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -27,7 +26,6 @@ interface TourPackageBigCardProps {
 const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 	const { tourPackage: inputTourPackage, property, likeTourPackageHandler } = props;
 	const tourPackage = inputTourPackage ?? property;
-	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'package']);
@@ -40,79 +38,75 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 		});
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('common:mobile.packages')}</div>;
-	} else {
-		return (
-			<MotionStack className="tour-package-big-card-box" onClick={() => goTourPackageDetailPage(tourPackage?._id)} {...fadeUpMotionProps}>
-				<Box
-					component={'div'}
-					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0]})` }}
-				>
-					<div className={'img-overlay'} />
-					{tourPackage && tourPackage?.packageRank >= topPackageRank && (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>{t('package:card.top')}</span>
-						</div>
-					)}
-					{tourPackage?.packageType && (
-						<div className={'pkg-type'}>{tourPackage.packageType.replace(/_/g, ' ')}</div>
-					)}
-					<div className={'price'}>
-						{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
+	return (
+		<MotionStack className="tour-package-big-card-box" onClick={() => goTourPackageDetailPage(tourPackage?._id)} {...fadeUpMotionProps}>
+			<Box
+				component={'div'}
+				className={'card-img'}
+				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0]})` }}
+			>
+				<div className={'img-overlay'} />
+				{tourPackage && tourPackage?.packageRank >= topPackageRank && (
+					<div className={'status'}>
+						<img src="/img/icons/electricity.svg" alt="" />
+						<span>{t('package:card.top')}</span>
 					</div>
-				</Box>
-				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{tourPackage?.packageTitle}</strong>
-					<p className={'desc'}>
-						{[tourPackage?.packageCity, tourPackage?.packageCountry].filter(Boolean).join(', ')}
-					</p>
-					<div className={'options'}>
-						<div className={'opt-item'}>
-							<AccessTimeRoundedIcon className={'opt-icon'} />
-							<span>{t('package:card.durationDays', { count: tourPackage?.durationDays ?? 0 })}</span>
-						</div>
-						<div className={'opt-item'}>
-							<PeopleOutlinedIcon className={'opt-icon'} />
-							<span>{t('package:card.peopleRange', { min: tourPackage?.minPeople, max: tourPackage?.maxPeople })}</span>
-						</div>
+				)}
+				{tourPackage?.packageType && (
+					<div className={'pkg-type'}>{tourPackage.packageType.replace(/_/g, ' ')}</div>
+				)}
+				<div className={'price'}>
+					{tourPackage?.packageCurrency ?? 'USD'} {formatterStr(tourPackage?.packagePrice)}
+				</div>
+			</Box>
+			<Box component={'div'} className={'info'}>
+				<strong className={'title'}>{tourPackage?.packageTitle}</strong>
+				<p className={'desc'}>
+					{[tourPackage?.packageCity, tourPackage?.packageCountry].filter(Boolean).join(', ')}
+				</p>
+				<div className={'options'}>
+					<div className={'opt-item'}>
+						<AccessTimeRoundedIcon className={'opt-icon'} />
+						<span>{t('package:card.durationDays', { count: tourPackage?.durationDays ?? 0 })}</span>
 					</div>
-					{(tourPackage?.flightIncluded || tourPackage?.hotelIncluded || tourPackage?.guideIncluded) && (
-						<div className={'inclusions'}>
-							{tourPackage?.flightIncluded && <span className={'tag'}>{t('common:labels.flight')}</span>}
-							{tourPackage?.hotelIncluded && <span className={'tag'}>{t('common:labels.hotel')}</span>}
-							{tourPackage?.guideIncluded && <span className={'tag'}>{t('common:labels.guide')}</span>}
-						</div>
-					)}
-					<div className={'bott'}>
-						<div className="buttons-box">
-							<IconButton color={'default'} size={'small'}>
-								<RemoveRedEyeIcon fontSize={'small'} />
-							</IconButton>
-							<Typography className="view-cnt">{tourPackage?.packageViews}</Typography>
-							<IconButton
-								color={'default'}
-								size={'small'}
-								onClick={(e) => {
-									e.stopPropagation();
-									likeTourPackageHandler(user, tourPackage?._id);
-								}}
-							>
-								{tourPackage?.meLiked && tourPackage?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon fontSize={'small'} style={{ color: '#ff8a00' }} />
-								) : (
-									<FavoriteBorderIcon fontSize={'small'} />
-								)}
-							</IconButton>
-							<Typography className="view-cnt">{tourPackage?.packageLikes}</Typography>
-						</div>
+					<div className={'opt-item'}>
+						<PeopleOutlinedIcon className={'opt-icon'} />
+						<span>{t('package:card.peopleRange', { min: tourPackage?.minPeople, max: tourPackage?.maxPeople })}</span>
 					</div>
-				</Box>
-			</MotionStack>
-		);
-	}
+				</div>
+				{(tourPackage?.flightIncluded || tourPackage?.hotelIncluded || tourPackage?.guideIncluded) && (
+					<div className={'inclusions'}>
+						{tourPackage?.flightIncluded && <span className={'tag'}>{t('common:labels.flight')}</span>}
+						{tourPackage?.hotelIncluded && <span className={'tag'}>{t('common:labels.hotel')}</span>}
+						{tourPackage?.guideIncluded && <span className={'tag'}>{t('common:labels.guide')}</span>}
+					</div>
+				)}
+				<div className={'bott'}>
+					<div className="buttons-box">
+						<IconButton color={'default'} size={'small'}>
+							<RemoveRedEyeIcon fontSize={'small'} />
+						</IconButton>
+						<Typography className="view-cnt">{tourPackage?.packageViews}</Typography>
+						<IconButton
+							color={'default'}
+							size={'small'}
+							onClick={(e) => {
+								e.stopPropagation();
+								likeTourPackageHandler(user, tourPackage?._id);
+							}}
+						>
+							{tourPackage?.meLiked && tourPackage?.meLiked[0]?.myFavorite ? (
+								<FavoriteIcon fontSize={'small'} style={{ color: '#ff8a00' }} />
+							) : (
+								<FavoriteBorderIcon fontSize={'small'} />
+							)}
+						</IconButton>
+						<Typography className="view-cnt">{tourPackage?.packageLikes}</Typography>
+					</div>
+				</div>
+			</Box>
+		</MotionStack>
+	);
 };
 
 export default TourPackageBigCard;

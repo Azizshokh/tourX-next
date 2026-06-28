@@ -75,6 +75,16 @@ const Chat = () => {
 		setOpenButton(false);
 	}, [router.pathname]);
 
+	useEffect(() => {
+		const handleOpenChatEvent = () => {
+			setOpen(true);
+			setOpenButton(true);
+		};
+
+		window.addEventListener('tourx:open-chat', handleOpenChatEvent);
+		return () => window.removeEventListener('tourx:open-chat', handleOpenChatEvent);
+	}, []);
+
 	/** HANDLERS **/
 	const handleOpenChat = () => setOpen((prev) => !prev);
 

@@ -1094,6 +1094,20 @@
             gap: 10px;
             color: #0d1c32;
 
+            a {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: inherit;
+              border-radius: 8px;
+              text-decoration: none;
+
+              &:focus-visible {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(236, 102, 42, 0.24);
+              }
+            }
+
             svg {
               width: 18px;
               height: 18px;
@@ -1151,12 +1165,36 @@
             flex-direction: column;
             gap: 10px;
 
-            li a {
+            li a,
+            li span,
+            li .footer-link-button {
               color: #0d1c32;
               font-family: 'Plus Jakarta Sans', $font;
               font-size: 13px;
               font-weight: 700;
               text-decoration: none;
+
+              &:hover {
+                color: #ec662a;
+              }
+
+              &:focus-visible {
+                outline: none;
+                color: #ec662a;
+                box-shadow: 0 2px 0 #ec662a;
+              }
+            }
+
+            li span {
+              color: rgba(13, 28, 50, 0.62);
+            }
+
+            li .footer-link-button {
+              padding: 0;
+              border: 0;
+              background: transparent;
+              cursor: pointer;
+              text-align: left;
             }
           }
 
@@ -1179,6 +1217,10 @@
                 color: #0d1c32;
                 font-family: 'Plus Jakarta Sans', $font;
                 font-size: 13px;
+
+                &::placeholder {
+                  color: #94a3b8;
+                }
               }
 
               button {
@@ -1189,6 +1231,30 @@
                 font-family: 'Plus Jakarta Sans', $font;
                 font-size: 13px;
                 font-weight: 800;
+              }
+
+              &:focus-within {
+                border-color: rgba(236, 102, 42, 0.42);
+                box-shadow: 0 0 0 3px rgba(236, 102, 42, 0.12);
+              }
+            }
+
+            .newsletter-message {
+              margin-top: 8px;
+              display: block;
+              min-height: 18px;
+              color: #0d1c32;
+              font-family: 'Plus Jakarta Sans', $font;
+              font-size: 12px;
+              font-weight: 700;
+              line-height: 18px;
+
+              &.success {
+                color: #11806f;
+              }
+
+              &.error {
+                color: #ff383c;
               }
             }
 

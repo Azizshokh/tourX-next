@@ -1,3 +1,4 @@
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -11,24 +12,46 @@ import { useTranslation } from 'next-i18next';
 const Footer = () => {
 	const device = useDeviceDetect();
 	const { t } = useTranslation(['footer']);
+	const [newsletterEmail, setNewsletterEmail] = useState('');
+	const [newsletterMessage, setNewsletterMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
 	const companyLinks = [
+		{ label: t('footer:links.home'), href: '/' },
+		{ label: t('footer:links.tourPackages'), href: '/tour-package' },
+		{ label: t('footer:links.agents'), href: '/agent' },
+		{ label: t('footer:links.community'), href: '/community' },
+		{ label: t('footer:links.help'), href: '/cs' },
 		{ label: t('footer:links.about'), href: '/about' },
-		{ label: t('footer:links.reviews'), href: '/community?articleCategory=RECOMMEND' },
-		{ label: t('footer:links.contact'), href: '/cs' },
-		{ label: t('footer:links.guides'), href: '/community?articleCategory=NEWS' },
-		{ label: t('footer:links.dataPolicy'), href: '/cs' },
-		{ label: t('footer:links.cookiePolicy'), href: '/cs' },
-		{ label: t('footer:links.legal'), href: '/cs' },
-		{ label: t('footer:links.sitemap'), href: '/' },
 	];
 
 	const supportLinks = [
 		{ label: t('footer:links.getInTouch'), href: '/cs' },
 		{ label: t('footer:links.helpCenter'), href: '/cs' },
-		{ label: t('footer:links.liveChat'), href: '/cs' },
-		{ label: t('footer:links.howItWorks'), href: '/about' },
 	];
+
+	const openLiveChat = () => {
+		if (typeof window === 'undefined') return;
+		window.dispatchEvent(new CustomEvent('tourx:open-chat'));
+	};
+
+	const handleNewsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const trimmedEmail = newsletterEmail.trim();
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+		if (!trimmedEmail) {
+			setNewsletterMessage({ type: 'error', text: t('footer:newsletterEmpty') });
+			return;
+		}
+
+		if (!emailRegex.test(trimmedEmail)) {
+			setNewsletterMessage({ type: 'error', text: t('footer:newsletterInvalid') });
+			return;
+		}
+
+		setNewsletterMessage({ type: 'success', text: t('footer:newsletterSuccess') });
+		setNewsletterEmail('');
+	};
 
 	const renderFooterBody = (showBottomRight: boolean) => (
 		<>
@@ -42,10 +65,18 @@ const Footer = () => {
 				<Box component={'div'} className={'follow'}>
 					<span>{t('footer:follow')}</span>
 					<div className={'socials'}>
-						<FacebookOutlinedIcon />
-						<InstagramIcon />
-						<TelegramIcon />
-						<TwitterIcon />
+						<a href={'https://www.facebook.com/'} target={'_blank'} rel={'noopener noreferrer'} aria-label={'Facebook'}>
+							<FacebookOutlinedIcon />
+						</a>
+						<a href={'https://www.instagram.com/'} target={'_blank'} rel={'noopener noreferrer'} aria-label={'Instagram'}>
+							<InstagramIcon />
+						</a>
+						<a href={'https://telegram.org/'} target={'_blank'} rel={'noopener noreferrer'} aria-label={'Telegram'}>
+							<TelegramIcon />
+						</a>
+						<a href={'https://twitter.com/'} target={'_blank'} rel={'noopener noreferrer'} aria-label={'Twitter'}>
+							<TwitterIcon />
+						</a>
 					</div>
 				</Box>
 			</Stack>
@@ -78,22 +109,44 @@ const Footer = () => {
 								<Link href={l.href}>{l.label}</Link>
 							</li>
 						))}
+						<li>
+							<button className={'footer-link-button'} type={'button'} onClick={openLiveChat}>
+								{t('footer:links.liveChat')}
+							</button>
+						</li>
+						<li>
+							<Link href={'/about'}>{t('footer:links.howItWorks')}</Link>
+						</li>
 					</ul>
 				</Box>
 				<Box component={'div'} className={'col newsletter'}>
 					<h4>{t('footer:newsletter')}</h4>
 					<p>{t('footer:newsletterDesc')}</p>
-					<form className={'subscribe'} onSubmit={(e) => e.preventDefault()}>
-						<input type={'email'} placeholder={t('footer:emailPlaceholder')} />
+					<form className={'subscribe'} onSubmit={handleNewsletterSubmit} noValidate>
+						<input
+							type={'email'}
+							value={newsletterEmail}
+							placeholder={t('footer:emailPlaceholder')}
+							aria-label={t('footer:emailPlaceholder')}
+							onChange={(event) => {
+								setNewsletterEmail(event.target.value);
+								if (newsletterMessage) setNewsletterMessage(null);
+							}}
+						/>
 						<button type={'submit'}>{t('footer:send')}</button>
 					</form>
+					{newsletterMessage && (
+						<span className={`newsletter-message ${newsletterMessage.type}`} role={'status'}>
+							{newsletterMessage.text}
+						</span>
+					)}
 					<h4 className={'apps-title'}>{t('footer:mobileApps')}</h4>
 					<ul className={'apps'}>
 						<li>
-							<Link href={'/'}>iOS App</Link>
+							<span>iOS App</span>
 						</li>
 						<li>
-							<Link href={'/'}>Android App</Link>
+							<span>Android App</span>
 						</li>
 					</ul>
 				</Box>

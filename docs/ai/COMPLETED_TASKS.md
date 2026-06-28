@@ -242,3 +242,12 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `libs/components/tourPackage/PackageLocationMap.tsx`, `pages/tour-package/detail.tsx`, `scss/pc/tourPackage/detail.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/package.json`.
 - Validation: package locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC Sass compile passed; `yarn.cmd build` passed with the existing Browserslist update warning.
 - Remaining issue: manual browser verification with live package addresses is recommended to confirm Google iframe rendering in the local browser.
+
+## 2026-06-28 - Footer navigation and Live Chat links
+- Replaced placeholder footer Company links with the real navbar routes: Home, Tour Packages, Agents, Community, Help, and About Us.
+- Updated Support links to use valid routes and changed Live Chat from a fake route into a `tourx:open-chat` event that opens the existing shared chat panel.
+- Added newsletter email state, empty/invalid validation, localized success/error feedback, and preserved the existing frontend-only newsletter UI.
+- Converted social icons to accessible external links and removed dead mobile app route links by rendering app labels without navigation.
+- Added light/dark/mobile footer styling for link hover/focus states, the Live Chat button, newsletter messages, and disabled app labels.
+- Files: `libs/components/Footer.tsx`, `libs/components/Chat.tsx`, `scss/pc/main.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`, `public/locales/{en,kr,ru}/footer.json`.
+- Validation: footer locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed.

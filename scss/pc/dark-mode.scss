@@ -2743,7 +2743,13 @@ html.dark {
         .footer-cols .col {
           h4       { color: var(--text-primary) !important; }
           p        { color: var(--text-secondary) !important; }
-          ul li a  { color: var(--text-secondary) !important; &:hover { color: var(--brand-orange) !important; } }
+          ul li a,
+          ul li .footer-link-button {
+            color: var(--text-secondary) !important;
+            &:hover,
+            &:focus-visible { color: var(--brand-orange) !important; }
+          }
+          ul li span { color: var(--text-muted) !important; }
 
           &.newsletter .subscribe {
             background: var(--bg-input) !important;
@@ -2751,6 +2757,18 @@ html.dark {
             input  { color: var(--text-primary) !important; &::placeholder { color: var(--text-muted) !important; } }
             button { color: var(--text-secondary) !important; &:hover { color: var(--brand-orange) !important; } }
           }
+
+          &.newsletter .newsletter-message {
+            &.success { color: var(--brand-green) !important; }
+            &.error   { color: var(--brand-red) !important; }
+          }
+        }
+
+        .footer-top {
+          .expert span,
+          .follow span { color: var(--text-primary) !important; }
+          .phone       { color: var(--brand-orange) !important; }
+          .socials a   { color: var(--text-secondary) !important; &:hover { color: var(--brand-orange) !important; } }
         }
 
         .footer-divider { background: var(--border-subtle) !important; }

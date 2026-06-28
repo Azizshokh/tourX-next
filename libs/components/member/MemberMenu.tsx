@@ -45,30 +45,27 @@ const MemberMenu = (props: MemberMenuProps) => {
 		},
 	});
 
-	if (device === 'mobile') {
-		return <div>MEMBER MENU MOBILE</div>;
-	} else {
-		return (
-			<Stack width={'100%'} padding={'30px 24px'}>
-				<Stack className={'profile'}>
-					<Box component={'div'} className={'profile-img'}>
-						<img
-							src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : defaultMemberImage}
-							alt={'member-photo'}
-							onError={(event) => {
-								event.currentTarget.src = defaultMemberImage;
-							}}
-						/>
+	return (
+		<Stack width={'100%'} padding={'30px 24px'}>
+			<Stack className={'profile'}>
+				<Box component={'div'} className={'profile-img'}>
+					<img
+						src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : defaultMemberImage}
+						alt={'member-photo'}
+						onError={(event) => {
+							event.currentTarget.src = defaultMemberImage;
+						}}
+					/>
+				</Box>
+				<Stack className={'user-info'}>
+					<Typography className={'user-name'}>{member?.memberNick}</Typography>
+					<Box component={'div'} className={'user-phone'}>
+						<PhoneIphoneRoundedIcon />
+						<Typography className={'p-number'}>{member?.memberPhone}</Typography>
 					</Box>
-					<Stack className={'user-info'}>
-						<Typography className={'user-name'}>{member?.memberNick}</Typography>
-						<Box component={'div'} className={'user-phone'}>
-							<PhoneIphoneRoundedIcon />
-							<Typography className={'p-number'}>{member?.memberPhone}</Typography>
-						</Box>
-						<Typography className={'view-list'}>{member?.memberType}</Typography>
-					</Stack>
+					<Typography className={'view-list'}>{member?.memberType}</Typography>
 				</Stack>
+			</Stack>
 
 				<Stack className="follow-button-box">
 					{member?.meFollowed && member?.meFollowed[0]?.myFollowing ? (
@@ -196,7 +193,6 @@ const MemberMenu = (props: MemberMenuProps) => {
 				</Stack>
 			</Stack>
 		);
-	}
 };
 
 export default MemberMenu;

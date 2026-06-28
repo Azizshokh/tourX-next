@@ -9,6 +9,7 @@
 
 @import './agent/agent.scss';
 @import './agent/detail.scss';
+@import './agent/detailResponsive.scss';
 @import './mypage/mypage.scss';
 @import './mypage/addNewTourPackage.scss';
 @import './mypage/myTourPackages.scss';
@@ -32,6 +33,8 @@
 @import './member/memberFollows.scss';
 @import './member/memberArticles.scss';
 @import './member/memberTourPackages.scss';
+
+@import './mypage/responsive.scss';
 
 @import './sweetalert.scss';
 @import './dark-mode.scss';

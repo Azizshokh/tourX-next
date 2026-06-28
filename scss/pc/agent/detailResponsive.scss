@@ -1,0 +1,593 @@
+/* Agent detail responsive layer. Desktop base styles remain in detail.scss. */
+
+@media (max-width: 1024px) {
+	#pc-wrap .agent-detail-page,
+	#mobile-wrap .agent-detail-page {
+		padding: 96px 24px 112px;
+		align-items: stretch;
+		justify-content: flex-start;
+
+		.agent-detail-bg-icons {
+			display: none;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+			align-items: stretch;
+		}
+
+		.agent-info {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+			flex-direction: column;
+			margin-bottom: 32px;
+
+			.agent-photo-wrap {
+				width: 100%;
+				height: 360px;
+				flex: none;
+			}
+
+			.agent-content {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+				padding: 32px;
+
+				.agent-desc-text {
+					max-width: 100%;
+					overflow-wrap: anywhere;
+				}
+
+				.agent-action-row {
+					width: 100%;
+					flex-wrap: wrap;
+
+					button {
+						min-width: min(220px, 100%);
+					}
+				}
+
+				.agent-stats {
+					width: 100%;
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+
+					.stat-box {
+						min-width: 0;
+
+						.stat-copy,
+						.stat-value,
+						.stat-label {
+							min-width: 0;
+							overflow-wrap: anywhere;
+						}
+					}
+				}
+			}
+		}
+
+		.agent-home-list {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+			padding: 0 0 36px;
+
+			.card-wrap {
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 18px;
+				margin-top: 24px;
+				padding: 0 18px;
+
+				.wrap-main {
+					width: 100%;
+					min-width: 0;
+					margin: 0;
+					display: block;
+				}
+
+				.tour-package-big-card-box {
+					width: 100%;
+					max-width: 100%;
+					min-width: 0;
+					height: auto;
+					min-height: 500px;
+					margin: 0;
+
+					.card-img {
+						height: 300px;
+					}
+
+					.info {
+						min-width: 0;
+
+						.title,
+						.desc {
+							max-width: 100%;
+						}
+
+						.options {
+							flex-wrap: wrap;
+							gap: 8px 14px;
+						}
+					}
+				}
+			}
+
+			.pagination {
+				padding: 0 18px;
+
+				.pagination-box {
+					width: 100%;
+					display: flex;
+					justify-content: center;
+				}
+
+				span {
+					text-align: center;
+				}
+			}
+		}
+
+		.review-box {
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+			margin-top: 48px;
+			padding: 32px 24px;
+
+			.review-wrap,
+			.leave-review-config {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+				padding: 24px;
+			}
+
+			.review-card {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+
+				.info {
+					gap: 16px;
+					flex-wrap: wrap;
+
+					.left {
+						min-width: 0;
+
+						div {
+							min-width: 0;
+						}
+					}
+				}
+
+				p {
+					overflow-wrap: anywhere;
+				}
+			}
+
+			textarea {
+				width: 100%;
+				max-width: 100%;
+				box-sizing: border-box;
+			}
+		}
+	}
+
+	#mobile-wrap .agent-detail-page {
+		.agent-info {
+			display: flex;
+			align-items: flex-start;
+			background: #fff8f3;
+			border-radius: 20px;
+			overflow: hidden;
+
+			.agent-photo-wrap {
+				background: #f1e4d7;
+
+				.agent-photo {
+					width: 100%;
+					height: 100%;
+					display: block;
+					object-fit: cover;
+				}
+			}
+
+			.agent-content {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 16px;
+
+				.agent-role {
+					color: #ff8a00;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 700;
+					text-transform: uppercase;
+					letter-spacing: 0.06em;
+				}
+
+				.agent-name {
+					color: #0d1c32;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 28px;
+					font-weight: 800;
+					line-height: 1.2;
+				}
+
+				.agent-desc-text {
+					color: #6b7280;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					line-height: 1.65;
+				}
+
+				.agent-action-row {
+					display: flex;
+					flex-direction: row;
+					gap: 10px;
+					margin-top: 2px;
+
+					button {
+						height: 44px;
+						padding: 0 18px;
+						border-radius: 999px;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 13px;
+						font-weight: 800;
+						line-height: 18px;
+						text-transform: none;
+						box-shadow: none;
+					}
+
+					.agent-like-btn {
+						border: 1px solid rgba(255, 138, 0, 0.28);
+						background: #ffffff;
+						color: #0d1c32;
+
+						svg {
+							color: #ff8a00;
+						}
+
+						&:hover,
+						&.active {
+							border-color: #ff8a00;
+							background: #fff1df;
+							color: #ff8a00;
+						}
+					}
+
+					.agent-follow-btn {
+						border: 1px solid #ff8a00;
+						background: #ff8a00;
+						color: #ffffff;
+						box-shadow: 0 12px 24px rgba(255, 138, 0, 0.24);
+
+						svg {
+							color: #ffffff;
+						}
+
+						&.following {
+							border-color: rgba(13, 28, 50, 0.14);
+							background: #ffffff;
+							color: #0d1c32;
+							box-shadow: none;
+
+							svg {
+								color: #0d1c32;
+							}
+						}
+					}
+				}
+
+				.agent-stats {
+					display: grid;
+					gap: 14px;
+					margin-top: 8px;
+
+					.stat-box {
+						background: #ffffff;
+						border: 1.5px solid #f1e4d7;
+						border-radius: 14px;
+						padding: 16px 18px;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						gap: 12px;
+						box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+
+						.stat-icon {
+							flex: 0 0 38px;
+							width: 38px;
+							height: 38px;
+							border-radius: 50%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							background: #fff3e4;
+							color: #ff8a00;
+
+							svg {
+								width: 20px;
+								height: 20px;
+							}
+						}
+
+						.stat-copy {
+							display: flex;
+							flex-direction: column;
+							gap: 3px;
+						}
+
+						.stat-value {
+							color: #0d1c32;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 22px;
+							font-weight: 900;
+						}
+
+						.stat-label {
+							color: #9ca3af;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 600;
+							text-transform: uppercase;
+							letter-spacing: 0.04em;
+						}
+					}
+				}
+
+				.agent-phone {
+					align-items: center;
+					gap: 8px;
+					margin-top: 4px;
+
+					img {
+						width: 16px;
+						height: 16px;
+					}
+
+					.MuiTypography-root {
+						color: #374151;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 14px;
+						font-weight: 600;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#mobile-wrap .agent-detail-page {
+		padding: 40px 14px 112px;
+
+		.agent-info {
+			border-radius: 18px;
+			text-align: center;
+
+			.agent-photo-wrap {
+				height: 280px;
+			}
+
+			.agent-photo {
+				object-position: center;
+			}
+
+			.agent-content {
+				padding: 24px 18px;
+				align-items: center;
+
+				.agent-name {
+					font-size: 24px;
+					line-height: 32px;
+				}
+
+				.agent-desc-text {
+					text-align: center;
+				}
+
+				.agent-action-row {
+					justify-content: center;
+
+					button {
+						width: 100%;
+					}
+				}
+
+				.agent-stats {
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+					gap: 10px;
+
+					.stat-box {
+						flex-direction: column;
+						justify-content: center;
+						padding: 14px;
+						text-align: center;
+
+						.stat-copy {
+							align-items: center;
+						}
+					}
+				}
+
+				.agent-phone {
+					justify-content: center;
+					flex-wrap: wrap;
+				}
+			}
+		}
+
+		.agent-home-list {
+			margin-top: 24px;
+			border-radius: 18px;
+
+			.card-wrap {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				gap: 16px;
+				padding: 0 14px;
+				overflow-x: auto;
+				overflow-y: hidden;
+				scroll-snap-type: x mandatory;
+				scroll-padding: 14px;
+				-webkit-overflow-scrolling: touch;
+
+				&::-webkit-scrollbar {
+					display: none;
+				}
+
+				.wrap-main {
+					flex: 0 0 100%;
+					scroll-snap-align: start;
+				}
+
+				.tour-package-big-card-box {
+					min-height: 0;
+
+					.card-img {
+						height: 250px;
+					}
+				}
+			}
+
+			.pagination {
+				padding: 0 14px;
+
+				.MuiPagination-ul {
+					display: none;
+					justify-content: center;
+				}
+
+				span {
+					font-size: 13px;
+					line-height: 20px;
+				}
+			}
+		}
+
+		.review-box {
+			margin-top: 36px;
+			padding: 24px 14px;
+			border-radius: 18px;
+
+			.main-intro {
+				align-items: center;
+				text-align: center;
+
+				span {
+					font-size: 24px;
+					line-height: 32px;
+				}
+			}
+
+			.review-wrap {
+				margin-top: 24px;
+				padding: 18px 14px;
+				border-radius: 16px;
+
+				.review-card .info {
+					flex-direction: column;
+					align-items: flex-start;
+
+					.left {
+						width: 100%;
+					}
+				}
+			}
+
+			.leave-review-config {
+				padding: 20px 14px;
+
+				.submit-btn {
+					justify-content: stretch;
+
+					.submit-review {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 430px) {
+	#mobile-wrap .agent-detail-page {
+		padding-left: 12px;
+		padding-right: 12px;
+
+		.agent-info .agent-content {
+			padding: 22px 14px;
+
+			.agent-stats {
+				gap: 8px;
+
+				.stat-box {
+					padding: 12px 8px;
+
+					.stat-icon {
+						width: 34px;
+						height: 34px;
+						flex-basis: 34px;
+					}
+
+					.stat-value {
+						font-size: 18px;
+					}
+
+					.stat-label {
+						font-size: 10px;
+						line-height: 14px;
+					}
+				}
+			}
+		}
+
+		.agent-home-list .card-wrap {
+			padding: 0 12px;
+
+			.tour-package-big-card-box .card-img {
+				height: 220px;
+			}
+		}
+
+		.review-box {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+	}
+}
+
+@media (max-width: 360px) {
+	#mobile-wrap .agent-detail-page {
+		padding-left: 10px;
+		padding-right: 10px;
+
+		.agent-info .agent-content .agent-stats {
+			gap: 6px;
+
+			.stat-box {
+				gap: 8px;
+				padding: 10px 6px;
+			}
+		}
+
+		.agent-home-list .card-wrap .tour-package-big-card-box {
+			.card-img {
+				height: 200px;
+			}
+
+			.info {
+				padding: 16px 14px 14px;
+			}
+		}
+	}
+}

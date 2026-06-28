@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
 import ReviewCard from '../../libs/components/agent/ReviewCard';
@@ -61,7 +60,6 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) => {
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 	const commentMedia = useCommentMedia();
@@ -338,11 +336,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const isFollowingAgent = Boolean(agent?.meFollowed?.[0]?.myFollowing);
 	const isOwnAgentProfile = Boolean(user?._id && agentId && user._id === agentId);
 
-	if (device === 'mobile') {
-		return <div>AGENT DETAIL PAGE MOBILE</div>;
-	} else {
-		return (
-			<Stack className={'agent-detail-page'}>
+	return (
+		<Stack className={'agent-detail-page'}>
 				<Box component={'div'} className={'agent-detail-bg-icons'} aria-hidden={'true'}>
 					<span className={'agent-detail-bg-icon plane'}>
 						<FlightTakeoffRoundedIcon />
@@ -575,8 +570,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 					</Stack></AnimatedSection>
 				</Stack>
 			</Stack>
-		);
-	}
+	);
 };
 
 AgentDetail.defaultProps = {

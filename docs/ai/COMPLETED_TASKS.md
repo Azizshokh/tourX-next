@@ -313,3 +313,19 @@ Validation: `yarn tsc --noEmit` passed.
 - Added light/dark mode styling, subtle shadow, and smooth hover/open state animation while preserving existing drawer behavior.
 - Files: `pages/mypage/index.tsx`, `scss/pc/mypage/mypage.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`.
 - Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed on rerun after a transient `.next` manifest trace error.
+
+## 2026-06-28 - MyPage inner screen responsive layer
+- Added a dedicated MyPage responsive SCSS layer imported after MyPage/member screen styles so tablet/mobile overrides do not alter the 1025px+ desktop base design.
+- Covered Saved Trips, Recently Viewed, Followers, Following, My Articles, Write Article, My Profile, Add/Edit Tour Package, package inventory cards, forms, editor grids, pagination, empty states, and sidebar drawer sizing.
+- Used homepage-style breakpoints and scoping: `max-width: 1024px`, `max-width: 767px`, `max-width: 430px`, and `max-width: 360px`, with full-width/min-width guards and one-column mobile layouts.
+- Files: `scss/pc/mypage/responsive.scss`, `scss/pc/main.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+- Remaining issue: in-app browser visual QA could not run because the local browser runtime failed to start in the sandbox; authenticated manual viewport checks are still recommended.
+
+## 2026-06-28 - Agent Detail responsive layer
+- Removed the Agent Detail and ReviewCard mobile placeholder branches so the real agent profile, package list, reviews, and review form render on mobile.
+- Added a dedicated Agent Detail responsive SCSS layer imported immediately after the desktop Agent Detail styles, preserving the 1025px+ PC layout while stacking/resizing tablet and mobile sections.
+- Covered the hero/profile card, avatar image, stats, follow/like actions, package grid/cards, reviews, pagination, empty states, and review form with `max-width: 1024px`, `max-width: 767px`, `max-width: 430px`, and `max-width: 360px` scoped overrides.
+- Files: `pages/agent/detail.tsx`, `libs/components/agent/ReviewCard.tsx`, `scss/pc/agent/detailResponsive.scss`, `scss/pc/main.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+- Remaining issue: browser visual QA was not run in this pass; manual checks at 320px, 375px, 430px, 768px, 1024px, and 1440px are still recommended.

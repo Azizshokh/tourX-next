@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Box, Typography, Button } from '@mui/material';
 const MotionBox = motion(Box);
 import Link from 'next/link';
@@ -21,7 +20,6 @@ interface AgentCardProps {
 
 const AgentCard = (props: AgentCardProps) => {
 	const { agent } = props;
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['agent']);
 	useReactiveVar(userVar);
 
@@ -45,87 +43,83 @@ const AgentCard = (props: AgentCardProps) => {
 		.filter(Boolean)
 		.join(' • ');
 
-	if (device === 'mobile') {
-		return <div>{t('agent:role')}</div>;
-	} else {
-		return (
-			<MotionBox className="agent-general-card" {...fadeUpMotionProps}>
-				{/* Left — large photo with own border-radius */}
-				<Box className="agent-img-col">
-					<Link href={agentDetailHref}>
-						<img
-							src={imagePath}
-							alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
-							className="agent-img"
-						/>
-					</Link>
-				</Box>
+	return (
+		<MotionBox className="agent-general-card" {...fadeUpMotionProps}>
+			{/* Left — large photo with own border-radius */}
+			<Box className="agent-img-col">
+				<Link href={agentDetailHref}>
+					<img
+						src={imagePath}
+						alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
+						className="agent-img"
+					/>
+				</Link>
+			</Box>
 
-				{/* Right — glassmorphism card overlapping the image */}
-				<Box className="agent-info-col">
-					<Box className="info-card">
-						{/* Header: avatar + name/subtitle + rating pill */}
-						<Box className="card-header">
-							<Box className="agent-profile">
-								<img
-									src={imagePath}
-									alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
-									className="agent-avatar"
-								/>
-								<Box className="name-block">
-									<Typography className="agent-name">
-										{agent?.memberFullName ?? agent?.memberNick}
-									</Typography>
-									<Typography className="agent-subtitle">{subtitle}</Typography>
-								</Box>
-							</Box>
-							<Box className="rating-pill">
-								<StarRoundedIcon className="star-icon" />
-								<Typography className="rating-num">{ratingDisplay}</Typography>
+			{/* Right — glassmorphism card overlapping the image */}
+			<Box className="agent-info-col">
+				<Box className="info-card">
+					{/* Header: avatar + name/subtitle + rating pill */}
+					<Box className="card-header">
+						<Box className="agent-profile">
+							<img
+								src={imagePath}
+								alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
+								className="agent-avatar"
+							/>
+							<Box className="name-block">
+								<Typography className="agent-name">
+									{agent?.memberFullName ?? agent?.memberNick}
+								</Typography>
+								<Typography className="agent-subtitle">{subtitle}</Typography>
 							</Box>
 						</Box>
-
-						{/* Stats: 2-column grid */}
-						<Box className="stats-grid">
-							<Box className="stat-box">
-								<Typography className="stat-lbl">{t('agent:card.experience')}</Typography>
-								<Typography className="stat-val">{yearsExp} {t('agent:card.years')}</Typography>
-							</Box>
-							<Box className="stat-box">
-								<Typography className="stat-lbl">{t('agent:card.toursManaged')}</Typography>
-								<Typography className="stat-val">{agent?.memberTours ?? 0} {t('agent:card.tours')}</Typography>
-							</Box>
-						</Box>
-
-						{/* Bio */}
-						<Typography className="agent-bio">
-							{agent?.memberDesc ??
-								t('agent:card.defaultBio')}
-						</Typography>
-
-						{/* CTA row */}
-						<Box className="cta-row">
-							<Link href={agentDetailHref}>
-								<Button
-									className="btn-view-profile"
-									endIcon={<ArrowForwardRoundedIcon />}
-									disableRipple
-									fullWidth
-								>
-									{t('agent:card.viewProfile')}
-								</Button>
-							</Link>
-							<Link href={agentDetailHref}>
-								<IconButton className="btn-mail" disableRipple>
-									<EmailOutlinedIcon />
-								</IconButton>
-							</Link>
+						<Box className="rating-pill">
+							<StarRoundedIcon className="star-icon" />
+							<Typography className="rating-num">{ratingDisplay}</Typography>
 						</Box>
 					</Box>
+
+					{/* Stats: 2-column grid */}
+					<Box className="stats-grid">
+						<Box className="stat-box">
+							<Typography className="stat-lbl">{t('agent:card.experience')}</Typography>
+							<Typography className="stat-val">{yearsExp} {t('agent:card.years')}</Typography>
+						</Box>
+						<Box className="stat-box">
+							<Typography className="stat-lbl">{t('agent:card.toursManaged')}</Typography>
+							<Typography className="stat-val">{agent?.memberTours ?? 0} {t('agent:card.tours')}</Typography>
+						</Box>
+					</Box>
+
+					{/* Bio */}
+					<Typography className="agent-bio">
+						{agent?.memberDesc ??
+							t('agent:card.defaultBio')}
+					</Typography>
+
+					{/* CTA row */}
+					<Box className="cta-row">
+						<Link href={agentDetailHref}>
+							<Button
+								className="btn-view-profile"
+								endIcon={<ArrowForwardRoundedIcon />}
+								disableRipple
+								fullWidth
+							>
+								{t('agent:card.viewProfile')}
+							</Button>
+						</Link>
+						<Link href={agentDetailHref}>
+							<IconButton className="btn-mail" disableRipple>
+								<EmailOutlinedIcon />
+							</IconButton>
+						</Link>
+					</Box>
 				</Box>
-			</MotionBox>
-		);
-	}
+			</Box>
+		</MotionBox>
+	);
 };
 
 export default AgentCard;

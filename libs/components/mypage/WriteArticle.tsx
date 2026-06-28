@@ -13,10 +13,7 @@ const WriteArticle: NextPage = () => {
 	const device = useDeviceDetect();
 	const { t } = useTranslation(['common', 'community', 'mypage']);
 
-	if (device === 'mobile') {
-		return <>{t('mypage:menu.writeArticle')}</>;
-	} else
-		return (
+	return (
 			<div id="write-article-page">
 				<Stack className="main-title-box">
 					<Box className="title-icon">
@@ -44,7 +41,7 @@ const WriteArticle: NextPage = () => {
 					<TuiEditor />
 				</Box>
 			</div>
-		);
+	);
 };
 
 export default WriteArticle;

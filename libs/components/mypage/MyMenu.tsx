@@ -143,10 +143,7 @@ const MyMenu = () => {
 		);
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('common:mobile.mypage')}</div>;
-	} else {
-		return (
+	return (
 			<Stack width={'100%'} className={'my-menu-panel'}>
 				<Stack className={'profile'}>
 					<Box component={'div'} className={'profile-img'}>
@@ -213,8 +210,7 @@ const MyMenu = () => {
 					</Stack>
 				</Stack>
 			</Stack>
-		);
-	}
+	);
 };
 
 export default MyMenu;

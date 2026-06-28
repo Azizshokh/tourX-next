@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import { Box, Stack } from '@mui/material';
+import { Box, IconButton, Stack } from '@mui/material';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
@@ -17,7 +17,6 @@ import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 import SailingRoundedIcon from '@mui/icons-material/SailingRounded';
 import HotelRoundedIcon from '@mui/icons-material/HotelRounded';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import MyTourPackages from '../../libs/components/mypage/MyTourPackages';
 import MyFavorites from '../../libs/components/mypage/MyFavorites';
@@ -46,13 +45,14 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const MyPage: NextPage = () => {
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['common', 'mypage']);
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 	const category: any = router.query?.category ?? 'myProfile';
 	const activeCategory =
 		category === 'addProperty' ? 'addTourPackage' : category === 'myProperties' ? 'myTourPackages' : category;
+	const [isResponsiveLayout, setIsResponsiveLayout] = useState<boolean>(false);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
 	/** APOLLO REQUESTS **/
 	const [subscribe] = useMutation(SUBSCRIBE);
@@ -63,6 +63,44 @@ const MyPage: NextPage = () => {
 	useEffect(() => {
 		if (!user._id) router.push('/').then();
 	}, [user]);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia('(max-width: 1024px)');
+		const syncResponsiveLayout = () => {
+			setIsResponsiveLayout(mediaQuery.matches);
+			setIsMenuOpen(false);
+		};
+
+		syncResponsiveLayout();
+		mediaQuery.addEventListener('change', syncResponsiveLayout);
+
+		return () => mediaQuery.removeEventListener('change', syncResponsiveLayout);
+	}, []);
+
+	useEffect(() => {
+		if (isResponsiveLayout) setIsMenuOpen(false);
+	}, [activeCategory, isResponsiveLayout]);
+
+	useEffect(() => {
+		if (!isResponsiveLayout || !isMenuOpen) {
+			document.body.classList.remove('mypage-sidebar-open');
+			return;
+		}
+
+		document.body.classList.add('mypage-sidebar-open');
+		return () => document.body.classList.remove('mypage-sidebar-open');
+	}, [isResponsiveLayout, isMenuOpen]);
+
+	useEffect(() => {
+		if (!isResponsiveLayout || !isMenuOpen) return;
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') setIsMenuOpen(false);
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, [isMenuOpen, isResponsiveLayout]);
 
 	/** HANDLERS **/
 	const subscribeHandler = async (id: string, refetch: any, query: any) => {
@@ -127,10 +165,7 @@ const MyPage: NextPage = () => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('common:mobile.mypage')}</div>;
-	} else {
-		return (
+	return (
 			<div id="my-page" style={{ position: 'relative' }}>
 				<Box component={'div'} className={'mypage-bg-icons'} aria-hidden={'true'}>
 					<span className={'mypage-bg-icon plane'}>
@@ -180,9 +215,31 @@ const MyPage: NextPage = () => {
 					</span>
 				</Box>
 				<div className="container">
+					{isResponsiveLayout && (
+						<Box component={'div'} className={'mypage-menu-toggle-wrap'}>
+							<IconButton
+								className={`mypage-menu-toggle ${isMenuOpen ? 'open' : ''}`}
+								onClick={() => setIsMenuOpen((prev) => !prev)}
+								aria-label={t('mypage:menu.account')}
+								aria-expanded={isMenuOpen}
+							/>
+						</Box>
+					)}
+					{isResponsiveLayout && isMenuOpen && (
+						<Box
+							component={'button'}
+							className={'mypage-menu-backdrop'}
+							aria-label={t('mypage:menu.account')}
+							onClick={() => setIsMenuOpen(false)}
+						/>
+					)}
 					<Stack className={'my-page'}>
-						<Stack className={'back-frame'}>
-							<Stack className={'left-config'}>
+						<Stack
+							className={`back-frame ${
+								isResponsiveLayout ? (isMenuOpen ? 'menu-open' : 'menu-closed') : ''
+							}`}
+						>
+							<Stack className={`left-config ${isResponsiveLayout && isMenuOpen ? 'open' : ''}`}>
 								<FadeUp><MyMenu /></FadeUp>
 							</Stack>
 							<Stack className="main-config" mb={'76px'}>
@@ -222,8 +279,7 @@ const MyPage: NextPage = () => {
 					</Stack>
 				</div>
 			</div>
-		);
-	}
+	);
 };
 
 export default withLayoutBasic(MyPage);

@@ -277,10 +277,6 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 
 	if (user?.memberType !== 'AGENT') router.back();
 
-	if (device === 'mobile') {
-		return <div>{t('mypage:packages.addTitle')}</div>;
-	}
-
 	return (
 		<div id="add-tour-package-page">
 				<Stack className="main-title-box">

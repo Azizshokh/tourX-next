@@ -69,10 +69,7 @@ const MyFavorites: NextPage = () => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('mypage:menu.savedTrips')}</div>;
-	} else {
-		return (
+	return (
 			<div id="my-favorites-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
@@ -144,8 +141,7 @@ const MyFavorites: NextPage = () => {
 					</Stack>
 				) : null}
 			</div>
-		);
-	}
+	);
 };
 
 export default MyFavorites;

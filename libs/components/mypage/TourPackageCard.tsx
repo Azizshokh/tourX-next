@@ -59,10 +59,7 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 		setAnchorEl(null);
 	};
 
-	if (device === 'mobile') {
-		return <div>MOBILE PACKAGE CARD</div>;
-	} else
-		return (
+	return (
 			<MotionStack className="tour-package-card-box" {...fadeUpMotionProps}>
 				<Stack className="image-box" onClick={() => pushTourPackageDetail(tourPackage?._id)}>
 					{packageImage ? (
@@ -164,5 +161,5 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 					</Stack>
 				)}
 			</MotionStack>
-		);
+	);
 };

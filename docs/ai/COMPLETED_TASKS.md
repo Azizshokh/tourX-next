@@ -278,3 +278,38 @@ Validation: `yarn tsc --noEmit` passed.
 - Added the app-level viewport meta tag for mobile-width rendering and safe-area support.
 - Files: `libs/components/mobile/*`, `libs/components/Top.tsx`, `pages/_app.tsx`, `scss/mobile/main.scss`, `public/locales/{en,kr,ru}/common.json`.
 - Validation: common locale key consistency passed; `yarn.cmd tsc --noEmit` passed; PC/mobile Sass compile passed; `yarn.cmd build` passed with the existing Browserslist update warning; headless screenshots confirmed the mobile top/bottom bars on compact widths and unchanged desktop navbar at 1440px.
+
+## 2026-06-28 - MyPage nested screens responsive layout
+- Removed MyPage mobile placeholder branches so the real MyPage dashboard, menu, saved trips, recently viewed packages, articles, write article, add/edit package, agent package inventory, package cards, followers, and following screens render on mobile.
+- Added mobile-wrapper responsive styling for MyPage nested screens: stacked layout, compact horizontal account menu, full-width cards/forms, responsive package image grids, readable follow cards, editor width guards, themed empty states, and mobile-safe pagination.
+- Kept desktop MyPage styling, routes, GraphQL queries, mutations, and category navigation unchanged.
+- Files: `pages/mypage/index.tsx`, `libs/components/mypage/*`, `libs/components/member/MemberFollowers.tsx`, `libs/components/member/MemberFollowings.tsx`, `scss/mobile/main.scss`.
+- Validation: no targeted MyPage mobile placeholder scan matches remained; `yarn.cmd tsc --noEmit` passed; mobile Sass compile passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+
+## 2026-06-28 - MyPage left menu slide toggle
+- Added a toggle button to the MyPage left menu so `left-config` slides in from the left and can be collapsed/expanded without changing MyPage routes or business logic.
+- Kept the PC MyPage menu design language intact when open, with the same white/orange sidebar styling and navy active item treatment.
+- Added mobile off-canvas behavior with backdrop click, ESC close, route-change close, and dark-mode compatible toggle/backdrop styling.
+- Files: `pages/mypage/index.tsx`, `scss/pc/mypage/mypage.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+
+## 2026-06-28 - MyPage responsive sidebar positioning correction
+- Restored desktop MyPage sidebar behavior by hiding the toggle and removing desktop collapse/slide effects above 1024px.
+- Scoped the sidebar drawer to tablet/mobile only with `position: fixed`, fixed viewport height below the navbar, internal sidebar scrolling, backdrop close, ESC close, and body scroll lock while open.
+- Ensured responsive drawer rules target both `#pc-wrap` and `#mobile-wrap` without pushing main content horizontally.
+- Files: `pages/mypage/index.tsx`, `scss/pc/mypage/mypage.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+
+## 2026-06-28 - MyPage homepage-style responsive architecture cleanup
+- Matched the homepage responsive architecture by rendering MyPage drawer controls only for `max-width: 1024px` viewports and keeping desktop DOM/classes free of drawer state.
+- Kept desktop base MyPage layout as the normal PC sidebar while isolating drawer/toggle styling to responsive media scope or `#mobile-wrap`.
+- Preserved fixed mobile/tablet drawer behavior with internal scrolling, backdrop close, ESC close, route-change close, and body scroll lock.
+- Files: `pages/mypage/index.tsx`, `scss/pc/mypage/mypage.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+
+## 2026-06-28 - MyPage floating responsive sidebar handle
+- Replaced the mobile/tablet MyPage sidebar toggle icon button with a small curved floating handle fixed to the left screen edge and vertically centered.
+- Kept the handle responsive-only for `max-width: 1024px`; desktop MyPage design remains unchanged.
+- Added light/dark mode styling, subtle shadow, and smooth hover/open state animation while preserving existing drawer behavior.
+- Files: `pages/mypage/index.tsx`, `scss/pc/mypage/mypage.scss`, `scss/mobile/main.scss`, `scss/pc/dark-mode.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed on rerun after a transient `.next` manifest trace error.

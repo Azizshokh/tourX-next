@@ -60,10 +60,7 @@ const RecentlyVisited: NextPage = () => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>{t('mypage:menu.recentlyViewed')}</div>;
-	} else {
-		return (
+	return (
 			<div id="recently-visited-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
@@ -102,8 +99,7 @@ const RecentlyVisited: NextPage = () => {
 					</Stack>
 				) : null}
 			</div>
-		);
-	}
+	);
 };
 
 export default RecentlyVisited;

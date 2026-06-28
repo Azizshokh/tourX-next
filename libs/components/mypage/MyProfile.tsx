@@ -117,10 +117,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 
 	console.log('+updateData', updateData);
 
-	if (device === 'mobile') {
-		return <>{t('common:mobile.mypage')}</>;
-	} else
-		return (
+	return (
 			<div id="my-profile-page">
 				<Stack className="main-title-box">
 					<Stack className="title-icon">
@@ -214,7 +211,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 					</Stack>
 				</Stack>
 			</div>
-		);
+	);
 };
 
 MyProfile.defaultProps = {

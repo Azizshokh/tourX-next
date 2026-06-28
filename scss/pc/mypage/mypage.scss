@@ -161,13 +161,18 @@
 		.container {
 			position: relative;
 			z-index: 1;
+			.mypage-menu-toggle-wrap,
+			.mypage-menu-backdrop {
+				display: none;
+			}
+
 			.my-page {
 				position: relative;
 				width: 100%;
 				flex-direction: row;
 				gap: 25px;
 				padding-top: 96px;
-				.back-frame {
+					.back-frame {
 					width: 100%;
 					max-width: 1260px;
 					height: auto;
@@ -178,6 +183,7 @@
 					border: 1px solid rgba(255, 138, 0, 0.13);
 					background: #ffffff;
 					box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04);
+
 					.left-config {
 						position: relative;
 						padding: 0;
@@ -467,6 +473,7 @@
 							}
 						}
 					}
+
 					.main-config {
 						position: relative;
 						flex: 1;
@@ -709,21 +716,127 @@
 
 /* ─── MyPage responsive: tablet + mobile ─── */
 @media (max-width: 1024px) {
+	body.mypage-sidebar-open {
+		overflow: hidden;
+	}
+
+	#pc-wrap #my-page,
+	#mobile-wrap #my-page {
+		overflow-x: hidden;
+
+		.container {
+			.mypage-menu-toggle-wrap {
+				position: fixed;
+				top: 50%;
+				left: 0;
+				z-index: 120;
+				display: block;
+				transform: translateY(-50%);
+
+				.mypage-menu-toggle {
+					width: 30px;
+					height: 92px;
+					min-width: 30px;
+					padding: 0;
+					border-radius: 0 999px 999px 0;
+					border: 1px solid rgba(15, 23, 42, 0.10);
+					border-left: 0;
+					background: rgba(241, 245, 249, 0.94);
+					box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+					backdrop-filter: blur(14px);
+					-webkit-backdrop-filter: blur(14px);
+					transition: width 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+
+					&::before {
+						content: '';
+						width: 4px;
+						height: 34px;
+						border-radius: 999px;
+						background: rgba(100, 116, 139, 0.72);
+						transition: background 0.18s ease, height 0.18s ease;
+					}
+
+					&.open,
+					&:hover {
+						width: 36px;
+						background: rgba(255, 138, 0, 0.94);
+						box-shadow: 0 18px 40px rgba(255, 138, 0, 0.24);
+						transform: translateX(0);
+
+						&::before {
+							height: 42px;
+							background: #ffffff;
+						}
+					}
+				}
+			}
+
+			.mypage-menu-backdrop {
+				position: fixed;
+				inset: 0;
+				z-index: 108;
+				display: block;
+				border: 0;
+				background: rgba(15, 23, 42, 0.32);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+			}
+		}
+	}
+
 	#pc-wrap #my-page .container .my-page,
 	#mobile-wrap #my-page .container .my-page {
 		padding-top: 40px;
+		width: 100%;
+		max-width: 100%;
 
 		.back-frame {
 			flex-direction: column;
 			border-radius: 16px;
 			margin: 32px 0 60px;
+			overflow: visible;
 
 			.left-config {
-				width: 100%;
+				position: fixed;
+				top: calc(72px + env(safe-area-inset-top));
+				bottom: 0;
+				left: 0;
+				z-index: 112;
+				width: min(330px, 86vw);
+				height: calc(100vh - 72px - env(safe-area-inset-top));
+				max-height: calc(100vh - 72px - env(safe-area-inset-top));
 				flex: none;
-				margin: 16px 16px 0;
-				width: calc(100% - 32px);
-				border-radius: 14px;
+				margin: 0;
+				overflow-y: auto;
+				overscroll-behavior: contain;
+				border-radius: 0 20px 20px 0;
+				opacity: 0;
+				pointer-events: none;
+				transform: translateX(-105%);
+				transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+				box-shadow: 22px 0 60px rgba(15, 23, 42, 0.18);
+
+				&.open {
+					opacity: 1;
+					pointer-events: auto;
+					transform: translateX(0);
+				}
+			}
+
+			&.menu-open {
+				.left-config {
+					opacity: 1;
+					pointer-events: auto;
+					transform: translateX(0);
+				}
+			}
+
+			&.menu-closed {
+				.left-config {
+					opacity: 0;
+					pointer-events: none;
+					transform: translateX(-105%);
+				}
 			}
 
 			.my-page-content,
@@ -731,6 +844,12 @@
 				width: 100%;
 				max-width: 100%;
 				min-width: 0;
+			}
+
+			.main-config {
+				width: 100%;
+				max-width: 100%;
+				margin: 24px 16px 32px !important;
 			}
 		}
 	}
@@ -744,11 +863,6 @@
 		.back-frame {
 			margin: 16px 0 40px;
 			border-radius: 12px;
-
-			.left-config {
-				margin: 12px 12px 0;
-				width: calc(100% - 24px);
-			}
 		}
 	}
 }

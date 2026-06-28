@@ -66,10 +66,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <>{t('mypage:menu.myArticles')}</>;
-	} else
-		return (
+	return (
 			<div id="my-articles-page">
 				<Stack className="main-title-box">
 					<Stack className="title-icon">
@@ -136,7 +133,7 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 					</Stack>
 				)}
 			</div>
-		);
+	);
 };
 
 MyArticles.defaultProps = {

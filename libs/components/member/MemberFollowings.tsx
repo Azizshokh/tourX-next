@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 const MotionStack = motion(Stack);
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useRouter } from 'next/router';
 import { FollowInquiry } from '../../types/follow/follow.input';
 import { useQuery, useReactiveVar } from '@apollo/client';
@@ -30,7 +29,6 @@ interface MemberFollowingsProps {
 
 const MemberFollowings = (props: MemberFollowingsProps) => {
 	const { initialInput, subscribeHandler, unsubscribeHandler, likeMemberHandler, redirectToMemberPageHandler } = props;
-	const device = useDeviceDetect();
 	const { t } = useTranslation(['common', 'mypage']);
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
@@ -74,16 +72,8 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 		setFollowInquiry({ ...followInquiry, page: value });
 	};
 
-	if (device === 'mobile') {
-		return (
-			<Stack direction="row" alignItems="center" gap={1}>
-				<PersonAddAltRoundedIcon fontSize="small" />
-				<Typography>{t('mypage:follow.following')}</Typography>
-			</Stack>
-		);
-	} else {
-		return (
-			<div id="member-follows-page">
+	return (
+		<div id="member-follows-page">
 				<Stack className="main-title-box">
 					<Typography className="main-title">{t('mypage:follow.following')}</Typography>
 				</Stack>
@@ -191,9 +181,8 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 						</Stack>
 					</Stack>
 				)}
-			</div>
-		);
-	}
+		</div>
+	);
 };
 
 MemberFollowings.defaultProps = {

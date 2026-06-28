@@ -1575,6 +1575,27 @@ html.dark {
     #my-page {
       background: var(--bg-page) !important;
 
+      @media (max-width: 1024px) {
+        .container > .mypage-menu-toggle-wrap .mypage-menu-toggle {
+          border-color: var(--border-orange) !important;
+          background: rgba(30, 41, 59, 0.92) !important;
+          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42) !important;
+
+          &::before {
+            background: rgba(226, 232, 240, 0.78) !important;
+          }
+
+          &:hover,
+          &.open {
+            background: var(--brand-orange) !important;
+
+            &::before {
+              background: #ffffff !important;
+            }
+          }
+        }
+      }
+
       .my-page .back-frame {
         background: var(--bg-card) !important;
         border-color: rgba(255,138,0,0.16) !important;

@@ -94,10 +94,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 		router.back();
 	}
 
-	if (device === 'mobile') {
-		return <div>{t('mypage:packages.title')}</div>;
-	} else {
-		return (
+	return (
 			<div id="my-tour-package-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
@@ -188,8 +185,7 @@ const MyTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 					</Stack>
 				</Stack>
 			</div>
-		);
-	}
+	);
 };
 
 MyTourPackages.defaultProps = {

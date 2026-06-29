@@ -50,20 +50,9 @@ const Home: NextPage = () => {
 		};
 	}, []);
 
-	if (device === 'mobile' || isCompactViewport) {
-		return (
-			<Stack className={'home-page'}>
-				<AnimatedSection><TrendTourPackages /></AnimatedSection>
-				<AnimatedSection><PopularTourPackages /></AnimatedSection>
-				<AnimatedSection><Advertisement /></AnimatedSection>
-				<AnimatedSection><TopTourPackages /></AnimatedSection>
-				<AnimatedSection><TravelInspiration /></AnimatedSection>
-				<AnimatedSection><TopAgents /></AnimatedSection>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className={'home-page'}>
+	return (
+		<Stack className={'home-page'}>
+			{!isCompactViewport && (
 				<Box component={'div'} className={'home-bg-icons'} aria-hidden={'true'}>
 					<span className={'home-bg-icon plane'}><FlightTakeoffRoundedIcon /></span>
 					<span className={'home-bg-icon landing'}><FlightLandRoundedIcon /></span>
@@ -81,16 +70,16 @@ const Home: NextPage = () => {
 					<span className={'home-bg-icon hike'}><HikingRoundedIcon /></span>
 					<span className={'home-bg-icon sun'}><WbSunnyRoundedIcon /></span>
 				</Box>
-				<AnimatedSection><TrendTourPackages /></AnimatedSection>
-				<AnimatedSection><PopularTourPackages /></AnimatedSection>
-				<AnimatedSection><Advertisement /></AnimatedSection>
-				<AnimatedSection><TopTourPackages /></AnimatedSection>
-				<AnimatedSection><TravelInspiration /></AnimatedSection>
-				<AnimatedSection><TopAgents /></AnimatedSection>
-				<AnimatedSection><CommunityComments /></AnimatedSection>
-			</Stack>
-		);
-	}
+			)}
+			<AnimatedSection><TrendTourPackages /></AnimatedSection>
+			<AnimatedSection><PopularTourPackages /></AnimatedSection>
+			<AnimatedSection><Advertisement /></AnimatedSection>
+			<AnimatedSection><TopTourPackages /></AnimatedSection>
+			<AnimatedSection><TravelInspiration /></AnimatedSection>
+			<AnimatedSection><TopAgents /></AnimatedSection>
+			<AnimatedSection><CommunityComments /></AnimatedSection>
+		</Stack>
+	);
 };
 
 export default withLayoutMain(Home);

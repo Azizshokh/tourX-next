@@ -20,7 +20,6 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
-import TopTourPackageCard from './TopTourPackageCard';
 import { REACT_APP_API_URL } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { TourPackage } from '../../types/tour-package/tour-package';
@@ -79,34 +78,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return (
-			<Stack className={'top-tour-packages'}>
-				<Stack className={'container'}>
-					<Stack className={'info-box'}>
-						<span>{t('home:sections.topRanked')}</span>
-					</Stack>
-					<Stack className={'card-box'}>
-						<Swiper
-							className={'top-tour-package-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={15}
-							modules={[Autoplay]}
-						>
-							{topTourPackages.map((tourPackage: TourPackage) => {
-								return (
-									<SwiperSlide className={'top-tour-package-slide'} key={tourPackage?._id}>
-										<TopTourPackageCard tourPackage={tourPackage} likeTourPackageHandler={likeTourPackageHandler} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
-					</Stack>
-				</Stack>
-			</Stack>
-		);
-	}
+	const slidesPerView = device === 'mobile' ? 1.2 : 3;
 
 	const imageOf = (p?: TourPackage) =>
 		p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
@@ -118,23 +90,25 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 
 	return (
 		<Stack className={'top-tour-packages'}>
-			<Box component={'div'} className={'top-package-bg-icons'} aria-hidden={'true'}>
-				<span className={'top-package-bg-icon plane'}>
-					<FlightTakeoffRoundedIcon />
-				</span>
-				<span className={'top-package-bg-icon earth'}>
-					<PublicRoundedIcon />
-				</span>
-				<span className={'top-package-bg-icon bag'}>
-					<LuggageRoundedIcon />
-				</span>
-				<span className={'top-package-bg-icon location'}>
-					<LocationOnRoundedIcon />
-				</span>
-				<span className={'top-package-bg-icon compass'}>
-					<ExploreRoundedIcon />
-				</span>
-			</Box>
+			{device !== 'mobile' && (
+				<Box component={'div'} className={'top-package-bg-icons'} aria-hidden={'true'}>
+					<span className={'top-package-bg-icon plane'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'top-package-bg-icon earth'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'top-package-bg-icon bag'}>
+						<LuggageRoundedIcon />
+					</span>
+					<span className={'top-package-bg-icon location'}>
+						<LocationOnRoundedIcon />
+					</span>
+					<span className={'top-package-bg-icon compass'}>
+						<ExploreRoundedIcon />
+					</span>
+				</Box>
+			)}
 			<Stack className={'container'}>
 				<Stack className={'info-box'}>
 					<Box component={'div'} className={'left'}>
@@ -158,7 +132,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 					) : (
 						<Swiper
 							className={'top-row-swiper'}
-							slidesPerView={3}
+							slidesPerView={slidesPerView}
 							spaceBetween={24}
 							modules={[Navigation]}
 							navigation={{ prevEl: '.top-prev', nextEl: '.top-next' }}

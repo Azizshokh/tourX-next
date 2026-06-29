@@ -52,14 +52,23 @@ const TopAgents = (props: TopAgentsProps) => {
 			<Stack className={'top-agents'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>{t('home:sections.topAgents')}</span>
+						<Box component={'div'} className={'left'}>
+							<span>{t('home:sections.topAgents')}</span>
+							<p>{t('home:sections.topAgentsDesc')}</p>
+						</Box>
+						<Box component={'div'} className={'right'}>
+							<div className={'more-box'}>
+								<span>{t('home:labels.seeAllAgents')}</span>
+								<img src="/img/icons/rightup.svg" alt="" />
+							</div>
+						</Box>
 					</Stack>
 					<Stack className={'wrapper'}>
 						<Swiper
 							className={'top-agents-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
-							spaceBetween={29}
+							spaceBetween={16}
 							modules={[Autoplay]}
 						>
 							{topAgents.map((agent: Member) => {

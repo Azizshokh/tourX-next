@@ -54,14 +54,25 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 			<Stack className={'popular-tour-packages'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>{t('home:sections.popular')}</span>
+						<Box component={'div'} className={'left'}>
+							<span>{t('home:sections.popular')}</span>
+							<p>{t('home:sections.popularDesc')}</p>
+						</Box>
+						<Box component={'div'} className={'right'}>
+							<div className={'more-box'}>
+								<Link href={'/tour-package'}>
+									<span>{t('home:labels.seeAllCategories')}</span>
+								</Link>
+								<img src="/img/icons/rightup.svg" alt="" />
+							</div>
+						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
 							className={'popular-tour-package-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
-							spaceBetween={25}
+							spaceBetween={16}
 							modules={[Autoplay]}
 						>
 							{popularTourPackages.map((tourPackage: TourPackage) => {

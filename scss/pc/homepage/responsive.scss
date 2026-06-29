@@ -1,0 +1,885 @@
+// Homepage – mobile layout overrides.
+// Visual tokens (colors, shadows, radius, typography) mirror homepage.scss #pc-wrap rules.
+// Allowed: flex-direction, width, height, padding/margin scale, grid→flex stacking, overflow fixes.
+
+#mobile-wrap {
+	.home-page {
+		// ── Shared info-box: space-between when .right is present ────────────
+		.popular-tour-packages,
+		.top-tour-packages,
+		.top-agents {
+			.info-box {
+				justify-content: space-between;
+				align-items: flex-end;
+				flex-wrap: wrap;
+				gap: 12px;
+
+				.left {
+					flex: 1;
+					min-width: 0;
+				}
+
+				.right {
+					display: flex;
+					flex-shrink: 0;
+					align-items: flex-end;
+				}
+
+				.more-box {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					gap: 6px;
+					padding: 7px 12px;
+					border: 1px solid #d9f0ff;
+					border-radius: 999px;
+					background: #ffffff;
+					cursor: pointer;
+
+					span,
+					a {
+						color: #0077b6;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 700;
+						text-decoration: none;
+					}
+
+					a span {
+						color: inherit;
+					}
+
+					img {
+						width: 13px;
+						height: 13px;
+					}
+				}
+			}
+		}
+
+		// ── TrendTourPackages: bento grid → stacked column ───────────────────
+		.trend-tour-packages {
+			// topbento-grid: switch from 2-col grid to flex-column
+			.topbento-grid {
+				display: flex;
+				flex-direction: column;
+				height: auto;
+				gap: 14px;
+			}
+
+			// topbento-side: flatten so its children join the flex column
+			.topbento-side {
+				display: contents;
+			}
+
+			// Card visual styles (mirror #pc-wrap .topbento-card)
+			.topbento-card {
+				position: relative;
+				overflow: hidden;
+				display: block;
+				width: 100%;
+				height: 260px;
+				border-radius: 20px;
+				background: #08111f;
+				box-shadow: 0 18px 45px rgba(8, 24, 44, 0.12);
+				text-decoration: none;
+				cursor: pointer;
+
+				&.featured {
+					height: 320px;
+					border-radius: 22px;
+				}
+
+				&.small {
+					border-radius: 18px;
+				}
+			}
+
+			.topbento-media,
+			.topbento-overlay {
+				position: absolute;
+				inset: 0;
+			}
+
+			.topbento-media {
+				background-size: cover;
+				background-position: center;
+			}
+
+			.topbento-overlay {
+				z-index: 1;
+				background: linear-gradient(180deg, rgba(3, 9, 20, 0.05) 0%, rgba(3, 9, 20, 0.3) 45%, rgba(3, 9, 20, 0.88) 100%);
+			}
+
+			.topbento-content {
+				position: absolute;
+				z-index: 2;
+				left: 18px;
+				right: 18px;
+				bottom: 18px;
+				display: flex;
+				flex-direction: column;
+				color: #ffffff;
+
+				.verified {
+					display: flex;
+					align-items: center;
+					gap: 6px;
+					margin-bottom: 8px;
+					color: #79f6ed;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 12px;
+					font-weight: 800;
+
+					svg {
+						width: 15px;
+						height: 15px;
+					}
+				}
+
+				h3 {
+					margin: 0;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 20px;
+					font-weight: 900;
+					line-height: 26px;
+				}
+
+				h4 {
+					margin: 0;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 16px;
+					font-weight: 800;
+					line-height: 22px;
+				}
+
+				p {
+					max-width: 100%;
+					margin: 7px 0 0;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					color: rgba(255, 255, 255, 0.85);
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					line-height: 19px;
+				}
+
+				.book-btn {
+					margin-top: 12px;
+					width: fit-content;
+					padding: 9px 18px;
+					border-radius: 10px;
+					background: #ec662a;
+					color: #ffffff;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 13px;
+					font-weight: 800;
+				}
+
+				.rank {
+					display: flex;
+					align-items: center;
+					gap: 5px;
+					margin-top: 5px;
+					color: rgba(255, 255, 255, 0.92);
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 12px;
+					font-weight: 700;
+
+					svg {
+						width: 14px;
+						height: 14px;
+						color: #ff8a00;
+					}
+				}
+			}
+		}
+
+		// ── TopTourPackages: top-row-card at reduced height ──────────────────
+		.top-tour-packages {
+			// Nav arrows: basic mobile styling
+			.info-box .right .nav-arrow {
+				width: 36px;
+				height: 36px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 999px;
+				border: 1px solid #d9dee6;
+				background: #ffffff;
+				color: #0d1c32;
+				cursor: pointer;
+
+				svg {
+					width: 16px;
+					height: 16px;
+				}
+			}
+
+			// Card visual tokens (mirror #pc-wrap .top-row-card)
+			.top-row-card {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				height: auto;
+				border: 1px solid #ececec;
+				border-radius: 18px;
+				background: #ffffff;
+				box-shadow: 0 6px 22px rgba(15, 23, 42, 0.05);
+				overflow: hidden;
+
+				.card-media {
+					position: relative;
+					height: 210px;
+					background-color: #f1f1f1;
+					background-size: cover;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					.fav-btn {
+						position: absolute;
+						top: 10px;
+						right: 10px;
+						width: 36px;
+						height: 36px;
+						padding: 0;
+						border-radius: 50%;
+						background: rgba(255, 255, 255, 0.96);
+						box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+
+						svg {
+							width: 18px;
+							height: 18px;
+							color: #94a3b8;
+						}
+
+						&.on svg {
+							color: #ff383c;
+						}
+					}
+
+					.price-pill {
+						position: absolute;
+						right: 12px;
+						bottom: 12px;
+						padding: 6px 12px;
+						border-radius: 8px;
+						background: #ff8a00;
+						color: #ffffff;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 12px;
+						font-weight: 800;
+						box-shadow: 0 6px 16px rgba(255, 138, 0, 0.35);
+					}
+				}
+
+				.card-body {
+					padding: 14px 16px 16px;
+					display: flex;
+					flex-direction: column;
+					gap: 8px;
+
+					.card-link {
+						text-decoration: none;
+						color: inherit;
+					}
+
+					.top-line {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						gap: 12px;
+
+						.place {
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							color: #ff8a00;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 11px;
+							font-weight: 800;
+							letter-spacing: 0.08em;
+						}
+
+						.rating {
+							display: inline-flex;
+							align-items: center;
+							gap: 4px;
+							color: #0d1c32;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 800;
+
+							svg {
+								width: 14px;
+								height: 14px;
+								color: #ff8a00;
+							}
+						}
+					}
+
+					.title {
+						margin: 4px 0 0;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 15px;
+						font-weight: 800;
+						line-height: 20px;
+					}
+
+					.chip-row {
+						display: flex;
+						flex-wrap: wrap;
+						gap: 8px;
+						padding-bottom: 10px;
+						border-bottom: 1px solid #f0f0f0;
+
+						span {
+							display: inline-flex;
+							align-items: center;
+							gap: 4px;
+							color: #ff383c;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 11px;
+							font-weight: 700;
+
+							svg {
+								width: 12px;
+								height: 12px;
+							}
+						}
+					}
+
+					.foot-row {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						gap: 8px;
+						flex-wrap: wrap;
+
+						.foot-stat {
+							display: inline-flex;
+							align-items: center;
+							gap: 4px;
+							color: #64748b;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 11px;
+							font-weight: 700;
+
+							svg {
+								width: 12px;
+								height: 12px;
+								color: #94a3b8;
+							}
+
+							&.travellers {
+								color: #0d1c32;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// ── PopularTourPackages ───────────────────────────────────────────────────
+		// mobile/main.scss has #mobile-wrap .popular-tour-packages ... .popular-card-box (1,4,0).
+		// Adding .home-page + .container .card-box in the path gives 1,5,0+ and wins.
+		.popular-tour-packages {
+			padding: 44px 0 52px;
+			background: linear-gradient(180deg, #ffffff 0%, #f1f8ff 100%);
+
+			.popular-bg-icons { display: none; }
+			.pagination-box { display: none; }
+
+			// Full path overrides to beat mobile/main.scss (#mobile-wrap .popular-tour-packages ... = 1,4,0+)
+			.container .card-box {
+				margin-top: 24px;
+
+				// Override old height: 390px on the swiper container
+				.popular-tour-package-swiper { height: auto; }
+
+				// Override old width: 98% on slides
+				.popular-tour-package-slide { width: 220px !important; }
+
+				// Specificity: #mobile-wrap .home-page .popular-tour-packages .container .card-box .popular-card-box = 1,5,0
+				.popular-card-box {
+					position: relative;
+					overflow: hidden;
+					width: 220px;
+					height: 290px;
+					border-radius: 22px;
+					background: #0d1c32;
+					box-shadow: 0 22px 50px rgba(15, 23, 42, 0.18);
+					cursor: pointer;
+
+					.card-media {
+						position: absolute;
+						inset: 0;
+						background-size: cover;
+						background-position: center;
+						background-repeat: no-repeat;
+					}
+
+					.card-shade {
+						position: absolute;
+						inset: 0;
+						background: linear-gradient(180deg, rgba(8, 17, 31, 0) 45%, rgba(8, 17, 31, 0.72) 100%);
+						pointer-events: none;
+					}
+
+					.card-top-badge {
+						position: absolute;
+						top: 14px;
+						left: 14px;
+						z-index: 2;
+						padding: 5px 10px;
+						display: flex;
+						align-items: center;
+						gap: 5px;
+						border-radius: 999px;
+						background: #ff383c;
+						color: #ffffff;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 11px;
+						font-weight: 800;
+						text-transform: uppercase;
+						letter-spacing: 0.04em;
+						box-shadow: 0 8px 18px rgba(255, 56, 60, 0.38);
+
+						img {
+							width: 11px;
+							height: 11px;
+							filter: brightness(0) invert(1);
+						}
+					}
+
+					.card-base {
+						position: absolute;
+						left: 0;
+						right: 0;
+						bottom: 20px;
+						z-index: 2;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						text-align: center;
+						gap: 3px;
+						transition: transform 0.35s ease, opacity 0.25s ease;
+
+						.city {
+							color: #ffffff;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 20px;
+							font-weight: 800;
+							line-height: 26px;
+							text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+						}
+
+						.tours {
+							color: rgba(255, 255, 255, 0.85);
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 600;
+						}
+					}
+
+					.card-hover { display: none; }
+				}
+			}
+		}
+
+		// ── TopAgents: full card, horizontal scroll strip ─────────────────────────
+		// mobile/main.scss has #mobile-wrap .top-agents .container .wrapper .top-agents-swiper
+		// .top-agents-slide .top-agent-card img (1,6,1) and .top-agent-card (1,6,0).
+		// Adding .home-page in the path gives 1,7,0+ and 1,7,1+ — beats both.
+		.top-agents {
+			padding: 48px 0 60px;
+			background: #f6f3f2;
+
+			.switch-btn { display: none; }
+			.card-wrapper { width: 100%; }
+
+			// Full path overrides — specificity 1,7,0+ beats mobile/main.scss 1,6,0
+			.container .wrapper {
+				margin-top: 28px;
+
+				// Override old height: 280px on swiper container
+				.top-agents-swiper { height: auto; }
+
+				.top-agents-swiper .top-agents-slide {
+					width: auto;
+					height: auto;
+
+					// Specificity: #mobile-wrap .home-page .top-agents .container .wrapper
+					// .top-agents-swiper .top-agents-slide .top-agent-card = 1,7,0
+					.top-agent-card {
+						width: 196px;
+						height: auto;
+						min-height: 300px;
+						padding: 22px 16px 18px;
+						box-sizing: border-box;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						justify-content: flex-start;
+						border: 1px solid rgba(255, 138, 0, 0.18);
+						border-radius: 24px;
+						background: linear-gradient(180deg, #ffffff 0%, #fffaf6 100%);
+						box-shadow: 0 18px 45px rgba(8, 24, 44, 0.08);
+
+						// Reset the 209px img from mobile/main.scss (specificity 1,7,1 > old 1,6,1)
+						img {
+							width: auto;
+							height: auto;
+						}
+
+						.avatar {
+							width: 72px;
+							height: 72px;
+							padding: 4px;
+							box-sizing: border-box;
+							border-radius: 50%;
+							overflow: hidden;
+							background: linear-gradient(135deg, #ff8a00 0%, #ff383c 100%);
+							box-shadow: 0 10px 22px rgba(255, 138, 0, 0.18);
+							flex-shrink: 0;
+							cursor: pointer;
+
+							// Specificity 1,8,1 — wins over all old img rules
+							img {
+								width: 100%;
+								height: 100%;
+								border-radius: 50%;
+								object-fit: cover;
+							}
+						}
+
+						strong {
+							margin-top: 10px;
+							max-width: 100%;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							color: #0f1f33;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 14px;
+							font-weight: 900;
+							line-height: 18px;
+							text-align: center;
+							cursor: pointer;
+						}
+
+						.role {
+							margin-top: 5px;
+							padding: 3px 10px;
+							border-radius: 999px;
+							background: rgba(255, 138, 0, 0.1);
+							color: #ff7a00;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 10px;
+							font-weight: 900;
+							line-height: 14px;
+							text-transform: capitalize;
+						}
+
+						.agent-stats {
+							margin: 12px 0 10px;
+							width: 100%;
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+							gap: 5px;
+
+							div {
+								min-width: 0;
+								padding: 7px 4px;
+								display: flex;
+								flex-direction: column;
+								align-items: center;
+								gap: 2px;
+								border: 1px solid rgba(219, 231, 242, 0.9);
+								border-radius: 10px;
+								background: rgba(255, 255, 255, 0.82);
+							}
+
+							b {
+								color: #0f1f33;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-weight: 900;
+								line-height: 15px;
+							}
+
+							em {
+								color: #64748b;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 9px;
+								font-style: normal;
+								font-weight: 800;
+								line-height: 11px;
+								text-transform: uppercase;
+							}
+						}
+
+						.view-profile {
+							margin-top: auto;
+							width: 100%;
+							padding: 9px 0;
+							border: 0;
+							border-radius: 10px;
+							background: #ff8a00;
+							color: #ffffff;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 900;
+							cursor: pointer;
+							box-shadow: 0 8px 18px rgba(255, 138, 0, 0.22);
+						}
+					}
+				}
+			}
+		}
+
+		// ── Tablet 600px+ breakpoint (still inside #mobile-wrap) ─────────────────
+		@media (min-width: 600px) {
+			.popular-tour-packages {
+				.container .card-box {
+					.popular-tour-package-slide { width: 250px !important; }
+					.popular-card-box { width: 250px; height: 330px; }
+				}
+			}
+
+			.top-agents {
+				.container .wrapper .top-agents-swiper .top-agents-slide .top-agent-card {
+					width: 220px;
+					min-height: 320px;
+
+					.avatar { width: 82px; height: 82px; }
+					strong { font-size: 15px; }
+				}
+			}
+		}
+
+		// ── CommunityComments: testimonial carousel ──────────────────────────
+		.community-discussions {
+			padding: 50px 0 60px;
+			background: linear-gradient(180deg, #fffcf7 0%, #fff8f0 60%, #fdf4e8 100%);
+
+			.tc-header {
+				text-align: center;
+				margin-bottom: 32px;
+
+				.tc-eyebrow {
+					display: block;
+					margin-bottom: 10px;
+					color: #ff8a00;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 11px;
+					font-weight: 900;
+					letter-spacing: 0.15em;
+					text-transform: uppercase;
+				}
+
+				.tc-main-title {
+					font-family: 'Plus Jakarta Sans', $font !important;
+					font-size: 26px !important;
+					font-weight: 900 !important;
+					line-height: 34px !important;
+					color: #0d1c32 !important;
+					margin: 0 0 10px !important;
+				}
+
+				.tc-subtitle {
+					font-family: 'Plus Jakarta Sans', $font !important;
+					font-size: 13px !important;
+					line-height: 20px !important;
+					color: #64748b !important;
+				}
+			}
+
+			.tc-carousel-wrap {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				.tc-arrow {
+					flex-shrink: 0;
+					width: 38px;
+					height: 38px;
+					border-radius: 50%;
+					border: 1.5px solid rgba(13, 28, 50, 0.12);
+					background: #ffffff;
+					color: #0d1c32;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					box-shadow: 0 6px 18px rgba(13, 28, 50, 0.08);
+					padding: 0;
+
+					svg {
+						width: 20px;
+						height: 20px;
+					}
+				}
+
+				.tc-swiper {
+					flex: 1;
+					min-width: 0;
+					overflow: hidden;
+				}
+
+				.tc-slide {
+					display: flex;
+					justify-content: center;
+				}
+			}
+
+			.tc-card-outer {
+				width: 100%;
+				padding-top: 50px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				position: relative;
+			}
+
+			.tc-rank {
+				position: absolute;
+				top: 30px;
+				right: 0;
+				z-index: 10;
+				width: 26px;
+				height: 26px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #ffffff;
+				font-family: 'Plus Jakarta Sans', $font;
+				font-size: 10px;
+				font-weight: 900;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+				border: 2px solid rgba(255, 255, 255, 0.9);
+			}
+
+			.tc-avatar-ring {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 5;
+				padding: 4px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, #ff8a00 0%, #ff383c 100%);
+				box-shadow: 0 10px 26px rgba(255, 138, 0, 0.35);
+
+				.tc-avatar {
+					width: 72px !important;
+					height: 72px !important;
+					border: 3px solid #ffffff;
+					border-radius: 50%;
+				}
+			}
+
+			.tc-card {
+				width: 100%;
+				padding: 42px 18px 24px;
+				border-radius: 22px;
+				background: #ffffff;
+				border: 1px solid rgba(13, 28, 50, 0.07);
+				text-align: center;
+				box-shadow: 0 20px 60px rgba(13, 28, 50, 0.07);
+
+				.tc-quote-icon {
+					font-size: 56px !important;
+					color: rgba(255, 138, 0, 0.13);
+					display: block;
+					margin-bottom: -8px;
+					margin-top: -4px;
+				}
+
+				.tc-text {
+					font-family: 'Plus Jakarta Sans', $font !important;
+					font-size: 14px !important;
+					line-height: 24px !important;
+					color: #1e2d3d !important;
+					font-style: italic;
+					margin: 0 0 16px !important;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 5;
+					overflow: hidden;
+				}
+
+				.tc-divider {
+					width: 40px;
+					height: 3px;
+					background: linear-gradient(90deg, #ff8a00, #ff383c);
+					border-radius: 2px;
+					margin: 0 auto 12px;
+				}
+
+				.tc-author-name {
+					font-family: 'Plus Jakarta Sans', $font !important;
+					font-size: 15px !important;
+					font-weight: 900 !important;
+					color: #0d1c32 !important;
+					margin: 0 0 3px !important;
+				}
+
+				.tc-author-role {
+					font-family: 'Plus Jakarta Sans', $font !important;
+					font-size: 10px !important;
+					font-weight: 800 !important;
+					color: #ff8a00 !important;
+					letter-spacing: 0.1em;
+					text-transform: uppercase;
+				}
+
+				.tc-like-row {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 8px;
+					margin-top: 14px;
+					padding-top: 12px;
+					border-top: 1px solid #f0f4f8;
+
+					.tc-like-btn {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 36px;
+						height: 36px;
+						border: none;
+						border-radius: 50%;
+						background: transparent;
+						cursor: pointer;
+						color: #94a3b8;
+
+						svg {
+							width: 20px;
+							height: 20px;
+						}
+
+						&.liked { color: #ff383c; }
+						&.tc-like-static { cursor: default; color: #ff8a00; pointer-events: none; }
+					}
+				}
+			}
+
+			.tc-dots {
+				display: none;
+			}
+		}
+	}
+}

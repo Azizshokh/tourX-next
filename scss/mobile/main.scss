@@ -1568,7 +1568,7 @@ body.mobile-nav-open {
 }
 
 #mobile-wrap {
- overflow-x: hidden;
+ overflow-x: clip;
  padding-bottom: calc(96px + env(safe-area-inset-bottom));
  background: #fbf9f8;
 
@@ -1643,9 +1643,15 @@ body.mobile-nav-open {
     }
   }
 
+  #top {
+    min-height: calc(66px + env(safe-area-inset-top));
+  }
+
   .mobile-top-navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 80;
     width: 100%;
     min-height: 66px;

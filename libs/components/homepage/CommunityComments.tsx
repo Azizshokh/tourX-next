@@ -176,34 +176,33 @@ const CommunityComments = () => {
 		}
 	};
 
-	if (device === 'mobile') return null;
-
 	return (
 		<Stack className={'community-discussions'}>
-			{/* Decorative background icons */}
-			<Box component={'div'} className={'community-bg-icons'} aria-hidden={'true'}>
-				<span className={'community-bg-icon forum'}>
-					<FlightTakeoffRoundedIcon />
-				</span>
-				<span className={'community-bg-icon discover'}>
-					<ExploreRoundedIcon />
-				</span>
-				<span className={'community-bg-icon review'}>
-					<PublicRoundedIcon />
-				</span>
-				<span className={'community-bg-icon earth'}>
-					<ForumRoundedIcon />
-				</span>
-			</Box>
+			{/* Decorative background icons — desktop only */}
+			{device !== 'mobile' && (
+				<Box component={'div'} className={'community-bg-icons'} aria-hidden={'true'}>
+					<span className={'community-bg-icon forum'}>
+						<FlightTakeoffRoundedIcon />
+					</span>
+					<span className={'community-bg-icon discover'}>
+						<ExploreRoundedIcon />
+					</span>
+					<span className={'community-bg-icon review'}>
+						<PublicRoundedIcon />
+					</span>
+					<span className={'community-bg-icon earth'}>
+						<ForumRoundedIcon />
+					</span>
+				</Box>
+			)}
 
-			{/* Decorative travel images */}
-			<img src={'/img/events/plane.png'} alt={''} className={'tc-deco tc-deco-plane'} aria-hidden={'true'} />
-			<img
-				src={'/img/events/travel_concepts.png'}
-				alt={''}
-				className={'tc-deco tc-deco-travel'}
-				aria-hidden={'true'}
-			/>
+			{/* Decorative travel images — desktop only */}
+			{device !== 'mobile' && (
+				<>
+					<img src={'/img/events/plane.png'} alt={''} className={'tc-deco tc-deco-plane'} aria-hidden={'true'} />
+					<img src={'/img/events/travel_concepts.png'} alt={''} className={'tc-deco tc-deco-travel'} aria-hidden={'true'} />
+				</>
+			)}
 
 			<Stack className={'container'}>
 				{/* Section Header */}

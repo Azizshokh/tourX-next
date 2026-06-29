@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { TourPackageCard } from '../mypage/TourPackageCard';
+import { Pagination, Stack, Typography, Box } from '@mui/material';
+import TourPackageCard from '../tourPackage/TourPackageCard';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { T } from '../../types/common';
 import { useRouter } from 'next/router';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
-import { useQuery } from '@apollo/client';
+import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
+import { useMutation, useQuery } from '@apollo/client';
+import { sweetMixinErrorAlert } from '../../sweetAlert';
+import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
+import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 
 const MemberTourPackages: NextPage = ({ initialInput, ...props }: any) => {
-	const device = useDeviceDetect();
 	const router = useRouter();
 	const { memberId } = router.query;
 	const [searchFilter, setSearchFilter] = useState<TourPackagesInquiry>({ ...initialInput });
@@ -19,10 +22,9 @@ const MemberTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 	const [total, setTotal] = useState<number>(0);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetTourPackage] = useMutation(LIKE_TARGET_TOUR_PACKAGE);
+
 	const {
-		loading: getTourPackagesLoading,
-		data: getTourPackagesData,
-		error: getTourPackagesError,
 		refetch: getTourPackagesRefetch,
 	} = useQuery(GET_TOUR_PACKAGES, {
 		fetchPolicy: 'network-only',
@@ -50,57 +52,74 @@ const MemberTourPackages: NextPage = ({ initialInput, ...props }: any) => {
 		setSearchFilter({ ...searchFilter, page: value });
 	};
 
-	if (device === 'mobile') {
-		return <div>MEMBER PACKAGES MOBILE</div>;
-	} else {
-		return (
-			<div id="member-tour-packages-page">
-				<Stack className="main-title-box">
-					<Stack className="right-box">
-						<Typography className="main-title">Packages</Typography>
-					</Stack>
-				</Stack>
-				<Stack className="tour-packages-list-box">
-					<Stack className="list-box">
-						{agentTourPackages?.length > 0 && (
-							<Stack className="listing-title-box">
-								<Typography className="title-text">Listing title</Typography>
-								<Typography className="title-text">Date Published</Typography>
-								<Typography className="title-text">Status</Typography>
-								<Typography className="title-text">View</Typography>
-							</Stack>
-						)}
-						{agentTourPackages?.length === 0 && (
-							<div className={'no-data'}>
-								<img src="/img/icons/icoAlert.svg" alt="" />
-								<p>No package found!</p>
-							</div>
-						)}
-						{agentTourPackages?.map((tourPackage: TourPackage) => {
-							return <TourPackageCard tourPackage={tourPackage} memberPage={true} key={tourPackage?._id} />;
-						})}
+	const likeTourPackageHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			await likeTargetTourPackage({ variables: { input: id } });
+			await getTourPackagesRefetch({ input: searchFilter });
+		} catch (err: any) {
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
 
-						{agentTourPackages.length !== 0 && (
-							<Stack className="pagination-config">
-								<Stack className="pagination-box">
-									<Pagination
-										count={Math.ceil(total / searchFilter.limit)}
-										page={searchFilter.page}
-										shape="circular"
-										color="primary"
-										onChange={paginationHandler}
-									/>
-								</Stack>
-								<Stack className="total-result">
-									<Typography>{total} package available</Typography>
-								</Stack>
-							</Stack>
-						)}
+	return (
+		<div id="member-tour-packages-page">
+			<Stack className="main-title-box">
+				<Stack className="right-box">
+					<Stack className="title-kicker">
+						<LuggageRoundedIcon />
+						<Typography>Tour Packages</Typography>
+					</Stack>
+					<Typography className="main-title">Packages</Typography>
+					<Typography className="sub-title">Browse all tour packages from this member</Typography>
+				</Stack>
+				<Stack className="saved-summary-panel">
+					<Box className="summary-icon">
+						<TravelExploreRoundedIcon />
+					</Box>
+					<Stack className="summary-copy">
+						<Typography className="summary-value">{total}</Typography>
+						<Typography className="summary-label">Total Packages</Typography>
 					</Stack>
 				</Stack>
-			</div>
-		);
-	}
+			</Stack>
+
+			<Stack className="favorites-list-box">
+				{agentTourPackages?.length > 0 ? (
+					agentTourPackages.map((tourPackage: TourPackage) => (
+						<TourPackageCard
+							tourPackage={tourPackage}
+							likeTourPackageHandler={likeTourPackageHandler}
+							key={tourPackage._id}
+						/>
+					))
+				) : (
+					<div className="no-data">
+						<FavoriteRoundedIcon className="empty-icon" />
+						<strong>No packages yet</strong>
+						<p>This member hasn&apos;t published any tour packages.</p>
+					</div>
+				)}
+			</Stack>
+
+			{agentTourPackages.length > 0 && (
+				<Stack className="pagination-config">
+					<Stack className="pagination-box">
+						<Pagination
+							count={Math.ceil(total / searchFilter.limit) || 1}
+							page={searchFilter.page}
+							shape="circular"
+							color="primary"
+							onChange={paginationHandler}
+						/>
+					</Stack>
+					<Stack className="total-result">
+						<Typography>{total} package{total !== 1 ? 's' : ''} available</Typography>
+					</Stack>
+				</Stack>
+			)}
+		</div>
+	);
 };
 
 MemberTourPackages.defaultProps = {
@@ -108,9 +127,7 @@ MemberTourPackages.defaultProps = {
 		page: 1,
 		limit: 4,
 		sort: 'createdAt',
-		search: {
-			memberId: '',
-		},
+		search: { memberId: '' },
 	},
 };
 

@@ -1,173 +1,486 @@
+// Member Tour Packages — visual design matches My Profile / Saved Packages.
+// Card styles mirror myFavorites.scss .favorites-list-box .card-config.
 #pc-wrap,
 #mobile-wrap {
 	#member-page {
 		#member-tour-packages-page {
 			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 34px;
+
+			// ── Header ──────────────────────────────────────────────────────
 			.main-title-box {
-				width: auto;
-				height: auto;
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+				min-height: 170px;
+				padding: 30px;
 				flex-direction: row;
 				justify-content: space-between;
+				align-items: center;
+				gap: 28px;
+				border-radius: 20px;
+				border: 1px solid rgba(255, 138, 0, 0.14);
+				background: linear-gradient(135deg, rgba(255, 248, 237, 0.98) 0%, rgba(255, 255, 255, 0.96) 52%, rgba(235, 247, 255, 0.94) 100%);
+				box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+
 				.right-box {
-					width: 315px;
+					position: relative;
+					z-index: 1;
+					width: min(560px, 100%);
+
+					.title-kicker {
+						width: fit-content;
+						margin-bottom: 14px;
+						padding: 8px 12px;
+						flex-direction: row;
+						align-items: center;
+						gap: 8px;
+						border-radius: 999px;
+						background: #fff7ed;
+						color: #ff8a00;
+
+						svg {
+							font-size: 18px;
+						}
+
+						p {
+							color: inherit;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 800;
+							line-height: 16px;
+							text-transform: uppercase;
+							letter-spacing: 0.08em;
+						}
+					}
+
 					.main-title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 30px;
-						font-style: normal;
+						color: #0d1c32;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 38px;
+						font-weight: 900;
+						line-height: 46px;
+						letter-spacing: 0;
+					}
+
+					.sub-title {
+						margin-top: 10px;
+						max-width: 520px;
+						color: #64748b;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 15px;
 						font-weight: 600;
-						line-height: normal;
-						letter-spacing: 0.6px;
-						text-transform: capitalize;
+						line-height: 25px;
+					}
+				}
+
+				.saved-summary-panel {
+					position: relative;
+					z-index: 1;
+					width: 220px;
+					min-height: 110px;
+					padding: 18px;
+					border-radius: 18px;
+					border: 1px solid rgba(255, 138, 0, 0.18);
+					background: rgba(255, 255, 255, 0.82);
+					box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+					backdrop-filter: blur(12px);
+
+					.summary-icon {
+						width: 46px;
+						height: 46px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-radius: 14px;
+						background: #ff8a00;
+						color: #fff;
+						box-shadow: 0 12px 24px rgba(255, 138, 0, 0.28);
+
+						svg {
+							font-size: 24px;
+						}
+					}
+
+					.summary-copy {
+						margin-top: 12px;
+
+						.summary-value {
+							color: #0d1c32;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 34px;
+							font-weight: 900;
+							line-height: 38px;
+						}
+
+						.summary-label {
+							color: #64748b;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 13px;
+							font-weight: 800;
+							line-height: 18px;
+							text-transform: uppercase;
+							letter-spacing: 0.06em;
+						}
 					}
 				}
 			}
-			.tour-packages-list-box {
-				margin-top: 85px;
-				.list-box {
-					.listing-title-box {
-						width: 100%;
-						height: auto;
-						flex-direction: row;
-						gap: 110px;
-						padding: 18px 15px 18px 33px;
-						border-radius: 12px;
-						background: #f6f6f6;
-						.title-text {
-							color: #181a20;
-							font-family: $font;
-							font-size: 15px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
+
+			// ── Card list ────────────────────────────────────────────────────
+			.favorites-list-box {
+				width: 100%;
+				flex-direction: column;
+				gap: 16px;
+				padding: 0 0 4px;
+
+				.card-config {
+					width: 100%;
+					min-height: 210px;
+					flex-direction: row;
+					overflow: hidden;
+					border-radius: 14px;
+					border: 1px solid #eef1f5;
+					background: #ffffff;
+					box-shadow: 0 8px 26px rgba(15, 23, 42, 0.06);
+					transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+					&:hover {
+						border-color: rgba(255, 138, 0, 0.28);
+						box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
+						transform: translateY(-1px);
+					}
+
+					.card-img-wrap {
+						position: relative;
+						width: 210px;
+						min-height: 210px;
+						flex-shrink: 0;
+						overflow: hidden;
+
+						a {
+							display: block;
+							width: 100%;
+							height: 100%;
 						}
-						:first-child {
-							margin-right: 138px;
+
+						.card-img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							transition: transform 0.35s ease;
+						}
+
+						&:hover .card-img {
+							transform: scale(1.04);
+						}
+
+						.card-badge {
+							position: absolute;
+							left: 12px;
+							top: 12px;
+							padding: 4px 9px;
+							border-radius: 6px;
+							background: #ff383c;
+							color: #fff;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 10px;
+							font-weight: 900;
+							line-height: 14px;
+							letter-spacing: 0.06em;
+						}
+
+						.fav-btn {
+							position: absolute;
+							top: 15px;
+							right: 14px;
+							width: 30px;
+							height: 30px;
+							border-radius: 50%;
+							background: rgba(255, 255, 255, 0.9);
+							box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+							z-index: 2;
+
+							&:hover {
+								background: #ffffff;
+							}
+
+							svg {
+								color: #ff383c !important;
+							}
 						}
 					}
-					.tour-package-card-box {
-						width: 100%;
-						height: auto;
-						flex-direction: row;
-						align-items: center;
-						margin-top: 30px;
-						padding-bottom: 30px;
-						border-bottom: 1px solid #ddd;
-						.image-box {
-							width: 115px;
-							height: 90px;
-							overflow: hidden;
-							margin-right: 25px;
-							padding-top: 1px;
-							cursor: pointer;
-							img {
-								width: 100%;
-								height: 100%;
-								object-fit: contain;
-								border-radius: 12px;
-							}
-						}
-						.information-box {
-							width: 210px;
-							height: auto;
-							padding: 5px 0px;
-							cursor: pointer;
-							.name {
-								margin-bottom: 8px;
-								color: #181a20;
-								font-family: $font;
-								font-size: 13px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-							}
-							.address {
-								margin-bottom: 13px;
-								color: #717171;
-								font-family: $font;
-								font-size: 11px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: normal;
-							}
-							.price {
-								color: #181a20;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: normal;
-							}
-						}
-						.date-box {
-							width: 140px;
-							height: 100%;
+
+					.card-content {
+						position: relative;
+						flex: 1;
+						min-width: 0;
+						padding: 18px 18px 16px 20px;
+						display: flex;
+						flex-direction: column;
+						gap: 8px;
+
+						.card-meta {
+							flex-direction: row;
 							align-items: center;
-							justify-content: center;
-							margin-right: 77px;
-							.date {
-								color: #181a20;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
-						.status-box {
-							width: 100px;
-							height: 100%;
-							align-items: center;
-							justify-content: center;
-							margin-right: 70px;
-							.coloured-box {
-								width: 93px;
-								height: 36px;
+							justify-content: space-between;
+							gap: 14px;
+
+							.meta-location,
+							.meta-duration {
+								flex-direction: row;
 								align-items: center;
-								justify-content: center;
-								border-radius: 60px;
-								.status {
-									font-family: $font;
+								gap: 4px;
+							}
+
+							.meta-loc-icon {
+								font-size: 14px !important;
+								color: #ff8a00;
+							}
+
+							.meta-dur-icon {
+								font-size: 13px !important;
+								color: #8da0bd;
+							}
+
+							.meta-loc-text,
+							.meta-dur-text {
+								color: #667895;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-weight: 700;
+								line-height: 18px;
+							}
+
+							.meta-loc-text {
+								overflow: hidden;
+								text-overflow: ellipsis;
+								white-space: nowrap;
+							}
+
+							.meta-duration {
+								flex-shrink: 0;
+							}
+						}
+
+						a {
+							text-decoration: none;
+						}
+
+						.card-title {
+							width: 100%;
+							overflow: hidden;
+							color: #111827;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 15px;
+							font-weight: 900;
+							line-height: 22px;
+						}
+
+						.card-stats {
+							flex-direction: row;
+							align-items: center;
+							gap: 5px;
+
+							.stat-icon {
+								font-size: 14px !important;
+								color: #8da0bd;
+							}
+
+							.stat-text {
+								color: #667895;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-weight: 700;
+								line-height: 18px;
+							}
+
+							.stat-dot {
+								color: #cbd5e1;
+							}
+						}
+
+						.card-desc {
+							max-width: 100%;
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							color: #8a96ab;
+							font-family: 'Plus Jakarta Sans', $font;
+							font-size: 12px;
+							font-weight: 600;
+							line-height: 19px;
+						}
+
+						.card-tags {
+							flex-direction: row;
+							align-items: center;
+							flex-wrap: wrap;
+							gap: 10px;
+
+							.tag-item {
+								flex-direction: row;
+								align-items: center;
+								gap: 4px;
+
+								.tag-icon {
+									font-size: 13px !important;
+									color: #ff8a00;
+								}
+
+								.tag-text {
+									color: #ff8a00;
+									font-family: 'Plus Jakarta Sans', $font;
+									font-size: 11px;
+									font-weight: 800;
+									line-height: 16px;
+								}
+							}
+
+							.tag-sep {
+								display: none;
+							}
+						}
+
+						.card-price-row {
+							margin-top: auto;
+							padding-top: 4px;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-between;
+							gap: 14px;
+
+							.price-block {
+								flex-direction: row;
+								align-items: baseline;
+								gap: 5px;
+
+								.price-from {
+									color: #8a96ab;
+									font-family: 'Plus Jakarta Sans', $font;
 									font-size: 12px;
-									font-style: normal;
-									font-weight: 400;
-									line-height: 26px;
+									font-weight: 600;
+									line-height: 18px;
+								}
+
+								.price-value {
+									color: #ff383c;
+									font-family: 'Plus Jakarta Sans', $font;
+									font-size: 18px;
+									font-weight: 900;
+									line-height: 22px;
+								}
+							}
+
+							a {
+								text-decoration: none;
+								flex-shrink: 0;
+							}
+
+							.view-btn {
+								min-width: 112px;
+								height: 34px;
+								padding: 0 16px;
+								border-radius: 8px;
+								border: 1.5px solid #ff8a00;
+								color: #ff8a00;
+								background: #fff;
+								font-family: 'Plus Jakarta Sans', $font;
+								font-size: 12px;
+								font-weight: 900;
+								line-height: 16px;
+								text-transform: none;
+
+								&:hover {
+									border-color: #ff8a00;
+									background: #fff7ed;
 								}
 							}
 						}
-						.views-box {
-							width: 35px;
-							height: 100%;
-							align-items: center;
-							justify-content: center;
-							margin-right: 75px;
-							.views {
-								color: #181a20;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
+					}
+				}
+			}
+
+			// ── Empty state ──────────────────────────────────────────────────
+			.no-data {
+				min-height: 300px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				border: 1px dashed rgba(255, 138, 0, 0.28);
+				border-radius: 18px;
+				background: linear-gradient(180deg, #ffffff 0%, #fff8f0 100%);
+
+				.empty-icon {
+					width: 54px;
+					height: 54px;
+					margin-bottom: 14px;
+					padding: 13px;
+					border-radius: 16px;
+					background: #fff0db;
+					color: #ff8a00;
+				}
+
+				strong {
+					color: #0d1c32;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 20px;
+					font-weight: 900;
+					line-height: 28px;
+				}
+
+				p {
+					margin-top: 6px;
+					max-width: 320px;
+					color: #64748b;
+					font-family: 'Plus Jakarta Sans', $font;
+					font-size: 14px;
+					font-weight: 600;
+					line-height: 22px;
+					text-align: center;
+				}
+			}
+
+			// ── Pagination ───────────────────────────────────────────────────
+			.pagination-config {
+				width: 100%;
+				height: auto;
+				justify-content: center;
+				align-items: center;
+				margin-top: 12px;
+				padding: 22px 0 4px;
+
+				.MuiPagination-ul {
+					justify-content: center;
+
+					.MuiPaginationItem-root {
+						border-radius: 10px;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-weight: 800;
+
+						&.Mui-selected {
+							background: #ff8a00;
+							color: #fff;
 						}
 					}
-					.pagination-config {
-						width: 100%;
-						height: auto;
-						justify-content: center;
-						align-items: center;
-						margin-top: 30px;
-						.total-result {
-							p {
-								color: #181a20;
-								text-align: center;
-								font-family: $font;
-								font-size: 14px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
+				}
+
+				.total-result {
+					margin-top: 8px;
+
+					p {
+						color: #64748b;
+						text-align: center;
+						font-family: 'Plus Jakarta Sans', $font;
+						font-size: 14px;
+						font-weight: 700;
+						line-height: 26px;
 					}
 				}
 			}

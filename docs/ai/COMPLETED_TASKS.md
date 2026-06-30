@@ -337,3 +337,40 @@ Validation: `yarn tsc --noEmit` passed.
 - Files: `pages/community/index.tsx`, `libs/components/common/CommunityCard.tsx`, `scss/pc/community/responsive.scss`, `scss/pc/main.scss`.
 - Validation: Community placeholder scan passed; PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
 - Remaining issue: browser viewport/scrollWidth QA was not run in this pass; manual checks at 320px, 375px, 430px, 768px, 1024px, and 1440px are still recommended.
+
+## 2026-06-29 - Responsive mobile/tablet dark-mode support
+- Added CSS variable aliases for responsive/mobile surfaces so newer responsive styles can use the same light/dark token system as desktop.
+- Added a tablet-only `#pc-wrap` dark responsive layer after the existing desktop dark-mode stylesheet, scoped to `max-width: 1024px` so desktop `1025px+` remains unchanged.
+- Added a final `html.dark #mobile-wrap` consolidation layer for mobile-only components and responsive surfaces: mobile navbar/drawer/bottom nav, notifications, homepage sections, tour package pages, agent pages, community pages, Help, About, MyPage, Member pages, cards, inputs, pagination, modals, map/chat/editor surfaces, and footer wrappers.
+- Files: `scss/app.scss`, `scss/pc/responsive-theme.scss`, `scss/pc/main.scss`, `scss/mobile/main.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+- Remaining issue: live visual verification at 320px, 375px, 430px, 768px, 1024px, and 1440px is still recommended because browser viewport QA was not available in this pass.
+
+## 2026-06-30 - Responsive dark-mode main background correction
+- Replaced remaining pure-black mobile backgrounds in responsive/mobile SCSS with TourX theme tokens so responsive dark mode no longer collapses into a flat black screen.
+- Added local mobile/tablet dark palette overrides for `#mobile-wrap` and responsive `#pc-wrap` under `max-width: 1024px`, using dark navy page backgrounds with slightly lighter card/input surfaces and readable text/borders.
+- Added responsive dark backgrounds for `body`, `#__next`, `#main`, page containers, and section wrappers without changing desktop `1025px+` dark mode.
+- Files: `scss/mobile/main.scss`, `scss/pc/responsive-theme.scss`.
+- Validation: pure-black responsive background scan passed; PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+- Remaining issue: live viewport verification in dark/light mode is still recommended for 320px, 375px, 430px, 768px, 1024px, and 1440px.
+
+## 2026-06-30 - Responsive dark-mode overlay stacking correction
+- Narrowed the responsive dark-mode wrapper rules so generic `.container` and `section` elements no longer receive broad dark backgrounds that can cover real mobile content.
+- Added explicit stacking for responsive content containers (`z-index: 2`) and background/decorative overlays (`z-index: 0`, `pointer-events: none`) so hero/header overlays stay behind content.
+- Changed responsive header wrappers to use `height: auto`/`min-height: auto` in dark mode and kept overflow limited to `overflow-x: clip` where needed, avoiding full-viewport dark panels.
+- Files: `scss/mobile/main.scss`, `scss/pc/responsive-theme.scss`.
+- Validation: PC Sass compile passed; mobile Sass compile passed; dark-mode Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.
+
+## 2026-06-30 - Mobile dark-mode full-screen drawer cover fix
+- Fixed the phone dark-mode blank-screen issue caused by the closed `.mobile-nav-drawer` fixed layer receiving dark card backgrounds from the mobile theme consolidation.
+- Kept the closed drawer transparent, hidden, and non-painting (`opacity: 0`, `visibility: hidden`) while restoring visibility only for `.mobile-nav-drawer.open`; the drawer panel/backdrop remain themed when opened.
+- Files: `scss/mobile/main.scss`.
+- Validation: mobile Sass compile passed; PC Sass compile passed; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice; local dev server responded on `http://localhost:3001` after port 3000 was occupied.
+
+## 2026-06-30 - Responsive dark/light theme bridge
+- Added a final mobile theme bridge loaded after the existing mobile stylesheet so phone-only `#mobile-wrap` surfaces use the same dark tokens as desktop.
+- Mirrored desktop dark token values for responsive `#pc-wrap` and `#mobile-wrap`, then applied token-based backgrounds/text/borders to mobile navbar, bottom nav, drawer, headers, homepage sections, package/agent/community/help/about/mypage/member cards, inputs, buttons, modals, and pagination surfaces.
+- Extended the bridge for tablet `#pc-wrap` responsive surfaces, high-specificity mobile homepage cards, and the live chat widget so late responsive white backgrounds no longer override dark tokens.
+- Avoided layout changes and kept desktop `1025px+` behavior unchanged; the bridge only affects dark responsive/mobile selectors and does not alter light mode.
+- Files: `pages/_app.tsx`, `scss/mobile/theme.scss`.
+- Validation: mobile theme Sass compile passed; mobile Sass compile passed; PC Sass compile passed; generated CSS contains responsive `#pc-wrap` and `#mobile-wrap` bridge selectors; `yarn.cmd tsc --noEmit` passed; `yarn.cmd build` passed with the existing Browserslist update notice.

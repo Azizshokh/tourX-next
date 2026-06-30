@@ -751,14 +751,14 @@ body.mobile-nav-open {
         }
       }
 
-      .pagination-box {
+        .pagination-box {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
 
         .swiper-pagination-bullet.swiper-pagination-bullet-active {
-          background: #000000;
+          background: var(--brand-orange);
         }
 
         .swiper-popular-next {
@@ -778,7 +778,7 @@ body.mobile-nav-open {
     margin: 20px 0;
     width: 100%;
     height: 300px;
-    background: black;
+    background: var(--bg-card-alt);
     transform: perspective(0px);
     box-shadow: -3px 0px 20px 14px #34343480;
   }
@@ -1897,6 +1897,22 @@ body.mobile-nav-open {
 
     span {
       margin-right: auto;
+    }
+  }
+
+  .mobile-nav-tools .notification-root {
+    position: relative;
+
+    .notification-panel {
+      position: absolute;
+      top: auto;
+      bottom: calc(100% + 14px);
+      left: auto;
+      right: 0;
+      width: min(300px, calc(100vw - 64px));
+      max-height: min(55vh, 400px);
+      overflow-y: auto;
+      z-index: 200;
     }
   }
 
@@ -3341,6 +3357,674 @@ html.dark #mobile-wrap {
 
     .container .mypage-menu-backdrop {
       background: rgba(0, 0, 0, 0.58);
+    }
+  }
+}
+
+/* Responsive mobile dark-mode consolidation. Desktop dark mode is untouched. */
+@media (max-width: 1024px) {
+  html.dark,
+  html.dark body,
+  html.dark #__next {
+    background: var(--bg-main);
+    color: var(--text-main);
+  }
+}
+
+html.dark #mobile-wrap {
+  --bg-main: #0b1627;
+  --bg-page: #0b1627;
+  --bg-section: #101f33;
+  --bg-card: #13243a;
+  --bg-card-alt: #172b44;
+  --bg-input: #0f1d30;
+  --modal-bg: #13243a;
+  --text-main: #eef5ff;
+  --text-primary: #eef5ff;
+  --text-secondary: #b5c7dd;
+  --text-muted: #86a0bd;
+  --border-color: rgba(255, 138, 0, 0.18);
+  --border: rgba(255, 138, 0, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-orange: rgba(255, 138, 0, 0.28);
+  --shadow-card: 0 18px 46px rgba(0, 0, 0, 0.34);
+  --shadow-deep: 0 26px 70px rgba(0, 0, 0, 0.48);
+
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+
+  #top,
+  #main,
+  .top,
+  .mobile-top-navbar,
+  .mobile-bottom-nav,
+  .notification-panel,
+  .header-basic,
+  .home-page,
+  .trend-tour-packages,
+  .popular-tour-packages,
+  .top-tour-packages,
+  .top-agents,
+  .community-discussions,
+  #tour-package-list-page,
+  #tour-package-detail-page,
+  .agent-list-page,
+  .agent-detail-page,
+  .community-list-page,
+  .community-detail-page,
+  .cs-page,
+  .about-page,
+  #member-page,
+  #my-page,
+  #footer {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+  }
+
+  #main,
+  .page-container,
+  .tour-package-page,
+  .member-page,
+  .my-page,
+  .home-page > * {
+    background-color: transparent;
+    color: var(--text-main);
+  }
+
+  #main,
+  .header-main .container,
+  .header-basic .container,
+  .home-page,
+  .home-page > *,
+  .trend-tour-packages .container,
+  .popular-tour-packages .container,
+  .top-tour-packages .container,
+  .top-agents .container,
+  .community-discussions .container,
+  #tour-package-list-page .container,
+  #tour-package-detail-page .container,
+  .agent-list-page .container,
+  .agent-detail-page .container,
+  .community-list-page .cl-inner,
+  .cs-page .container,
+  .about-page .container,
+  #member-page .container,
+  #my-page .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-video-overlay,
+  .hero-overlay,
+  .header-overlay,
+  .page-overlay,
+  .hero-background,
+  .home-bg-icons,
+  .tour-list-bg-icons,
+  .agent-page-bg-icons,
+  .community-page-bg-icons {
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .header-main {
+    min-height: auto;
+    height: auto;
+    background-color: var(--bg-main);
+  }
+
+  .header-main .hero-video-overlay {
+    z-index: 0;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.16), rgba(11, 22, 39, 0.08) 58%),
+      linear-gradient(180deg, rgba(11, 22, 39, 0.18) 0%, rgba(11, 22, 39, 0.62) 100%);
+  }
+
+  .header-basic {
+    min-height: auto;
+    height: auto;
+    overflow-x: clip;
+    overflow-y: visible;
+
+    &::before,
+    &::after {
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    &::after {
+      background: linear-gradient(180deg, rgba(11, 22, 39, 0) 0%, var(--bg-main) 100%);
+    }
+  }
+
+  .mobile-nav-drawer {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    opacity: 0;
+    visibility: hidden;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .mobile-nav-backdrop {
+    opacity: 0;
+    background: rgba(6, 14, 26, 0.64);
+  }
+
+  .mobile-nav-panel {
+    background:
+      linear-gradient(160deg, rgba(255, 138, 0, 0.10) 0%, transparent 34%),
+      var(--bg-card);
+    border-color: var(--border-orange);
+    box-shadow: var(--shadow-deep);
+  }
+
+  .navbar-main,
+  .mobile-top-navbar,
+  .mobile-bottom-nav,
+  .footer,
+  .footer-main,
+  .notification-panel,
+  .search-box,
+  .select-box .box,
+  .filter-config,
+  .filter-main,
+  .filter-toggle,
+  .filter-location,
+  .filter-type,
+  .filter-rooms,
+  .advanced-filter-modal,
+  .tour-package-big-card-box,
+  .popular-card-box,
+  .trend-card-box,
+  .topbento-card,
+  .agent-general-card .info-card,
+  .agent-info,
+  .stat-box,
+  .agent-home-list,
+  .review-box,
+  .review-wrap,
+  .leave-review-config,
+  .community-article-card,
+  .community-general-card-config,
+  .cl-cat-section,
+  .cl-no-data,
+  .booking-card,
+  .info-box,
+  .address-config,
+  .reviews-config,
+  .map-modal,
+  .map-modal-header,
+  .map-modal-footer,
+  .about-card,
+  .service-card,
+  .value-card,
+  .team-card,
+  .stat-card,
+  .help-card,
+  .topic-card,
+  .faq-content,
+  .faq-card,
+  .back-frame,
+  .left-config,
+  .main-config,
+  .main-title-box,
+  .top-box,
+  .config,
+  .editor-shell,
+  .profile-card,
+  .form-card,
+  .upload-guide,
+  .article-editor-card,
+  .card-config,
+  .tour-package-card-box,
+  .follows-card-box,
+  .no-data,
+  .pagination-config,
+  .pagination-box {
+    background-color: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-card);
+  }
+
+  .bg-card-alt,
+  .filter-toggle,
+  .notification-item,
+  .stat-icon,
+  .cac-stats,
+  .card-img-wrap,
+  .image-box,
+  .tabs-box,
+  .status-badge,
+  .member-type-badge,
+  .article-status,
+  .tag,
+  .inclusions .tag {
+    background-color: var(--bg-card-alt);
+    border-color: var(--border);
+    color: var(--text-secondary);
+  }
+
+  input,
+  select,
+  textarea,
+  .MuiInputBase-root,
+  .MuiOutlinedInput-root,
+  .search-input,
+  .filter-select,
+  .filter-select-sm,
+  .range-num,
+  .cd-comment-input,
+  .cd-edit-modal-input,
+  .description-input,
+  .description-text {
+    background-color: var(--bg-input);
+    border-color: var(--border);
+    color: var(--text-primary);
+
+    &::placeholder {
+      color: var(--text-muted);
+    }
+  }
+
+  .primary-action,
+  .search-btn,
+  .apply-btn,
+  .submit-review,
+  .cl-write-btn,
+  .agent-follow-btn,
+  .view-package-btn,
+  .map-open-button,
+  .mobile-bottom-nav .active,
+  .cl-cat-item.active,
+  .MuiButton-contained,
+  .MuiPaginationItem-root.Mui-selected {
+    background-color: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: #ffffff;
+  }
+
+  a,
+  .title,
+  .main-title,
+  .card-title,
+  .agent-name,
+  .agent-role + .agent-name,
+  .cac-title,
+  .cac-author-name,
+  .name,
+  .package-title,
+  .article-title,
+  .stat-value,
+  h1,
+  h2,
+  h3,
+  h4,
+  strong {
+    color: var(--text-primary);
+  }
+
+  p,
+  .desc,
+  .description,
+  .sub-title,
+  .address,
+  .package-location,
+  .date,
+  .meta-loc-text,
+  .meta-dur-text,
+  .stat-text,
+  .stat-label,
+  .cac-time,
+  .cac-stat,
+  .view-cnt,
+  .total-result,
+  .cl-pagination span,
+  .pagination span,
+  .empty-copy,
+  .price-note {
+    color: var(--text-secondary);
+  }
+
+  .muted,
+  .eyebrow,
+  .section-label,
+  .cl-cat-label,
+  .notification-meta span,
+  .mobile-nav-label,
+  .placeholder {
+    color: var(--text-muted);
+  }
+
+  .agent-like-btn,
+  .secondary-action,
+  .outline-action,
+  .sort-btn,
+  .filter-reset,
+  .cl-cat-item,
+  .map-close-button,
+  .mobile-nav-icon-btn,
+  .theme-toggle-btn,
+  .language-button,
+  .MuiButton-outlined {
+    background-color: var(--bg-card-alt);
+    border-color: var(--border);
+    color: var(--text-primary);
+  }
+
+  .agent-like-btn.active,
+  .agent-like-btn:hover,
+  .cl-cat-item.active,
+  .filter-chip.active,
+  .tab-name.active,
+  .active-tab-name {
+    background-color: var(--bg-hover);
+    border-color: var(--border-orange);
+    color: var(--brand-orange);
+  }
+
+  .MuiSvgIcon-root,
+  svg {
+    color: inherit;
+  }
+
+  .MuiPaginationItem-root {
+    color: var(--text-secondary);
+  }
+
+  .map-modal-backdrop,
+  .mypage-menu-backdrop,
+  .mobile-drawer-backdrop {
+    background: rgba(6, 14, 26, 0.64);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .toastui-editor-defaultUI,
+  .toastui-editor-main,
+  .toastui-editor-contents,
+  .toastui-editor-md-container,
+  .toastui-editor-ww-container {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
+
+  .toastui-editor-toolbar,
+  .toastui-editor-defaultUI-toolbar,
+  .toastui-editor-toolbar-icons {
+    background: var(--bg-card-alt);
+    border-color: var(--border);
+  }
+}
+
+/* ─── Chat widget — mobile layout ────────────────────────────────────────── */
+#mobile-wrap .chatting {
+  /* Floating toggle button — sits above the bottom nav */
+  .chat-button {
+    position: fixed;
+    bottom: calc(90px + env(safe-area-inset-bottom));
+    right: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #ff8a00;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(255, 138, 0, 0.45);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.25s, box-shadow 0.25s;
+
+    svg { font-size: 22px; }
+
+    .chat-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
+      background: #0d1c32;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  }
+
+  /* Chat frame — slides in from the right, above the bottom nav */
+  .chat-frame {
+    position: fixed;
+    bottom: calc(158px + env(safe-area-inset-bottom));
+    right: -100vw;
+    width: calc(100vw - 24px);
+    height: min(calc(100vh - 210px), 480px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 8px 40px rgba(13, 28, 50, 0.18);
+    z-index: 999;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.open { right: 12px; }
+
+    /* Header */
+    .chat-top {
+      flex-shrink: 0;
+      width: 100%;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0d1c32;
+
+      .chat-agent-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chat-agent-avatar {
+        position: relative;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 138, 0, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff8a00;
+        flex-shrink: 0;
+
+        svg { font-size: 20px; }
+
+        .chat-online-dot {
+          position: absolute;
+          bottom: 1px;
+          right: 1px;
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background: #10b981;
+          border: 2px solid #0d1c32;
+        }
+      }
+
+      .chat-agent-name {
+        color: #ffffff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .chat-agent-status {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.6);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .chat-close-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s;
+
+        &:hover { background: rgba(255, 255, 255, 0.2); }
+
+        svg { font-size: 16px; }
+      }
+    }
+
+    /* Messages area */
+    .chat-content {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 14px 12px;
+      background: #f7f8fc;
+
+      .chat-main {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .chat-welcome-row {
+        display: flex;
+        justify-content: flex-start;
+
+        .welcome-msg {
+          max-width: 88%;
+          padding: 9px 13px;
+          background: #ffffff;
+          border-radius: 0 14px 14px 14px;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+          color: #374151;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 1.5;
+        }
+      }
+
+      .chat-msg-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 7px;
+
+        &.chat-msg-left {
+          justify-content: flex-start;
+
+          .chat-msg-avatar { flex-shrink: 0; }
+
+          .msg-left {
+            max-width: 80%;
+            padding: 9px 13px;
+            background: #ffffff;
+            border-radius: 0 14px 14px 14px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+            color: #1f2937;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+          }
+        }
+
+        &.chat-msg-right {
+          justify-content: flex-end;
+
+          .msg-right {
+            max-width: 80%;
+            padding: 9px 13px;
+            background: #ff8a00;
+            border-radius: 14px 14px 0 14px;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+
+    /* Input row */
+    .chat-bott {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #ffffff;
+      border-top: 1px solid #f1f5f9;
+
+      .msg-input {
+        flex: 1;
+        height: 40px;
+        padding: 0 12px;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 10px;
+        background: #f9fafb;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 13px;
+        color: #1f2937;
+        outline: none;
+        transition: border-color 0.2s;
+
+        &::placeholder { color: #9ca3af; }
+        &:focus { border-color: #ff8a00; background: #ffffff; }
+      }
+
+      .send-msg-btn {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        background: #ff8a00;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+
+        svg { font-size: 17px; }
+
+        &:hover:not(:disabled) { background: #e67e00; transform: scale(1.05); }
+        &:disabled { background: #e5e7eb; color: #9ca3af; cursor: default; }
+      }
     }
   }
 }

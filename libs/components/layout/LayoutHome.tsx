@@ -93,6 +93,8 @@ const withLayoutMain = (Component: any) => {
 						<Stack id={'footer'}>
 							<Footer />
 						</Stack>
+
+						<Chat />
 					</Stack>
 				</>
 			);

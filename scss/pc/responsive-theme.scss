@@ -1,0 +1,200 @@
+/* Responsive dark-mode support only. Desktop 1025px+ remains governed by dark-mode.scss. */
+
+html.dark {
+	@media (max-width: 1024px) {
+		#pc-wrap {
+			--bg-main: #0b1627;
+			--bg-page: #0b1627;
+			--bg-section: #101f33;
+			--bg-card: #13243a;
+			--bg-card-alt: #172b44;
+			--bg-input: #0f1d30;
+			--modal-bg: #13243a;
+			--text-main: #eef5ff;
+			--text-primary: #eef5ff;
+			--text-secondary: #b5c7dd;
+			--text-muted: #86a0bd;
+			--border-color: rgba(255, 138, 0, 0.18);
+			--border: rgba(255, 138, 0, 0.16);
+			--border-subtle: rgba(255, 255, 255, 0.08);
+			--border-orange: rgba(255, 138, 0, 0.28);
+			--shadow-card: 0 18px 46px rgba(0, 0, 0, 0.34);
+			--shadow-deep: 0 26px 70px rgba(0, 0, 0, 0.48);
+
+			min-height: 100vh;
+			background: var(--bg-main);
+			color: var(--text-main);
+
+			#main,
+			.page-container,
+			.tour-package-page,
+			.member-page,
+			.my-page,
+			.home-page > * {
+				background-color: transparent;
+				color: var(--text-main);
+			}
+
+			#main,
+			.header-main .container,
+			.header-basic .container,
+			.home-page,
+			.home-page > *,
+			.trend-tour-packages .container,
+			.popular-tour-packages .container,
+			.top-tour-packages .container,
+			.top-agents .container,
+			.community-discussions .container,
+			#tour-package-list-page .container,
+			#tour-package-detail-page .container,
+			.agent-list-page .container,
+			.agent-detail-page .container,
+			.community-list-page .cl-inner,
+			.cs-page .container,
+			.about-page .container,
+			#member-page .container,
+			#my-page .container {
+				position: relative;
+				z-index: 2;
+			}
+
+			.hero-video-overlay,
+			.hero-overlay,
+			.header-overlay,
+			.page-overlay,
+			.hero-background,
+			.home-bg-icons,
+			.tour-list-bg-icons,
+			.agent-page-bg-icons,
+			.community-page-bg-icons {
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			.header-main,
+			.header-basic {
+				min-height: auto;
+				height: auto;
+				overflow-x: clip;
+				overflow-y: visible;
+			}
+
+			.header-main .hero-video-overlay {
+				z-index: 0;
+				background:
+					radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.16), rgba(11, 22, 39, 0.08) 58%),
+					linear-gradient(180deg, rgba(11, 22, 39, 0.18) 0%, rgba(11, 22, 39, 0.62) 100%);
+			}
+
+			.header-basic::before,
+			.header-basic::after {
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			.header-basic,
+			.home-page,
+			#tour-package-list-page,
+			#tour-package-detail-page,
+			.agent-list-page,
+			.agent-detail-page,
+			.community-list-page,
+			.community-detail-page,
+			.cs-page,
+			.about-page,
+			#member-page,
+			#my-page {
+				background-color: var(--bg-main);
+				color: var(--text-main);
+			}
+
+			.card-config,
+			.tour-package-big-card-box,
+			.popular-card-box,
+			.trend-card-box,
+			.agent-general-card .info-card,
+			.agent-info,
+			.agent-home-list,
+			.review-box,
+			.review-wrap,
+			.leave-review-config,
+			.community-article-card,
+			.cl-cat-section,
+			.cl-no-data,
+			.filter-config,
+			.filter-main,
+			.booking-card,
+			.info-box,
+			.address-config,
+			.reviews-config,
+			.about-card,
+			.service-card,
+			.help-card,
+			.faq-content,
+			.back-frame,
+			.left-config,
+			.main-config,
+			.pagination-config {
+				background-color: var(--bg-card);
+				border-color: var(--border);
+				color: var(--text-primary);
+				box-shadow: var(--shadow-card);
+			}
+
+			input,
+			select,
+			textarea,
+			.MuiInputBase-root,
+			.search-input,
+			.filter-select,
+			.filter-select-sm,
+			.range-num {
+				background-color: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&::placeholder {
+					color: var(--text-muted);
+				}
+			}
+
+			.title,
+			.main-title,
+			.agent-name,
+			.card-title,
+			.cac-title,
+			.name,
+			.package-title,
+			.article-title,
+			h1,
+			h2,
+			h3,
+			strong {
+				color: var(--text-primary);
+			}
+
+			p,
+			.desc,
+			.description,
+			.sub-title,
+			.address,
+			.date,
+			.cac-time,
+			.cac-stat,
+			.stat-label,
+			.total-result,
+			.cl-pagination span {
+				color: var(--text-secondary);
+			}
+
+			.MuiPaginationItem-root {
+				color: var(--text-secondary);
+
+				&.Mui-selected {
+					background: var(--brand-orange);
+					color: #ffffff;
+				}
+			}
+		}
+	}
+}

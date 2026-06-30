@@ -1,0 +1,2783 @@
+/* Responsive theme bridge.
+   Loaded after mobile/main.scss so phone-only hardcoded backgrounds follow the
+   same token system as desktop dark mode without changing responsive layout. */
+
+@media (max-width: 1024px) {
+	html.dark,
+	html.dark body,
+	html.dark #__next {
+		background: var(--bg-page);
+		color: var(--text-primary);
+	}
+
+	html.dark #pc-wrap,
+	html.dark #mobile-wrap {
+		--bg-page: #07101e;
+		--bg-card: #0d1a2d;
+		--bg-card-alt: #0a1422;
+		--bg-input: #111e30;
+		--bg-hover: rgba(255, 138, 0, 0.08);
+		--bg-navbar: rgba(7, 16, 30, 0.96);
+		--bg-sidebar: #0d1a2d;
+		--bg-footer: #060e1a;
+		--text-primary: #e2eaf5;
+		--text-secondary: #7a9abe;
+		--text-muted: #3d5a7a;
+		--border: rgba(255, 138, 0, 0.10);
+		--border-subtle: rgba(255, 255, 255, 0.05);
+		--border-orange: rgba(255, 138, 0, 0.20);
+		--shadow-card: 0 18px 46px rgba(0, 0, 0, 0.50);
+		--shadow-navbar: 0 8px 24px rgba(0, 0, 0, 0.40);
+		--shadow-deep: 0 24px 64px rgba(0, 0, 0, 0.60);
+		--bg-main: var(--bg-page);
+		--bg-section: var(--bg-card-alt);
+		--text-main: var(--text-primary);
+		--border-color: var(--border);
+		--accent: var(--brand-orange);
+		--input-bg: var(--bg-input);
+		--modal-bg: var(--bg-card);
+
+		background: var(--bg-page);
+		color: var(--text-primary);
+	}
+
+	html.dark #pc-wrap {
+		#top .navbar .navbar-main,
+		.mobile-top-navbar,
+		.mobile-bottom-nav,
+		.notification-panel,
+		.search-box,
+		.advanced-filter-modal,
+		.map-modal,
+		.map-modal-header,
+		.map-modal-footer {
+			background: var(--bg-navbar);
+			border-color: var(--border);
+			color: var(--text-primary);
+			box-shadow: var(--shadow-navbar);
+		}
+
+		.header-main {
+			background:
+				linear-gradient(180deg, rgba(7, 16, 30, 0.32) 0%, rgba(7, 16, 30, 0.62) 58%, var(--bg-page) 100%),
+				url('/img/banner/TourX%20background.png') center top / cover no-repeat;
+			color: var(--text-primary);
+
+			.hero-video-overlay {
+				background:
+					radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.14), rgba(7, 16, 30, 0.10) 58%),
+					linear-gradient(180deg, rgba(7, 16, 30, 0.12) 0%, rgba(7, 16, 30, 0.66) 100%);
+			}
+
+			.hero-content {
+				color: var(--text-primary);
+
+				h1,
+				p,
+				.hero-trust-row strong {
+					color: var(--text-primary);
+				}
+
+				.hero-trust-row strong {
+					background: rgba(13, 26, 45, 0.78);
+					border: 1px solid var(--border);
+					box-shadow: var(--shadow-card);
+				}
+			}
+		}
+
+		.header-basic,
+		.home-page,
+		#tour-package-list-page,
+		#tour-package-detail-page,
+		.agent-list-page,
+		.agent-detail-page,
+		.community-list-page,
+		.community-detail-page,
+		.cs-page,
+		.about-page,
+		#member-page,
+		#my-page {
+			background: var(--bg-page);
+			color: var(--text-primary);
+		}
+
+		.trend-tour-packages,
+		.popular-tour-packages,
+		.top-tour-packages,
+		.top-agents,
+		.travel-inspiration,
+		.community-discussions,
+		.about-stats,
+		.about-mission,
+		.about-feature,
+		.about-services,
+		.about-values,
+		.about-team,
+		.about-help,
+		.help-topics-section,
+		.faq-section,
+		.cs-content {
+			background: var(--bg-page);
+			color: var(--text-primary);
+		}
+
+		.select-box .box,
+		.filter-location,
+		.filter-type,
+		.filter-rooms,
+		.filter-location div,
+		.filter-type div,
+		.filter-rooms span,
+		.filter-config,
+		.filter-main,
+		.filter-toggle,
+		.tour-package-big-card-box,
+		.popular-card-box,
+		.trend-card-box,
+		.topbento-card,
+		.agent-general-card .info-card,
+		.agent-info,
+		.stat-box,
+		.agent-home-list,
+		.review-box,
+		.review-wrap,
+		.leave-review-config,
+		.community-article-card,
+		.community-general-card-config,
+		.cd-article-card,
+		.cd-comments-wrap,
+		.cd-leave-comment,
+		.cd-comment-item,
+		.cd-edit-modal,
+		.cl-cat-section,
+		.cl-no-data,
+		.booking-card,
+		.info-box,
+		.address-config,
+		.reviews-config,
+		.about-card,
+		.mission-card,
+		.service-card,
+		.value-card,
+		.team-card,
+		.stat-card,
+		.help-card,
+		.topic-card,
+		.faq-content,
+		.faq-card,
+		.back-frame,
+		.left-config,
+		.main-config,
+		.main-title-box,
+		.top-box,
+		.config,
+		.editor-shell,
+		.profile-card,
+		.form-card,
+		.upload-guide,
+		.article-editor-card,
+		.card-config,
+		.tour-package-card-box,
+		.follows-card-box,
+		.no-data,
+		.pagination-config,
+		.pagination-box {
+			background: var(--bg-card);
+			border-color: var(--border);
+			color: var(--text-primary);
+			box-shadow: var(--shadow-card);
+		}
+
+		input,
+		select,
+		textarea,
+		.MuiInputBase-root,
+		.MuiOutlinedInput-root,
+		.search-input,
+		.filter-select,
+		.filter-select-sm,
+		.range-num,
+		.cd-comment-input,
+		.cd-edit-modal-input,
+		.description-input,
+		.description-text {
+			background: var(--bg-input);
+			border-color: var(--border);
+			color: var(--text-primary);
+
+			&::placeholder {
+				color: var(--text-muted);
+			}
+		}
+
+		.chatting {
+			.chat-frame,
+			.chat-bott,
+			.chat-content .welcome-msg,
+			.chat-content .chat-msg-row.chat-msg-left .msg-left {
+				background: var(--bg-card);
+				border-color: var(--border);
+				color: var(--text-primary);
+			}
+
+			.chat-content {
+				background: var(--bg-card-alt);
+			}
+
+			.chat-bott .msg-input {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&::placeholder {
+					color: var(--text-muted);
+				}
+			}
+		}
+	}
+}
+
+html.dark #mobile-wrap {
+	--bg-page: #07101e;
+	--bg-card: #0d1a2d;
+	--bg-card-alt: #0a1422;
+	--bg-input: #111e30;
+	--bg-hover: rgba(255, 138, 0, 0.08);
+	--bg-navbar: rgba(7, 16, 30, 0.96);
+	--bg-sidebar: #0d1a2d;
+	--bg-footer: #060e1a;
+	--text-primary: #e2eaf5;
+	--text-secondary: #7a9abe;
+	--text-muted: #3d5a7a;
+	--border: rgba(255, 138, 0, 0.10);
+	--border-subtle: rgba(255, 255, 255, 0.05);
+	--border-orange: rgba(255, 138, 0, 0.20);
+	--shadow-card: 0 18px 46px rgba(0, 0, 0, 0.50);
+	--shadow-navbar: 0 8px 24px rgba(0, 0, 0, 0.40);
+	--shadow-deep: 0 24px 64px rgba(0, 0, 0, 0.60);
+	--bg-main: var(--bg-page);
+	--bg-section: var(--bg-card-alt);
+	--text-main: var(--text-primary);
+	--border-color: var(--border);
+	--accent: var(--brand-orange);
+	--input-bg: var(--bg-input);
+	--modal-bg: var(--bg-card);
+
+	min-height: 100vh;
+	background: var(--bg-page);
+	color: var(--text-primary);
+
+	#top,
+	#main,
+	#footer,
+	.home-page,
+	.tour-package-page,
+	#tour-package-list-page,
+	#tour-package-detail-page,
+	.agent-list-page,
+	.agent-detail-page,
+	.community-list-page,
+	.community-detail-page,
+	.cs-page,
+	.about-page,
+	#member-page,
+	#my-page {
+		background: var(--bg-page);
+		color: var(--text-primary);
+	}
+
+	.top,
+	.mobile-top-navbar,
+	.mobile-bottom-nav,
+	.footer,
+	.footer-main,
+	.notification-panel,
+	.search-box,
+	.advanced-filter-modal,
+	.map-modal,
+	.map-modal-header,
+	.map-modal-footer {
+		background: var(--bg-navbar);
+		border-color: var(--border);
+		color: var(--text-primary);
+		box-shadow: var(--shadow-navbar);
+	}
+
+	.mobile-nav-drawer {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		opacity: 0;
+		visibility: hidden;
+
+		&.open {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.mobile-nav-backdrop {
+		background: rgba(7, 16, 30, 0.64);
+	}
+
+	.mobile-nav-panel {
+		background:
+			linear-gradient(160deg, rgba(255, 138, 0, 0.10) 0%, transparent 34%),
+			var(--bg-card);
+		border-color: var(--border-orange);
+		box-shadow: var(--shadow-deep);
+	}
+
+	.header-main {
+		background:
+			linear-gradient(180deg, rgba(7, 16, 30, 0.32) 0%, rgba(7, 16, 30, 0.62) 58%, var(--bg-page) 100%),
+			url('/img/banner/TourX%20background.png') center top / cover no-repeat;
+		color: var(--text-primary);
+
+		.hero-video-overlay {
+			background:
+				radial-gradient(circle at 50% 30%, rgba(255, 138, 0, 0.14), rgba(7, 16, 30, 0.10) 58%),
+				linear-gradient(180deg, rgba(7, 16, 30, 0.12) 0%, rgba(7, 16, 30, 0.66) 100%);
+		}
+
+		.hero-content {
+			color: var(--text-primary);
+
+			h1,
+			p,
+			.hero-trust-row strong {
+				color: var(--text-primary);
+			}
+
+			.hero-trust-row strong {
+				background: rgba(13, 26, 45, 0.78);
+				border: 1px solid var(--border);
+				box-shadow: var(--shadow-card);
+			}
+		}
+	}
+
+	.header-basic {
+		background:
+			linear-gradient(90deg, rgba(7, 16, 30, 0.34) 12%, rgba(7, 16, 30, 0.68) 44%, rgba(7, 16, 30, 0.30) 100%),
+			linear-gradient(180deg, rgba(7, 16, 30, 0.44) 0%, rgba(7, 16, 30, 0.78) 100%),
+			url('/img/banner/Layout%20bg.png') center / cover no-repeat;
+
+		&::before,
+		&::after {
+			pointer-events: none;
+		}
+
+		&::after {
+			background: linear-gradient(180deg, rgba(7, 16, 30, 0) 0%, var(--bg-page) 100%);
+		}
+	}
+
+	.trend-tour-packages,
+	.popular-tour-packages,
+	.top-tour-packages,
+	.top-agents,
+	.travel-inspiration,
+	.community-discussions,
+	.about-stats,
+	.about-mission,
+	.about-feature,
+	.about-services,
+	.about-values,
+	.about-team,
+	.about-help,
+	.help-topics-section,
+	.faq-section,
+	.cs-content {
+		background: var(--bg-page);
+		color: var(--text-primary);
+	}
+
+	.home-page {
+		.trend-tour-packages .container .card-box .trend-card-box,
+		.popular-tour-packages .container .card-box .popular-card-box,
+		.top-tour-packages .container .card-box .topbento-card,
+		.top-agents .container .wrapper .top-agents-swiper,
+		.community-discussions .container .community-card-box,
+		.community-discussions .container .community-card-box .community-card {
+			background: var(--bg-card);
+			border-color: var(--border);
+			color: var(--text-primary);
+			box-shadow: var(--shadow-card);
+		}
+
+		.popular-tour-packages .container .card-box .popular-card-box .content,
+		.top-tour-packages .container .card-box .topbento-card .content,
+		.top-agents .container .wrapper .top-agents-swiper .agent-general-card .info-card {
+			background: var(--bg-card);
+			color: var(--text-primary);
+		}
+	}
+
+	.select-box .box,
+	.filter-location,
+	.filter-type,
+	.filter-rooms,
+	.filter-location div,
+	.filter-type div,
+	.filter-rooms span,
+	.filter-config,
+	.filter-main,
+	.filter-toggle,
+	.tour-package-big-card-box,
+	.popular-card-box,
+	.trend-card-box,
+	.topbento-card,
+	.agent-general-card .info-card,
+	.agent-info,
+	.stat-box,
+	.agent-home-list,
+	.review-box,
+	.review-wrap,
+	.leave-review-config,
+	.community-article-card,
+	.community-general-card-config,
+	.cd-article-card,
+	.cd-comments-wrap,
+	.cd-leave-comment,
+	.cd-comment-item,
+	.cd-edit-modal,
+	.cl-cat-section,
+	.cl-no-data,
+	.booking-card,
+	.info-box,
+	.address-config,
+	.reviews-config,
+	.about-card,
+	.mission-card,
+	.service-card,
+	.value-card,
+	.team-card,
+	.stat-card,
+	.help-card,
+	.topic-card,
+	.faq-content,
+	.faq-card,
+	.back-frame,
+	.left-config,
+	.main-config,
+	.main-title-box,
+	.top-box,
+	.config,
+	.editor-shell,
+	.profile-card,
+	.form-card,
+	.upload-guide,
+	.article-editor-card,
+	.card-config,
+	.tour-package-card-box,
+	.follows-card-box,
+	.no-data,
+	.pagination-config,
+	.pagination-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		color: var(--text-primary);
+		box-shadow: var(--shadow-card);
+	}
+
+	.card-img-wrap,
+	.image-box,
+	.tabs-box,
+	.status-badge,
+	.member-type-badge,
+	.article-status,
+	.tag,
+	.inclusions .tag,
+	.mobile-nav-link-icon,
+	.mobile-nav-tool-row,
+	.mobile-nav-theme,
+	.mobile-nav-languages button,
+	.notification-item,
+	.cac-stats,
+	.stat-icon,
+	.feature-copy,
+	.floating-note,
+	.icon-box,
+	.topic-icon {
+		background: var(--bg-card-alt);
+		border-color: var(--border);
+		color: var(--text-secondary);
+	}
+
+	input,
+	select,
+	textarea,
+	.MuiInputBase-root,
+	.MuiOutlinedInput-root,
+	.search-input,
+	.filter-select,
+	.filter-select-sm,
+	.range-num,
+	.cd-comment-input,
+	.cd-edit-modal-input,
+	.description-input,
+	.description-text {
+		background: var(--bg-input);
+		border-color: var(--border);
+		color: var(--text-primary);
+
+		&::placeholder {
+			color: var(--text-muted);
+		}
+	}
+
+	.mobile-menu-button,
+	.mobile-avatar-link,
+	.mobile-nav-close,
+	.agent-like-btn,
+	.secondary-action,
+	.outline-action,
+	.sort-btn,
+	.filter-reset,
+	.cl-cat-item,
+	.cd-cat-item,
+	.cd-page-btn,
+	.cd-action-btn,
+	.map-close-button,
+	.mobile-nav-icon-btn,
+	.theme-toggle-btn,
+	.language-button,
+	.MuiButton-outlined {
+		background: var(--bg-card-alt);
+		border-color: var(--border);
+		color: var(--text-primary);
+	}
+
+	.primary-action,
+	.search-btn,
+	.apply-btn,
+	.submit-review,
+	.cl-write-btn,
+	.cd-write-btn,
+	.cd-comment-submit,
+	.agent-follow-btn,
+	.view-package-btn,
+	.map-open-button,
+	.mobile-bottom-item.active,
+	.cl-cat-item.active,
+	.cd-cat-item.active,
+	.MuiButton-contained,
+	.MuiPaginationItem-root.Mui-selected {
+		background: var(--brand-orange);
+		border-color: var(--brand-orange);
+		color: #ffffff;
+	}
+
+	a,
+	.title,
+	.main-title,
+	.card-title,
+	.agent-name,
+	.cac-title,
+	.cac-author-name,
+	.cd-article-title,
+	.cd-author-name,
+	.cd-comment-name,
+	.name,
+	.package-title,
+	.article-title,
+	.stat-value,
+	.topic-title,
+	.faq-title,
+	.section-heading h2,
+	h1,
+	h2,
+	h3,
+	h4,
+	strong {
+		color: var(--text-primary);
+	}
+
+	p,
+	.desc,
+	.description,
+	.sub-title,
+	.address,
+	.package-location,
+	.date,
+	.meta-loc-text,
+	.meta-dur-text,
+	.stat-text,
+	.stat-label,
+	.cac-time,
+	.cac-stat,
+	.cd-author-date,
+	.cd-comment-date,
+	.cd-comment-content,
+	.cd-page-label,
+	.topic-desc,
+	.faq-subtitle,
+	.view-cnt,
+	.total-result,
+	.cl-pagination span,
+	.pagination span,
+	.empty-copy,
+	.price-note {
+		color: var(--text-secondary);
+	}
+
+	.muted,
+	.eyebrow,
+	.section-label,
+	.section-eyebrow,
+	.cl-cat-label,
+	.cd-cat-label,
+	.notification-meta span,
+	.mobile-nav-label,
+	.placeholder {
+		color: var(--text-muted);
+	}
+
+	.MuiSvgIcon-root,
+	svg {
+		color: inherit;
+	}
+
+	.chatting {
+		.chat-frame,
+		.chat-bott,
+		.chat-content .welcome-msg,
+		.chat-content .chat-msg-row.chat-msg-left .msg-left {
+			background: var(--bg-card);
+			border-color: var(--border);
+			color: var(--text-primary);
+		}
+
+		.chat-content {
+			background: var(--bg-card-alt);
+		}
+
+		.chat-bott .msg-input {
+			background: var(--bg-input);
+			border-color: var(--border);
+			color: var(--text-primary);
+
+			&::placeholder {
+				color: var(--text-muted);
+			}
+		}
+	}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Targeted specificity patches — fills gaps the generic pass above can't reach
+// because responsive.scss / mobile/main.scss use longer selector chains.
+// Selector math is noted inline so future edits stay correct.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap {
+
+	// ── Footer ────────────────────────────────────────────────────────────────
+	// Generic pass above sets #footer { background: var(--bg-page) } which is
+	// wrong for the footer. Override here with the dedicated footer token.
+	// Specificity: html.dark(0,1,0) + #mobile-wrap(1,0,0) + #footer(1,0,0) = (2,1,0)
+	// beats mobile/main.scss #footer(1,0,0) rule.
+	#footer {
+		background: var(--bg-footer);
+		color: var(--text-primary);
+
+		.footer-top {
+			.expert span,
+			.follow span { color: var(--text-primary); }
+
+			.socials { color: var(--text-secondary); }
+		}
+
+		.footer-divider { background: var(--border); }
+
+		.footer-cols .col {
+			// mobile/main.scss: #footer .footer-cols .col h4 = (1,2,1) beats
+			// the generic h4 rule (1,1,1). Target explicitly to win.
+			h4 { color: var(--text-primary); }
+
+			p,
+			.mail { color: var(--text-secondary); }
+
+			ul li {
+				a,
+				span,
+				.footer-link-button { color: var(--text-secondary); }
+			}
+
+			&.newsletter {
+				.subscribe {
+					background: var(--bg-input);
+					border-color: var(--border);
+
+					input,
+					button { color: var(--text-primary); }
+				}
+
+				.newsletter-message { color: var(--text-secondary); }
+			}
+		}
+
+		.footer-bottom {
+			border-top-color: var(--border);
+
+			span { color: var(--text-muted); }
+		}
+	}
+
+	// ── Homepage: shared "more" button and section overrides ─────────────────
+	.home-page {
+
+		.info-box .right .more-box {
+			background: var(--bg-card);
+			border-color: var(--border);
+
+			span,
+			a { color: var(--text-secondary); }
+		}
+
+		// ── Top Tour Packages ─────────────────────────────────────────────────
+		.top-tour-packages {
+			.info-box .right .nav-arrow {
+				background: var(--bg-card);
+				border-color: var(--border);
+				color: var(--text-primary);
+			}
+
+			// responsive.scss: #mobile-wrap .home-page .top-tour-packages .top-row-card = (1,3,0)
+			// here:       html.dark #mobile-wrap .home-page .top-tour-packages .top-row-card = (1,4,0) ✓
+			.top-row-card {
+				background: var(--bg-card);
+				border-color: var(--border);
+				box-shadow: var(--shadow-card);
+
+				.card-media {
+					background-color: var(--bg-card-alt);
+
+					.fav-btn {
+						background: rgba(13, 26, 45, 0.82);
+						svg { color: var(--text-muted); }
+					}
+				}
+
+				.card-body {
+					.top-line .rating { color: var(--text-primary); }
+					.title            { color: var(--text-primary); }
+					.chip-row         { border-bottom-color: var(--border); }
+
+					.foot-row .foot-stat {
+						color: var(--text-secondary);
+						svg { color: var(--text-muted); }
+
+						&.travellers { color: var(--text-primary); }
+					}
+				}
+			}
+		}
+
+		// ── Top Agents ────────────────────────────────────────────────────────
+		// responsive.scss card selector = #mobile-wrap .home-page .top-agents
+		//   .container .wrapper .top-agents-swiper .top-agents-slide .top-agent-card
+		//   specificity (1,7,0).
+		// Adding html.dark prefix bumps to (1,8,0) — wins.
+		.top-agents {
+			background: var(--bg-card-alt);
+
+			.container .wrapper .top-agents-swiper .top-agents-slide .top-agent-card {
+				background: var(--bg-card);
+				border-color: var(--border-orange);
+				box-shadow: var(--shadow-card);
+
+				strong { color: var(--text-primary); }
+
+				.role {
+					background: var(--bg-hover);
+					color: var(--brand-orange);
+				}
+
+				.agent-stats {
+					div {
+						background: var(--bg-card-alt);
+						border-color: var(--border);
+					}
+
+					b  { color: var(--text-primary); }
+					em { color: var(--text-muted); }
+				}
+			}
+		}
+
+		// ── Community Discussions (testimonial carousel) ──────────────────────
+		// responsive.scss: #mobile-wrap .home-page .community-discussions .tc-card = (1,3,0)
+		// html.dark prefix → (1,4,0) ✓.  !important for props that have it in source.
+		.community-discussions {
+			.tc-header {
+				.tc-main-title { color: var(--text-primary) !important; }
+				.tc-subtitle   { color: var(--text-secondary) !important; }
+			}
+
+			.tc-carousel-wrap .tc-arrow {
+				background: var(--bg-card);
+				border-color: var(--border);
+				color: var(--text-primary);
+				box-shadow: var(--shadow-card);
+			}
+
+			.tc-avatar-ring .tc-avatar { border-color: var(--bg-card); }
+
+			.tc-card {
+				background: var(--bg-card);
+				border-color: var(--border);
+				box-shadow: var(--shadow-card);
+
+				.tc-text        { color: var(--text-primary) !important; }
+				.tc-author-name { color: var(--text-primary) !important; }
+				.tc-like-row    { border-top-color: var(--border); }
+			}
+		}
+	}
+
+	// ── Hero search-box inner fields ─────────────────────────────────────────
+	// mobile/main.scss nests .box, .filter-* inside #mobile-wrap .header-main
+	// .search-box giving them (1,3-4,0).  Matching that path here → (1,4-5,0) wins.
+	.header-main .search-box {
+		background: rgba(7, 16, 30, 0.88);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border-color: var(--border-orange);
+		box-shadow: var(--shadow-deep);
+
+		.select-box .box {
+			background: var(--bg-input);
+			border-color: var(--border);
+
+			.field-copy {
+				small { color: var(--text-muted); }
+				span  { color: var(--text-primary); }
+			}
+		}
+
+		.filter-location,
+		.filter-type,
+		.filter-rooms {
+			background: var(--bg-card);
+			border-color: var(--border-orange);
+
+			div,
+			span { background: var(--bg-card-alt); color: var(--text-primary); }
+		}
+
+		.advanced-filter {
+			background: var(--bg-hover);
+			border-color: var(--border-orange);
+			color: var(--brand-orange);
+		}
+	}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tour Package LIST page — mobile dark mode
+//
+// tourPackage.scss uses `#mobile-wrap #tour-package-list-page .xyz` = (2,1,0).
+// Generic html.dark #mobile-wrap .xyz = (1,2,0) loses that battle.
+// Scoping under html.dark #mobile-wrap #tour-package-list-page → (2,2,0) wins.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap #tour-package-list-page {
+	background: var(--bg-page);
+
+	// ── Filter panel ────────────────────────────────────────────────────────
+	.filter-config {
+		background: var(--bg-card);
+		border-color: var(--border);
+	}
+
+	.filter-toggle {
+		.toggle-label  { color: var(--text-primary); }
+		.toggle-chevron { color: var(--text-muted); }
+	}
+
+	.filter-main {
+		border-top-color: var(--border);
+
+		.filter-header {
+			.filter-title { color: var(--text-primary); }
+		}
+
+		.filter-section {
+			.section-label { color: var(--text-muted); }
+
+			.search-input {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&::placeholder { color: var(--text-muted); }
+				&:focus { background: var(--bg-card); border-color: var(--border-orange); }
+			}
+
+			.filter-select,
+			.filter-select-sm,
+			.range-num {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&:focus { border-color: var(--border-orange); }
+			}
+
+			.type-checkbox  { color: var(--text-muted); }
+			.type-label     { color: var(--text-secondary); }
+			.range-sep      { color: var(--text-muted); }
+		}
+
+		// "Apply" — swap dark-navy fill for brand orange in dark mode
+		.apply-btn {
+			background: var(--brand-orange);
+			color: #ffffff;
+
+			&:hover { background: #e07800; }
+		}
+	}
+
+	// ── Results bar ─────────────────────────────────────────────────────────
+	.results-bar {
+		border-bottom-color: var(--border);
+
+		.results-count { color: var(--text-secondary); }
+
+		.sort-btn {
+			background: var(--bg-card);
+			border-color: var(--border);
+			color: var(--text-primary);
+		}
+	}
+
+	// ── Package card ─────────────────────────────────────────────────────────
+	.card-config {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: var(--shadow-card);
+	}
+
+	.card-img-wrap .card-img-placeholder { background: var(--bg-card-alt); }
+
+	.card-content {
+		.card-title          { color: var(--text-primary); }
+		.meta-loc-text,
+		.meta-dur-text       { color: var(--text-secondary); }
+		.meta-dur-icon       { color: var(--text-muted); }
+		.stat-text           { color: var(--text-secondary); }
+		.stat-dot            { color: var(--text-muted); }
+		.card-desc           { color: var(--text-muted); }
+		.tag-sep             { color: var(--text-muted); }
+		.price-from          { color: var(--text-muted); }
+
+		.card-price-row {
+			border-top-color: var(--border);
+		}
+	}
+
+	// ── No-data / empty state ─────────────────────────────────────────────
+	.no-data,
+	.empty-state-wrap { color: var(--text-muted); }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tour Package DETAIL page — mobile dark mode
+//
+// detail.scss uses `#mobile-wrap #tour-package-detail-page .xyz` = (2,1,0).
+// Same double-ID problem — scope here to (2,2,0) to win.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap #tour-package-detail-page {
+	background: var(--bg-page);
+	color: var(--text-primary);
+
+	// ── Breadcrumb ───────────────────────────────────────────────────────────
+	.detail-breadcrumb {
+		span, p { color: var(--text-secondary); }
+	}
+
+	// ── Package info header ──────────────────────────────────────────────────
+	.tour-package-info-config {
+		.date        { color: var(--text-muted); }
+		.title-main  { color: var(--text-primary); }
+
+		.option p    { color: var(--text-secondary); }
+
+		.option.selector {
+			.opt-label { color: var(--text-secondary); }
+			.opt-fixed { color: var(--text-primary); }
+
+			.stepper {
+				background: var(--bg-hover);
+				border-color: var(--border-orange);
+
+				.step          { color: var(--brand-orange); }
+				.step.Mui-disabled { color: var(--text-muted); }
+				.opt-value     { color: var(--text-primary); }
+			}
+		}
+
+		// Like / share action chips — full path beats source (2,4,0)
+		.tour-package-info-config .right-box .buttons .button-box {
+			background: var(--bg-card-alt);
+			border-color: var(--border);
+			color: var(--text-secondary);
+
+			&:hover { background: var(--bg-hover); color: var(--brand-orange); }
+
+			.MuiTypography-root { color: inherit; }
+		}
+
+		// ── Gallery ────────────────────────────────────────────────────────
+		.images {
+			.main-image { background: var(--bg-card-alt); }
+
+			.sub-img-box {
+				border-color: var(--bg-card-alt);
+				box-shadow: 0 0 0 1.5px var(--border);
+
+				&:hover { box-shadow: 0 0 0 2px var(--brand-orange); }
+			}
+		}
+	}
+
+	// ── Description + services ───────────────────────────────────────────────
+	.left-config {
+		.prop-desc-config {
+			.top {
+				border-bottom-color: var(--border);
+				.title { color: var(--text-primary); }
+				.desc  { color: var(--text-secondary); }
+			}
+
+			.bottom {
+				.title { color: var(--text-primary); }
+
+				.service-card {
+					background: var(--bg-card);
+					border-color: var(--border);
+
+					.service-icon-wrap { background: rgba(13, 148, 136, 0.14); }
+					.service-name      { color: var(--text-primary); }
+					.service-desc      { color: var(--text-muted); }
+				}
+			}
+		}
+
+		// Address / reviews / leave-review panels
+		.address-config,
+		.reviews-config,
+		.leave-review-config {
+			background: var(--bg-card);
+			border-color: var(--border);
+
+			.title,
+			.main-title { color: var(--text-primary); }
+
+			> p { color: var(--text-secondary); }
+		}
+
+		.leave-review-config {
+			textarea {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&::placeholder { color: var(--text-muted); }
+				&:focus        { border-color: var(--border-orange); }
+			}
+		}
+
+		// Review items inside .reviews-config
+		.review-config {
+			border-bottom-color: var(--border);
+
+			.name        { color: var(--text-primary); }
+			.description { color: var(--text-secondary); }
+			.date        { color: var(--text-muted); }
+		}
+	}
+
+	// ── Booking card & host info box ─────────────────────────────────────────
+	.booking-card,
+	.right-config .info-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: var(--shadow-card);
+	}
+
+	.booking-card {
+		.sidebar-kicker { color: var(--text-muted); }
+		.price          { color: var(--text-primary); }
+		.price-note     { color: var(--text-muted); }
+
+		.outline-action {
+			background: var(--bg-hover);
+			border-color: var(--border-orange);
+			color: var(--brand-orange);
+		}
+
+		.booking-stats span,
+		.included-list span {
+			background: var(--bg-card-alt);
+			color: var(--text-secondary);
+		}
+
+		.included-list span.on {
+			background: rgba(16, 185, 129, 0.12);
+			color: var(--brand-green);
+		}
+
+		// Map modal overlay — position:fixed but selector still scoped here
+		.map-modal-backdrop {
+			background: rgba(0, 0, 0, 0.55);
+		}
+
+		.map-modal {
+			background: var(--bg-card);
+			border-color: var(--border);
+			box-shadow: var(--shadow-deep);
+		}
+
+		.map-modal-header {
+			background: rgba(7, 16, 30, 0.88);
+			border-color: var(--border);
+			backdrop-filter: blur(18px);
+			-webkit-backdrop-filter: blur(18px);
+		}
+
+		.map-modal-footer {
+			background: var(--bg-card);
+			border-color: var(--border);
+		}
+	}
+
+	// Host/agent info box
+	.right-config .info-box {
+		.main-title  { color: var(--text-primary); }
+		.name        { color: var(--text-primary); }
+		.listings    { color: var(--brand-orange); }
+		.member-image { border-color: var(--border); }
+	}
+
+	// ── Similar packages strip ────────────────────────────────────────────────
+	.similar-tour-packages-config {
+		border-top-color: var(--border);
+
+		.main-title { color: var(--text-primary); }
+		.sub-title  { color: var(--text-secondary); }
+
+		// Full path (2,5,1) beats source (2,4,0) — fixes white card in dark mode
+		.cards-box .tour-package-big-card-box {
+			border-color: var(--border);
+			box-shadow: var(--shadow-card);
+
+			.card-img {
+				.pkg-type {
+					background: rgba(7, 16, 30, 0.82);
+					color: var(--text-secondary);
+				}
+
+				div.price {
+					background: rgba(7, 16, 30, 0.82);
+					color: var(--brand-orange);
+				}
+			}
+
+			.info {
+				background: var(--bg-card);
+				border-top-color: var(--border);
+
+				.title { color: var(--text-primary); }
+				.desc  { color: var(--text-secondary); }
+
+				.opt-item {
+					.opt-icon { color: var(--text-muted); }
+					span      { color: var(--text-secondary); }
+				}
+
+				.inclusions .tag {
+					background: rgba(255, 138, 0, 0.08);
+					border-color: var(--border);
+					color: var(--brand-orange);
+				}
+
+				.bott .view-cnt { color: var(--text-secondary); }
+			}
+		}
+	}
+}
+
+// ── Agent list page ────────────────────────────────────────────────────────
+html.dark #mobile-wrap .agent-list-page {
+	background: var(--bg-page);
+
+	// Filter bar — source (1,3,1), override (1,4,2) ✓
+	.filter {
+		.left input {
+			background: var(--bg-input);
+			border-color: var(--border);
+			color: var(--text-primary);
+
+			&::placeholder { color: var(--text-muted); }
+			&:focus         { border-color: var(--brand-orange); }
+		}
+
+		.right {
+			span { color: var(--text-secondary); }
+
+			button {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&:hover { background: var(--bg-hover); border-color: var(--brand-orange); }
+			}
+		}
+	}
+
+	// Agent glass card — source (1,5,0), override (1,5,1) ✓
+	.agent-general-card .agent-info-col .info-card {
+		background: rgba(13, 26, 45, 0.90);
+		border-color: rgba(255, 138, 0, 0.18);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+
+		.agent-name     { color: var(--text-primary); }
+		.agent-subtitle { color: var(--text-secondary); }
+		.agent-bio      { color: var(--text-secondary); }
+
+		// stat boxes — source (1,7,0), override (1,7,1) ✓
+		.stats-grid .stat-box {
+			background: var(--bg-card-alt);
+
+			.stat-lbl { color: var(--text-muted); }
+			.stat-val  { color: var(--text-primary); }
+		}
+
+		.cta-row .btn-mail {
+			border-color: var(--border);
+
+			svg { color: var(--text-secondary); }
+
+			&:hover { background: var(--bg-hover); }
+		}
+	}
+
+	.pagination span { color: var(--text-muted); }
+}
+
+// ── Agent detail page ──────────────────────────────────────────────────────
+html.dark #mobile-wrap .agent-detail-page {
+	// Hero info panel — source (1,3,0), override (1,3,1) ✓
+	.agent-info {
+		background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-alt) 100%);
+
+		.agent-content {
+			// text — source (1,4,0), override (1,5,1) ✓
+			.agent-name      { color: var(--text-primary); }
+			.agent-desc-text { color: var(--text-secondary); }
+
+			// like button — source (1,4,1), override (1,5,2) ✓
+			.agent-like-btn {
+				background: var(--bg-card-alt);
+				border-color: var(--border-orange);
+				color: var(--text-primary);
+
+				svg { color: var(--brand-orange); }
+
+				&:hover,
+				&.active {
+					background: rgba(255, 138, 0, 0.12);
+					color: var(--brand-orange);
+				}
+			}
+
+			// follow button (unfollow state) — source (1,5,1), override (1,6,2) ✓
+			.agent-follow-btn.following {
+				background: var(--bg-card);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				svg { color: var(--text-primary); }
+
+				&:hover {
+					background: rgba(255, 138, 0, 0.10);
+					border-color: var(--brand-orange);
+					color: var(--brand-orange);
+				}
+			}
+
+			// stat boxes — source (1,5,0), override (1,6,1) ✓
+			.agent-stats .stat-box {
+				background: var(--bg-input);
+				border-color: var(--border);
+
+				.stat-value { color: var(--text-primary); }
+				.stat-label { color: var(--text-muted); }
+				.stat-icon  { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+			}
+
+			.agent-phone .MuiTypography-root { color: var(--text-secondary); }
+		}
+	}
+
+	// Package list box + related package cards
+	// .info source (1,5,0) → override (1,6,1) ✓
+	.agent-home-list {
+		background: var(--bg-card);
+		box-shadow: var(--shadow-card);
+
+		.card-wrap .tour-package-big-card-box {
+			border-color: var(--border);
+			box-shadow: var(--shadow-card);
+
+			.card-img {
+				.pkg-type {
+					background: rgba(7, 16, 30, 0.82);
+					color: var(--text-secondary);
+				}
+
+				div.price {
+					background: rgba(7, 16, 30, 0.82);
+					color: var(--brand-orange);
+				}
+			}
+
+			.info {
+				background: var(--bg-card);
+				border-top-color: var(--border);
+
+				.title { color: var(--text-primary); }
+				.desc  { color: var(--text-secondary); }
+
+				.opt-item {
+					.opt-icon { color: var(--text-muted); }
+					span      { color: var(--text-secondary); }
+				}
+
+				.inclusions .tag {
+					background: rgba(255, 138, 0, 0.08);
+					border-color: var(--border);
+					color: var(--brand-orange);
+				}
+
+				.bott .view-cnt { color: var(--text-secondary); }
+			}
+		}
+
+		.pagination span { color: var(--text-muted); }
+		.no-data         { color: var(--text-muted); }
+	}
+
+	// Reviews section
+	.review-box {
+		background: var(--bg-card-alt);
+
+		.main-intro {
+			span { color: var(--text-primary); }
+			p    { color: var(--text-secondary); }
+		}
+
+		.review-wrap {
+			background: var(--bg-card);
+			box-shadow: var(--shadow-card);
+
+			.title-box span { color: var(--text-primary); }
+
+			.review-card {
+				border-bottom-color: var(--border);
+
+				.info .left div {
+					strong { color: var(--text-primary); }
+					span   { color: var(--text-secondary); }
+				}
+
+				p { color: var(--text-secondary); }
+			}
+		}
+
+		.leave-review-config {
+			background: var(--bg-card);
+			box-shadow: var(--shadow-card);
+
+			.main-title   { color: var(--text-primary); }
+			.review-title { color: var(--text-secondary); }
+
+			textarea {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+
+				&::placeholder { color: var(--text-muted); }
+				&:focus        { border-color: var(--brand-orange); }
+			}
+
+			.submit-review {
+				border-color: var(--border);
+
+				.title { color: var(--text-primary); }
+			}
+		}
+	}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Community LIST page — mobile dark mode specificity patches
+//
+// community.scss #mobile-wrap section uses selector paths up to (1,6,0).
+// The responsive.scss html.dark block only reaches (1,3,1), so it loses on
+// deeply nested elements. These rules mirror the source paths and add
+// html.dark to bump specificity by (0,1,1), reaching (1,6,1) where needed.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap .community-list-page {
+	// Cat pill icon — source (1,4,0), override (1,4,1) ✓
+	.cl-cat-item .cl-cat-icon { color: var(--text-muted); }
+	// Active pill icon — source .cl-cat-item.active .cl-cat-icon (1,4,0), override (1,5,1) ✓
+	.cl-cat-item.active .cl-cat-icon { color: #ffffff; }
+
+	// Like overlay button on card image — source (1,5,0), override (1,5,1) ✓
+	.community-article-card .cac-image-wrap .cac-like-btn {
+		background: rgba(7, 16, 30, 0.82);
+		svg { color: var(--text-muted); }
+	}
+
+	// Card body title — source (1,5,0), override (1,5,1) ✓
+	.community-article-card .cac-body .cac-title { color: var(--text-primary); }
+
+	// Card body stats divider — source (1,5,0), override (1,5,1) ✓
+	.community-article-card .cac-body .cac-stats { border-top-color: var(--border); }
+
+	// Author name + date — source (1,6,0), override (1,6,1) ✓
+	.community-article-card .cac-body .cac-author {
+		.cac-author-name { color: var(--text-primary); }
+		.cac-time        { color: var(--text-muted); }
+	}
+
+	// Stat chips — source (1,6,0), override (1,6,1) ✓
+	.community-article-card .cac-body .cac-stats .cac-stat {
+		color: var(--text-muted);
+		svg { color: var(--text-muted); }
+	}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Community DETAIL page — mobile dark mode
+//
+// community.scss scopes all .community-detail-page rules under #pc-wrap, so
+// there are no competing #mobile-wrap source selectors. The generic pass at
+// (1,2,0) handles backgrounds; these rules add text-color detail, the like
+// button, Toast UI rich-text viewer, comments, and pagination.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap .community-detail-page {
+	// Article header text — no competing mobile source; (1,3,1) wins
+	.cd-article-title { color: var(--text-primary); }
+	.cd-author-name   { color: var(--text-primary); }
+	.cd-author-date   { color: var(--text-muted); }
+	.cd-stat          { color: var(--text-muted); svg { color: var(--text-muted); } }
+
+	// Like section
+	.cd-like-section { border-top-color: var(--border); }
+	.cd-like-btn {
+		border-color: var(--border);
+		color: var(--text-secondary);
+		background: transparent;
+
+		&:hover:not(:disabled) {
+			border-color: var(--brand-orange);
+			color: var(--brand-orange);
+			background: var(--bg-hover);
+		}
+
+		&.liked {
+			border-color: var(--brand-orange);
+			color: var(--brand-orange);
+			background: rgba(255, 138, 0, 0.10);
+		}
+	}
+
+	// Toast UI rich-text viewer — !important needed because Toast UI injects
+	// its own global CSS outside #pc-wrap scope, at high specificity.
+	.cd-content .toastui-editor-contents {
+		color: var(--text-secondary) !important;
+		background: transparent !important;
+
+		p, li, td, th, caption { color: var(--text-secondary) !important; }
+
+		h1, h2, h3, h4, h5, h6 {
+			color: var(--text-primary) !important;
+			border-bottom-color: var(--border) !important;
+		}
+
+		a { color: var(--brand-orange) !important; }
+		strong { color: var(--text-primary) !important; }
+
+		blockquote {
+			border-left-color: var(--brand-orange) !important;
+			background: rgba(255, 138, 0, 0.06) !important;
+			p { color: var(--text-muted) !important; }
+		}
+
+		code {
+			background: rgba(255, 138, 0, 0.10) !important;
+			color: #f4a261 !important;
+		}
+
+		pre {
+			background: var(--bg-card-alt) !important;
+			border-color: var(--border) !important;
+			code { background: transparent !important; color: #90c4e8 !important; }
+		}
+
+		table {
+			th {
+				background: var(--bg-input) !important;
+				color: var(--text-primary) !important;
+				border-color: var(--border) !important;
+			}
+			td { color: var(--text-secondary) !important; border-color: var(--border) !important; }
+		}
+
+		hr { border-color: var(--border) !important; }
+	}
+
+	// Comments section
+	.cd-comments-title                      { color: var(--text-primary); }
+	.cd-comment-item:hover                  { background: var(--bg-hover); }
+	.cd-comment-name                        { color: var(--text-primary); }
+	.cd-comment-date                        { color: var(--text-muted); }
+	.cd-comment-content .MuiTypography-root { color: var(--text-secondary); }
+	.cd-action-btn                          { color: var(--text-muted); }
+
+	// Edit modal
+	.cd-edit-modal {
+		.cd-edit-modal-title { color: var(--text-primary); }
+		.cd-edit-modal-count { color: var(--text-muted); }
+		.cd-edit-cancel { border-color: var(--border); color: var(--text-secondary); }
+	}
+
+	// Comment pagination
+	.cd-page-btn {
+		background: var(--bg-card-alt);
+		border-color: var(--border);
+		color: var(--text-primary);
+
+		&:hover:not(:disabled) {
+			border-color: var(--brand-orange);
+			color: var(--brand-orange);
+		}
+	}
+
+	.cd-page-dot {
+		background: var(--text-muted);
+		&.active { background: var(--brand-orange); }
+	}
+
+	.cd-page-label { color: var(--text-muted); }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Member Page — mobile dark mode
+//
+// memberPage.scss / memberFollows.scss / memberTourPackages.scss /
+// memberArticles.scss all use `#pc-wrap, #mobile-wrap { #member-page { … } }`
+// or deeper, yielding (2-3, N, 0) source specificity that the generic pass
+// cannot beat.  Using !important mirrors dark-mode.scss desktop strategy.
+// ─────────────────────────────────────────────────────────────────────────────
+
+html.dark #mobile-wrap #member-page {
+	background: var(--bg-page) !important;
+
+	// Outer card shell
+	.member-page .back-frame {
+		background: var(--bg-card) !important;
+		border-color: rgba(255, 138, 0, 0.16) !important;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.20) !important;
+	}
+
+	// ── Left sidebar ─────────────────────────────────────────────────────────
+	.left-config {
+		background: linear-gradient(180deg, rgba(255, 138, 0, 0.06) 0%, var(--bg-card) 40%) !important;
+		border-color: var(--border-orange) !important;
+		box-shadow: var(--shadow-card) !important;
+
+		// Profile header strip
+		.profile {
+			background: linear-gradient(180deg, rgba(255, 138, 0, 0.09) 0%, var(--bg-card) 100%) !important;
+			border-color: var(--border-orange) !important;
+
+			.profile-img::after { border-color: var(--bg-card) !important; }
+		}
+
+		.user-info {
+			.user-name   { color: var(--text-primary)   !important; }
+			.user-phone {
+				svg       { color: var(--brand-orange)   !important; }
+				.p-number { color: var(--text-secondary) !important; }
+			}
+			.view-list {
+				background: rgba(255, 138, 0, 0.14) !important;
+				color: var(--brand-orange) !important;
+			}
+		}
+
+		// Follow / Unfollow button
+		.follow-button-box {
+			p { color: var(--text-muted) !important; }
+
+			.MuiButton-root.MuiButton-outlined {
+				background: var(--bg-input)     !important;
+				border-color: var(--border-orange) !important;
+				color: var(--text-primary)      !important;
+				box-shadow: var(--shadow-card)  !important;
+
+				&:hover {
+					background: rgba(255, 138, 0, 0.12) !important;
+					border-color: var(--brand-orange)   !important;
+					color: var(--brand-orange)          !important;
+				}
+			}
+		}
+
+		// Nav sections
+		.sections .section {
+			.title { color: var(--text-muted) !important; }
+
+			.sub-section li {
+				&:hover { background: var(--bg-hover) !important; }
+
+				.flex-box {
+					.menu-icon {
+						background: transparent !important;
+						&::before { background: currentColor !important; opacity: 0.16 !important; }
+					}
+					.sub-title   { color: var(--text-secondary) !important; }
+					.count-title {
+						background: var(--bg-input) !important;
+						color: var(--text-muted)    !important;
+					}
+				}
+
+				// Active nav item
+				&.focus {
+					background: var(--brand-navy) !important;
+					box-shadow: 0 10px 24px rgba(0, 0, 0, 0.30) !important;
+
+					.sub-title   { color: #ffffff !important; }
+					.count-title { background: rgba(255, 255, 255, 0.12) !important; color: #ffffff !important; }
+					.menu-icon   { background: var(--brand-orange) !important; color: #ffffff !important; &::before { opacity: 0 !important; } }
+				}
+			}
+		}
+	}
+
+	// ── Main content area ─────────────────────────────────────────────────────
+	.main-config {
+		// Shared section header (memberPage.scss .main-title-box)
+		.main-title-box {
+			background: linear-gradient(135deg, rgba(255, 138, 0, 0.07) 0%, var(--bg-card) 54%) !important;
+			border-color: var(--border-orange) !important;
+
+			.main-title { color: var(--text-primary)   !important; }
+			.sub-title  { color: var(--text-secondary) !important; }
+			.eyebrow    { background: rgba(255, 138, 0, 0.12) !important; color: var(--brand-orange) !important; }
+		}
+
+		// Shared empty state
+		.no-data {
+			background: var(--bg-card) !important;
+			border-color: rgba(255, 138, 0, 0.18) !important;
+
+			strong    { color: var(--text-primary) !important; }
+			p         { color: var(--text-muted)   !important; }
+			.empty-icon { background: rgba(255, 138, 0, 0.14) !important; color: var(--brand-orange) !important; }
+		}
+
+		// Shared pagination result count
+		.pagination-config .total-result p,
+		.pagination-config .total-result span { color: var(--text-muted) !important; }
+
+		// ── Tour Packages list (table rows) ───────────────────────────────────
+		.listing-title-box {
+			background: var(--bg-card-alt) !important;
+			border-color: var(--border) !important;
+			.title-text { color: var(--text-muted) !important; }
+		}
+
+		.tour-package-card-box {
+			background: var(--bg-card) !important;
+			border-color: var(--border) !important;
+			&:hover { background: var(--bg-card-alt) !important; }
+
+			.image-box .image-badge { background: rgba(0, 0, 0, 0.70) !important; }
+
+			.information-box {
+				.name                     { color: var(--text-primary)   !important; }
+				.destination-row .address { color: var(--text-secondary) !important; }
+				.meta-row .meta-chip p    { color: var(--text-secondary) !important; }
+				.price {
+					color: var(--text-secondary) !important;
+					strong { color: #FF383C !important; }
+				}
+			}
+
+			.date-box .date { color: var(--text-secondary) !important; }
+
+			.status-box {
+				&.active-status-box .coloured-box { background: rgba(34, 197, 94, 0.12) !important; .status { color: #4ade80  !important; } }
+				&.closed-status-box .coloured-box { background: rgba(255, 138, 0, 0.12) !important; .status { color: #ffb347 !important; } }
+			}
+
+			.views-box {
+				svg    { color: var(--text-muted)    !important; }
+				.views { color: var(--text-secondary) !important; }
+			}
+		}
+
+		// Tour packages list pagination divider
+		.list-box .pagination-config { border-top-color: var(--border) !important; }
+
+		// ── Saved Tour Packages cards (memberTourPackages.scss) ───────────────
+		#member-tour-packages-page {
+			// Header panel
+			.main-title-box {
+				background: linear-gradient(135deg, rgba(255, 138, 0, 0.08) 0%, var(--bg-card) 54%, var(--bg-card-alt) 100%) !important;
+
+				.right-box {
+					.title-kicker { background: rgba(255, 138, 0, 0.12) !important; }
+					.main-title   { color: var(--text-primary)   !important; }
+					.sub-title    { color: var(--text-secondary) !important; }
+				}
+
+				.saved-summary-panel {
+					background: var(--bg-card-alt) !important;
+					border-color: var(--border-orange) !important;
+					.summary-value { color: var(--text-primary)   !important; }
+					.summary-label { color: var(--text-secondary) !important; }
+				}
+			}
+
+			// Package card
+			.favorites-list-box .card-config {
+				background: var(--bg-card) !important;
+				border-color: var(--border) !important;
+
+				.card-img-wrap .fav-btn { background: rgba(7, 16, 30, 0.82) !important; }
+
+				.card-content {
+					.card-title                { color: var(--text-primary)   !important; }
+					.meta-loc-text,
+					.meta-dur-text             { color: var(--text-secondary) !important; }
+					.stat-text                 { color: var(--text-secondary) !important; }
+					.card-desc                 { color: var(--text-muted)     !important; }
+					.card-price-row {
+						border-top-color: var(--border) !important;
+						.view-btn {
+							background: var(--bg-input)      !important;
+							border-color: var(--border-orange) !important;
+							color: var(--brand-orange)       !important;
+							&:hover { background: var(--bg-hover) !important; }
+						}
+					}
+				}
+			}
+		}
+
+		// ── Member Articles (memberArticles.scss) ─────────────────────────────
+		#member-articles-page {
+			// Article summary stat chips inside the header
+			.main-title-box .article-summary .summary-item {
+				background: var(--bg-card-alt) !important;
+				border-color: var(--border) !important;
+				.summary-value { color: var(--text-primary)   !important; }
+				.summary-label { color: var(--text-secondary) !important; }
+			}
+
+			// Article cards
+			.article-list-box .community-general-card-config {
+				background: var(--bg-card) !important;
+				border-color: var(--border) !important;
+
+				.desc-box {
+					.desc     { color: var(--text-primary)   !important; }
+					.title    { color: var(--text-secondary) !important; }
+					.view-cnt { color: var(--text-secondary) !important; }
+
+					.buttons .MuiIconButton-root {
+						background: var(--bg-card-alt) !important;
+						color: var(--text-muted) !important;
+						&:hover { background: var(--bg-hover) !important; color: var(--brand-orange) !important; }
+					}
+				}
+
+				.date-box {
+					background: rgba(13, 26, 45, 0.82) !important;
+					border-color: var(--border) !important;
+					.month { color: var(--brand-orange)  !important; }
+					.day   { color: var(--text-primary)  !important; }
+				}
+			}
+		}
+
+		// ── Follows / Followings (memberFollows.scss + memberPage.scss) ───────
+		#member-follows-page {
+			// Section header
+			.main-title-box {
+				background: var(--bg-card) !important;
+				border-color: var(--border) !important;
+				border-left-color: var(--brand-orange) !important;
+				box-shadow: 0 1px 8px rgba(0, 0, 0, 0.20) !important;
+				.main-title { color: var(--text-primary) !important; }
+			}
+
+			// Empty state
+			.follows-list-box .no-data {
+				background: var(--bg-card) !important;
+				border-color: var(--border) !important;
+				p { color: var(--text-muted) !important; }
+			}
+
+			// Column-header row (memberFollows.scss)
+			.follows-list-box .listing-title-box {
+				background: var(--bg-card-alt) !important;
+				border-color: var(--border) !important;
+				.title-text { color: var(--text-muted) !important; }
+			}
+
+			// Profile card
+			.follows-list-box .follows-card-box {
+				background: var(--bg-card) !important;
+				border-color: var(--border) !important;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28) !important;
+
+				&:hover {
+					border-color: rgba(255, 138, 0, 0.35) !important;
+					box-shadow: 0 4px 20px rgba(255, 138, 0, 0.14), 0 8px 32px rgba(0, 0, 0, 0.32) !important;
+				}
+
+				// Avatar ring
+				.info .image-box {
+					border-color: var(--border-orange) !important;
+					background: var(--bg-card-alt)     !important;
+					&::after { border-color: var(--bg-card) !important; }
+				}
+
+				// Name + type badge
+				.info .information-box {
+					.name {
+						color: var(--text-primary) !important;
+						&:hover { color: var(--brand-orange) !important; }
+					}
+				}
+
+				// Stat boxes
+				.details-box .info-box {
+					background: var(--bg-card-alt) !important;
+					border-color: var(--border)    !important;
+
+					&:hover {
+						background: rgba(255, 138, 0, 0.07)   !important;
+						border-color: rgba(255, 138, 0, 0.30) !important;
+					}
+
+					p    { color: var(--text-muted)   !important; }
+					span { color: var(--text-primary)  !important; }
+					svg  { color: rgba(255, 255, 255, 0.14) !important; }
+					.MuiSvgIcon-colorPrimary { color: #ef4444 !important; }
+				}
+
+				// Action buttons
+				.action-box {
+					.following-state {
+						background: rgba(18, 183, 106, 0.12) !important;
+						color: #4ade80 !important;
+					}
+
+					.follow-action-btn {
+						&.MuiButton-contained {
+							background: var(--brand-orange) !important;
+							box-shadow: 0 4px 14px rgba(255, 138, 0, 0.35) !important;
+						}
+						&.unfollow-action-btn.MuiButton-root {
+							background: rgba(239, 68, 68, 0.08)   !important;
+							border-color: rgba(239, 68, 68, 0.50) !important;
+							color: #f87171 !important;
+
+							&:hover {
+								background: rgba(239, 68, 68, 0.14) !important;
+								border-color: #ef4444 !important;
+								color: #fca5a5 !important;
+							}
+						}
+					}
+				}
+			}
+
+			// Pagination
+			.pagination-config {
+				background: linear-gradient(135deg, rgba(255, 138, 0, 0.10) 0%, var(--bg-card) 52%, var(--bg-card-alt) 100%) !important;
+				border-color: var(--border-orange)          !important;
+				border-top-color: rgba(255, 138, 0, 0.34)  !important;
+				box-shadow: var(--shadow-card)              !important;
+
+				.pagination-box {
+					background: var(--bg-card) !important;
+					border-color: var(--border) !important;
+					box-shadow: var(--shadow-card) !important;
+				}
+
+				.total-result {
+					background: var(--bg-input)  !important;
+					border-color: var(--border)   !important;
+					p, span { color: var(--text-muted) !important; }
+				}
+
+				.MuiPaginationItem-root {
+					color: var(--text-secondary) !important;
+					&.Mui-selected { background: var(--brand-orange) !important; color: #ffffff !important; }
+				}
+			}
+		}
+	}
+}
+
+// ══════════════════════════════════════════════════════
+// ABOUT PAGE — dark mode (mobile)
+// ══════════════════════════════════════════════════════
+html.dark #mobile-wrap .about-page {
+	background: var(--bg-page);
+
+	// Hero
+	.about-hero {
+		background: var(--bg-page);
+
+		h1 { color: var(--text-primary); }
+		p  { color: var(--text-secondary); }
+
+		.secondary-action {
+			background: rgba(13, 26, 45, 0.62);
+			border-color: var(--border);
+			color: var(--text-primary);
+		}
+
+		.floating-note {
+			background: rgba(13, 26, 45, 0.82);
+			border-color: var(--border-orange);
+			color: var(--text-primary);
+		}
+	}
+
+	// Stats strip
+	.about-stats {
+		.container {
+			background: var(--bg-card);
+			border-color: var(--border);
+		}
+		div  { background: var(--bg-card-alt); }
+		span { color: var(--text-secondary); }
+	}
+
+	// Section headings (shared across sections)
+	.section-heading {
+		h2 { color: var(--text-primary); }
+		p  { color: var(--text-secondary); }
+	}
+
+	// Mission cards
+	.about-mission .mission-card {
+		background: var(--bg-card);
+		border-color: var(--border);
+
+		.icon-box { background: var(--bg-card-alt); }
+		h3        { color: var(--text-primary); }
+		p         { color: var(--text-secondary); }
+	}
+
+	// Feature section
+	.about-feature {
+		background: var(--bg-card);
+
+		h2 { color: var(--text-primary); }
+		p  { color: var(--text-secondary); }
+		li { color: var(--text-primary); }
+	}
+
+	// Services cards
+	.about-services article {
+		background: var(--bg-card);
+		border-color: var(--border);
+
+		p { color: var(--text-primary); }
+	}
+
+	// Values section
+	.about-values {
+		.values-copy {
+			h2 { color: var(--text-primary); }
+			p  { color: var(--text-secondary); }
+		}
+
+		article {
+			background: var(--bg-card);
+			border-color: var(--border);
+
+			h3 { color: var(--text-primary); }
+			p  { color: var(--text-secondary); }
+		}
+	}
+
+	// Team section
+	.about-team {
+		background: var(--bg-card);
+
+		article {
+			background: var(--bg-card);
+			border-color: var(--border);
+
+			div { background: var(--bg-card-alt); } // avatar circle
+			h3  { color: var(--text-primary); }
+			p   { color: var(--text-secondary); }
+		}
+	}
+
+	// Help/CTA — deepen overlay + add brand border
+	.about-help .container {
+		background:
+			linear-gradient(90deg, rgba(7, 16, 30, 0.94), rgba(13, 26, 45, 0.88)),
+			url('/img/events/Footer%20img.png') center / cover no-repeat;
+		border: 1px solid var(--border-orange);
+	}
+}
+
+// ══════════════════════════════════════════════════════
+// MY PAGE — dark mode (mobile)
+// Source files use #pc-wrap, #mobile-wrap { #my-page { ... } }
+// creating (2,N,0)+ specificity.
+// Override: html.dark #mobile-wrap #my-page = (2,1,1) base,
+// sub-pages: html.dark #mobile-wrap #my-page #sub-id = (3,1,1) base.
+// All beats matching source depth without !important.
+// ══════════════════════════════════════════════════════
+
+// ── Shell + sidebar ─────────────────────────────────────────────────────────
+html.dark #mobile-wrap #my-page {
+	background: var(--bg-page);
+
+	// Slide-out sidebar toggle tab
+	.container .mypage-menu-toggle-wrap .mypage-menu-toggle {
+		border-color: var(--border-orange);
+		background: rgba(30, 41, 59, 0.92);
+		box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+
+		&::before { background: rgba(226, 232, 240, 0.78); }
+
+		&:hover,
+		&.open {
+			background: var(--brand-orange);
+			&::before { background: #ffffff; }
+		}
+	}
+
+	.my-page .back-frame {
+		background: var(--bg-card);
+		border-color: rgba(255, 138, 0, 0.16);
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.20);
+	}
+
+	.left-config {
+		background:
+			linear-gradient(90deg, #ff8a00 0%, #ffb347 100%) top left / 100% 4px no-repeat,
+			linear-gradient(180deg, rgba(255, 138, 0, 0.07) 0%, var(--bg-card) 40%);
+		border-color: var(--border-orange);
+		box-shadow: var(--shadow-card);
+
+		.profile {
+			background: linear-gradient(180deg, rgba(255, 138, 0, 0.09) 0%, var(--bg-card) 100%);
+			border-color: var(--border-orange);
+
+			.profile-img {
+				background: var(--bg-card);
+				img { border-color: var(--brand-orange); }
+			}
+		}
+
+		.user-info {
+			.user-name  { color: var(--text-primary); }
+			.user-phone {
+				color: var(--text-secondary);
+				svg        { color: var(--brand-orange); }
+				.p-number  { color: var(--text-secondary); }
+			}
+			.view-list         { background: rgba(255, 138, 0, 0.14); color: var(--brand-orange); }
+			.view-list--admin  { background: rgba(255, 255, 255, 0.06); color: var(--text-primary); svg { color: var(--text-primary); } }
+
+			.admin-view-wrap .admin-go-btn {
+				background: linear-gradient(135deg, #0d1c32 0%, #1a2f4a 100%);
+				color: #ffffff;
+				box-shadow: 0 10px 24px rgba(0, 0, 0, 0.40);
+				.arrow { color: rgba(255, 255, 255, 0.45); }
+			}
+		}
+
+		.sections .section {
+			.title { color: var(--text-muted); }
+
+			.sub-section li {
+				&:hover { background: var(--bg-hover); }
+
+				.flex-box {
+					.menu-icon {
+						background: transparent;
+						&::before { background: currentColor; opacity: 0.16; }
+					}
+					p, .sub-title { color: var(--text-secondary); }
+				}
+
+				&.focus {
+					background: var(--brand-navy);
+					box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+					p, .sub-title { color: #ffffff; }
+					.menu-icon {
+						background: var(--brand-orange);
+						color: #ffffff;
+						&::before { opacity: 0; }
+					}
+				}
+			}
+
+			.logout-item:hover  { background: rgba(239, 68, 68, 0.10); }
+			.logout-item .sub-title { color: #ef4444; }
+		}
+	}
+
+	// ── Main content (shared across sub-pages) ────────────────────────────────
+	.main-config {
+		.mypage-bg-icons .mypage-bg-icon {
+			opacity: 0.40;
+			filter: brightness(1.5);
+		}
+
+		// Banner / title box — sub-page overrides below take precedence for
+		// sub-pages with their own IDs; this handles any uncovered page.
+		.main-title-box {
+			background: linear-gradient(135deg,
+				rgba(255, 138, 0, 0.07) 0%,
+				var(--bg-card) 54%,
+				rgba(14, 165, 233, 0.05) 100%);
+			border-color: var(--border-orange);
+			box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+
+			.main-title   { color: var(--text-primary); }
+			.sub-title    { color: var(--text-secondary); }
+			.eyebrow      { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+			.title-kicker { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); p { color: var(--brand-orange); } }
+
+			.profile-status {
+				background: rgba(2, 122, 72, 0.12);
+				border-color: rgba(2, 122, 72, 0.30);
+				color: #4ade80;
+				p { color: #4ade80; }
+			}
+
+			.summary-item {
+				background: var(--bg-card);
+				border-color: var(--border);
+				.summary-value { color: var(--text-primary); }
+				.summary-label { color: var(--text-muted); }
+				> svg { background: rgba(255, 138, 0, 0.12); }
+				&.accent > svg { background: rgba(255, 56, 60, 0.12); }
+			}
+
+			.saved-summary-panel {
+				background: var(--bg-card);
+				border-color: var(--border-orange);
+				.summary-value { color: var(--text-primary); }
+				.summary-label { color: var(--text-muted); }
+				.summary-tag { background: var(--bg-input); color: #34d399; p { color: inherit; } }
+			}
+
+			.hint-pill {
+				background: rgba(255, 255, 255, 0.06);
+				border-color: var(--border);
+				color: var(--text-secondary);
+				svg { color: var(--brand-orange); }
+			}
+		}
+
+		.pagination-conf .pagination-box,
+		.pagination-config .pagination-box {
+			background: var(--bg-card);
+			border-color: var(--border);
+			.MuiPaginationItem-root { color: var(--text-secondary); }
+		}
+		.pagination-conf .total,
+		.pagination-config .total-result {
+			background: var(--bg-input);
+			p { color: var(--text-muted); }
+		}
+
+		.no-data {
+			background: var(--bg-card);
+			border-color: var(--border-orange);
+			strong     { color: var(--text-primary); }
+			p          { color: var(--text-secondary); }
+			.empty-icon { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+		}
+
+		// Horizontal tour-package cards (mypage list views)
+		.card-config {
+			background: var(--bg-card);
+			border-color: var(--border);
+			box-shadow: var(--shadow-card);
+
+			.card-title                          { color: var(--text-primary); }
+			.card-desc                           { color: var(--text-muted); }
+			.price-from                          { color: var(--text-muted); }
+			.meta-loc-text, .meta-dur-text,
+			.stat-text                           { color: var(--text-secondary); }
+			.view-btn {
+				border-color: var(--brand-orange);
+				color: var(--brand-orange);
+				background: transparent;
+				&:hover { background: var(--brand-orange); color: #fff; }
+			}
+		}
+	}
+}
+
+// ── My Profile page ──────────────────────────────────────────────────────────
+html.dark #mobile-wrap #my-page #my-profile-page {
+	.main-title-box {
+		background: linear-gradient(135deg,
+			rgba(255, 138, 0, 0.07) 0%,
+			var(--bg-card) 54%,
+			rgba(14, 165, 233, 0.05) 100%);
+		border-color: var(--border-orange);
+
+		.main-title { color: var(--text-primary); }
+		.sub-title  { color: var(--text-secondary); }
+		.eyebrow    { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+
+		.profile-status {
+			background: rgba(2, 122, 72, 0.12);
+			border-color: rgba(2, 122, 72, 0.30);
+			color: #4ade80;
+			p { color: #4ade80; }
+		}
+	}
+
+	.top-box,
+	.bottom-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+
+		.title {
+			color: var(--text-primary);
+			svg { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+		}
+	}
+
+	.photo-box {
+		background: linear-gradient(135deg, rgba(255, 138, 0, 0.06) 0%, var(--bg-card) 64%);
+		border-color: var(--border);
+
+		.image-box {
+			background: var(--bg-card-alt);
+			border-color: var(--border-orange);
+			box-shadow: 0 18px 36px rgba(0, 0, 0, 0.30);
+		}
+		.upload-text { color: var(--text-muted); }
+	}
+
+	input {
+		background: var(--bg-input);
+		border-color: var(--border);
+		color: var(--text-primary);
+		&::placeholder { color: var(--text-muted); }
+		&:hover  { border-color: var(--border-orange); background: rgba(255, 138, 0, 0.05); }
+		&:focus  { border-color: var(--brand-orange); background: var(--bg-card); box-shadow: 0 0 0 4px rgba(255, 138, 0, 0.10); }
+	}
+
+	.update-button {
+		background: var(--bg-card-alt);
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.30);
+		&:hover { background: var(--brand-orange); }
+		&.Mui-disabled, &:disabled {
+			background: var(--bg-input);
+			p, svg { color: var(--text-muted); }
+		}
+	}
+}
+
+// ── My Articles page (NOT nested in #my-page) ────────────────────────────────
+html.dark #mobile-wrap #my-articles-page {
+	.main-title-box {
+		background: linear-gradient(135deg,
+			rgba(255, 138, 0, 0.07) 0%,
+			var(--bg-card) 54%,
+			rgba(14, 165, 233, 0.05) 100%);
+		border-color: var(--border-orange);
+		box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+
+		.main-title { color: var(--text-primary); }
+		.sub-title  { color: var(--text-secondary); }
+		.eyebrow    { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+
+		.article-summary .summary-item {
+			background: var(--bg-card);
+			border-color: var(--border);
+			box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+			.summary-value { color: var(--text-primary); }
+			.summary-label { color: var(--text-muted); }
+			> svg { background: rgba(255, 138, 0, 0.12); }
+			&.accent > svg { background: rgba(255, 56, 60, 0.12); }
+		}
+	}
+
+	.article-list-box .community-general-card-config {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+		&:hover { border-color: var(--border-orange); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35); }
+
+		.image-box { background: rgba(255, 138, 0, 0.08); }
+
+		.desc-box {
+			.desc     { color: var(--text-primary); }
+			.title    { color: var(--text-secondary); }
+			.view-cnt { color: var(--text-secondary); }
+			.MuiIconButton-root {
+				background: var(--bg-input);
+				color: var(--text-secondary);
+				&:hover { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+			}
+		}
+
+		.date-box {
+			background: rgba(13, 26, 45, 0.88);
+			border-color: var(--border-orange);
+			box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+			.month { color: var(--brand-orange); }
+			.day   { color: var(--text-primary); }
+		}
+	}
+}
+
+// ── My Favorites + Recently Visited ─────────────────────────────────────────
+html.dark #mobile-wrap #my-page #my-favorites-page,
+html.dark #mobile-wrap #my-page #recently-visited-page {
+	.main-title-box {
+		background: linear-gradient(135deg,
+			rgba(255, 138, 0, 0.07) 0%,
+			var(--bg-card) 54%,
+			rgba(14, 165, 233, 0.05) 100%);
+		border-color: var(--border-orange);
+		box-shadow: 0 20px 55px rgba(0, 0, 0, 0.28);
+
+		.main-title   { color: var(--text-primary); }
+		.sub-title    { color: var(--text-secondary); }
+		.title-kicker { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); p { color: var(--brand-orange); } }
+
+		.saved-summary-panel {
+			background: var(--bg-card);
+			border-color: var(--border-orange);
+			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+			.summary-value { color: var(--text-primary); }
+			.summary-label { color: var(--text-muted); }
+			.summary-tag { background: var(--bg-input); color: #34d399; p { color: inherit; } }
+		}
+	}
+
+	.favorites-list-box .card-config {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+		&:hover { border-color: var(--border-orange); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38); }
+
+		.fav-btn { background: rgba(13, 26, 45, 0.80); &:hover { background: rgba(13, 26, 45, 0.95); } }
+
+		.card-content {
+			.card-title                       { color: var(--text-primary); }
+			.meta-loc-text, .meta-dur-text    { color: var(--text-secondary); }
+			.stat-text                        { color: var(--text-secondary); }
+			.stat-dot                         { color: var(--border); }
+			.card-desc                        { color: var(--text-muted); }
+			.price-from                       { color: var(--text-muted); }
+			.view-btn {
+				background: var(--bg-input);
+				border-color: var(--border-orange);
+				color: var(--brand-orange);
+				&:hover { background: rgba(255, 138, 0, 0.12); }
+			}
+		}
+	}
+
+	.no-data {
+		background: var(--bg-card);
+		border-color: var(--border-orange);
+		strong { color: var(--text-primary); }
+		p      { color: var(--text-secondary); }
+	}
+
+	.pagination-config .total-result p { color: var(--text-muted); }
+}
+
+// ── Write Article page (NOT nested in #my-page) ──────────────────────────────
+html.dark #mobile-wrap #write-article-page {
+	.main-title-box {
+		background: linear-gradient(135deg,
+			rgba(255, 138, 0, 0.07) 0%,
+			var(--bg-card) 58%,
+			rgba(31, 143, 98, 0.05) 100%);
+		border-color: var(--border-orange);
+		box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+
+		.main-title { color: var(--text-primary); }
+		.sub-title  { color: var(--text-secondary); }
+
+		.hint-pill {
+			background: rgba(255, 255, 255, 0.06);
+			border-color: var(--border);
+			color: var(--text-secondary);
+			svg { color: var(--brand-orange); }
+		}
+	}
+
+	.editor-shell       { background: transparent; }
+
+	.editor-field-card,
+	.editor-canvas-card { background: var(--bg-card); border-color: var(--border); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25); }
+
+	.editor-guide-card  { background: var(--bg-card-alt); border-color: var(--border); .guide-copy { color: var(--text-secondary); } }
+
+	.field-label-row .MuiTypography-root { color: var(--text-primary); }
+
+	.category-control .MuiOutlinedInput-root {
+		background: rgba(255, 138, 0, 0.08);
+		color: var(--text-primary);
+		.MuiOutlinedInput-notchedOutline { border-color: var(--border-orange); }
+		.MuiSelect-icon { color: var(--brand-orange); }
+	}
+
+	.article-title-input .MuiOutlinedInput-root {
+		background: var(--bg-input);
+		color: var(--text-primary);
+		.MuiOutlinedInput-notchedOutline { border-color: var(--border); }
+		&:hover .MuiOutlinedInput-notchedOutline,
+		&.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--brand-orange); }
+		input { color: var(--text-primary); }
+	}
+
+	.editor-canvas-card .editor-toolbar-note {
+		background: rgba(31, 143, 98, 0.12);
+		color: #4ade80;
+		.MuiTypography-root { color: #4ade80; }
+	}
+
+	// Toast UI Editor dark mode
+	.toastui-editor-defaultUI {
+		border-color: var(--border);
+		background: var(--bg-card);
+
+		.toastui-editor-defaultUI-toolbar {
+			background: var(--bg-card-alt);
+			border-bottom-color: var(--border);
+
+			.toastui-editor-toolbar-divider { background-color: var(--border); }
+
+			button {
+				background-color: transparent;
+				border-color: var(--bg-card-alt);
+				color: var(--text-secondary);
+				&:not(:disabled):hover {
+					background-color: rgba(255, 138, 0, 0.14);
+					border-color: rgba(255, 138, 0, 0.28);
+					color: var(--brand-orange);
+				}
+			}
+
+			.toastui-editor-toolbar-icons {
+				filter: brightness(0) invert(1) contrast(1.08);
+				border-color: var(--bg-card-alt);
+				&:not(:disabled):hover {
+					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg);
+					background-color: rgba(255, 138, 0, 0.14);
+				}
+				&.active {
+					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg);
+					background-color: rgba(255, 138, 0, 0.20);
+				}
+			}
+
+			.toastui-editor-dropdown-toolbar {
+				background: var(--bg-card-alt);
+				border-color: var(--border);
+				.toastui-editor-toolbar-icons { filter: brightness(0) invert(1) contrast(1.08); }
+			}
+		}
+
+		.toastui-editor-toolbar     { background: transparent; }
+		.toastui-editor-main,
+		.toastui-editor-md-container,
+		.toastui-editor-ww-container,
+		.toastui-editor             { background: var(--bg-card); }
+
+		.ProseMirror {
+			background: var(--bg-card);
+			color: var(--text-primary);
+			caret-color: var(--brand-orange);
+		}
+
+		.toastui-editor-md-tab-container {
+			background: var(--bg-card-alt);
+			border-bottom-color: var(--border);
+
+			.tab-item {
+				background: var(--bg-input);
+				color: var(--text-muted);
+				border-color: var(--border);
+				&:hover { color: var(--text-secondary); }
+			}
+			.tab-item.active {
+				background: var(--bg-card);
+				color: var(--brand-orange);
+				border-bottom-color: var(--bg-card);
+			}
+		}
+
+		.toastui-editor-md-preview {
+			background: var(--bg-card-alt);
+			border-left-color: var(--border);
+			color: var(--text-secondary);
+		}
+
+		.toastui-editor-mode-switch {
+			background: var(--bg-card-alt);
+			border-top-color: var(--border);
+
+			.tab-item {
+				background: var(--bg-input);
+				color: var(--text-secondary);
+				border-color: var(--border);
+				&:hover { color: var(--text-primary); background: rgba(255, 138, 0, 0.08); }
+			}
+			.tab-item.active {
+				background: var(--bg-card);
+				color: var(--brand-orange);
+				border-top-color: var(--bg-card-alt);
+				border-left-color: var(--border);
+				border-right-color: var(--border);
+				border-bottom-color: transparent;
+			}
+		}
+
+		.toastui-editor-popup {
+			background: var(--bg-card);
+			border-color: var(--border);
+			box-shadow: 0 16px 40px rgba(0, 0, 0, 0.40);
+			.toastui-editor-popup-body { background: var(--bg-card); }
+			label { color: var(--text-secondary); }
+			input {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+				&::placeholder { color: var(--text-muted); }
+			}
+			.toastui-editor-popup-add-btn {
+				background: var(--brand-orange);
+				border-color: var(--brand-orange);
+				color: #fff;
+			}
+		}
+	}
+}
+
+// ── My Saved page ────────────────────────────────────────────────────────────
+html.dark #mobile-wrap #my-page #my-saved-page {
+	.main-title-box {
+		.main-title { color: var(--text-primary); }
+		.sub-title  { color: var(--text-secondary); }
+	}
+
+	.my-saved-list-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+
+		.list-title-box {
+			background: var(--bg-card-alt);
+			p { color: var(--text-muted); }
+		}
+
+		.search-box {
+			border-bottom-color: var(--border);
+			.title { color: var(--text-primary); }
+			.date  { color: var(--text-secondary); }
+			.action-box .icon-button {
+				&:hover { background: var(--bg-hover); }
+				.buttons { color: var(--text-secondary); }
+			}
+		}
+
+		.pagination-config .total-result p { color: var(--text-muted); }
+	}
+}
+
+// ── My Tour Packages page ────────────────────────────────────────────────────
+html.dark #mobile-wrap #my-page #my-tour-package-page {
+	.main-title-box .summary-box {
+		background: var(--bg-card);
+		border-color: var(--border-orange);
+		box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+		.summary-value { color: var(--text-primary); }
+		.summary-label { color: var(--text-muted); }
+	}
+
+	.tour-package-list-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+
+		.tab-name-box {
+			background: var(--bg-card-alt);
+
+			.tab-name, .active-tab-name {
+				> svg       { background: rgba(255, 138, 0, 0.12); color: var(--brand-orange); }
+				.tab-label  { color: var(--text-primary); }
+				.tab-helper { color: var(--text-secondary); }
+			}
+
+			.tab-name:hover { background: var(--bg-hover); border-color: var(--border-orange); }
+
+			.active-tab-name {
+				background: var(--brand-navy);
+				border-color: var(--brand-navy);
+				> svg { background: var(--brand-orange); color: #ffffff; }
+				.tab-label, .tab-helper { color: #ffffff; }
+			}
+		}
+	}
+
+	.list-box {
+		.listing-title-box {
+			background: var(--bg-card-alt);
+			.title-text { color: var(--text-muted); }
+		}
+
+		.tour-package-card-box {
+			background: var(--bg-card);
+			border-color: var(--border);
+			box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+			&:hover { border-color: var(--border-orange); box-shadow: 0 20px 44px rgba(0, 0, 0, 0.32); }
+
+			.image-box { background: rgba(255, 138, 0, 0.08); }
+
+			.information-box {
+				.name    { color: var(--text-primary); }
+				.address { color: var(--text-secondary); }
+				.meta-chip { background: var(--bg-input); p { color: var(--text-secondary); } }
+				.price { color: var(--text-secondary); strong { color: #f87171; } }
+			}
+
+			.date-box .date   { color: var(--text-secondary); }
+			.views-box .views { color: var(--text-secondary); }
+
+			.status-box .coloured-box  { background: rgba(2, 122, 72, 0.14); .status { color: #4ade80; } }
+			.closed-status-box .coloured-box { background: rgba(217, 45, 32, 0.12); .status { color: #f87171; } }
+
+			.action-box .icon-button {
+				background: var(--bg-input);
+				.buttons { color: var(--text-secondary); }
+				&:hover  { background: rgba(255, 138, 0, 0.12); }
+				&:last-child {
+					.buttons { color: #f87171; }
+					&:hover  { background: rgba(217, 45, 32, 0.10); }
+				}
+			}
+		}
+
+		.no-data { background: var(--bg-card); p { color: var(--text-secondary); } }
+
+		.pagination-config {
+			.pagination-box {
+				background: var(--bg-card);
+				border-color: var(--border);
+				.MuiPaginationItem-root { color: var(--text-secondary); }
+			}
+			.total-result p { color: var(--text-muted); }
+		}
+	}
+}
+
+// ── Add / Edit Tour Package page ─────────────────────────────────────────────
+html.dark #mobile-wrap #my-page #add-tour-package-page {
+	.tabs-box {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+		.active     { border-bottom-color: var(--brand-orange); color: var(--text-primary); }
+		.not-active { color: var(--text-muted); }
+	}
+
+	.config {
+		background: var(--bg-card);
+		border-color: var(--border);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+
+		.title, .tour-package-title,
+		.map-title, .owner-agent-title  { color: var(--text-primary); }
+
+		input, textarea, .description-input, .description-text,
+		.listing-input, .year-built-input, .owner-agent-input {
+			background: var(--bg-input);
+			border-color: var(--border);
+			color: var(--text-secondary);
+			&::placeholder { color: var(--text-muted); }
+			&:focus { border-color: var(--brand-orange); outline: none; }
+		}
+
+		select, .select-description {
+			background: var(--bg-input);
+			border-color: var(--border);
+			color: var(--text-secondary);
+		}
+
+		.divider    { border-left-color: var(--border); }
+		.arrow-down { color: var(--text-muted); }
+
+		.prev-button { border-color: var(--border); .prev-button-text { color: var(--text-primary); } }
+		.next-button { background: var(--brand-navy); .next-button-text { color: #ffffff; } }
+
+		.amenity-box .amenity-text { color: var(--text-secondary); }
+
+		.upload-box {
+			background: linear-gradient(135deg, rgba(255, 138, 0, 0.06) 0%, var(--bg-card) 55%, rgba(14, 165, 233, 0.04) 100%);
+			border-color: rgba(255, 138, 0, 0.40);
+			.drag-title   { color: var(--text-primary); }
+			.format-title { color: var(--text-secondary); }
+			.guide-pill {
+				background: var(--bg-card-alt);
+				border-color: var(--border);
+				p { color: var(--text-secondary); }
+			}
+		}
+
+		.gallery-box .image-box {
+			border-color: var(--border);
+			background: rgba(255, 138, 0, 0.06);
+			.absolute-box { background: var(--bg-card-alt); }
+			.remove-image-button {
+				background: rgba(7, 16, 30, 0.82);
+				border-color: var(--border-orange);
+				color: var(--text-primary);
+				&:hover { background: var(--brand-red); color: #ffffff; }
+			}
+		}
+	}
+}

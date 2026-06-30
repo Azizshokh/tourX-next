@@ -9,7 +9,7 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
 import axios from 'axios';
-import { Messages, REACT_APP_API_URL } from '../../config';
+import { Messages, REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { getJwtToken, updateStorage, updateUserInfo } from '../../auth';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -79,7 +79,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 			updateData.memberImage = responseImage;
 			setUpdateData({ ...updateData });
 
-			return `${REACT_APP_API_URL}/${responseImage}`;
+			return resolveImageUrl(responseImage);
 		} catch (err) {
 			console.log('Error, uploadImage:', err);
 		}
@@ -115,8 +115,6 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 		}
 	};
 
-	console.log('+updateData', updateData);
-
 	return (
 			<div id="my-profile-page">
 				<Stack className="main-title-box">
@@ -144,7 +142,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 								<img
 									src={
 										updateData?.memberImage
-											? `${REACT_APP_API_URL}/${updateData?.memberImage}`
+											? resolveImageUrl(updateData?.memberImage)
 											: `/img/profile/defaultUser.svg`
 									}
 									alt=""

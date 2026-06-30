@@ -273,7 +273,7 @@ const Faq = () => {
 						onClick={() => changeCategoryHandler(key)}
 						key={key}
 					>
-						<Icon />
+						<span className="faq-cat-icon"><Icon /></span>
 						<span>{label}</span>
 					</button>
 				))}

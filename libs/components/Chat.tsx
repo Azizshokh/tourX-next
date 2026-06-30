@@ -10,7 +10,7 @@ import { RippleBadge } from '../../scss/MaterialTheme/styled';
 import { useReactiveVar } from '@apollo/client';
 import { socketVar, userVar } from '../../apollo/store';
 import { Member } from '../types/member/member';
-import { Messages, REACT_APP_API_URL } from '../config';
+import { Messages, REACT_APP_API_URL , resolveImageUrl } from '../config';
 import { sweetErrorAlert } from '../sweetAlert';
 
 interface MessagePayload {
@@ -157,7 +157,7 @@ const Chat = () => {
 						{messagesList.map((ele: MessagePayload, idx: number) => {
 							const { text, memberData } = ele;
 							const memberImage = memberData?.memberImage
-								? `${REACT_APP_API_URL}/${memberData.memberImage}`
+								? resolveImageUrl(memberData.memberImage)
 								: '/img/profile/defaultUser.svg';
 
 							return memberData?._id === user._id ? (

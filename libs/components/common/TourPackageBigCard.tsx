@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 import { Stack, Box, Typography } from '@mui/material';
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -10,7 +10,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import { TourPackage } from '../../types/tour-package/tour-package';
-import { REACT_APP_API_URL, topPackageRank } from '../../config';
+import { resolveImageUrl, topPackageRank } from '../../config';
 import { formatterStr } from '../../utils';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -43,7 +43,7 @@ const TourPackageBigCard = (props: TourPackageBigCardProps) => {
 			<Box
 				component={'div'}
 				className={'card-img'}
-				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0]})` }}
+				style={{ backgroundImage: `url(${resolveImageUrl(tourPackage?.packageImages?.[0])})` }}
 			>
 				<div className={'img-overlay'} />
 				{tourPackage && tourPackage?.packageRank >= topPackageRank && (

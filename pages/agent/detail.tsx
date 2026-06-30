@@ -38,7 +38,7 @@ import { TourPackagesInquiry } from '../../libs/types/tour-package/tour-package.
 import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.input';
 import { Comment } from '../../libs/types/comment/comment';
 import { CommentGroup } from '../../libs/enums/comment.enum';
-import { Messages, REACT_APP_API_URL } from '../../libs/config';
+import { Messages, resolveImageUrl } from '../../libs/config';
 import { getI18nProps, AGENT_NAMESPACES } from '../../libs/i18n';
 import { T } from '../../libs/types/common';
 import AnimatedSection from '../../libs/components/animation/AnimatedSection';
@@ -338,43 +338,44 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	return (
 		<Stack className={'agent-detail-page'}>
-				<Box component={'div'} className={'agent-detail-bg-icons'} aria-hidden={'true'}>
-					<span className={'agent-detail-bg-icon plane'}>
-						<FlightTakeoffRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon earth'}>
-						<PublicRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon bag'}>
-						<LuggageRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon location'}>
-						<LocationOnRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon compass'}>
-						<ExploreRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon bg-agent'}>
-						<SupportAgentRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon map'}>
-						<MapRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon beach'}>
-						<BeachAccessRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon camera'}>
-						<CameraAltRoundedIcon />
-					</span>
-					<span className={'agent-detail-bg-icon anchor'}>
-						<AnchorRoundedIcon />
-					</span>
-				</Box>
-				<Stack className={'container'}>
-					<AnimatedSection><Stack className={'agent-info'}>
+			<Box component={'div'} className={'agent-detail-bg-icons'} aria-hidden={'true'}>
+				<span className={'agent-detail-bg-icon plane'}>
+					<FlightTakeoffRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon earth'}>
+					<PublicRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon bag'}>
+					<LuggageRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon location'}>
+					<LocationOnRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon compass'}>
+					<ExploreRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon bg-agent'}>
+					<SupportAgentRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon map'}>
+					<MapRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon beach'}>
+					<BeachAccessRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon camera'}>
+					<CameraAltRoundedIcon />
+				</span>
+				<span className={'agent-detail-bg-icon anchor'}>
+					<AnchorRoundedIcon />
+				</span>
+			</Box>
+			<Stack className={'container'}>
+				<AnimatedSection>
+					<Stack className={'agent-info'}>
 						<Box className={'agent-photo-wrap'}>
 							<img
-								src={agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'}
+								src={resolveImageUrl(agent?.memberImage, '/img/profile/defaultUser.svg')}
 								alt={agent?.memberFullName ?? agent?.memberNick ?? ''}
 								className={'agent-photo'}
 							/>
@@ -467,8 +468,10 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 								</Stack>
 							)}
 						</Box>
-					</Stack></AnimatedSection>
-					<AnimatedSection><Stack className={'agent-home-list'}>
+					</Stack>
+				</AnimatedSection>
+				<AnimatedSection>
+					<Stack className={'agent-home-list'}>
 						<Stack className={'card-wrap'}>
 							{agentTourPackages.map((tourPackage: TourPackage) => {
 								return (
@@ -567,9 +570,10 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 								</Button>
 							</Box>
 						</Stack>
-					</Stack></AnimatedSection>
-				</Stack>
+					</Stack>
+				</AnimatedSection>
 			</Stack>
+		</Stack>
 	);
 };
 

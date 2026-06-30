@@ -18,7 +18,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 
 const withLayoutMain = (Component: any) => {
 	return (props: any) => {

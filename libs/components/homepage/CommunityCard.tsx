@@ -11,7 +11,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { BoardArticleCategory } from '../../enums/board-article.enum';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useTranslation } from 'next-i18next';
 
 interface CommunityCardProps {
@@ -36,7 +36,7 @@ const CommunityCard = (props: CommunityCardProps) => {
 
 	if (variant === 'feature') {
 		const featureImage = article?.articleImage
-			? `${REACT_APP_API_URL}/${article.articleImage}`
+			? resolveImageUrl(article.articleImage)
 			: '/img/banner/TourX%20background.png';
 
 		return (

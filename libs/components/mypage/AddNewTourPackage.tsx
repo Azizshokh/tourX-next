@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { PackageType } from '../../enums/package.enum';
-import { packageCities, packageCountries, packageCurrencies, packageDurations, REACT_APP_API_URL } from '../../config';
+import { packageCities, packageCountries, packageCurrencies, packageDurations, REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { TourPackageInput } from '../../types/tour-package/tour-package.input';
 import { getJwtToken } from '../../auth';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetMixinSuccessAlert } from '../../sweetAlert';
@@ -532,7 +532,7 @@ const AddTourPackage = ({ initialValues, ...props }: any) => {
 								>
 									{image ? (
 										<>
-											<img src={`${REACT_APP_API_URL}/${image}`} alt={`Tour package photo ${index + 1}`} />
+											<img src={resolveImageUrl(image)} alt={`Tour package photo ${index + 1}`} />
 											<button
 												type="button"
 												className="remove-image-button"

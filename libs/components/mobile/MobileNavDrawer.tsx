@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useTheme as useNextTheme } from 'next-themes';
+import { useReactiveVar } from '@apollo/client';
 import CloseIcon from '@mui/icons-material/Close';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
@@ -13,7 +14,11 @@ import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import NotificationDropdown from '../notifications/NotificationDropdown';
+import { userVar } from '../../../apollo/store';
+import { logOut } from '../../auth';
+import { resolveImageUrl } from '../../config';
 
 interface MobileNavDrawerProps {
 	open: boolean;
@@ -29,7 +34,9 @@ const localeOptions = [
 
 const MobileNavDrawer = ({ open, isAuthenticated, onClose }: MobileNavDrawerProps) => {
 	const router = useRouter();
-	const { t } = useTranslation(['common']);
+	const { t } = useTranslation(['common', 'auth']);
+	const user = useReactiveVar(userVar);
+	const avatarSrc = user?.memberImage ? resolveImageUrl(user.memberImage) : '/img/profile/defaultUser.svg';
 	const { theme: nextTheme, setTheme } = useNextTheme();
 	const [mounted, setMounted] = useState(false);
 	const [lang, setLang] = useState<string>('en');
@@ -125,6 +132,26 @@ const MobileNavDrawer = ({ open, isAuthenticated, onClose }: MobileNavDrawerProp
 				</nav>
 
 				<div className="mobile-nav-tools">
+					{user?._id ? (
+						<div className="mobile-nav-auth-user">
+							<img className="mobile-nav-user-avatar" src={avatarSrc} alt="" />
+							<span className="mobile-nav-user-nick">{user.memberNick}</span>
+							<button
+								className="mobile-nav-logout-btn"
+								type="button"
+								onClick={() => { logOut(); onClose(); }}
+							>
+								<LogoutRoundedIcon />
+								{t('actions.logout', { defaultValue: 'Logout' })}
+							</button>
+						</div>
+					) : (
+						<Link href="/account/join" className="mobile-nav-login-btn" onClick={onClose}>
+							<AccountCircleRoundedIcon />
+							<span>{t('Login', { defaultValue: 'Login' })} / {t('Register', { defaultValue: 'Register' })}</span>
+						</Link>
+					)}
+
 					<div className="mobile-nav-tool-row">
 						<span>{t('notifications.title', { defaultValue: 'Notifications' })}</span>
 						<NotificationDropdown isAuthenticated={isAuthenticated} />

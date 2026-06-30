@@ -9,12 +9,12 @@ import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useTranslation } from 'next-i18next';
 
 const inspirationItems = [
-	{ titleKey: 'home:inspiration.beachEscapes', image: '/img/banner/TourX%20background.png', href: '/tour-package' },
-	{ titleKey: 'home:inspiration.adventureTravel', image: '/img/banner/cities/JEJU.webp', href: '/tour-package' },
-	{ titleKey: 'home:inspiration.culturalJourneys', image: '/img/banner/cities/GYEONGJU.webp', href: '/tour-package' },
-	{ titleKey: 'home:inspiration.familyHolidays', image: '/img/banner/cities/BUSAN.webp', href: '/tour-package' },
-	{ titleKey: 'home:inspiration.cityBreaks', image: '/img/banner/cities/SEOUL.webp', href: '/tour-package' },
-	{ titleKey: 'home:inspiration.hiddenRetreats', image: '/img/banner/cities/CHONJU.webp', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.beachEscapes', image: '/img/banner/travelInsparation/beachEscape.png', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.adventureTravel', image: '/img/banner/travelInsparation/adventureTravel.png', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.culturalJourneys', image: '/img/banner/travelInsparation/culturalJourneys.png', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.familyHolidays', image: '/img/banner/travelInsparation/familyHolidays.png', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.cityBreaks', image: '/img/banner/travelInsparation/cityBreaks.png', href: '/tour-package' },
+	{ titleKey: 'home:inspiration.hiddenRetreats', image: '/img/banner/travelInsparation/hiddenRetreates.png', href: '/tour-package' },
 ];
 
 const TravelInspiration = () => {

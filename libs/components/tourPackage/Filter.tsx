@@ -4,10 +4,11 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { useRouter } from 'next/router';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { PackageType } from '../../enums/package.enum';
 import { packageCities, packageCountries, packageDurations } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
+import { TourPackage } from '../../types/tour-package/tour-package';
 import { useTranslation } from 'next-i18next';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import {
@@ -32,6 +33,36 @@ const Filter = (props: FilterType) => {
 	const [isFiltering, setIsFiltering] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [checkTourPackages] = useLazyQuery(GET_TOUR_PACKAGES, { fetchPolicy: 'network-only' });
+
+	const { data: availabilityData } = useQuery(GET_TOUR_PACKAGES, {
+		fetchPolicy: 'cache-first',
+		variables: {
+			input: { page: 1, limit: 200, sort: 'createdAt', direction: 'DESC', search: { pricesRange: { start: 0, end: 2000000 } } },
+		},
+	});
+	const isAvailabilityLoaded = Boolean(availabilityData);
+	const allPackages: TourPackage[] = availabilityData?.getTourPackages?.list ?? [];
+
+	const availableCountries = useMemo(
+		() => new Set<string>(allPackages.map((p) => p.packageCountry).filter(Boolean)),
+		[allPackages],
+	);
+
+	const availableTypesByCountry = useMemo(() => {
+		const map = new Map<string, Set<string>>();
+		for (const p of allPackages) {
+			if (!p.packageCountry || !p.packageType) continue;
+			if (!map.has(p.packageCountry)) map.set(p.packageCountry, new Set<string>());
+			map.get(p.packageCountry)!.add(p.packageType as string);
+		}
+		return map;
+	}, [allPackages]);
+
+	const availableTypes = useMemo(() => {
+		const selectedCountry = searchFilter?.search?.countryList?.[0];
+		if (!selectedCountry) return new Set<string>(allPackages.map((p) => p.packageType as string).filter(Boolean));
+		return availableTypesByCountry.get(selectedCountry) ?? new Set<string>();
+	}, [searchFilter?.search?.countryList, availableTypesByCountry, allPackages]);
 
 	const activeCount = useMemo(() => {
 		const s = searchFilter.search;
@@ -149,6 +180,22 @@ const Filter = (props: FilterType) => {
 		await pushFilter(initialInput);
 	};
 
+	const countryChangeHandler = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const val = e.target.value;
+		const typesForCountry: Set<string> = val
+			? (availableTypesByCountry.get(val) ?? new Set<string>())
+			: new Set<string>(allPackages.map((p) => p.packageType as string).filter(Boolean));
+		const currentTypes = (searchFilter.search.typeList ?? []) as PackageType[];
+		const validTypes: PackageType[] = currentTypes.filter((t) => typesForCountry.has(t as string));
+		const nextFilter = {
+			...searchFilter,
+			page: 1,
+			search: { ...searchFilter.search, countryList: val ? [val] : [], typeList: validTypes },
+		};
+		setSearchFilter(nextFilter);
+		await pushFilter(nextFilter);
+	};
+
 	return (
 		<>
 			{/* Mobile toggle trigger — hidden on desktop via CSS */}
@@ -201,20 +248,11 @@ const Filter = (props: FilterType) => {
 						<select
 							className="filter-select"
 							value={searchFilter?.search?.countryList?.[0] ?? ''}
-							onChange={(e) => {
-								const val = e.target.value;
-								const nextFilter = {
-									...searchFilter,
-									page: 1,
-									search: { ...searchFilter.search, countryList: val ? [val] : [] },
-								};
-								setSearchFilter(nextFilter);
-								pushFilter(nextFilter);
-							}}
+							onChange={countryChangeHandler}
 						>
 							<option value="">{t('labels.all')}</option>
 							{packageCountries.map((c) => (
-								<option value={c} key={c}>
+								<option value={c} key={c} disabled={isAvailabilityLoaded && !availableCountries.has(c)}>
 									{c}
 								</option>
 							))}
@@ -251,17 +289,21 @@ const Filter = (props: FilterType) => {
 			<Stack className="filter-section">
 				<Typography className="section-label">{t('package:filter.experienceType')}</Typography>
 				<Stack className="type-grid">
-					{Object.values(PackageType).map((type) => (
-						<Stack className="type-item" key={type}>
-							<Checkbox
-								className="type-checkbox"
-								size="small"
-								checked={(searchFilter?.search?.typeList || []).includes(type)}
-								onChange={() => toggleListValue('typeList', type)}
-							/>
-							<Typography className="type-label">{type}</Typography>
-						</Stack>
-					))}
+					{Object.values(PackageType).map((type) => {
+						const isAvailable = !isAvailabilityLoaded || availableTypes.has(type as string);
+						return (
+							<Stack className={`type-item${isAvailable ? '' : ' type-item--disabled'}`} key={type}>
+								<Checkbox
+									className="type-checkbox"
+									size="small"
+									checked={(searchFilter?.search?.typeList || []).includes(type)}
+									onChange={() => toggleListValue('typeList', type)}
+									disabled={!isAvailable}
+								/>
+								<Typography className="type-label">{type}</Typography>
+							</Stack>
+						);
+					})}
 				</Stack>
 			</Stack>
 

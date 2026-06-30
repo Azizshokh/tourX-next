@@ -8,7 +8,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 import moment from 'moment';
 import { useTranslation } from 'next-i18next';
 

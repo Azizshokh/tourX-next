@@ -4,7 +4,7 @@ import { useReactiveVar } from '@apollo/client';
 import { useTranslation } from 'next-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import { userVar } from '../../../apollo/store';
-import { REACT_APP_API_URL } from '../../config';
+import { resolveImageUrl } from '../../config';
 import MobileNavDrawer from './MobileNavDrawer';
 
 const MobileTopNavbar = () => {
@@ -12,7 +12,7 @@ const MobileTopNavbar = () => {
 	const { t } = useTranslation(['common']);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const avatarHref = user?._id ? '/mypage' : '/account/join';
-	const avatarSrc = user?.memberImage ? `${REACT_APP_API_URL}/${user.memberImage}` : '/img/profile/defaultUser.svg';
+	const avatarSrc = user?.memberImage ? resolveImageUrl(user.memberImage) : '/img/profile/defaultUser.svg';
 
 	return (
 		<>

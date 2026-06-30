@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { getJwtToken, logOut, updateUserInfo } from '../auth';
+import { resolveImageUrl } from '../config';
 import { Stack, Box } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -15,7 +16,6 @@ import Link from 'next/link';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
-import { REACT_APP_API_URL } from '../config';
 import { useTheme as useNextTheme } from 'next-themes';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
@@ -25,7 +25,45 @@ import { baseTransition } from '../config/animations';
 import MobileTopNavbar from './mobile/MobileTopNavbar';
 import MobileBottomNav from './mobile/MobileBottomNav';
 
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
+
+const StyledMenu = styled((props: MenuProps) => (
+	<Menu
+		elevation={0}
+		anchorOrigin={{
+			vertical: 'bottom',
+			horizontal: 'right',
+		}}
+		transformOrigin={{
+			vertical: 'top',
+			horizontal: 'right',
+		}}
+		{...props}
+	/>
+))(({ theme }) => ({
+	'& .MuiPaper-root': {
+		top: '109px',
+		borderRadius: 6,
+		marginTop: theme.spacing(1),
+		minWidth: 160,
+		color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+		boxShadow:
+			'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+		'& .MuiMenu-list': {
+			padding: '4px 0',
+		},
+		'& .MuiMenuItem-root': {
+			'& .MuiSvgIcon-root': {
+				fontSize: 18,
+				color: theme.palette.text.secondary,
+				marginRight: theme.spacing(1.5),
+			},
+			'&:active': {
+				backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+			},
+		},
+	},
+}));
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -36,8 +74,6 @@ const Top = () => {
 	const [lang, setLang] = useState<string | null>('en');
 	const drop = Boolean(anchorEl2);
 	const [colorChange, setColorChange] = useState(false);
-	const [anchorEl, setAnchorEl] = React.useState<any | HTMLElement>(null);
-	let open = Boolean(anchorEl);
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
@@ -94,6 +130,12 @@ const Top = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		const handleScroll = () => setColorChange(window.scrollY >= 50);
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
 	/** HANDLERS **/
 	const langClick = (e: any) => {
 		setAnchorEl2(e.currentTarget);
@@ -113,68 +155,6 @@ const Top = () => {
 		},
 		[router],
 	);
-
-	const changeNavbarColor = () => {
-		if (window.scrollY >= 50) {
-			setColorChange(true);
-		} else {
-			setColorChange(false);
-		}
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const handleHover = (event: any) => {
-		if (anchorEl !== event.currentTarget) {
-			setAnchorEl(event.currentTarget);
-		} else {
-			setAnchorEl(null);
-		}
-	};
-
-	const StyledMenu = styled((props: MenuProps) => (
-		<Menu
-			elevation={0}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'right',
-			}}
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'right',
-			}}
-			{...props}
-		/>
-	))(({ theme }) => ({
-		'& .MuiPaper-root': {
-			top: '109px',
-			borderRadius: 6,
-			marginTop: theme.spacing(1),
-			minWidth: 160,
-			color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-			boxShadow:
-				'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-			'& .MuiMenu-list': {
-				padding: '4px 0',
-			},
-			'& .MuiMenuItem-root': {
-				'& .MuiSvgIcon-root': {
-					fontSize: 18,
-					color: theme.palette.text.secondary,
-					marginRight: theme.spacing(1.5),
-				},
-				'&:active': {
-					backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-				},
-			},
-		},
-	}));
-
-	if (typeof window !== 'undefined') {
-		window.addEventListener('scroll', changeNavbarColor);
-	}
 
 	if (device == 'mobile' || isCompactViewport) {
 		return (
@@ -227,12 +207,7 @@ const Top = () => {
 							{user?._id ? (
 								<>
 									<div className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
-										<img
-											src={
-												user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
-											}
-											alt=""
-										/>
+										<img src={user?.memberImage ? resolveImageUrl(user.memberImage) : '/img/profile/defaultUser.svg'} alt="" />
 									</div>
 
 									<Menu
@@ -269,7 +244,11 @@ const Top = () => {
 									aria-label={t('common:chat.toggleChat')}
 								>
 									{mounted ? (
-										nextTheme === 'dark' ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />
+										nextTheme === 'dark' ? (
+											<LightModeRoundedIcon />
+										) : (
+											<DarkModeRoundedIcon />
+										)
 									) : (
 										<DarkModeRoundedIcon />
 									)}

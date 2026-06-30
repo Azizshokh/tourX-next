@@ -16,7 +16,7 @@ export const fastTransition: Transition = { duration: 0.35, ease: EASE };
 export const reducedTransition: Transition = { duration: 0.25, ease: EASE };
 
 // ── Inline motion prop spreads ────────────────────────────────────────────────
-// These are spread onto `motion.*` or `motion(Component)` elements directly.
+// These are spread onto `motion.*` or `motion.create(Component)` elements directly.
 
 export const fadeUpMotionProps = {
 	initial: { opacity: 0, y: 32 },

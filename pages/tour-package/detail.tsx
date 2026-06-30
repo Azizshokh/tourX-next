@@ -26,7 +26,7 @@ import {
 } from '../../libs/components/common/CommentMedia';
 import { TourPackage } from '../../libs/types/tour-package/tour-package';
 import { formatterStr } from '../../libs/utils';
-import { REACT_APP_API_URL } from '../../libs/config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../libs/config';
 import { userVar } from '../../apollo/store';
 import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.input';
 import { Comment } from '../../libs/types/comment/comment';
@@ -323,14 +323,14 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								<Stack className={'images'}>
 									<Stack className={'main-image'}>
 										<img
-											src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/banner/TourX%20background.png'}
+											src={slideImage ? resolveImageUrl(slideImage) : '/img/banner/TourX%20background.png'}
 											alt={'main-image'}
 										/>
 									</Stack>
 									<Stack className={'sub-images'}>
 										{tourPackage?.packageImages?.slice(0, 5).map((subImg: string) => (
 											<Stack className={'sub-img-box'} onClick={() => setSlideImage(subImg)} key={subImg}>
-												<img src={`${REACT_APP_API_URL}/${subImg}`} alt={'sub-image'} />
+												<img src={resolveImageUrl(subImg)} alt={'sub-image'} />
 											</Stack>
 										))}
 									</Stack>
@@ -470,7 +470,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 										className={'member-image'}
 										src={
 											tourPackage?.memberData?.memberImage
-												? `${REACT_APP_API_URL}/${tourPackage?.memberData?.memberImage}`
+												? resolveImageUrl(tourPackage?.memberData?.memberImage)
 												: '/img/profile/defaultUser.svg'
 										}
 									/>

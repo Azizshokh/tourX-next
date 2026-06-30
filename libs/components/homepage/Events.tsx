@@ -14,26 +14,26 @@ const eventsData: EventData[] = [
 		city: 'Incheon',
 		description:
 			'Experience magic and wonder in Incheon with a visit to the night-themed indoor theme park Wonderbox at Paradise City!',
-		imageSrc: '/img/events/INCHEON.webp',
+		imageSrc: '/img/events/travel_concepts.png',
 	},
 	{
 		eventTitle: 'Taebaeksan Snow Festival',
 		city: 'Seoul',
 		description: 'If you have the opportunity to travel to South Korea, do not miss the Taebaeksan Snow Festival!',
-		imageSrc: '/img/events/SEOUL.webp',
+		imageSrc: '/img/banner/Layout%20bg.png',
 	},
 	{
 		eventTitle: 'Suseong Lake Event',
 		city: 'Daegu',
 		description: 'The Suseong Lake Festival is a culture and arts festival held alongside Suseongmot Lake!',
-		imageSrc: '/img/events/DAEGU.webp',
+		imageSrc: '/img/events/about_us_img.png',
 	},
 	{
 		eventTitle: 'Sand Festival',
 		city: 'Busan',
 		description:
 			'Haeundae Sand Festival, the nation’s largest eco-friendly exhibition on sand, is held at Haeundae Beach!',
-		imageSrc: '/img/events/BUSAN.webp',
+		imageSrc: '/img/events/Footer%20img.png',
 	},
 ];
 

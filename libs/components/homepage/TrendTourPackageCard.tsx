@@ -3,7 +3,7 @@ import { Stack, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import { TourPackage } from '../../types/tour-package/tour-package';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
@@ -18,7 +18,7 @@ const TrendTourPackageCard = (props: TrendTourPackageCardProps) => {
 	const router = useRouter();
 	const { t } = useTranslation(['common', 'home', 'package']);
 	const imageUrl = tourPackage?.packageImages?.[0]
-		? `${REACT_APP_API_URL}/${tourPackage.packageImages[0]}`
+		? resolveImageUrl(tourPackage.packageImages[0])
 		: '/img/banner/TourX%20background.png';
 	const isFeatured = variant === 'featured';
 	const priceLabel = `${t('package:card.from')} $${Number(tourPackage?.packagePrice || 0).toLocaleString()}`;

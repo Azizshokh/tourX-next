@@ -20,7 +20,7 @@ import { Message } from '../../enums/common.enum';
 import { GET_TOP_LIKED_COMMENTS } from '../../../apollo/user/query';
 import { TOGGLE_COMMENT_LIKE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { useTranslation } from 'next-i18next';
 
@@ -234,7 +234,7 @@ const CommunityComments = () => {
 					>
 						{comments.map((comment, index) => {
 							const avatarSrc = comment.memberData?.memberImage
-								? `${REACT_APP_API_URL}/${comment.memberData.memberImage}`
+								? resolveImageUrl(comment.memberData.memberImage)
 								: '/img/profile/defaultUser.svg';
 							const isThisLoading = likeLoading === comment._id;
 							const isMockEntry = comment._id.startsWith('mock_');

@@ -1132,6 +1132,13 @@
 					color: var(--brand-orange);
 					font-size: 20px;
 				}
+
+				// Inner Stack wrapping kicker + address must also have min-width:0
+				// so the address Typography can honour white-space:nowrap + text-overflow:ellipsis
+				> .MuiStack-root {
+					flex: 1;
+					min-width: 0;
+				}
 			}
 
 			.map-kicker,

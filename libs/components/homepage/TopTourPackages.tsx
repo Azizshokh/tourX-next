@@ -20,7 +20,7 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
@@ -81,7 +81,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 	const slidesPerView = device === 'mobile' ? 1.2 : 3;
 
 	const imageOf = (p?: TourPackage) =>
-		p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
+		p?.packageImages?.[0] ? resolveImageUrl(p.packageImages[0]) : '/img/banner/TourX%20background.png';
 	const ratingOf = (p?: TourPackage) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
 	const formatCount = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`);
 	const inclusionLabel = (p: TourPackage) =>

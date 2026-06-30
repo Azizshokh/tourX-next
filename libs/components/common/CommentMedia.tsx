@@ -7,7 +7,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 
 const allowedImageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 const allowedImageMimeTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
@@ -386,7 +386,7 @@ export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 
 const resolveMediaUrl = (url: string) => {
 	if (/^(https?:)?\/\//.test(url) || url.startsWith('blob:')) return url;
-	return `${REACT_APP_API_URL}/${url}`;
+	return resolveImageUrl(url);
 };
 
 export const CommentMediaDisplay = ({ images, video }: { images?: string[]; video?: string | null }) => {

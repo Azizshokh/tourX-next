@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Box, Typography } from '@mui/material';
 import { Comment } from '../../types/comment/comment';
 import Moment from 'react-moment';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { CommentMediaDisplay } from '../common/CommentMedia';
 import CommentLikeButton from '../common/CommentLikeButton';
 
@@ -13,7 +13,7 @@ interface ReviewCardProps {
 const ReviewCard = (props: ReviewCardProps) => {
 	const { fromMyPage, comment } = props;
 	const imagePath: string = comment?.memberData?.memberImage
-		? `${REACT_APP_API_URL}/${comment?.memberData?.memberImage}`
+		? resolveImageUrl(comment?.memberData?.memberImage)
 		: '/img/profile/defaultUser.svg';
 
 	return (

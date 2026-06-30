@@ -29,7 +29,7 @@ import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { GET_BOARD_ARTICLE, GET_COMMENTS } from '../../apollo/user/query';
 import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.input';
 import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
-import { Messages } from '../../libs/config';
+import { Messages, resolveImageUrl } from '../../libs/config';
 import { CommentUpdate } from '../../libs/types/comment/comment.update';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
@@ -99,7 +99,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 		onCompleted(data: any) {
 			setBoardArticle(data?.getBoardArticle);
 			if (data?.getBoardArticle?.memberData?.memberImage) {
-				setMemberImage(`${process.env.REACT_APP_API_URL}/${data?.getBoardArticle?.memberData?.memberImage}`);
+				setMemberImage(resolveImageUrl(data?.getBoardArticle?.memberData?.memberImage));
 			}
 		},
 	});
@@ -204,7 +204,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	const getCommentMemberImage = (imageUrl: string | undefined) => {
-		if (imageUrl) return `${process.env.REACT_APP_API_URL}/${imageUrl}`;
+		if (imageUrl) return resolveImageUrl(imageUrl);
 		return '/img/community/articleImg.png';
 	};
 
@@ -230,11 +230,11 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	const articleHeroImage = boardArticle?.articleImage
-		? `${process.env.REACT_APP_API_URL}/${boardArticle.articleImage}`
+		? resolveImageUrl(boardArticle.articleImage)
 		: '/img/community/communityImg.png';
 
 	const userAvatar = user?.memberImage
-		? `${process.env.REACT_APP_API_URL}/${user.memberImage}`
+		? resolveImageUrl(user.memberImage)
 		: '/img/community/articleImg.png';
 
 	if (device === 'mobile') {

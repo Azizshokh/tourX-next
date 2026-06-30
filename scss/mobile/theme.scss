@@ -929,6 +929,7 @@ html.dark #mobile-wrap #tour-package-list-page {
 
 			.type-checkbox  { color: var(--text-muted); }
 			.type-label     { color: var(--text-secondary); }
+			.type-item--disabled .type-label { color: var(--text-muted); }
 			.range-sep      { color: var(--text-muted); }
 		}
 
@@ -1436,10 +1437,55 @@ html.dark #mobile-wrap .agent-detail-page {
 // ─────────────────────────────────────────────────────────────────────────────
 
 html.dark #mobile-wrap .community-list-page {
-	// Cat pill icon — source (1,4,0), override (1,4,1) ✓
-	.cl-cat-item .cl-cat-icon { color: var(--text-muted); }
-	// Active pill icon — source .cl-cat-item.active .cl-cat-icon (1,4,0), override (1,5,1) ✓
-	.cl-cat-item.active .cl-cat-icon { color: #ffffff; }
+	// Page background
+	background: var(--bg-page);
+
+	// ── Sidebar tools ────────────────────────────────────────────────────────
+
+	// Write button — stays orange; dim the glow shadow for dark backgrounds
+	.cl-write-btn { box-shadow: 0 8px 24px rgba(255, 138, 0, 0.18); }
+
+	// Category card container
+	.cl-cat-section {
+		background: var(--bg-card);
+		border-color: var(--border-orange);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+	}
+
+	// Section label ("CATEGORIES") — use secondary for readability on dark card
+	.cl-cat-label { color: var(--text-secondary); }
+
+	// Category pill — default state
+	// rgba(white, 0.06) creates a clearly visible lighter tint over any dark bg;
+	// rgba(white, 0.10) border is legible without relying on the faint orange token
+	.cl-cat-item {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(255, 255, 255, 0.10);
+		color: var(--text-secondary);
+
+		&:hover {
+			background: var(--bg-hover);
+			border-color: var(--border-orange);
+			color: var(--brand-orange);
+		}
+
+		&.active {
+			background: rgba(255, 138, 0, 0.14);
+			border-color: var(--border-orange);
+			color: var(--brand-orange);
+		}
+	}
+
+	// Cat pill icon — var(--text-secondary) is readable; muted (#3d5a7a) is too dark
+	.cl-cat-item .cl-cat-icon { color: var(--text-secondary); }
+
+	// Hover icon
+	.cl-cat-item:hover .cl-cat-icon { color: var(--brand-orange); }
+
+	// Active pill icon
+	.cl-cat-item.active .cl-cat-icon { color: var(--brand-orange); }
+
+	// ── Article cards ────────────────────────────────────────────────────────
 
 	// Like overlay button on card image — source (1,5,0), override (1,5,1) ✓
 	.community-article-card .cac-image-wrap .cac-like-btn {
@@ -2480,119 +2526,148 @@ html.dark #mobile-wrap #write-article-page {
 		.MuiTypography-root { color: #4ade80; }
 	}
 
-	// Toast UI Editor dark mode
+	// Toast UI Editor dark mode — all rules use !important to beat Toast UI's own CSS
 	.toastui-editor-defaultUI {
-		border-color: var(--border);
-		background: var(--bg-card);
+		border-color: var(--border) !important;
+		background: var(--bg-card) !important;
 
 		.toastui-editor-defaultUI-toolbar {
-			background: var(--bg-card-alt);
-			border-bottom-color: var(--border);
+			background: var(--bg-card-alt) !important;
+			border-bottom-color: var(--border) !important;
 
-			.toastui-editor-toolbar-divider { background-color: var(--border); }
+			.toastui-editor-toolbar-divider { background-color: var(--border) !important; }
 
 			button {
-				background-color: transparent;
-				border-color: var(--bg-card-alt);
-				color: var(--text-secondary);
+				background-color: transparent !important;
+				border-color: var(--bg-card-alt) !important;
+				color: var(--text-secondary) !important;
+				opacity: 1 !important;
+
 				&:not(:disabled):hover {
-					background-color: rgba(255, 138, 0, 0.14);
-					border-color: rgba(255, 138, 0, 0.28);
-					color: var(--brand-orange);
+					background-color: rgba(255, 138, 0, 0.14) !important;
+					border-color: rgba(255, 138, 0, 0.28) !important;
+					color: var(--brand-orange) !important;
 				}
 			}
 
+			// brightness(0) collapses icon pixels to black; invert(1) flips to white.
+			// Alpha is preserved so transparent areas stay transparent.
 			.toastui-editor-toolbar-icons {
-				filter: brightness(0) invert(1) contrast(1.08);
-				border-color: var(--bg-card-alt);
+				background-color: transparent !important;
+				color: var(--text-primary) !important;
+				filter: brightness(0) invert(1) contrast(1.08) !important;
+				border-color: var(--bg-card-alt) !important;
+				opacity: 1 !important;
+
 				&:not(:disabled):hover {
-					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg);
-					background-color: rgba(255, 138, 0, 0.14);
+					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg) !important;
+					background-color: rgba(255, 138, 0, 0.14) !important;
+					border-color: rgba(255, 138, 0, 0.28) !important;
 				}
+
 				&.active {
-					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg);
-					background-color: rgba(255, 138, 0, 0.20);
+					filter: brightness(0) invert(1) sepia(1) saturate(3.8) hue-rotate(355deg) !important;
+					background-color: rgba(255, 138, 0, 0.20) !important;
+					border-color: rgba(255, 138, 0, 0.40) !important;
 				}
+			}
+
+			// Preserve sprite background-size so icons aren't distorted
+			button.toastui-editor-toolbar-icons {
+				background-repeat: no-repeat !important;
+				background-size: 466px 146px !important;
+			}
+
+			// Ensure any inline svg / pseudo-element icons are also visible
+			.toastui-editor-toolbar-icons::before,
+			.toastui-editor-toolbar-icons::after,
+			button svg,
+			button i,
+			button span {
+				color: var(--text-primary) !important;
+				fill: currentColor !important;
+				stroke: currentColor !important;
+				opacity: 1 !important;
 			}
 
 			.toastui-editor-dropdown-toolbar {
-				background: var(--bg-card-alt);
-				border-color: var(--border);
-				.toastui-editor-toolbar-icons { filter: brightness(0) invert(1) contrast(1.08); }
+				background: var(--bg-card-alt) !important;
+				border-color: var(--border) !important;
+				.toastui-editor-toolbar-icons { filter: brightness(0) invert(1) contrast(1.08) !important; }
 			}
 		}
 
-		.toastui-editor-toolbar     { background: transparent; }
+		.toastui-editor-toolbar     { background: transparent !important; }
 		.toastui-editor-main,
 		.toastui-editor-md-container,
 		.toastui-editor-ww-container,
-		.toastui-editor             { background: var(--bg-card); }
+		.toastui-editor             { background: var(--bg-card) !important; }
 
 		.ProseMirror {
-			background: var(--bg-card);
-			color: var(--text-primary);
-			caret-color: var(--brand-orange);
+			background: var(--bg-card) !important;
+			color: var(--text-primary) !important;
+			caret-color: var(--brand-orange) !important;
 		}
 
 		.toastui-editor-md-tab-container {
-			background: var(--bg-card-alt);
-			border-bottom-color: var(--border);
+			background: var(--bg-card-alt) !important;
+			border-bottom-color: var(--border) !important;
 
 			.tab-item {
-				background: var(--bg-input);
-				color: var(--text-muted);
-				border-color: var(--border);
-				&:hover { color: var(--text-secondary); }
+				background: var(--bg-input) !important;
+				color: var(--text-muted) !important;
+				border-color: var(--border) !important;
+				&:hover { color: var(--text-secondary) !important; }
 			}
 			.tab-item.active {
-				background: var(--bg-card);
-				color: var(--brand-orange);
-				border-bottom-color: var(--bg-card);
+				background: var(--bg-card) !important;
+				color: var(--brand-orange) !important;
+				border-bottom-color: var(--bg-card) !important;
 			}
 		}
 
 		.toastui-editor-md-preview {
-			background: var(--bg-card-alt);
-			border-left-color: var(--border);
-			color: var(--text-secondary);
+			background: var(--bg-card-alt) !important;
+			border-left-color: var(--border) !important;
+			color: var(--text-secondary) !important;
 		}
 
 		.toastui-editor-mode-switch {
-			background: var(--bg-card-alt);
-			border-top-color: var(--border);
+			background: var(--bg-card-alt) !important;
+			border-top-color: var(--border) !important;
 
 			.tab-item {
-				background: var(--bg-input);
-				color: var(--text-secondary);
-				border-color: var(--border);
-				&:hover { color: var(--text-primary); background: rgba(255, 138, 0, 0.08); }
+				background: var(--bg-input) !important;
+				color: var(--text-secondary) !important;
+				border-color: var(--border) !important;
+				&:hover { color: var(--text-primary) !important; background: rgba(255, 138, 0, 0.08) !important; }
 			}
 			.tab-item.active {
-				background: var(--bg-card);
-				color: var(--brand-orange);
-				border-top-color: var(--bg-card-alt);
-				border-left-color: var(--border);
-				border-right-color: var(--border);
-				border-bottom-color: transparent;
+				background: var(--bg-card) !important;
+				color: var(--brand-orange) !important;
+				border-top-color: var(--bg-card-alt) !important;
+				border-left-color: var(--border) !important;
+				border-right-color: var(--border) !important;
+				border-bottom-color: transparent !important;
 			}
 		}
 
 		.toastui-editor-popup {
-			background: var(--bg-card);
-			border-color: var(--border);
-			box-shadow: 0 16px 40px rgba(0, 0, 0, 0.40);
-			.toastui-editor-popup-body { background: var(--bg-card); }
-			label { color: var(--text-secondary); }
+			background: var(--bg-card) !important;
+			border-color: var(--border) !important;
+			box-shadow: 0 16px 40px rgba(0, 0, 0, 0.40) !important;
+			.toastui-editor-popup-body { background: var(--bg-card) !important; }
+			label { color: var(--text-secondary) !important; }
 			input {
-				background: var(--bg-input);
-				border-color: var(--border);
-				color: var(--text-primary);
-				&::placeholder { color: var(--text-muted); }
+				background: var(--bg-input) !important;
+				border-color: var(--border) !important;
+				color: var(--text-primary) !important;
+				&::placeholder { color: var(--text-muted) !important; }
 			}
 			.toastui-editor-popup-add-btn {
-				background: var(--brand-orange);
-				border-color: var(--brand-orange);
-				color: #fff;
+				background: var(--brand-orange) !important;
+				border-color: var(--brand-orange) !important;
+				color: #fff !important;
 			}
 		}
 	}
@@ -2777,6 +2852,56 @@ html.dark #mobile-wrap #my-page #add-tour-package-page {
 				border-color: var(--border-orange);
 				color: var(--text-primary);
 				&:hover { background: var(--brand-red); color: #ffffff; }
+			}
+		}
+	}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  JOIN / LOGIN  — mobile dark mode
+//  Source selector: #mobile-wrap .join-page .left input = (1,3,1)
+//  This override:   html.dark #mobile-wrap .join-page .left input = (1,4,1) ✓
+// ─────────────────────────────────────────────────────────────────────────────
+html.dark #mobile-wrap .join-page {
+	background: var(--bg-page);
+
+	.main {
+		box-shadow: var(--shadow-deep);
+
+		.left {
+			background: var(--bg-card);
+
+			.logo span      { color: var(--text-primary); }
+			.info-title     { color: var(--text-primary); }
+			.info-sub       { color: var(--text-secondary); }
+			.input-box > span { color: var(--text-primary); }
+
+			input {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-primary);
+				&::placeholder { color: var(--text-muted); }
+				&:focus { border-color: var(--brand-orange); background: var(--bg-card); }
+			}
+
+			.type-btn {
+				background: var(--bg-input);
+				border-color: var(--border);
+				color: var(--text-secondary);
+				&.active {
+					border-color: var(--brand-orange);
+					background: rgba(255, 138, 0, 0.10);
+					color: var(--brand-orange);
+				}
+			}
+
+			.remember-info a { color: var(--text-secondary); }
+
+			.ask-info p { color: var(--text-secondary); }
+
+			.submit-btn.Mui-disabled {
+				background: var(--bg-card-alt);
+				color: var(--text-muted);
 			}
 		}
 	}

@@ -70,7 +70,140 @@ const Join: NextPage = () => {
 	}, [input]);
 
 	if (device === 'mobile') {
-		return <div>{t('common:mobile.login')}</div>;
+		return (
+			<Stack className={'join-page'}>
+				<Stack className={'container'}>
+					<Stack className={'main'}>
+						<Stack className={'left'}>
+							<Box className={'logo'}>
+								<img src="/img/logo/TourX.svg" alt="TourX" />
+								<span>TourX</span>
+							</Box>
+
+							<Box className={'info'}>
+								<Typography className={'info-title'}>
+									{loginView ? t('auth:welcomeBack') : t('auth:createAccount')}
+								</Typography>
+								<Typography className={'info-sub'}>
+									{loginView ? t('auth:signInJourney') : t('auth:joinTourX')}
+								</Typography>
+							</Box>
+
+							<Box className={'input-wrap'}>
+								<div className={'input-box'}>
+									<span>{t('auth:nickname')}</span>
+									<div className={'input-inner'}>
+										<AccountCircleRoundedIcon className={'input-icon'} />
+										<input
+											type="text"
+											placeholder={t('auth:enterNickname')}
+											onChange={(e) => handleInput('nick', e.target.value)}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter' && loginView) doLogin();
+												if (event.key === 'Enter' && !loginView) doSignUp();
+											}}
+										/>
+									</div>
+								</div>
+
+								<div className={'input-box'}>
+									<span>{t('auth:password')}</span>
+									<div className={'input-inner'}>
+										<LockRoundedIcon className={'input-icon'} />
+										<input
+											type="password"
+											placeholder={t('auth:enterPassword')}
+											onChange={(e) => handleInput('password', e.target.value)}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter' && loginView) doLogin();
+												if (event.key === 'Enter' && !loginView) doSignUp();
+											}}
+										/>
+									</div>
+								</div>
+
+								{!loginView && (
+									<div className={'input-box'}>
+										<span>{t('auth:phone')}</span>
+										<div className={'input-inner'}>
+											<LocalPhoneRoundedIcon className={'input-icon'} />
+											<input
+												type="text"
+												placeholder={t('auth:enterPhone')}
+												onChange={(e) => handleInput('phone', e.target.value)}
+												onKeyDown={(event) => {
+													if (event.key === 'Enter') doSignUp();
+												}}
+											/>
+										</div>
+									</div>
+								)}
+							</Box>
+
+							<Box className={'register'}>
+								{!loginView && (
+									<div className={'type-option'}>
+										<span className={'type-label'}>{t('auth:registerAs')}</span>
+										<div className={'type-btns'}>
+											<button
+												className={`type-btn${input.type === 'USER' ? ' active' : ''}`}
+												onClick={() => handleInput('type', 'USER')}
+											>
+												<PersonRoundedIcon />
+												{t('auth:user')}
+											</button>
+											<button
+												className={`type-btn${input.type === 'AGENT' ? ' active' : ''}`}
+												onClick={() => handleInput('type', 'AGENT')}
+											>
+												<SupportAgentRoundedIcon />
+												{t('auth:agent')}
+											</button>
+										</div>
+									</div>
+								)}
+
+								{loginView && (
+									<div className={'remember-info'}>
+										<FormGroup>
+											<FormControlLabel control={<Checkbox defaultChecked size="small" />} label={t('auth:rememberMe')} />
+										</FormGroup>
+										<a>{t('auth:lostPassword')}</a>
+									</div>
+								)}
+
+								<Button
+									className={'submit-btn'}
+									endIcon={<ArrowForwardRoundedIcon />}
+									disabled={
+										loginView
+											? input.nick === '' || input.password === ''
+											: input.nick === '' || input.password === '' || input.phone === '' || input.type === ''
+									}
+									onClick={loginView ? doLogin : doSignUp}
+								>
+									{loginView ? t('auth:signIn') : t('auth:createAccountButton')}
+								</Button>
+							</Box>
+
+							<Box className={'ask-info'}>
+								{loginView ? (
+									<p>
+										{t('auth:noAccount')}
+										<b onClick={() => viewChangeHandler(false)}>{t('auth:signUp')}</b>
+									</p>
+								) : (
+									<p>
+										{t('auth:hasAccount')}
+										<b onClick={() => viewChangeHandler(true)}>{t('auth:signIn')}</b>
+									</p>
+								)}
+							</Box>
+						</Stack>
+					</Stack>
+				</Stack>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'join-page'}>

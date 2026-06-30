@@ -15,7 +15,7 @@ import {
 import Avatar from '@mui/material/Avatar';
 import { Stack } from '@mui/material';
 import { TourPackage } from '../../../types/tour-package/tour-package';
-import { REACT_APP_API_URL } from '../../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../../config';
 import Typography from '@mui/material/Typography';
 import { PackageStatus } from '../../../enums/package.enum';
 import { useTranslation } from 'next-i18next';
@@ -130,7 +130,7 @@ export const TourPackagePanelList = (props: TourPackagePanelListType) => {
 
 						{packages.length !== 0 &&
 							packages.map((tourPackage: TourPackage, index: number) => {
-								const packageImage = `${REACT_APP_API_URL}/${tourPackage?.packageImages?.[0] ?? ''}`;
+								const packageImage = resolveImageUrl(tourPackage?.packageImages?.[0] ?? '');
 
 								return (
 									<TableRow

@@ -22,7 +22,7 @@ import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import { getJwtToken, logOut, updateUserInfo } from '../../auth';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { MemberType } from '../../enums/member.enum';
 import { useTranslation } from 'next-i18next';
 const drawerWidth = 280;
@@ -107,7 +107,7 @@ const withAdminLayout = (Component: ComponentType) => {
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<Avatar
 										src={
-											user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'
+											user?.memberImage ? resolveImageUrl(user?.memberImage) : '/img/profile/defaultUser.svg'
 										}
 									/>
 								</IconButton>
@@ -187,7 +187,7 @@ const withAdminLayout = (Component: ComponentType) => {
 								}}
 							>
 								<Avatar
-									src={user?.memberImage ? `${REACT_APP_API_URL}/${user?.memberImage}` : '/img/profile/defaultUser.svg'}
+									src={user?.memberImage ? resolveImageUrl(user?.memberImage) : '/img/profile/defaultUser.svg'}
 								/>
 								<Typography variant={'body2'} p={1} ml={1}>
 									{user?.memberNick} <br />

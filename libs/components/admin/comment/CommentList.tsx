@@ -19,7 +19,7 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import moment from 'moment';
 import { Comment } from '../../../types/comment/comment';
 import { CommentStatus } from '../../../enums/comment.enum';
-import { REACT_APP_API_URL } from '../../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../../config';
 import { useTranslation } from 'next-i18next';
 
 interface CommentListProps {
@@ -77,7 +77,7 @@ export const CommentList = ({ comments, loading, onDeleteRequest, onPause, onAct
 						const isPaused = status === CommentStatus.PAUSED;
 						const isActive = status === CommentStatus.ACTIVE;
 						const avatarSrc = comment.memberData?.memberImage
-							? `${REACT_APP_API_URL}/${comment.memberData.memberImage}`
+							? resolveImageUrl(comment.memberData.memberImage)
 							: '/img/profile/defaultUser.svg';
 						const shortRef = comment.commentRefId.slice(-8);
 

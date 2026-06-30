@@ -8,7 +8,7 @@ import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded
 import { BoardArticleCategory } from '../../enums/board-article.enum';
 import { Editor } from '@toast-ui/react-editor';
 import { getJwtToken } from '../../auth';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { T } from '../../types/common';
@@ -71,7 +71,7 @@ const TuiEditor = () => {
 			console.log('=responseImage: ', responseImage);
 			memoizedValues.articleImage = responseImage;
 
-			return `${REACT_APP_API_URL}/${responseImage}`;
+			return resolveImageUrl(responseImage);
 		} catch (err) {
 			console.log('Error, uploadImage:', err);
 		}

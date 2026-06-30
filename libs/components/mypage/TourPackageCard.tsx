@@ -2,7 +2,7 @@ import { Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
@@ -17,6 +17,7 @@ import { formatterStr } from '../../utils';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
 import { PackageStatus } from '../../enums/package.enum';
+import { resolveImageUrl } from '../../config';
 
 interface TourPackageCardProps {
 	tourPackage: TourPackage;
@@ -63,7 +64,7 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 			<MotionStack className="tour-package-card-box" {...fadeUpMotionProps}>
 				<Stack className="image-box" onClick={() => pushTourPackageDetail(tourPackage?._id)}>
 					{packageImage ? (
-						<img src={`${process.env.REACT_APP_API_URL}/${packageImage}`} alt={tourPackage.packageTitle} />
+						<img src={resolveImageUrl(packageImage)} alt={tourPackage.packageTitle} />
 					) : (
 						<Stack className="empty-card-image">
 							<ImageSearchRoundedIcon />

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 import { Stack, Typography, Box, Button } from '@mui/material';
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,7 +13,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import Link from 'next/link';
 import { formatterStr } from '../../utils';
-import { REACT_APP_API_URL, topPackageRank } from '../../config';
+import { REACT_APP_API_URL, topPackageRank , resolveImageUrl } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
@@ -31,7 +31,7 @@ const TourPackageCard = (props: TourPackageCardType) => {
 	const user = useReactiveVar(userVar);
 	const { t } = useTranslation(['common', 'package']);
 	const imagePath: string = tourPackage?.packageImages[0]
-		? `${REACT_APP_API_URL}/${tourPackage?.packageImages[0]}`
+		? resolveImageUrl(tourPackage?.packageImages[0])
 		: '/img/banner/header1.svg';
 
 	const isLiked = myFavorites || (tourPackage?.meLiked && tourPackage?.meLiked[0]?.myFavorite);

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Stack } from '@mui/material';
 import { Member } from '../../types/member/member';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useTranslation } from 'next-i18next';
 
 interface TopAgentProps {
@@ -13,7 +13,7 @@ const TopAgentCard = (props: TopAgentProps) => {
 	const router = useRouter();
 	const { t } = useTranslation(['agent']);
 	const agentImage = agent?.memberImage
-		? `${REACT_APP_API_URL}/${agent?.memberImage}`
+		? resolveImageUrl(agent?.memberImage)
 		: '/img/profile/defaultUser.svg';
 	const ratingLabel = Math.min(5, 4.6 + ((agent?.memberRank || 0) % 4) / 10).toFixed(1);
 	const likesLabel =

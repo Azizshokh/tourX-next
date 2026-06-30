@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
-const MotionStack = motion(Stack);
+const MotionStack = motion.create(Stack);
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { FollowInquiry } from '../../types/follow/follow.input';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { Follower } from '../../types/follow/follow';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
@@ -91,7 +91,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 					)}
 					{memberFollowers.map((follower: Follower) => {
 						const imagePath: string = follower?.followerData?.memberImage
-							? `${REACT_APP_API_URL}/${follower?.followerData?.memberImage}`
+							? resolveImageUrl(follower?.followerData?.memberImage)
 							: '/img/profile/defaultUser.svg';
 						return (
 							<MotionStack className="follows-card-box" key={follower._id} {...fadeUpMotionProps}>

@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 import { Box, Typography, Button } from '@mui/material';
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 import Link from 'next/link';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import IconButton from '@mui/material/IconButton';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
@@ -24,7 +24,7 @@ const AgentCard = (props: AgentCardProps) => {
 	useReactiveVar(userVar);
 
 	const imagePath: string = agent?.memberImage
-		? `${REACT_APP_API_URL}/${agent?.memberImage}`
+		? resolveImageUrl(agent?.memberImage)
 		: '/img/profile/defaultUser.svg';
 
 	const agentDetailHref = { pathname: '/agent/detail', query: { agentId: agent?._id } };

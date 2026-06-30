@@ -8,7 +8,7 @@ import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded';
 import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
@@ -28,7 +28,7 @@ import Faq from '../../libs/components/cs/Faq';
 import AnimatedSection from '../../libs/components/animation/AnimatedSection';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../libs/config/animations';
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 import { getI18nProps, CS_NAMESPACES } from '../../libs/i18n';
 import { useTranslation } from 'next-i18next';
 import { GET_NOTICE_CATEGORIES, GET_NOTICES } from '../../apollo/user/query';
@@ -79,7 +79,7 @@ const popularTopics = [
 		key: 'visa-information',
 		titleKey: 'community:help.topics.visaInformation',
 		descriptionKey: 'community:help.topics.visaInformationDesc',
-		Icon: MoreHorizRoundedIcon,
+		Icon: BadgeRoundedIcon,
 	},
 	{
 		key: 'travel-safety',

@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
 import { useRouter } from 'next/router';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
-const MotionStack = motion(Stack);
-const MotionBox = motion(Box);
+const MotionStack = motion.create(Stack);
+const MotionBox = motion.create(Box);
 import { BoardArticle } from '../../types/board-article/board-article';
 import Moment from 'react-moment';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
@@ -37,11 +37,11 @@ const CommunityCard = (props: CommunityCardProps) => {
 	const user = useReactiveVar(userVar);
 
 	const imagePath: string = boardArticle?.articleImage
-		? `${REACT_APP_API_URL}/${boardArticle?.articleImage}`
+		? resolveImageUrl(boardArticle?.articleImage)
 		: '/img/community/communityImg.png';
 
 	const authorImg: string = boardArticle?.memberData?.memberImage
-		? `${REACT_APP_API_URL}/${boardArticle.memberData.memberImage}`
+		? resolveImageUrl(boardArticle.memberData.memberImage)
 		: '/img/profile/defaultUser.svg';
 
 	const chooseArticleHandler = (e: React.SyntheticEvent, article: BoardArticle) => {

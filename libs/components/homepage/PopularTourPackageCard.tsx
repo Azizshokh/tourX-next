@@ -3,7 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { REACT_APP_API_URL, topPackageRank } from '../../config';
+import { resolveImageUrl, topPackageRank } from '../../config';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
@@ -37,7 +37,7 @@ const PopularTourPackageCard = (props: PopularTourPackageCardProps) => {
 		>
 			<span
 				className={'card-media'}
-				style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages[0]})` }}
+				style={{ backgroundImage: `url(${resolveImageUrl(tourPackage?.packageImages[0])})` }}
 			/>
 			<span className={'card-shade'} />
 

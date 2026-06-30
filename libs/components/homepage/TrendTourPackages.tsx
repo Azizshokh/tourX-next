@@ -21,7 +21,7 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_TOUR_PACKAGE } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
-import { REACT_APP_API_URL } from '../../config';
+import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 import { useTranslation } from 'next-i18next';
 
 interface TrendTourPackagesProps {
@@ -76,7 +76,7 @@ const TrendTourPackages = (props: TrendTourPackagesProps) => {
 	const featured = featuredPackages[0];
 	const sidePackages = featuredPackages.slice(1, 3);
 	const imageOf = (p?: TourPackage) =>
-		p?.packageImages?.[0] ? `${REACT_APP_API_URL}/${p.packageImages[0]}` : '/img/banner/TourX%20background.png';
+		p?.packageImages?.[0] ? resolveImageUrl(p.packageImages[0]) : '/img/banner/TourX%20background.png';
 	const ratingOf = (p?: TourPackage) => Math.min(5, 4.6 + ((p?.packageRank || 0) % 4) / 10).toFixed(1);
 
 	return (

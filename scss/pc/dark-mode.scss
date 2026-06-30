@@ -881,6 +881,9 @@ html.dark {
           &:focus { border-color: var(--brand-orange) !important; }
         }
         .apply-btn { background: var(--brand-orange) !important; color: #fff !important; }
+
+        .type-item { .type-label { color: var(--text-primary) !important; } }
+        .type-item--disabled { .type-label { color: var(--text-muted) !important; } }
       }
 
       .results-bar {

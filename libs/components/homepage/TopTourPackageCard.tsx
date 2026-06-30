@@ -5,7 +5,7 @@ import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { TourPackage } from '../../types/tour-package/tour-package';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { REACT_APP_API_URL } from '../../config';
+import { resolveImageUrl } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
@@ -38,7 +38,7 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages[0]})` }}
+					style={{ backgroundImage: `url(${resolveImageUrl(tourPackage?.packageImages[0])})` }}
 					onClick={() => {
 						pushDetailHandler(tourPackage._id);
 					}}
@@ -110,7 +110,7 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${tourPackage?.packageImages[0]})` }}
+					style={{ backgroundImage: `url(${resolveImageUrl(tourPackage?.packageImages[0])})` }}
 					onClick={() => {
 						pushDetailHandler(tourPackage._id);
 					}}

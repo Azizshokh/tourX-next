@@ -36,18 +36,6 @@ class LoggingWebSocket {
 	constructor(url: string) {
 		this.socket = new WebSocket(`${url}?token=${getJwtToken()}`);
 		socketVar(this.socket);
-
-		this.socket.onopen = () => {
-			console.log('WebSocket connection!!!');
-		};
-
-		this.socket.onmessage = (msg) => {
-			console.log('WebSocket message:', msg.data);
-		};
-
-		this.socket.onerror = (error) => {
-			console.log('WebSocket error:', error);
-		};
 	}
 
 	send(data: string | ArrayBuffer | SharedArrayBuffer | Blob | ArrayBufferView) {
@@ -68,7 +56,6 @@ function createIsomorphicLink() {
 					...getHeaders(),
 				},
 			}));
-			console.warn('requesting.. ', operation);
 			return forward(operation);
 		});
 
@@ -90,14 +77,12 @@ function createIsomorphicLink() {
 			webSocketImpl: LoggingWebSocket,
 		});
 
-		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
+		const errorLink = onError(({ graphQLErrors, networkError }) => {
 			if (graphQLErrors) {
-				graphQLErrors.map(({ message, locations, path, extensions }) => {
-					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+				graphQLErrors.forEach(({ message }) => {
 					if (!message.includes('input:')) sweetErrorAlert(message);
 				});
 			}
-			if (networkError) console.log(`[Network error]: ${networkError}`);
 			// @ts-ignore
 			if (networkError?.statusCode === 401) {
 			}

@@ -73,7 +73,7 @@ const TopTourPackages = (props: TopTourPackagesProps) => {
 
 			await sweetTopSmallSuccessAlert('succes', 800);
 		} catch (err: any) {
-			console.log('ERROR, likeTourPackageHandler: ', err.message);
+			console.error('ERROR, likeTourPackageHandler: ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};

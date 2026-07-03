@@ -182,9 +182,6 @@ const Faq = () => {
 		onCompleted: (data: T) => {
 			setBackendCategories(data?.getFaqCategories?.list ?? []);
 		},
-		onError: (err) => {
-			console.warn('getFaqCategories error:', err.message);
-		},
 	});
 
 	useQuery(GET_FAQS, {
@@ -192,9 +189,6 @@ const Faq = () => {
 		variables: { input: faqInquiry },
 		onCompleted: (data: T) => {
 			setBackendFaqs(data?.getFaqs?.list ?? []);
-		},
-		onError: (err) => {
-			console.warn('getFaqs error:', err.message);
 		},
 	});
 

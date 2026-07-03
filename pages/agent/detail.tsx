@@ -327,7 +327,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			await getTourPackagesRefetch({ input: searchFilter });
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likeTourPackageHandler:', err.message);
+			console.error('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};

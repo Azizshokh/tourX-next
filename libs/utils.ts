@@ -13,7 +13,7 @@ export const likeTargetTourPackageHandler = async (likeTargetTourPackage: any, i
 			},
 		});
 	} catch (err: any) {
-		console.log('ERROR, likeTargetTourPackageHandler:', err.message);
+		console.error('likeTargetTourPackageHandler failed:', err.message);
 		sweetMixinErrorAlert(err.message).then();
 	}
 };
@@ -26,7 +26,7 @@ export const likeTargetBoardArticleHandler = async (likeTargetBoardArticle: any,
 			},
 		});
 	} catch (err: any) {
-		console.log('ERROR, likeTargetBoardArticleHandler:', err.message);
+		console.error('likeTargetBoardArticleHandler failed:', err.message);
 		sweetMixinErrorAlert(err.message).then();
 	}
 };
@@ -39,7 +39,7 @@ export const likeTargetMemberHandler = async (likeTargetMember: any, id: string)
 			},
 		});
 	} catch (err: any) {
-		console.log('ERROR, likeTargetMemberHandler:', err.message);
+		console.error('likeTargetMemberHandler failed:', err.message);
 		sweetMixinErrorAlert(err.message).then();
 	}
 };

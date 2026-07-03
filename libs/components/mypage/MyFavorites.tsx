@@ -64,7 +64,7 @@ const MyFavorites: NextPage = () => {
 			if (nextPage !== searchFavorites.page) setSearchFavorites(nextSearchFavorites);
 			else await getFavoritesRefetch({ input: nextSearchFavorites });
 		} catch (err: any) {
-			console.log('ERROR, likeTourPackageHandler:', err.message);
+			console.error('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};

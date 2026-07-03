@@ -122,9 +122,6 @@ const CS: NextPage = () => {
 		onCompleted: (data: T) => {
 			setNoticeCategories(data?.getNoticeCategories?.list ?? []);
 		},
-		onError: (err) => {
-			console.warn('getNoticeCategories error:', err.message);
-		},
 	});
 
 	useQuery(GET_NOTICES, {
@@ -132,9 +129,6 @@ const CS: NextPage = () => {
 		variables: { input: noticeInquiry },
 		onCompleted: (data: T) => {
 			setNotices(data?.getNotices?.list ?? []);
-		},
-		onError: (err) => {
-			console.warn('getNotices error:', err.message);
 		},
 	});
 

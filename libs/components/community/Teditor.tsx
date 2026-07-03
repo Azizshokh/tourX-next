@@ -68,12 +68,11 @@ const TuiEditor = () => {
 			});
 
 			const responseImage = response.data.data.imageUploader;
-			console.log('=responseImage: ', responseImage);
 			memoizedValues.articleImage = responseImage;
 
 			return resolveImageUrl(responseImage);
 		} catch (err) {
-			console.log('Error, uploadImage:', err);
+			console.error('Error, uploadImage:', err);
 		}
 	};
 
@@ -82,7 +81,6 @@ const TuiEditor = () => {
 	};
 
 	const articleTitleHandler = (e: T) => {
-		console.log(e.target.value);
 		memoizedValues.articleTitle = e.target.value;
 	};
 
@@ -90,7 +88,6 @@ const TuiEditor = () => {
 		try {
 			const editor = editorRef.current;
 			const articleContent = editor?.getInstance().getHTML() as string;
-			// console.log('articleContent: ', articleContent);
 			memoizedValues.articleContent = articleContent;
 			if (memoizedValues.articleContent === '' && memoizedValues.articleTitle === '') {
 				throw new Error(Message.INSERT_ALL_INPUTS);
@@ -108,7 +105,7 @@ const TuiEditor = () => {
 				},
 			});
 		} catch (err: any) {
-			console.log(err);
+			console.error('Article creation failed:', err);
 			await sweetErrorHandling(new Error(Message.INSERT_ALL_INPUTS));
 		}
 	};

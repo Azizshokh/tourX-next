@@ -1,6 +1,16 @@
 import { gql } from '@apollo/client';
 
 /**************************
+ *       TOURX AI         *
+ *************************/
+
+export const ASK_TOURX_AI = gql`
+	mutation AskTourxAI($input: AiChatInput!) {
+		askTourxAI(input: $input)
+	}
+`;
+
+/**************************
  *      NOTIFICATION      *
  *************************/
 

@@ -43,7 +43,6 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 	const uploadImage = async (e: any) => {
 		try {
 			const image = e.target.files[0];
-			console.log('+image:', image);
 
 			const formData = new FormData();
 			formData.append(
@@ -75,13 +74,12 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 			});
 
 			const responseImage = response.data.data.imageUploader;
-			console.log('+responseImage: ', responseImage);
 			updateData.memberImage = responseImage;
 			setUpdateData({ ...updateData });
 
 			return resolveImageUrl(responseImage);
 		} catch (err) {
-			console.log('Error, uploadImage:', err);
+			console.error('Error, uploadImage:', err);
 		}
 	};
 

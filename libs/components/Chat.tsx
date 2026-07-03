@@ -97,7 +97,7 @@ const Chat = () => {
 		try {
 			if (e.key === 'Enter') onClickHandler();
 		} catch (err: any) {
-			console.log(err);
+			console.error('Chat message failed:', err);
 		}
 	};
 

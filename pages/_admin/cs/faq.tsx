@@ -91,9 +91,6 @@ const FaqArticles: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		onCompleted: (data: T) => {
 			setFaqCategories(data?.getAllFaqCategoriesByAdmin?.list ?? []);
 		},
-		onError: (err) => {
-			console.warn('getAllFaqCategoriesByAdmin error:', err.message);
-		},
 	});
 
 	const {

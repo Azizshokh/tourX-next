@@ -124,7 +124,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 		try {
 			setSearchText(value);
 		} catch (err: any) {
-			console.log('textHandler: ', err.message);
+			console.error('textHandler:', err);
 		}
 	}, []);
 
@@ -139,7 +139,7 @@ const AdminTourPackages: NextPage = ({ initialInquiry }: any) => {
 				},
 			});
 		} catch (err: any) {
-			console.log('searchTextHandler: ', err.message);
+			console.error('searchTextHandler:', err);
 		}
 	};
 

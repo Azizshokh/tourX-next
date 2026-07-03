@@ -55,7 +55,7 @@ const RecentlyVisited: NextPage = () => {
 			});
 			await getVisitedToursRefetch({ input: searchVisited });
 		} catch (err: any) {
-			console.log('ERROR, likeTourPackageHandler:', err.message);
+			console.error('ERROR, likeTourPackageHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};

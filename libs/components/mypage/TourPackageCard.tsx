@@ -36,7 +36,6 @@ export const TourPackageCard = (props: TourPackageCardProps) => {
 
 	/** HANDLERS **/
 	const pushEditTourPackage = async (id: string) => {
-		console.log('+pushEditTourPackage: ', id);
 		await router.push({
 			pathname: '/mypage',
 			query: { category: 'addTourPackage', packageId: id },

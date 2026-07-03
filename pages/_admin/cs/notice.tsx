@@ -95,9 +95,6 @@ const AdminNotice: NextPage = ({ initialInquiry, categoryInquiry, ...props }: an
 		onCompleted: (data: T) => {
 			setNoticeCategories(data?.getAllNoticeCategoriesByAdmin?.list ?? []);
 		},
-		onError: (err) => {
-			console.warn('getAllNoticeCategoriesByAdmin error:', err.message);
-		},
 	});
 
 	const {

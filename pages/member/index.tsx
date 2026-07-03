@@ -100,7 +100,7 @@ const MemberPage: NextPage = () => {
 			await sweetTopSmallSuccessAlert('Success!', 800);
 			await refetch({ input: query });
 		} catch (err: any) {
-			console.log('ERROR, likeMemberHandler: ', err.message);
+			console.error('ERROR, likeMemberHandler: ', err.message);
 			sweetMixinErrorAlert(err).then();
 		}
 	};

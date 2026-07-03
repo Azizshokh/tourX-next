@@ -12,8 +12,6 @@ import Chat from '../Chat';
 import { useTranslation } from 'next-i18next';
 import { motion } from 'framer-motion';
 import { fadeUpMotionProps } from '../../config/animations';
-import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
-import { Direction } from '../../enums/common.enum';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -47,14 +45,6 @@ const withLayoutMain = (Component: any) => {
 
 		/** HANDLERS **/
 
-		const defaultInput: TourPackagesInquiry = {
-			page: 1,
-			limit: 9,
-			sort: 'createdAt',
-			direction: Direction.DESC,
-			search: {},
-		};
-
 		if (device == 'mobile' || isCompactViewport) {
 			return (
 				<>
@@ -82,7 +72,7 @@ const withLayoutMain = (Component: any) => {
 										<strong>{t('home:hero.destinations')}</strong>
 									</Stack>
 								</Stack>
-								<HeaderFilter initialInput={defaultInput} />
+								<HeaderFilter />
 							</Stack>
 						</Stack>
 
@@ -125,7 +115,7 @@ const withLayoutMain = (Component: any) => {
 										<strong>{t('home:hero.destinations')}</strong>
 									</Stack>
 								</Stack>
-								<HeaderFilter initialInput={defaultInput} />
+								<HeaderFilter />
 							</MotionStack>
 						</Stack>
 

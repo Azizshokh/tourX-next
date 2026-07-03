@@ -25,7 +25,6 @@ const TopTourPackageCard = (props: TopTourPackageCardProps) => {
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (tourPackageId: string) => {
-		console.log('ID:', tourPackageId);
 		await router.push({
 			pathname: '/tour-package/detail',
 			query: { id: tourPackageId },

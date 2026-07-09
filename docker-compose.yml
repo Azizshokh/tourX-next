@@ -1,23 +1,24 @@
 
 services:
-  tourX-next:
-    container_name: tourX-next
+  tourx-next:
+    container_name: tourx-next
     restart: always
-    image: node:20.10.0
+    build:
+      context: .
+      args:
+        REACT_APP_API_URL: http://159.223.189.141:4001
+        REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4001/graphql
+        REACT_APP_API_WS: ws://159.223.189.141:4001
     ports:
-      - 4000:3000
-    environment:  
-      - PORT=3000
-    volumes:
-      - .:/usr/src/tourX-next
-    working_dir: /usr/src/tourX-next
-
+      - "4000:3000"
+    environment:
+      PORT: 3000
+      REACT_APP_API_URL: http://159.223.189.141:4001
+      REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4001/graphql
+      REACT_APP_API_WS: ws://159.223.189.141:4001
     networks:
-      - client-network
-
-    # For production
-    command: bash -c "yarn && yarn run build && yarn run start"
+      - tourx-client-network
 
 networks:
-  client-network:
+  tourx-client-network:
     driver: bridge

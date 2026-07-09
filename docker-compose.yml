@@ -6,16 +6,16 @@ services:
     build:
       context: .
       args:
-        REACT_APP_API_URL: http://159.223.189.141:4001
-        REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4001/graphql
-        REACT_APP_API_WS: ws://159.223.189.141:4001
+        REACT_APP_API_URL: http://159.223.189.141:4101
+        REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4101/graphql
+        REACT_APP_API_WS: ws://159.223.189.141:4101
     ports:
       - "4000:3000"
     environment:
       PORT: 3000
-      REACT_APP_API_URL: http://159.223.189.141:4001
-      REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4001/graphql
-      REACT_APP_API_WS: ws://159.223.189.141:4001
+      REACT_APP_API_URL: http://159.223.189.141:4101
+      REACT_APP_API_GRAPHQL_URL: http://159.223.189.141:4101/graphql
+      REACT_APP_API_WS: ws://159.223.189.141:4101
     networks:
       - tourx-client-network
 

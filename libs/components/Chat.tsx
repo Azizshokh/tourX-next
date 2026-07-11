@@ -156,17 +156,25 @@ const Chat = () => {
 						{/* Messages */}
 						{messagesList.map((ele: MessagePayload, idx: number) => {
 							const { text, memberData } = ele;
-							const memberImage = memberData?.memberImage
-								? resolveImageUrl(memberData.memberImage)
+							const isCurrentUser = Boolean(user._id && memberData?._id === user._id);
+							const senderImage = isCurrentUser ? user.memberImage : memberData?.memberImage;
+							const memberImage = senderImage
+								? resolveImageUrl(senderImage)
 								: '/img/profile/defaultUser.svg';
 
-							return memberData?._id === user._id ? (
+							return isCurrentUser ? (
 								<Box
 									key={idx}
 									component={'div'}
 									className={'chat-msg-row chat-msg-right'}
 								>
 									<div className={'msg-right'}>{text}</div>
+									<Avatar
+										className={'chat-msg-avatar'}
+										alt={user.memberNick}
+										src={memberImage}
+										sx={{ width: 28, height: 28 }}
+									/>
 								</Box>
 							) : (
 								<Box

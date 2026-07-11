@@ -208,9 +208,32 @@ const Faq = () => {
 
 		if (activeCategories.length === 0 || activeFaqs.length === 0) return localizedFallbackCategories;
 
-		return activeCategories.map((category) => {
+		const backendCategoryMap = new Map(
+			activeCategories.map((category) => [category.faqCategoryKey, category]),
+		);
+
+		const mergedFallbackCategories = localizedFallbackCategories.map((fallbackCategory) => {
+			const backendCategory = backendCategoryMap.get(fallbackCategory.key);
+			if (!backendCategory) return fallbackCategory;
+
+			backendCategoryMap.delete(fallbackCategory.key);
+			const backendItems = activeFaqs
+				.filter((faq) => faq.faqCategoryId === backendCategory._id)
+				.map((faq) => ({
+					id: faq._id,
+					question: faq.faqQuestion,
+					answer: faq.faqAnswer,
+				}));
+
+			return {
+				...fallbackCategory,
+				label: backendCategory.faqCategoryTitle || fallbackCategory.label,
+				items: backendItems.length > 0 ? backendItems : fallbackCategory.items,
+			};
+		});
+
+		const additionalBackendCategories = Array.from(backendCategoryMap.values()).map((category) => {
 			const Icon = iconMap[category.faqCategoryKey] ?? HelpOutlineRoundedIcon;
-			const fallbackCategory = localizedFallbackCategories.find((item) => item.key === category.faqCategoryKey);
 			const backendItems = activeFaqs
 				.filter((faq) => faq.faqCategoryId === category._id)
 				.map((faq) => ({
@@ -221,11 +244,13 @@ const Faq = () => {
 
 			return {
 				key: category.faqCategoryKey || category._id,
-				label: fallbackCategory?.label ?? category.faqCategoryTitle,
+				label: category.faqCategoryTitle,
 				Icon,
-				items: fallbackCategory?.items ?? backendItems,
+				items: backendItems,
 			};
 		});
+
+		return [...mergedFallbackCategories, ...additionalBackendCategories];
 	}, [backendCategories, backendFaqs, t]);
 
 	const activeCategory = faqCategories.find((item) => item.key === category) ?? faqCategories[0];

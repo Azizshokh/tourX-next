@@ -33,8 +33,10 @@ import { Messages, resolveImageUrl } from '../../libs/config';
 import { CommentUpdate } from '../../libs/types/comment/comment.update';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	COMMENT_CONTENT_MAX_LENGTH,
 	CommentMediaDisplay,
 	CommentMediaPicker,
+	getCommentContentValidationError,
 	uploadCommentImages,
 	useCommentMedia,
 } from '../../libs/components/common/CommentMedia';
@@ -72,6 +74,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	const articleCategory = query?.articleCategory as string;
 
 	const [comment, setComment] = useState<string>('');
+	const [commentError, setCommentError] = useState<string>('');
 	const [wordsCnt, setWordsCnt] = useState<number>(0);
 	const [updatedCommentWordsCnt, setUpdatedCommentWordsCnt] = useState<number>(0);
 	const user = useReactiveVar(userVar);
@@ -147,10 +150,15 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 	};
 
 	const createCommentHandler = async () => {
-		if (!comment) return;
 		try {
 			if (!user?._id) throw new Error(Messages.error2);
 			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+			const validationError = getCommentContentValidationError(comment);
+			if (validationError) {
+				setCommentError(validationError);
+				return;
+			}
+			setCommentError('');
 			const commentImages = await uploadCommentImages(commentMedia.images);
 			const commentInput: CommentInput = {
 				commentGroup: CommentGroup.ARTICLE,
@@ -166,6 +174,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 			commentMedia.clearMedia();
 			await sweetMixinSuccessAlert(t('community:comments.created'));
 		} catch (error: any) {
+			setCommentError(error.message);
 			commentMedia.setError(error.message);
 			await sweetMixinErrorAlert(error.message);
 		}
@@ -375,10 +384,11 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 										value={comment}
 										className={'cd-comment-input'}
 										onChange={(e) => {
-											if (e.target.value.length > 100) return;
+											setCommentError('');
 											setWordsCnt(e.target.value.length);
 											setComment(e.target.value);
 										}}
+										maxLength={COMMENT_CONTENT_MAX_LENGTH}
 									/>
 									<Button className={'cd-comment-submit'} onClick={createCommentHandler}>
 										{t('community:comments.post')}
@@ -386,7 +396,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 								</Stack>
 								<Stack className={'cd-input-footer'}>
 									<CommentMediaPicker media={commentMedia} />
-									<Typography className={'cd-word-count'}>{wordsCnt}/100</Typography>
+									<Typography className={'cd-comment-validation'} role={'alert'} sx={{ color: '#d32f2f', fontSize: 12, fontWeight: 700 }}>{commentError}</Typography>
+									<Typography className={'cd-word-count'}>{wordsCnt}/{COMMENT_CONTENT_MAX_LENGTH}</Typography>
 								</Stack>
 							</Stack>
 

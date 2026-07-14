@@ -5,7 +5,9 @@ import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard'
 import ReviewCard from '../../libs/components/agent/ReviewCard';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	COMMENT_CONTENT_MAX_LENGTH,
 	CommentMediaPicker,
+	getCommentContentValidationError,
 	uploadCommentImages,
 	useCommentMedia,
 } from '../../libs/components/common/CommentMedia';
@@ -71,6 +73,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [agentComments, setAgentComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
+	const [commentError, setCommentError] = useState<string>('');
 	const [followActionLoading, setFollowActionLoading] = useState<boolean>(false);
 	const followActionInFlightRef = useRef<boolean>(false);
 	const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
@@ -166,7 +169,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	useEffect(() => {
 		if (commentInquiry.search.commentRefId) {
-			getCommentsRefetch({ variables: { input: commentInquiry } }).then();
+			getCommentsRefetch({ input: commentInquiry }).then();
 		}
 	}, [commentInquiry]);
 
@@ -293,7 +296,13 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			if (!user._id) throw new Error(Messages.error2);
 			if (user._id === agentId) throw new Error('Cannot write a review for yourself');
 			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+			const validationError = getCommentContentValidationError(insertCommentData.commentContent);
+			if (validationError) {
+				setCommentError(validationError);
+				return;
+			}
 
+			setCommentError('');
 			const commentImages = await uploadCommentImages(commentMedia.images);
 			const commentInput: CommentInput = {
 				...insertCommentData,
@@ -308,8 +317,10 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			});
 			setInsertCommentData({ ...insertCommentData, commentContent: '', commentImages: [], commentVideo: null });
 			commentMedia.clearMedia();
-			await getCommentsRefetch({ variables: { input: commentInquiry } });
+			await getCommentsRefetch({ input: commentInquiry });
+			await sweetTopSmallSuccessAlert('Review submitted successfully', 1200);
 		} catch (err: any) {
+			setCommentError(err.message);
 			commentMedia.setError(err.message);
 			sweetErrorHandling(err).then();
 		}
@@ -541,16 +552,26 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 							<Typography className={'main-title'}>Leave A Review</Typography>
 							<Typography className={'review-title'}>Review</Typography>
 							<textarea
+								maxLength={COMMENT_CONTENT_MAX_LENGTH}
 								onChange={({ target: { value } }: any) => {
+									setCommentError('');
 									setInsertCommentData({ ...insertCommentData, commentContent: value });
 								}}
 								value={insertCommentData.commentContent}
 							></textarea>
+							<Stack className={'review-validation-row'} direction={'row'} justifyContent={'space-between'}>
+								<Typography className={'review-validation-error'} role={'alert'} sx={{ color: '#d32f2f', fontSize: 12, fontWeight: 700, minHeight: 18 }}>
+									{commentError}
+								</Typography>
+								<Typography className={'review-character-count'} sx={{ color: '#7c8796', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+									{insertCommentData.commentContent.length}/{COMMENT_CONTENT_MAX_LENGTH}
+								</Typography>
+							</Stack>
 							<CommentMediaPicker media={commentMedia} />
 							<Box className={'submit-btn'} component={'div'}>
 								<Button
 									className={'submit-review'}
-									disabled={insertCommentData.commentContent === '' || user?._id === ''}
+									disabled={user?._id === '' || user?._id === agentId}
 									onClick={createCommentHandler}
 								>
 									<Typography className={'title'}>Submit Review</Typography>

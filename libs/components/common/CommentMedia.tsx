@@ -9,8 +9,10 @@ import axios from 'axios';
 import { getJwtToken } from '../../auth';
 import { REACT_APP_API_URL , resolveImageUrl } from '../../config';
 
-const allowedImageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-const allowedImageMimeTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+export const COMMENT_CONTENT_MAX_LENGTH = 100;
+
+const allowedImageExtensions = ['jpg', 'jpeg', 'png'];
+const allowedImageMimeTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 const allowedVideoExtensions = ['mp4', 'webm', 'mov'];
 const allowedVideoMimeTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
 const videoUploadUnavailableMessage =
@@ -36,6 +38,14 @@ export interface CommentMediaState {
 }
 
 export const COMMENT_VIDEO_UPLOAD_UNAVAILABLE = videoUploadUnavailableMessage;
+
+export const getCommentContentValidationError = (content: string): string => {
+	if (content.trim().length === 0) return 'Please write a review before submitting.';
+	if (content.length > COMMENT_CONTENT_MAX_LENGTH) {
+		return `Reviews can contain up to ${COMMENT_CONTENT_MAX_LENGTH} characters.`;
+	}
+	return '';
+};
 
 const getFileExtension = (fileName: string) => fileName.split('.').pop()?.toLowerCase() ?? '';
 
@@ -90,7 +100,7 @@ export const useCommentMedia = (): CommentMediaState => {
 			return;
 		}
 		if (selectedFiles.some((file) => !hasValidFileType(file, allowedImageExtensions, allowedImageMimeTypes))) {
-			setError('Images must be jpg, jpeg, png, or webp files.');
+			setError('Images must be JPG or PNG files.');
 			resetInput(event.target);
 			return;
 		}
@@ -283,7 +293,7 @@ export const CommentMediaPicker = ({ media }: { media: CommentMediaState }) => {
 				type="file"
 				hidden
 				multiple
-				accept=".jpg,.jpeg,.png,.webp,image/jpg,image/jpeg,image/png,image/webp"
+				accept=".jpg,.jpeg,.png,image/jpg,image/jpeg,image/png"
 				onChange={media.handleImageSelect}
 				disabled={media.hasVideo}
 			/>

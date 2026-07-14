@@ -20,7 +20,9 @@ import PackageLocationMap from '../../libs/components/tourPackage/PackageLocatio
 import TourPackageBigCard from '../../libs/components/common/TourPackageBigCard';
 import {
 	COMMENT_VIDEO_UPLOAD_UNAVAILABLE,
+	COMMENT_CONTENT_MAX_LENGTH,
 	CommentMediaPicker,
+	getCommentContentValidationError,
 	uploadCommentImages,
 	useCommentMedia,
 } from '../../libs/components/common/CommentMedia';
@@ -65,6 +67,7 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [packageComments, setPackageComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
+	const [commentError, setCommentError] = useState<string>('');
 	const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
 		commentGroup: CommentGroup.PACKAGE,
 		commentContent: '',
@@ -174,7 +177,13 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 			if (!objectIdRegex.test(insertCommentData.commentRefId)) throw new Error(t('errors:invalidPackageId'));
 			if (commentMedia.video) throw new Error(COMMENT_VIDEO_UPLOAD_UNAVAILABLE);
+			const validationError = getCommentContentValidationError(insertCommentData.commentContent);
+			if (validationError) {
+				setCommentError(validationError);
+				return;
+			}
 
+			setCommentError('');
 			const commentImages = await uploadCommentImages(commentMedia.images);
 			const commentInput: CommentInput = {
 				...insertCommentData,
@@ -186,7 +195,9 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 			setInsertCommentData({ ...insertCommentData, commentContent: '', commentImages: [], commentVideo: null });
 			commentMedia.clearMedia();
 			await getCommentsRefetch({ input: commentInquiry });
+			await sweetTopSmallSuccessAlert('Review submitted successfully', 1200);
 		} catch (err: any) {
+			setCommentError(err.message);
 			commentMedia.setError(err.message);
 			await sweetErrorHandling(err);
 		}
@@ -413,16 +424,26 @@ const TourPackageDetail: NextPage = ({ initialComment, ...props }: any) => {
 								<Typography className={'main-title'}>{t('package:detail.leaveReview')}</Typography>
 								<Typography className={'review-title'}>{t('labels.review')}</Typography>
 								<textarea
+									maxLength={COMMENT_CONTENT_MAX_LENGTH}
 									onChange={({ target: { value } }: any) => {
+										setCommentError('');
 										setInsertCommentData({ ...insertCommentData, commentContent: value });
 									}}
 									value={insertCommentData.commentContent}
 								></textarea>
+								<Stack className={'review-validation-row'} direction={'row'} justifyContent={'space-between'}>
+									<Typography className={'review-validation-error'} role={'alert'} sx={{ color: '#d32f2f', fontSize: 12, fontWeight: 700, minHeight: 18 }}>
+										{commentError}
+									</Typography>
+									<Typography className={'review-character-count'} sx={{ color: '#7c8796', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>
+										{insertCommentData.commentContent.length}/{COMMENT_CONTENT_MAX_LENGTH}
+									</Typography>
+								</Stack>
 								<CommentMediaPicker media={commentMedia} />
 								<Box className={'submit-btn'} component={'div'}>
 									<Button
 										className={'submit-review'}
-										disabled={insertCommentData.commentContent === '' || user?._id === ''}
+										disabled={user?._id === ''}
 										onClick={createCommentHandler}
 									>
 										<Typography className={'title'}>{t('package:detail.submitReview')}</Typography>

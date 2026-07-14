@@ -382,7 +382,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 				</span>
 			</Box>
 			<Stack className={'container'}>
-				<AnimatedSection>
+				<AnimatedSection className={'agent-detail-section'}>
 					<Stack className={'agent-info'}>
 						<Box className={'agent-photo-wrap'}>
 							<img
@@ -481,7 +481,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 						</Box>
 					</Stack>
 				</AnimatedSection>
-				<AnimatedSection>
+				<AnimatedSection className={'agent-detail-section'}>
 					<Stack className={'agent-home-list'}>
 						<Stack className={'card-wrap'}>
 							{agentTourPackages.map((tourPackage: TourPackage) => {

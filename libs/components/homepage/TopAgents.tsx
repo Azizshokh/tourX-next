@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import { Stack, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -24,7 +23,6 @@ interface TopAgentsProps {
 const TopAgents = (props: TopAgentsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const router = useRouter();
 	const { t } = useTranslation(['home']);
 	const [topAgents, setTopAgents] = useState<Member[]>([]);
 
@@ -55,12 +53,6 @@ const TopAgents = (props: TopAgentsProps) => {
 						<Box component={'div'} className={'left'}>
 							<span>{t('home:sections.topAgents')}</span>
 							<p>{t('home:sections.topAgentsDesc')}</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<span>{t('home:labels.seeAllAgents')}</span>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
 						</Box>
 					</Stack>
 					<Stack className={'wrapper'}>
@@ -105,12 +97,6 @@ const TopAgents = (props: TopAgentsProps) => {
 						<Box component={'div'} className={'left'}>
 							<span>{t('home:sections.topAgents')}</span>
 							<p>{t('home:sections.topAgentsDesc')}</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<span>{t('home:labels.seeAllAgents')}</span>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
 						</Box>
 					</Stack>
 					<Stack className={'wrapper'}>

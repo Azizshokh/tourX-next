@@ -11,7 +11,6 @@ import LuggageRoundedIcon from '@mui/icons-material/LuggageRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import PopularTourPackageCard from './PopularTourPackageCard';
 import { TourPackage } from '../../types/tour-package/tour-package';
-import Link from 'next/link';
 import { TourPackagesInquiry } from '../../types/tour-package/tour-package.input';
 import { GET_TOUR_PACKAGES } from '../../../apollo/user/query';
 import { useQuery } from '@apollo/client';
@@ -58,14 +57,6 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 							<span>{t('home:sections.popular')}</span>
 							<p>{t('home:sections.popularDesc')}</p>
 						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<Link href={'/tour-package'}>
-									<span>{t('home:labels.seeAllCategories')}</span>
-								</Link>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
-						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -109,14 +100,6 @@ const PopularTourPackages = (props: PopularTourPackagesProps) => {
 						<Box component={'div'} className={'left'}>
 							<span>{t('home:sections.popular')}</span>
 							<p>{t('home:sections.popularDesc')}</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<Link href={'/tour-package'}>
-									<span>{t('home:labels.seeAllCategories')}</span>
-								</Link>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>

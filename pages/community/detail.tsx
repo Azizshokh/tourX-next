@@ -3,9 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Box, Button, Stack, Typography, IconButton, Backdrop } from '@mui/material';
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import { Box, Button, Stack, Typography, IconButton, Backdrop, Pagination } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Moment from 'react-moment';
 import { userVar } from '../../apollo/store';
@@ -503,35 +501,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 
 							{total > 0 && (
 								<Stack className={'cd-pagination'}>
-									<button
-										className={'cd-page-btn'}
-										onClick={(e) => paginationHandler(e, searchFilter.page - 1)}
-										disabled={searchFilter.page <= 1}
-									>
-										<ChevronLeftRoundedIcon />
-									</button>
-
-									<Stack className={'cd-page-track'}>
-										{Array.from({ length: Math.ceil(total / searchFilter.limit) }, (_, i) => i + 1).map((n) => (
-											<button
-												key={n}
-												className={`cd-page-dot ${n === searchFilter.page ? 'active' : ''}`}
-												onClick={(e) => paginationHandler(e, n)}
-											/>
-										))}
-									</Stack>
-
-									<button
-										className={'cd-page-btn'}
-										onClick={(e) => paginationHandler(e, searchFilter.page + 1)}
-										disabled={searchFilter.page >= Math.ceil(total / searchFilter.limit)}
-									>
-										<ChevronRightRoundedIcon />
-									</button>
-
-									<Typography className={'cd-page-label'}>
-										{searchFilter.page} / {Math.ceil(total / searchFilter.limit)}
-									</Typography>
+									<Pagination
+										page={searchFilter.page}
+										count={Math.ceil(total / searchFilter.limit)}
+										onChange={paginationHandler}
+										siblingCount={1}
+										boundaryCount={1}
+									/>
 								</Stack>
 							)}
 						</Box>

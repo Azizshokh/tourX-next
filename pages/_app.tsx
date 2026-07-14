@@ -14,6 +14,7 @@ import '../scss/pc/main.scss';
 import '../scss/mobile/main.scss';
 import '../scss/mobile/theme.scss';
 import '../scss/ai-chat-box.scss';
+import '../scss/tourx-pagination.scss';
 
 const App = ({ Component, pageProps }: AppProps) => {
 	// @ts-ignore

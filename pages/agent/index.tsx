@@ -248,19 +248,15 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 					)}
 				</Stack>
 				<AnimatedSection><Stack className={'pagination'}>
-					<Stack className="pagination-box">
-						{agents.length !== 0 && Math.ceil(total / searchFilter.limit) > 1 && (
-							<Stack className="pagination-box">
-								<Pagination
-									page={currentPage}
-									count={Math.ceil(total / searchFilter.limit)}
-									onChange={paginationChangeHandler}
-									shape="circular"
-									color="primary"
-								/>
-							</Stack>
-						)}
-					</Stack>
+					{agents.length !== 0 && Math.ceil(total / searchFilter.limit) > 1 && (
+						<Stack className="pagination-box">
+							<Pagination
+								page={currentPage}
+								count={Math.ceil(total / searchFilter.limit)}
+								onChange={paginationChangeHandler}
+							/>
+						</Stack>
+					)}
 
 					{agents.length !== 0 && (
 						<span>
@@ -276,7 +272,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 AgentList.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 1,
+		limit: 4,
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: {},
